@@ -1,0 +1,161 @@
+---
+title: "Chapter X: Hypothesentests - Teil 1"
+format:
+  html:
+    df-print: kable
+editor: source
+---
+
+In diesem Kapitel verwenden wir verschiedene Regressionsmodelle die zur Überprüfung von Hypothesen eingesetzt werden.
+
+
+- Random Intercept Modell / Null-Model
+- Random Intercept, fixed slope Modell
+- Random intercept, random slope Modell
+- Erweiterung um Level-2 Prädiktoren
+- Cross-level und within-level Interaktionen
+
+## Vorbereitung
+
+Install packages
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(lmerTest, haven, brms, psych,
+               sjmisc, sjPlot, writexl, broom.mixed, qgraph,
+               tidyverse, multilevelTools, parameters)
+```
+
+## Daten einlesen
+
+```{r}
+load("data/df_example1.RData")
+```
+
+Für diese Einheit verwenden wir den folgenden Datensatz (data.frame/tibble):
+
+-   df_example1: Alle Skalenscores im Long Format, mit personen-zentrierten Variablenvarianten ("_dm") und Personen-Mittelwerten der täglich gemessenenen Variablen ("_gm").
+
+Struktur des Datensatzes kann man sich ansehen mit `head()`.
+Für alle Funktionen gilt: Weitere Informationen findet ihr, wenn ihr die Hilfe-Seite der Funktionen aufruft (auf die Funktion im Code klicken und F1-Taste drücken).
+
+```{r}
+head(df_example1)
+```
+
+
+Im Folgenden betrachten wir ein Modell in dem y durch x vorhergesagt wird.
+
+### Random Intercept Modell / Null-Model
+
+Die Funktion lmer() benötigt zwei Argumente, (a) die Formel und (b) den Datensatz. Zum Aufbau der Formeln s. Folien.
+
+```{r}
+nullmodel <- lmer(y ~ (1 | id), data = df_example1)
+summary(nullmodel)
+```
+
+Zur Ansicht der Ergebnisse haben wir zwei Optionen: Den `summary()` Befehl - die Standardansicht, wie von den Paketautoren implementiert, den `tidy()` Befehl aus dem broom-Package, und den `model_parameters()` Befehl aus dem parameters Package. tidy() und model_parameters() Funktionsoutputs könnten nach Excel exportiert werden mittels der `write_xlsx()` Funktion. 
+
+
+```{r}
+summary(nullmodel)
+```
+
+```{r}
+tidy(nullmodel)
+```
+
+```{r}
+model_parameters(nullmodel)
+```
+Ich bevorzuge persönlich den Output von model_parameters(), aber das ist Geschmackssache.
+Für schöneren Output bauen wir uns Funktionen mit Rundungen von Werten bauen. Die `tidy_and_round()` und die `model_parameters_r()` Funktion.`model_parameters()` hat zudem eine `print_html()` Funktion, die eine gute Darstellung aus R Markdown Dokumenten HTML-Outputs erlaubt.
+(Die folgende Syntax muss nicht angepasst werden.)
+```{r}
+tidy_and_round <- function(model) {
+  broom.mixed::tidy(model) |> mutate(across(where(is.numeric), ~round(.x, 2)))
+}
+
+tidy_and_round(nullmodel)
+```
+
+```{r}
+model_parameters_r <- function(model) {
+  parameters::model_parameters(model) |> mutate(across(where(is.numeric), ~round(.x, 2)))
+}
+
+model_parameters_r(nullmodel) |> print_html()
+```
+
+### Random Intercept, fixed slope Modell
+
+Als nächstes bauen wir den Prädiktor x ein. Wir verwenden hier die zentrierte Variable "`_dm`" um Inner-Person Effekte zu berechnen.
+
+
+```{r}
+ri.fs_modell <- lmer(y ~ x_dm + (1 | id), data = df_example1)
+```
+
+```{r}
+model_parameters_r(ri.fs_modell) |> print_html()
+```
+
+### Random intercept, random slope Modell
+
+Als nächstes fügen wir den random slope der Prädiktorvariable x_dm hinzu, in dem wir die random effect Struktur erweitern - "(1 + x_dm | id)".
+
+```{r}
+ri.rs_modell <- lmer(y ~ x_dm + (1 + x_dm | id), data = df_example1)
+model_parameters_r(ri.rs_modell) |> print_html()
+```
+
+### Level-2 Prädiktoren
+
+Als nächstes fügen wir einen Level-2 Prädiktor hinzu, der pro Person nur einmal gemessen wurde. Dabei handelt es sich für gewöhnlich um (1) Variablen, bei denen wir nicht an täglichen Schwankungen interessiert sind, wie soziodemografischen oder Persönlichkeitsvariablen, oder (2) den Mittelwert der Personen auf einer täglich gemessenen Variable. Im Beispiel verwenden wir für ersteres "w" und für letzteres "x_gm".
+
+```{r}
+ri.rs_l2_modell <- lmer(y ~ x_dm + x_gm + w + (1 + x_dm | id), data = df_example1)
+model_parameters_r(ri.rs_l2_modell) |> print_html()
+```
+
+### Cross-Level Interaktion
+
+```{r}
+ri.rs_cli_modell <- lmer(y ~ x_dm + w + w*x_dm + (1 + x_dm | id), data = df_example1)
+model_parameters_r(ri.rs_cli_modell) |> print_html()
+```
+Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr interpretiert werden.
+
+Visualisierung des Interaktionseffekt mittels der `plot_model()` Funktion.
+Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt.
+
+plot_model(type = "int") ist derzeit verbuggt.
+
+```{r}
+# plot_model(ri.rs_cli_modell, type = "int", terms = c("x_dm", "w"))
+#ggsave("test.png")
+```
+
+Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen.
+
+```{r}
+# plot_model(ri.rs_cli_modell, type = "int", mdrt.values = "meansd")
+```
+
+### Within-level Interaktion
+
+Analog zur Cross-level Interaktion gibt es auch Within-level Interaktionen, bei der die Level-1 Anteile von Prädiktorvariablen miteinander interagieren.
+
+```{r}
+ri.rs_wli_modell <- lmer(y ~ x_dm + m_dm + x_dm*m_dm + (1 + x_dm + m_dm | id), data = df_example1)
+model_parameters_r(ri.rs_wli_modell) |> print_html()
+```
+
+```{r}
+# plot_model(ri.rs_wli_modell, type = "int", mdrt.values = "meansd")
+```
+
+
+ 
+ 

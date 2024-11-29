@@ -1,0 +1,104 @@
+---
+title: "Kapitel 1a: Datenaufbereitung Item Level"
+format:
+  html:
+    df-print: kable
+editor: source
+---
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(haven, psych,
+               sjmisc, sjPlot, writexl,
+               tidyverse, multilevelTools)
+```
+
+
+## Daten einlesen
+
+```{r}
+df_example2 <- read.table(file = "data_simulation/example2rep1.dat", header = FALSE, 
+        na.strings = "*", strip.white = TRUE) |> as_tibble()
+names(df_example2) <- c("w1", "w2", "w3", "w4", "w5",
+                        "a1", "a2", "a3", "a4", "a5", "b1", "b2", "b3", "b4", "b5", "c1", "c2", "c3", "id")
+df_example2 <- df_example2 |> mutate(t = rep(1:10, 100)) |> select(id, t, everything())
+
+# add day here or already in data generation
+
+```
+
+
+### Reliabilitätsanalyse
+
+Die Reliabilitätsanalyse basiert auf den Items, nicht auf den Skalenwerten.
+
+Bei Skalen aus der Daily Erhebung nehmen wir die `omegaSEM()` Funktion. Als erstes Argument geben wir die Items in einem Character-Vector mittels `c()`, die Items werden mit Anführungszeichen angegeben. Falls ihr die Itemnamen nicht wisst, könnt ihr sie mit `names(df_items)` nachsehen.
+
+```{r}
+names(df_example2)
+scalea_reliab <- multilevelTools::omegaSEM(c("a1", "a2", "a3", "a4", "a5"), "id", df_example2)
+scalea_reliab$Results
+```
+Hier erscheint meist eine Warnung, weil nicht alle Personen (cluster) Varianz auf den Items haben. Dies koennen wir ignorieren.
+In den simulierten Daten, die wir verwenden, ist dies jedoch nicht der Fall.
+Dann koennen wir den Output ansehen. Omega_within und Omega_between sollten über .70 liegen für eine gute Reliabilität auf beiden Leveln.
+
+```{r}
+scaleb_reliab <- multilevelTools::omegaSEM(c("b1", "b2", "b3", "b4", "b5"), "id", df_example2)
+scaleb_reliab$Results
+```
+
+```{r}
+scalec_reliab <- multilevelTools::omegaSEM(c("c1", "c2", "c3"), "id", df_example2)
+scalec_reliab$Results
+```
+
+Für eine genauere Auswertung können wir `omegaSEM()` mit dem Parameter `savemodel = TRUE` laufen lassen und uns mittels `summary()` die konfirmatorische Faktoranalyse genauer ansehen.
+Zudem können wir uns mit `lavInspect()` die Modellparameter ansehen, um zu verstehen wie die Reliabilitätskoeffizient gebildet wird.
+
+```{r}
+scaleb_reliab <- multilevelTools::omegaSEM(c("b1", "b2", "b3", "b4", "b5"), "id", df_example2, savemodel = TRUE)
+scaleb_reliab$Fit |> summary(fit = TRUE, stand = TRUE)
+lavaan::lavInspect(scaleb_reliab$Fit, "list") # alternatively, parTable()
+```
+
+
+### Reliabilitaeten Level-2 Skalen
+
+Für die Baseline-Variablen verwenden wir die Funktion `alpha()` aus dem `psych` Paket. Als Argument nimmt die Funktion hier (a) den Datensatz und (b) die Variablennamen der Items der Skala in einem Vektor `c()`. Revers kodierte Items werden mit einem "-" als Präfix eingetragen (z.B. "-reversitem_1").
+
+Der Datensatz muss hier angepasst werden. Aktuell haben wir eine Zeile pro tägliche Messung. Da die Funktion alpha es nicht berücksichtigt, dass es sich hier um genestete Daten handelt (100 Personen x 10 Tage), müssen wir den Datensatz so transformieren, dass wir nur einen Wert pro Person haben. 
+```{r}
+# create dataframe that has one row per person
+df_w <- df_example2 |> select(id, c("w1", "w2", "w3", "w4", "w5")) |>
+  group_by(id) |> 
+  summarise(across(everything(), ~mean(.x, na.rm = TRUE))) # we use mean as a shortcut, useful when we have missing data
+w_reliab <- psych::alpha(df_w, keys = list(w = c("w1", "w2", "w3", "w4", "w5")))
+print(w_reliab)
+```
+Wir erhalten umfangreiche Angaben zur Reliabilität. Wichtig ist der Alpha-Wert der Gesamtskala (std.alpha). Dieser ist im Beispiel > .70.
+
+## Skalenbildung
+
+```{r}
+scales_within <- psych::scoreItems(keys = list(a = c("a1", "a2", "a3", "a4", "a5"),
+                                                    b = c("b1", "b2", "b3", "b4", "b5"),
+                                                    c = c("c1", "c2", "c3")) , df_example2)
+scales_between <- psych::scoreItems(keys = list(w = c("w1", "w2", "w3", "w4", "w5")), df_w)
+# join id and within
+df_scores <- bind_cols(df_example2 |> select(id),
+                       scales_within$scores)
+# join between and within
+df_scores <- scales_between$scores |> as_tibble() |> rownames_to_column(var = "id") |> mutate(id = as.numeric(id)) |> 
+  right_join(df_scores, by = join_by(id))
+
+```
+
+## Abspeichern der gebildeten Skalen
+
+Zum Schluss speichern wir die wichtigsten Objekte aus unserer R-Umgebung ab.
+
+```{r}
+save(df_scores, scales_between, scales_within, file = "data_scoring.RData")
+```
+

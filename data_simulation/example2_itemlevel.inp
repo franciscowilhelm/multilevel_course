@@ -1,0 +1,89 @@
+TITLE: multilevel item generation (MCFA)
+
+MONTECARLO:
+    NAMES = a1-a5 b1-b5 c1-c3 w1-w5;
+    BETWEEN = w1-w5;
+    nobservations = 1000;
+    ncsizes = 1;
+    csizes = 100 (10);
+    nreps = 1;
+    SEED = 42;
+	REPSAVE = ALL; SAVE = example2rep*.dat;
+
+ANALYSIS: 
+    TYPE = TWOLEVEL RANDOM;
+    ESTIMATOR = BAYES; !FBITER = 800;
+
+MODEL POPULATION: 
+    %WITHIN%
+    ! factor definitions
+    aw BY a1*0.6 a2-a5*0.6;
+    bw BY b1*0.6 b2-b5*0.6;
+    cw BY c1*0.6 c2-c3*0.6;
+    ! factor variances
+    aw@1; bw@1; cw@1;
+
+    ! (residual) item variances
+    a1-a5*.65; b1-b5*.65; c1-c3*.65;
+
+    ! covariances of factors at within level
+    aw WITH bw*.25;
+    aw WITH cw*.3;
+    bw WITH cw*.4;
+
+    %BETWEEN%
+    ! factor definitions
+    ab BY a1*0.6 a2-a5*0.7;
+    bb BY b1*0.6 b2-b5*0.7;
+    cb BY c1*0.6 c2-c3*0.7;
+    w BY w1-w5*0.7;
+    ! factor variances
+    ab@1; bb@1; cb@1; w@1;
+
+    ! (residual) item variances
+    a1-a5*.35; b1-b5*.40; c1-c3*.35;
+    w1-w5*.45;
+
+    ! covariances of factors at between level
+    ab WITH bb*.35;
+    ab WITH cb*.35;
+    bb WITH cb*.4;
+    ab WITH w*.2; bb WITH w*.15; cb WITH w*.35;
+
+MODEL: 
+    %WITHIN%
+    ! factor definitions
+    aw BY a1*0.6 a2-a5*0.5;
+    bw BY b1*0.6 b2-b5*0.5;
+    cw BY c1*0.6 c2-c3*0.5;
+    ! factor variances
+    aw@1; bw@1; cw@1;
+
+    ! (residual) item variances
+    a1-a5*.65; b1-b5*.65; c1-c3*.65;
+
+    ! covariances of factors at within level
+    aw WITH bw*.25;
+    aw WITH cw*.3;
+    bw WITH cw*.4;
+
+    %BETWEEN%
+    ! factor definitions
+    ab BY a1*0.6 a2-a5*0.7;
+    bb BY b1*0.6 b2-b5*0.7;
+    cb BY c1*0.6 c2-c3*0.7;
+    w BY w1-w5*0.7;
+    ! factor variances
+    ab@1; bb@1; cb@1; w@1;
+
+    ! (residual) item variances
+    a1-a5*.35; b1-b5*.40; c1-c3*.35;
+    w1-w5*.45;
+
+    ! covariances of factors at between level
+    ab WITH bb*.35;
+    ab WITH cb*.35;
+    bb WITH cb*.4;
+    ab WITH w*.2; bb WITH w*.15; cb WITH w*.35;
+output:
+		tech9 stdyx;

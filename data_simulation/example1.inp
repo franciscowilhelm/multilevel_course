@@ -1,4 +1,5 @@
 TITLE:	 generated dataset for 1-1-1 multilevel mediation 
+	with cross-level interaction
 
 montecarlo:
 		names are y x m w;
@@ -28,11 +29,11 @@ model population:
 
 		%between%
 		! exogenous: variances and means
-		[w@0]; w*1;
-        [x@0]; x*1; 
+		[w@3]; w*1;
+        [x@2]; x*1; 
 		! endogenous: residual vareiances and intercepts
-		[m*0]; m*1;
-		[y*0]; y*1; 
+		[m*4]; m*1;
+		[y*3]; y*1; 
 		! variances of random slopes/effects
 		sa*.3;
 		sb*.3;

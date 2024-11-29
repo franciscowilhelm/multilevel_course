@@ -1,0 +1,140 @@
+---
+title: "Hypothesentests - Erweiterungen"
+format:
+  html:
+    df-print: kable
+editor: source
+---
+
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(lmerTest, haven, brms, psych,
+               sjmisc, sjPlot, writexl, broom.mixed, qgraph,
+               tidyverse, multilevelTools, parameters, devtools)
+
+devtools::install_github("falkcarl/multilevelmediation")
+```
+
+## Daten einlesen
+
+```{r}
+load("data/df_example1.RData")
+```
+Im Folgenden erstellen wir ein Mediationsmodellen und spezifizieren bei den Argumenten x, y, und m die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variablen wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.
+
+
+## Maximum Likelihood Variante
+
+### 1-1-1 Mediation
+
+```{r}
+fit_mediation <- multilevelmediation::modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm",
+                                random.int.m = FALSE,
+                                na.action = na.omit)
+
+summary(fit_mediation$model)
+```
+
+
+### 1-1-1 Mediation mit Moderation
+
+```{r}
+fit_modmed.mlm <- multilevelmediation::modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm", "w", moderator = "w", mod.a = TRUE,
+                                random.int.m = FALSE,
+                                na.action = na.omit)
+
+summary(fit_modmed.mlm$model)
+
+fit_modmed.mlm_glmmtmb <- multilevelmediation::modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm", "w", moderator = "w", mod.a = TRUE,
+                                random.int.m = FALSE,
+                                na.action = na.omit,
+                                estimator = "glmmTMB")
+
+summary(fit_modmed.mlm_glmmtmb$model)
+```
+
+
+
+ Bootstrapped within-person mediation
+ 
+```{r}
+library(parallel)
+library(boot)
+ncpu<-2
+RNGkind("L'Ecuyer-CMRG") # set type of random number generation that works in parallel
+cl<-makeCluster(ncpu)
+clusterSetRNGStream(cl, 42) # set random number seeds for cluster
+
+
+boot.result<-boot(df_example1, statistic=boot.modmed.mlm, R=10,
+                  L2ID = "id", X = "x_dm", Y = "y", M = "m_dm", moderator = "w", mod.a = TRUE,
+                  modval1 = 1, modval2 = 5,
+                                random.int.m = FALSE,
+                                na.action = na.omit,
+  type="all",
+  control=list(opt="nlm"),
+  parallel="snow",ncpus=ncpu,cl=cl)
+
+# trace(modmed.mlm, browser, at = 1)
+# untrace(modmed.mlm)
+boot.custom.results <- boot.modmed.mlm.custom(df_example1, nrep=10, df, statistic=boot.modmed.mlm, R=10,
+                  L2ID = "id", X = "x_dm", Y = "y", M = "m_dm", moderator = "w", mod.a = TRUE,
+                  mod.b = FALSE,
+                                random.int.m = FALSE, modval1 = 1, modval2 = 5,
+                                na.action = na.omit,
+  type="all",
+  parallel.type="parallel",ncores=2,seed=2299,
+  control=list(opt="nlm"))
+
+
+```
+ 
+```{r}
+extract.boot.modmed.mlm(boot.result, type="indirect", ci.conf=.95)
+extract.boot.modmed.mlm(boot.result, type="indirect.diff", ci.conf=.95)
+
+```
+
+
+### Bayes Variante mit brms
+
+Diese Berechnung dauert (bei mir 5-10 Minuten). Daher speichere ich sie hier ab, um sie nicht jedes mal neu ausfuehren zu muessen.
+Die Funktion setzt unter Windows RTools voraus, unter MacOS, Siehe https://learnb4ss.github.io/learnB4SS/articles/install-brms.html
+
+
+```{r}
+#| eval: false
+#| # setzt Rtools voraus
+fitbayes <- mlmediation_wrapper(x = "x_dm",
+                                y = "y",
+                                m = "m_dm",
+                                id = "id",
+                                df = df_example1,
+                                randomcor = FALSE) # dauert
+
+save(fitbayes, file = "cache/fitbayes.RData")
+```
+
+
+
+Ergebnisdarstellung:
+(Die folgende Syntax muss nicht angepasst werden.)
+```{r}
+load("fitbayes.RData")
+
+# summary(fitbayes)
+tidy(fitbayes, effects = c("fixed")) |> mutate(across(where(is.numeric), ~round(.x,2)))
+extract_indirect(fitbayes)
+```
+Dies ergibt zwei Outputs. Der erste (von der Funktion `tidy()`) beinhaltet die fixed effects.
+SmX = a-Pfad SyM = b-Pfad SyX = c'-Pfad.
+
+Es werden keine p-Werte angegeben, da es sich um bayessche Schätzungen handelt. Der 95% Credibility Interval gibt Auskunft, ob ein Effekt signifikant ist.
+
+Der zweite (von der Funktion `extract_indirect()`) beinhaltet den kalkulierten indirekten Effekt.
+ = a\*b, indirekter Effekt.
+ 
+
+
+ 
