@@ -1,0 +1,773 @@
+Mplus VERSION 8.5
+MUTHEN & MUTHEN
+11/28/2024   5:14 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:	 generated dataset for 1-1-1 multilevel mediation
+
+  montecarlo:
+  		names are y x m w;
+  		nobservations = 1000;
+  		ncsizes = 1;
+  		csizes = 100 (10);
+  		seed = 42;
+  		nreps = 2;
+  !		within = x;
+  		between = w;
+  		REPSAVE = ALL; SAVE = example1rep*.dat;
+
+  ANALYSIS:  TYPE = TWOLEVEL RANDOM;
+  ESTIMATOR = BAYES; !FBITER = 800;
+
+  model population:
+  		%within%
+  		! variances of exogenous variables
+  		x@1;
+  		! (residual) variances of endogenous variables
+  		y*1;
+  		m*1;
+  		! mediation with random parameters
+  		sa | m on x;
+  		sb | y on m;
+  		scprime | y on x;
+
+  		%between%
+  		! exogenous: variances and means
+  		[w@0]; w*1;
+          [x@0]; x*1;
+  		! endogenous: residual vareiances and intercepts
+  		[m*0]; m*1;
+  		[y*0]; y*1;
+  		! variances of random slopes/effects
+  		sa*.3;
+  		sb*.3;
+  		scprime*.15;
+  		! intercepts of random slopes
+  		[sa*1]; [sb*1]; [scprime*0.2];
+
+  		! between-level mediation effects
+  		y ON m*0.4;
+  		m on x*0.4;
+  		y on m*0.2;
+  		! cross-level interaction for sa (first stage mediation)
+          w with x*.3;
+  		m on w*0.2;
+  		sa on w*0.5;
+          m with sa*.2;
+
+  		
+  model:
+  		%within%
+  		! variances of exogenous variables
+  		x@1;
+  		! (residual) variances of endogenous variables
+  		y*1;
+  		m*1;
+  		! mediation with random parameters
+  		sa | m on x;
+  		sb | y on m;
+  		scprime | y on x;
+
+  		%between%
+  		! exogenous: variances and means
+  		 w*1;
+           x*1;
+  		! endogenous: residual vareiances and intercepts
+  		[m*0]; m*1;
+  		[y*0]; y*1;
+  		! variances of random slopes/effects
+  		sa*.3;
+  		sb*.3;
+  		scprime*.15;
+  		! intercepts of random slopes
+  		[sa*1]; [sb*1]; [scprime*0.2];
+
+  		! between-level mediation effects
+  		y ON m*0.4;
+  		m on x*0.4;
+  		y on m*0.2;
+  		! cross-level interaction for sa (first stage mediation)
+          w with x*.3;
+  		m on w*0.2;
+  		sa on w*0.5;
+          m with sa*.2;
+
+
+
+
+  output:
+  		tech9 stdyx;
+
+
+
+*** WARNING in MODEL command
+  In the MODEL command, the x variable on the WITHIN level has been turned into a
+  y variable to enable latent variable decomposition.  This variable will be treated
+  as a y-variable on both levels:  X
+*** WARNING in OUTPUT command
+  STANDARDIZED option is not available for MONTECARLO.
+  Request for STANDARDIZED is ignored.
+   2 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+generated dataset for 1-1-1 multilevel mediation
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        1000
+
+Number of replications
+    Requested                                                    2
+    Completed                                                    2
+Value of seed                                                   42
+
+Number of dependent variables                                    3
+Number of independent variables                                  1
+Number of continuous latent variables                            3
+
+Observed dependent variables
+
+  Continuous
+   Y           X           M
+
+Observed independent variables
+   W
+
+Continuous latent variables
+   SA          SB          SCPRIME
+
+Variables with special functions
+
+  Between variables
+   W
+
+
+Estimator                                                    BAYES
+Specifications for Bayesian Estimation
+  Point estimate                                            MEDIAN
+  Number of Markov chain Monte Carlo (MCMC) chains               2
+  Random seed for the first chain                                0
+  Starting value information                           UNPERTURBED
+  Algorithm used for Markov chain Monte Carlo           GIBBS(PX1)
+  Convergence criterion                                  0.500D-01
+  Maximum number of iterations                               50000
+  K-th iteration used for thinning                               1
+
+
+SUMMARY OF DATA FOR THE FIRST REPLICATION
+
+     Cluster information
+
+       Size (s)    Number of clusters of Size s
+
+         10           100
+
+
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       22
+
+Information Criteria
+
+    Deviance (DIC)
+
+        Mean                              9067.941
+        Std Dev                            107.938
+        Number of successful computations        2
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       1.000         8816.844       8960.002
+           0.980       1.000         8846.268       8960.002
+           0.950       1.000         8890.393       8960.002
+           0.900       1.000         8929.607       8960.002
+           0.800       0.500         8977.100       8960.002
+           0.700       0.500         9011.338       8960.002
+           0.500       0.500         9067.941       8960.002
+           0.300       0.500         9124.543       8960.002
+           0.200       0.500         9158.781       8960.002
+           0.100       0.000         9206.274       8960.002
+           0.050       0.000         9245.488       8960.002
+           0.020       0.000         9289.613       8960.002
+           0.010       0.000         9319.037       8960.002
+
+    Estimated Number of Parameters (pD)
+
+        Mean                               453.107
+        Std Dev                              3.952
+        Number of successful computations        2
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       1.000          443.913        449.155
+           0.980       1.000          444.990        449.155
+           0.950       1.000          446.606        449.155
+           0.900       1.000          448.042        449.155
+           0.800       0.500          449.781        449.155
+           0.700       0.500          451.035        449.155
+           0.500       0.500          453.107        449.155
+           0.300       0.500          455.180        449.155
+           0.200       0.500          456.433        449.155
+           0.100       0.000          458.172        449.155
+           0.050       0.000          459.608        449.155
+           0.020       0.000          461.224        449.155
+           0.010       0.000          462.301        449.155
+
+
+
+MODEL RESULTS
+
+                              ESTIMATES              S. E.     M. S. E.  95%  % Sig
+                 Population   Average   Std. Dev.   Average             Cover Coeff
+
+Within Level
+
+ Variances
+  X                   1.000     1.0000     0.0000     0.0000     0.0000 1.000 0.000
+
+ Residual Variances
+  Y                   1.000     1.0090     0.1668     0.0512     0.0140 0.000 1.000
+  M                   1.000     0.9247     0.0234     0.0440     0.0059 0.500 1.000
+
+Between Level
+
+ SA         ON
+  W                   0.500     0.5631     0.0039     0.0716     0.0040 1.000 1.000
+
+ Y          ON
+  M                   0.200     0.3048     0.1432     0.1128     0.0212 1.000 1.000
+
+ M          ON
+  X                   0.400     0.4429     0.0267     0.1244     0.0022 1.000 1.000
+  W                   0.200     0.2245     0.2812     0.1309     0.0401 0.500 0.500
+
+ M        WITH
+  SA                  0.200     0.2583     0.0662     0.0830     0.0056 1.000 1.000
+
+ W        WITH
+  X                   0.300     0.2582     0.1605     0.1091     0.0146 1.000 0.500
+
+ Means
+  W                   0.000     0.0362     0.0010     0.0947     0.0013 1.000 0.000
+  X                   0.000    -0.0752     0.0729     0.1075     0.0083 1.000 0.000
+  SB                  1.000     0.9995     0.0573     0.0641     0.0016 1.000 1.000
+  SCPRIME             0.200     0.2129     0.1041     0.0706     0.0056 1.000 0.500
+
+ Intercepts
+  Y                   0.000     0.0082     0.1328     0.1264     0.0089 1.000 0.000
+  M                   0.000     0.1093     0.0296     0.1201     0.0124 1.000 0.000
+  SA                  1.000     0.9062     0.0411     0.0639     0.0096 0.500 1.000
+
+ Variances
+  W                   1.000     0.9090     0.1115     0.1366     0.0145 1.000 1.000
+  X                   1.000     1.0508     0.1311     0.1790     0.0112 1.000 1.000
+  SB                  0.300     0.2786     0.0130     0.0551     0.0005 1.000 1.000
+  SCPRIME             0.150     0.2064     0.0269     0.0627     0.0035 1.000 1.000
+
+ Residual Variances
+  Y                   1.000     1.2488     0.0527     0.2209     0.0633 1.000 1.000
+  M                   1.000     1.0970     0.1484     0.1974     0.0204 1.000 1.000
+  SA                  0.300     0.2899     0.0037     0.0669     0.0001 1.000 1.000
+
+
+CORRELATIONS AND MEAN SQUARE ERROR OF THE TRUE FACTOR VALUES AND THE FACTOR SCORES
+
+                        CORRELATIONS                MEAN SQUARE ERROR
+                    Average    Std. Dev.           Average    Std. Dev.
+  SA                  0.907       0.025              0.307       0.044
+  SB                  0.848       0.005              0.265       0.011
+  SCPRIME             0.624       0.042              0.312       0.022
+  Y                   0.870       0.015              0.544       0.012
+  X                   0.956       0.001              0.297       0.026
+  M                   0.942       0.009              0.378       0.022
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION FOR WITHIN
+
+
+           NU
+              Y             X             M
+              ________      ________      ________
+                    0             0             0
+
+
+           LAMBDA
+              Y             X             M
+              ________      ________      ________
+ Y                  0             0             0
+ X                  0             0             0
+ M                  0             0             0
+
+
+           THETA
+              Y             X             M
+              ________      ________      ________
+ Y                  0
+ X                  0             0
+ M                  0             0             0
+
+
+           ALPHA
+              Y             X             M
+              ________      ________      ________
+                    0             0             0
+
+
+           BETA
+              Y             X             M
+              ________      ________      ________
+ Y                  0             0             0
+ X                  0             0             0
+ M                  0             0             0
+
+
+           PSI
+              Y             X             M
+              ________      ________      ________
+ Y                  1
+ X                  0             0
+ M                  0             0             2
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN
+
+
+           NU
+              W             Y             X             M
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+ W                  0             0             0             0             0
+ Y                  0             0             0             0             0
+ X                  0             0             0             0             0
+ M                  0             0             0             0             0
+
+
+           LAMBDA
+              X             M
+              ________      ________
+ W                  0             0
+ Y                  0             0
+ X                  0             0
+ M                  0             0
+
+
+           THETA
+              W             Y             X             M
+              ________      ________      ________      ________
+ W                  0
+ Y                  0             0
+ X                  0             0             0
+ M                  0             0             0             0
+
+
+           ALPHA
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+                    3             4             5             6             7
+
+
+           ALPHA
+              X             M
+              ________      ________
+                    8             9
+
+
+           BETA
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+ SA                 0             0             0            10             0
+ SB                 0             0             0             0             0
+ SCPRIME            0             0             0             0             0
+ W                  0             0             0             0             0
+ Y                  0             0             0             0             0
+ X                  0             0             0             0             0
+ M                  0             0             0            12             0
+
+
+           BETA
+              X             M
+              ________      ________
+ SA                 0             0
+ SB                 0             0
+ SCPRIME            0             0
+ W                  0             0
+ Y                  0            11
+ X                  0             0
+ M                 13             0
+
+
+           PSI
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+ SA                14
+ SB                 0            15
+ SCPRIME            0             0            16
+ W                  0             0             0            17
+ Y                  0             0             0             0            18
+ X                  0             0             0            19             0
+ M                 21             0             0             0             0
+
+
+           PSI
+              X             M
+              ________      ________
+ X                 20
+ M                  0            22
+
+
+     STARTING VALUES FOR WITHIN
+
+
+           NU
+              Y             X             M
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           LAMBDA
+              Y             X             M
+              ________      ________      ________
+ Y              1.000         0.000         0.000
+ X              0.000         1.000         0.000
+ M              0.000         0.000         1.000
+
+
+           THETA
+              Y             X             M
+              ________      ________      ________
+ Y              0.000
+ X              0.000         0.000
+ M              0.000         0.000         0.000
+
+
+           ALPHA
+              Y             X             M
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           BETA
+              Y             X             M
+              ________      ________      ________
+ Y              0.000         0.000         0.000
+ X              0.000         0.000         0.000
+ M              0.000         0.000         0.000
+
+
+           PSI
+              Y             X             M
+              ________      ________      ________
+ Y              1.000
+ X              0.000         1.000
+ M              0.000         0.000         1.000
+
+
+     STARTING VALUES FOR BETWEEN
+
+
+           NU
+              W             Y             X             M
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+ W              0.000         0.000         0.000         1.000         0.000
+ Y              0.000         0.000         0.000         0.000         1.000
+ X              0.000         0.000         0.000         0.000         0.000
+ M              0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              X             M
+              ________      ________
+ W              0.000         0.000
+ Y              0.000         0.000
+ X              1.000         0.000
+ M              0.000         1.000
+
+
+           THETA
+              W             Y             X             M
+              ________      ________      ________      ________
+ W              0.000
+ Y              0.000         0.000
+ X              0.000         0.000         0.000
+ M              0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+                1.000         1.000         0.200         0.000         0.000
+
+
+           ALPHA
+              X             M
+              ________      ________
+                0.000         0.000
+
+
+           BETA
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+ SA             0.000         0.000         0.000         0.500         0.000
+ SB             0.000         0.000         0.000         0.000         0.000
+ SCPRIME        0.000         0.000         0.000         0.000         0.000
+ W              0.000         0.000         0.000         0.000         0.000
+ Y              0.000         0.000         0.000         0.000         0.000
+ X              0.000         0.000         0.000         0.000         0.000
+ M              0.000         0.000         0.000         0.200         0.000
+
+
+           BETA
+              X             M
+              ________      ________
+ SA             0.000         0.000
+ SB             0.000         0.000
+ SCPRIME        0.000         0.000
+ W              0.000         0.000
+ Y              0.000         0.200
+ X              0.000         0.000
+ M              0.400         0.000
+
+
+           PSI
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+ SA             0.300
+ SB             0.000         0.300
+ SCPRIME        0.000         0.000         0.150
+ W              0.000         0.000         0.000         1.000
+ Y              0.000         0.000         0.000         0.000         1.000
+ X              0.000         0.000         0.000         0.300         0.000
+ M              0.200         0.000         0.000         0.000         0.000
+
+
+           PSI
+              X             M
+              ________      ________
+ X              1.000
+ M              0.000         1.000
+
+
+     POPULATION VALUES FOR WITHIN
+
+
+           NU
+              Y             X             M
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           LAMBDA
+              Y             X             M
+              ________      ________      ________
+ Y              1.000         0.000         0.000
+ X              0.000         1.000         0.000
+ M              0.000         0.000         1.000
+
+
+           THETA
+              Y             X             M
+              ________      ________      ________
+ Y              0.000
+ X              0.000         0.000
+ M              0.000         0.000         0.000
+
+
+           ALPHA
+              Y             X             M
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           BETA
+              Y             X             M
+              ________      ________      ________
+ Y              0.000         0.000         0.000
+ X              0.000         0.000         0.000
+ M              0.000         0.000         0.000
+
+
+           PSI
+              Y             X             M
+              ________      ________      ________
+ Y              1.000
+ X              0.000         1.000
+ M              0.000         0.000         1.000
+
+
+     POPULATION VALUES FOR BETWEEN
+
+
+           NU
+              W             Y             X             M
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+ W              0.000         0.000         0.000         1.000         0.000
+ Y              0.000         0.000         0.000         0.000         1.000
+ X              0.000         0.000         0.000         0.000         0.000
+ M              0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              X             M
+              ________      ________
+ W              0.000         0.000
+ Y              0.000         0.000
+ X              1.000         0.000
+ M              0.000         1.000
+
+
+           THETA
+              W             Y             X             M
+              ________      ________      ________      ________
+ W              0.000
+ Y              0.000         0.000
+ X              0.000         0.000         0.000
+ M              0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+                1.000         1.000         0.200         0.000         0.000
+
+
+           ALPHA
+              X             M
+              ________      ________
+                0.000         0.000
+
+
+           BETA
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+ SA             0.000         0.000         0.000         0.500         0.000
+ SB             0.000         0.000         0.000         0.000         0.000
+ SCPRIME        0.000         0.000         0.000         0.000         0.000
+ W              0.000         0.000         0.000         0.000         0.000
+ Y              0.000         0.000         0.000         0.000         0.000
+ X              0.000         0.000         0.000         0.000         0.000
+ M              0.000         0.000         0.000         0.200         0.000
+
+
+           BETA
+              X             M
+              ________      ________
+ SA             0.000         0.000
+ SB             0.000         0.000
+ SCPRIME        0.000         0.000
+ W              0.000         0.000
+ Y              0.000         0.200
+ X              0.000         0.000
+ M              0.400         0.000
+
+
+           PSI
+              SA            SB            SCPRIME       W             Y
+              ________      ________      ________      ________      ________
+ SA             0.300
+ SB             0.000         0.300
+ SCPRIME        0.000         0.000         0.150
+ W              0.000         0.000         0.000         1.000
+ Y              0.000         0.000         0.000         0.000         1.000
+ X              0.000         0.000         0.000         0.300         0.000
+ M              0.200         0.000         0.000         0.000         0.000
+
+
+           PSI
+              X             M
+              ________      ________
+ X              1.000
+ M              0.000         1.000
+
+
+
+     PRIORS FOR ALL PARAMETERS            PRIOR MEAN      PRIOR VARIANCE     PRIOR STD. DEV.
+
+     Parameter 1~IG(-1.000,0.000)          infinity            infinity            infinity
+     Parameter 2~IG(-1.000,0.000)          infinity            infinity            infinity
+     Parameter 3~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 4~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 5~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 6~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 7~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 8~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 9~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 10~N(0.000,infinity)          0.0000            infinity            infinity
+     Parameter 11~N(0.000,infinity)          0.0000            infinity            infinity
+     Parameter 12~N(0.000,infinity)          0.0000            infinity            infinity
+     Parameter 13~N(0.000,infinity)          0.0000            infinity            infinity
+     Parameter 14~IW(0.000,-3)             infinity            infinity            infinity
+     Parameter 15~IG(-1.000,0.000)         infinity            infinity            infinity
+     Parameter 16~IG(-1.000,0.000)         infinity            infinity            infinity
+     Parameter 17~IW(0.000,-3)             infinity            infinity            infinity
+     Parameter 18~IG(-1.000,0.000)         infinity            infinity            infinity
+     Parameter 19~IW(0.000,-3)             infinity            infinity            infinity
+     Parameter 20~IW(0.000,-3)             infinity            infinity            infinity
+     Parameter 21~IW(0.000,-3)             infinity            infinity            infinity
+     Parameter 22~IW(0.000,-3)             infinity            infinity            infinity
+
+
+TECHNICAL 9 OUTPUT
+
+  Error messages for each replication (if any)
+
+
+
+SAVEDATA INFORMATION
+
+  Order of variables
+
+    W
+    Y
+    X
+    M
+    CLUSTER
+
+  Save file
+    example1rep*.dat
+
+  Save file format           Free
+  Save file record length    10000
+
+
+     Beginning Time:  17:14:17
+        Ending Time:  17:14:17
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2020 Muthen & Muthen

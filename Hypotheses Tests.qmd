@@ -1,0 +1,244 @@
+---
+title: "Chapter X: Hypotheses Tests"
+format:
+  html:
+    df-print: kable
+editor: source
+---
+
+## Vorbereitung
+
+Install packages
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(lmerTest, haven, brms, psych,
+               sjmisc, sjPlot, writexl, broom.mixed, qgraph,
+               tidyverse, multilevelTools)
+```
+
+## Daten einlesen
+
+```{r}
+load("data/df_example1.RData")
+```
+
+Wir haben drei Datensätze (data.frame/tibble) und eine Liste:
+
+
+-   df_baseline_items_c2: Die Items aller Baseline-Variablen (+ soziodemographische Variablen).
+-   df_items_long_c2: Alle Tagebuch-Items im Long Format (+ soziodemographische Variablen).
+-   df_scores_long_c2: Alle Skalenscores im Long Format (+ soziodemographischen Variablen).
+
+Struktur des Datensatzes kann man sich ansehen mit `head()`.
+Für alle Funktionen gilt: Weitere Informationen findet ihr, wenn ihr die Hilfe-Seite der Funktionen aufruft (auf die Funktion im Code klicken und F1 drücken).
+
+```{r}
+head(df_example1)
+```
+
+Variablen auswählen:
+
+## Sitzung 2: Inferenzstatistische Datenauswertung
+
+Im Folgenden betrachten wir ein Modell, mit dem bored behavior durch boredom vorhergesagt wird.
+
+### Random Intercept Modell / Null-Model
+
+Die Funktion lmer() benötigt zwei Argumente, (a) die Formel und (b) den Datensatz. Zum Aufbau der Formeln s. Folien.
+
+
+```{r}
+nullmodel <- lmer(y ~ (1 | id), data = df_example1)
+summary(nullmodel)
+```
+
+Zur Ansicht der Ergebnisse haben wir zwei Optionen: Den `summary()` Befehl und den `tidy()` Befehl. Der tidy Befehl ist etwas schöner und könnte auch wieder nach Excel exportiert werden mittels der `write_xlsx()` Funktion.
+
+```{r}
+summary(nullmodel)
+```
+
+```{r}
+tidy(nullmodel)
+```
+
+Für schöneren Output bauen wir uns die `tidy_and_round()` Funktion, damit wir gleich gerundete Ergebnisse bekommen.
+(Die folgende Syntax muss nicht angepasst werden.)
+```{r}
+tidy_and_round <- function(model) {
+  broom.mixed::tidy(model) |> mutate(across(where(is.numeric), ~round(.x, 2)))
+}
+
+tidy_and_round(nullmodel)
+```
+
+### Random Intercept, fixed slope Modell
+
+Als nächstes bauen wir den Prädiktor bore ein. Wir verwenden hier die zentrierte Variable "`_dm`" um Inner-Person Effekte zu berechnen.
+
+
+```{r}
+ri.fs_modell <- lmer(y ~ x_dm + (1 | id), data = df_example1)
+```
+
+```{r}
+tidy_and_round(ri.fs_modell)
+```
+
+### Random intercept, random slope Modell
+
+```{r}
+ri.rs_modell <- lmer(y ~ x_dm + (1 + x_dm | id), data = df_example1)
+tidy_and_round(ri.rs_modell)
+```
+
+### Erweiterung: Level-2 Prädiktoren
+
+```{r}
+ri.rs_l2_modell <- lmer(y ~ x_dm + x_gm + (1 + x_dm | id), data = df_example1)
+tidy_and_round(ri.rs_l2_modell)
+```
+
+### Cross-Level Interaktion
+
+```{r}
+ri.rs_cli_modell <- lmer(y ~ x_dm + x_gm + w*x_dm + (1 + x_dm | id), data = df_example1)
+tidy_and_round(ri.rs_cli_modell)
+```
+Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr interpretiert werden.
+
+Visualisierung des Interaktionseffekt mittels der `plot_model()` Funktion.
+Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt. 
+
+```{r}
+plot_model(ri.rs_cli_modell, type = "int")
+ggsave("test.png")
+```
+
+Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen.
+
+```{r interactionplot}
+plot_model(ri.rs_cli_modell, type = "int", mdrt.values = "meansd")
+```
+
+
+### Within-Persion Mediation
+
+```{r}
+# install.packages("devtools")
+# devtools::install_github("falkcarl/multilevelmediation") # laesst sich nicht ohne weiteres installieren
+pacman::p_load(multilevelmediation)
+
+library(multilevelmediation)
+library(brms)
+source("src/multilevelmediation_wrapper.R")
+
+```
+
+Im Folgenden erstellen wir ein Mediationsmodellen und spezifizieren bei den Argumenten x, y, und m die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variablen wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.
+Diese Berechnung dauert (bei mir 5-10 Minuten). Daher speichere ich sie hier ab, um sie nicht jedes mal neu ausfuehren zu muessen.
+Die Funktion setzt unter WIndows RTools voraus, unter MacOS, Siehe https://learnb4ss.github.io/learnB4SS/articles/install-brms.html
+
+
+```{r}
+#| eval: false
+#| # setzt Rtools voraus
+fitbayes <- mlmediation_wrapper(x = "x_dm",
+                                y = "y",
+                                m = "m_dm",
+                                id = "id",
+                                df = df_example1,
+                                randomcor = FALSE) # dauert
+
+save(fitbayes, file = "fitbayes.RData")
+```
+
+
+
+Ergebnisdarstellung:
+(Die folgende Syntax muss nicht angepasst werden.)
+```{r}
+load("fitbayes.RData")
+
+# summary(fitbayes)
+tidy(fitbayes, effects = c("fixed")) |> mutate(across(where(is.numeric), ~round(.x,2)))
+extract_indirect(fitbayes)
+```
+Dies ergibt zwei Outputs. Der erste (von der Funktion `tidy()`) beinhaltet die fixed effects.
+SmX = a-Pfad SyM = b-Pfad SyX = c'-Pfad.
+
+Es werden keine p-Werte angegeben, da es sich um bayessche Schätzungen handelt. Der 95% Credibility Interval gibt Auskunft, ob ein Effekt signifikant ist.
+
+Der zweite (von der Funktion `extract_indirect()`) beinhaltet den kalkulierten indirekten Effekt.
+ = a\*b, indirekter Effekt.
+ 
+
+## Experimenteller / Alpha Teil
+
+
+### Moderierte Within-Person Mediation
+ 
+```{r}
+fit_modmed.mlm_nomod <- multilevelmediation::modmed.mlm(df, "id_num", "bore_dm", "mea", "borb_dm",
+                                random.int.m = FALSE,
+                                na.action = na.omit)
+
+summary(fit_modmed.mlm_nomod$model)
+
+fit_modmed.mlm <- multilevelmediation::modmed.mlm(df, "id_num", "bore_dm", "mea", "borb_dm", moderator = "vint", mod.a = TRUE,
+                                random.int.m = FALSE,
+                                na.action = na.omit)
+
+summary(fit_modmed.mlm$model)
+
+fit_modmed.mlm_glmmtb <- multilevelmediation::modmed.mlm(df, "id_num", "bore_dm", "mea", "borb_dm", moderator = "vint", mod.a = TRUE,
+                                random.int.m = FALSE,
+                                na.action = na.omit,
+                                estimator = "glmmTMB")
+
+summary(fit_modmed.mlm_glmmtb$model)
+
+```
+ 
+ Bootstrapped within-person mediation
+ 
+```{r}
+library(parallel)
+library(boot)
+ncpu<-2
+RNGkind("L'Ecuyer-CMRG") # set type of random number generation that works in parallel
+cl<-makeCluster(ncpu)
+clusterSetRNGStream(cl, 9912) # set random number seeds for cluster
+
+
+boot.result<-boot(df, statistic=boot.modmed.mlm, R=10,
+                  L2ID = "id_num", X = "bore_dm", Y = "mea", M = "borb_dm", moderator = "vint", mod.a = TRUE,
+                  modval1 = 1, modval2 = 5,
+                                random.int.m = FALSE,
+                                na.action = na.omit,
+  type="all",
+  control=list(opt="nlm"),
+  parallel="snow",ncpus=ncpu,cl=cl)
+
+trace(modmed.mlm, browser, at = 1)
+untrace(modmed.mlm)
+boot.custom.results <- boot.modmed.mlm.custom(df, nrep=10, df, statistic=boot.modmed.mlm, R=10,
+                  L2ID = "id_num", X = "bore_dm", Y = "mea", M = "borb_dm", moderator = "vint", mod.a = TRUE,
+                  mod.b = FALSE,
+                                random.int.m = FALSE, modval1 = 1, modval2 = 5,
+                                na.action = na.omit,
+  type="all",
+  parallel.type="parallel",ncores=2,seed=2299,
+  control=list(opt="nlm"))
+
+
+```
+ 
+```{r}
+extract.boot.modmed.mlm(boot.result, type="indirect", ci.conf=.95)
+extract.boot.modmed.mlm(boot.result, type="indirect.diff", ci.conf=.95)
+
+```
+ 
+ 
