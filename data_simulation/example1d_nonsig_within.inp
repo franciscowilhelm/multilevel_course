@@ -1,0 +1,80 @@
+TITLE:	 generated dataset for simple Y-X no random effects
+
+montecarlo:
+		names are y x w;
+		nobservations = 1000;
+		ncsizes = 1;
+		csizes = 100 (10);
+		seed = 42;
+		nreps = 2;
+!		within = x;
+		between = w;
+		REPSAVE = ALL; SAVE = example1drep*.dat;
+
+ANALYSIS:  TYPE = TWOLEVEL RANDOM;
+ESTIMATOR = BAYES; !FBITER = 800;
+
+model population:
+%within%
+! variances of exogenous variables
+x@0.5;
+! (residual) variances of endogenous variables
+y*0.5;
+! mediation with random parameters
+!scprime | y on x;
+sc | y ON x;
+
+%between%
+! exogenous: variances and means
+[x@2]; x*1; 
+! endogenous: residual vareiances and intercepts
+[y*3]; y*0.4; 
+! variances of random slopes/effects
+sc*.5;
+! intercepts of random slopes
+[sc*-0.20] (mc);
+y with sc*.0;
+
+
+! between-level mediation effects
+y on x*0.3;
+
+! direct effect of moderator
+y ON w*0.2;
+! cross-level interaction for sa (first stage mediation)
+[w*3]; w*1;
+
+
+		
+model:
+%within%
+! variances of exogenous variables
+x@0.5;
+! (residual) variances of endogenous variables
+y*0.5;
+! mediation with random parameters
+!scprime | y on x;
+sc | y ON x;
+
+%between%
+! exogenous: variances and means
+[x@2]; x*1; 
+! endogenous: residual vareiances and intercepts
+[y*3]; y*0.4; 
+! variances of random slopes/effects
+sc*.5;
+! intercepts of random slopes
+[sc*-.2] (mc);
+y with sc*.0;
+
+
+! between-level mediation effects
+y on x*0.3;
+
+! direct effect of moderator
+y ON w*0.2;
+! cross-level interaction for sa (first stage mediation)
+[w*3]; w*1;
+
+output:
+		tech9;

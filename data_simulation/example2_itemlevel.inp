@@ -8,7 +8,7 @@ MONTECARLO:
     csizes = 100 (10);
     nreps = 1;
     SEED = 42;
-	REPSAVE = ALL; SAVE = example2rep*.dat;
+	REPSAVE = ALL; SAVE = example2itemlevel_rep*.dat;
 
 ANALYSIS: 
     TYPE = TWOLEVEL RANDOM;
@@ -50,6 +50,12 @@ MODEL POPULATION:
     bb WITH cb*.4;
     ab WITH w*.2; bb WITH w*.15; cb WITH w*.35;
 
+    ! item intercepts
+    [a1-a5*3];
+    [b1-b5*2];
+    [c1-c3*2];
+    [w1-w5*3.5];
+
 MODEL: 
     %WITHIN%
     ! factor definitions
@@ -85,5 +91,7 @@ MODEL:
     ab WITH cb*.35;
     bb WITH cb*.4;
     ab WITH w*.2; bb WITH w*.15; cb WITH w*.35;
+
+
 output:
 		tech9 stdyx;

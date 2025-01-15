@@ -29,7 +29,9 @@ pacman::p_load(lmerTest, haven, brms, psych,
 ## Daten einlesen
 
 ```{r}
-load("data/df_example1.RData")
+load("../data/df_example1.RData")
+load("../data/df_example1c.RData")
+
 ```
 
 Für diese Einheit verwenden wir den folgenden Datensatz (data.frame/tibble):
@@ -48,11 +50,15 @@ Im Folgenden betrachten wir ein Modell in dem y durch x vorhergesagt wird.
 
 ### Random Intercept Modell / Null-Model
 
-Die Funktion lmer() benötigt zwei Argumente, (a) die Formel und (b) den Datensatz. Zum Aufbau der Formeln s. Folien.
+Die Funktion lmer() benötigt zwei Argumente, (a) die Formel und (b) den Datensatz. Zum Aufbau und Details der Formeln s. Folien.
+
+
+Level 1: $y_{ij} = \beta_{0j} + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
 
 ```{r}
 nullmodel <- lmer(y ~ (1 | id), data = df_example1)
-summary(nullmodel)
 ```
 
 Zur Ansicht der Ergebnisse haben wir zwei Optionen: Den `summary()` Befehl - die Standardansicht, wie von den Paketautoren implementiert, den `tidy()` Befehl aus dem broom-Package, und den `model_parameters()` Befehl aus dem parameters Package. tidy() und model_parameters() Funktionsoutputs könnten nach Excel exportiert werden mittels der `write_xlsx()` Funktion. 
@@ -69,9 +75,11 @@ tidy(nullmodel)
 ```{r}
 model_parameters(nullmodel)
 ```
+
 Ich bevorzuge persönlich den Output von model_parameters(), aber das ist Geschmackssache.
 Für schöneren Output bauen wir uns Funktionen mit Rundungen von Werten bauen. Die `tidy_and_round()` und die `model_parameters_r()` Funktion.`model_parameters()` hat zudem eine `print_html()` Funktion, die eine gute Darstellung aus R Markdown Dokumenten HTML-Outputs erlaubt.
 (Die folgende Syntax muss nicht angepasst werden.)
+
 ```{r}
 tidy_and_round <- function(model) {
   broom.mixed::tidy(model) |> mutate(across(where(is.numeric), ~round(.x, 2)))
@@ -88,10 +96,29 @@ model_parameters_r <- function(model) {
 model_parameters_r(nullmodel) |> print_html()
 ```
 
+Aus dem Null-Model wird der ICC bestimmt.
+
+ICC: $\frac{\tau_{00}}{\tau_{00}+\tau_{ij}}$, $\tau$ gibt die Varianz des jewiligen Koeffizienten an.
+
+Wir können dies aus dem Modelloutput nehmen und berechnen:
+
+```{r}
+modelsummary <- model_parameters(nullmodel)
+tau00 <- modelsummary$Coefficient[modelsummary$Parameter == "SD (Intercept)"]^2
+tauij <- modelsummary$Coefficient[modelsummary$Parameter == "SD (Observations)"]^2
+tau00 / (tau00+tauij)
+# performance::icc(nullmodel) # Alternativfunktion
+```
+
 ### Random Intercept, fixed slope Modell
 
 Als nächstes bauen wir den Prädiktor x ein. Wir verwenden hier die zentrierte Variable "`_dm`" um Inner-Person Effekte zu berechnen.
 
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*X_{ij} + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+
+Level 2 (fixed effect only): $\beta'_{1j} = \gamma'_{10}$
 
 ```{r}
 ri.fs_modell <- lmer(y ~ x_dm + (1 | id), data = df_example1)
@@ -105,6 +132,12 @@ model_parameters_r(ri.fs_modell) |> print_html()
 
 Als nächstes fügen wir den random slope der Prädiktorvariable x_dm hinzu, in dem wir die random effect Struktur erweitern - "(1 + x_dm | id)".
 
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+
+Level 2: $\beta'_{1j} = \gamma'_{10}$
+
 ```{r}
 ri.rs_modell <- lmer(y ~ x_dm + (1 + x_dm | id), data = df_example1)
 model_parameters_r(ri.rs_modell) |> print_html()
@@ -112,17 +145,34 @@ model_parameters_r(ri.rs_modell) |> print_html()
 
 ### Level-2 Prädiktoren
 
-Als nächstes fügen wir einen Level-2 Prädiktor hinzu, der pro Person nur einmal gemessen wurde. Dabei handelt es sich für gewöhnlich um (1) Variablen, bei denen wir nicht an täglichen Schwankungen interessiert sind, wie soziodemografischen oder Persönlichkeitsvariablen, oder (2) den Mittelwert der Personen auf einer täglich gemessenen Variable. Im Beispiel verwenden wir für ersteres "w" und für letzteres "x_gm".
+Als nächstes fügen wir einen Level-2 Prädiktor hinzu, der pro Person nur einmal gemessen wurde. Dabei handelt es sich für gewöhnlich um (1) Variablen, bei denen wir nicht an täglichen Schwankungen interessiert sind, wie soziodemografischen oder Persönlichkeitsvariablen, oder (2) den Mittelwert der Personen auf einer täglich gemessenen Variable. Im Beispiel verwenden wir (2), "x_gm".
+
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*\overline{X_j} + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+Level 2 (random slope for x): $\beta_{1j} = \gamma_{10} + u_{2j}$
 
 ```{r}
-ri.rs_l2_modell <- lmer(y ~ x_dm + x_gm + w + (1 + x_dm | id), data = df_example1)
+ri.rs_l2_modell <- lmer(y ~ x_dm + x_gm + (1 + x_dm | id), data = df_example1)
 model_parameters_r(ri.rs_l2_modell) |> print_html()
 ```
 
 ### Cross-Level Interaktion
 
+Erwarten wir dass der Effekt von täglichen Schwankungen in X auf Y abhängig von einer Variablen ist, die auf Level-2 gemessen wird (z.B. relativ stabile Persönlichkeitsmerkmale), können wir dies mit einer Cross-Level Interaktion testen.
+
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+Level 2 (random slope for x): $\beta_{1j} = \gamma_{10} + u_{2j}$
+
 ```{r}
-ri.rs_cli_modell <- lmer(y ~ x_dm + w + w*x_dm + (1 + x_dm | id), data = df_example1)
+head(df_example1c)
+```
+
+
+```{r}
+ri.rs_cli_modell <- lmer(y ~ x_dm + w + w*x_dm + (1 + x_dm | id), data = df_example1c)
 model_parameters_r(ri.rs_cli_modell) |> print_html()
 ```
 Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr interpretiert werden.
@@ -130,22 +180,28 @@ Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr inter
 Visualisierung des Interaktionseffekt mittels der `plot_model()` Funktion.
 Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt.
 
-plot_model(type = "int") ist derzeit verbuggt.
-
 ```{r}
-# plot_model(ri.rs_cli_modell, type = "int", terms = c("x_dm", "w"))
-#ggsave("test.png")
+plot_model(ri.rs_cli_modell, type = "int", terms = c("x_dm", "w"))
+ggsave("test.png")
 ```
 
 Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen.
 
 ```{r}
-# plot_model(ri.rs_cli_modell, type = "int", mdrt.values = "meansd")
+plot_model(ri.rs_cli_modell, type = "int", mdrt.values = "meansd")
 ```
+Der Plot zeigt, dass bei höheren Ausprägungen von w der Effekt von x_dm stärker ausfällt.
+
 
 ### Within-level Interaktion
 
 Analog zur Cross-level Interaktion gibt es auch Within-level Interaktionen, bei der die Level-1 Anteile von Prädiktorvariablen miteinander interagieren.
+
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*(M_{ij}-\overline{M_j}) + \beta_{3j}*((M_{ij}-\overline{M_j})*(X_{ij}-\overline{X_j})) + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+Level 2 (random slope X): $\beta_{1j} = \gamma_{10} + u_{1j}$
+Level 2 (random slope M): $\beta_{2j} = \gamma_{20} + u_{2j}$
 
 ```{r}
 ri.rs_wli_modell <- lmer(y ~ x_dm + m_dm + x_dm*m_dm + (1 + x_dm + m_dm | id), data = df_example1)
@@ -153,9 +209,9 @@ model_parameters_r(ri.rs_wli_modell) |> print_html()
 ```
 
 ```{r}
-# plot_model(ri.rs_wli_modell, type = "int", mdrt.values = "meansd")
+plot_model(ri.rs_wli_modell, type = "int", mdrt.values = "meansd")
 ```
 
-
+Der Interaktionseffekt ist nicht signifikant. Dies bedeutet, wie der Plot zeigt, dass die Linien bei allen Ausprägungen des Moderators mehr oder wenig parallel sind.
  
  

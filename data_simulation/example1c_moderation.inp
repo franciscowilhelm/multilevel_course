@@ -1,0 +1,104 @@
+TITLE:	 generated dataset for 1-1-1 multilevel mediation 
+	with cross-level interaction, no random cov. structure
+
+montecarlo:
+		names are y x m w;
+		nobservations = 1000;
+		ncsizes = 1;
+		csizes = 100 (10);
+		seed = 42;
+		nreps = 2;
+!		within = x;
+		between = w;
+		REPSAVE = ALL; SAVE = example1crep*.dat;
+
+ANALYSIS:  TYPE = TWOLEVEL RANDOM;
+ESTIMATOR = BAYES; !FBITER = 800;
+
+model population:
+		%within%
+		! variances of exogenous variables
+		x@0.5;
+		! (residual) variances of endogenous variables
+		y*0.3;
+		m*0.3;
+		! mediation with random parameters
+		sa | m on x;
+		sb | y on m;
+		scprime | y on x;
+
+		%between%
+		! exogenous: variances and means
+        [x@2]; x*1; 
+		! endogenous: residual vareiances and intercepts
+		[m*4]; m*0.4;
+		[y*3]; y*0.4; 
+		! variances of random slopes/effects
+		sa*.3;
+		sb*.3;
+		scprime*.15;
+		! intercepts of random slopes
+		[sa*0.5] (ma);
+		[sb*0.5] (mb);
+		[scprime*0.2] (mc);
+
+
+		! between-level mediation effects
+		y ON m*0.4;
+		m on x*0.4;
+		y on x*0.2;
+		
+		! cross-level interaction for sa (first stage mediation)
+        [w*3]; w*0.5;
+		w with x*.3;
+		m on w*0.2;
+		sa on w*0.5;
+        m with sa*.2;
+
+
+		
+model:
+		%within%
+		! variances of exogenous variables
+		x@0.5;
+		! (residual) variances of endogenous variables
+		y*0.3;
+		m*0.3;
+		! mediation with random parameters
+		sa | m on x;
+		sb | y on m;
+		scprime | y on x;
+
+		%between%
+		! exogenous: variances and means
+        [x@2]; x*0.5; 
+		! endogenous: residual vareiances and intercepts
+		[m*4]; m*0.4;
+		[y*3]; y*0.4; 
+		! variances of random slopes/effects
+		sa*.3;
+		sb*.3;
+		scprime*.15;
+		! intercepts of random slopes
+		[sa*0.5] (ma);
+		[sb*0.5] (mb);
+		[scprime*0.2] (mc);
+
+		! between-level mediation effects
+		y ON m*0.4;
+		m on x*0.4;
+		y on x*0.2;
+
+		! cross-level interaction for sa (first stage mediation)
+        [w*3]; w*0.5;
+		w with x*.3;
+		m on w*0.2;
+		sa on w*0.5;
+        m with sa*.2;
+
+MODEL CONSTRAINT:
+	NEW(indi*0.3);
+	indi = ma*mb; 
+
+output:
+		tech9;

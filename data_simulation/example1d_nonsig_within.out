@@ -1,0 +1,587 @@
+Mplus VERSION 8.5
+MUTHEN & MUTHEN
+01/15/2025   2:18 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:	 generated dataset for simple Y-X no random effects
+
+  montecarlo:
+  		names are y x w;
+  		nobservations = 1000;
+  		ncsizes = 1;
+  		csizes = 100 (10);
+  		seed = 42;
+  		nreps = 2;
+  !		within = x;
+  		between = w;
+  		REPSAVE = ALL; SAVE = example1drep*.dat;
+
+  ANALYSIS:  TYPE = TWOLEVEL RANDOM;
+  ESTIMATOR = BAYES; !FBITER = 800;
+
+  model population:
+  %within%
+  ! variances of exogenous variables
+  x@0.5;
+  ! (residual) variances of endogenous variables
+  y*0.5;
+  ! mediation with random parameters
+  !scprime | y on x;
+  sc | y ON x;
+
+  %between%
+  ! exogenous: variances and means
+  [x@2]; x*1;
+  ! endogenous: residual vareiances and intercepts
+  [y*3]; y*0.4;
+  ! variances of random slopes/effects
+  sc*.5;
+  ! intercepts of random slopes
+  [sc*-0.20] (mc);
+  y with sc*.0;
+
+
+  ! between-level mediation effects
+  y on x*0.3;
+
+  ! direct effect of moderator
+  y ON w*0.2;
+  ! cross-level interaction for sa (first stage mediation)
+  [w*3]; w*1;
+
+
+  		
+  model:
+  %within%
+  ! variances of exogenous variables
+  x@0.5;
+  ! (residual) variances of endogenous variables
+  y*0.5;
+  ! mediation with random parameters
+  !scprime | y on x;
+  sc | y ON x;
+
+  %between%
+  ! exogenous: variances and means
+  [x@2]; x*1;
+  ! endogenous: residual vareiances and intercepts
+  [y*3]; y*0.4;
+  ! variances of random slopes/effects
+  sc*.5;
+  ! intercepts of random slopes
+  [sc*-.2] (mc);
+  y with sc*.0;
+
+
+  ! between-level mediation effects
+  y on x*0.3;
+
+  ! direct effect of moderator
+  y ON w*0.2;
+  ! cross-level interaction for sa (first stage mediation)
+  [w*3]; w*1;
+
+  output:
+  		tech9;
+
+
+
+*** WARNING in MODEL command
+  In the MODEL command, the x variable on the WITHIN level has been turned into a
+  y variable to enable latent variable decomposition.  This variable will be treated
+  as a y-variable on both levels:  X
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+generated dataset for simple Y-X no random effects
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        1000
+
+Number of replications
+    Requested                                                    2
+    Completed                                                    2
+Value of seed                                                   42
+
+Number of dependent variables                                    2
+Number of independent variables                                  1
+Number of continuous latent variables                            1
+
+Observed dependent variables
+
+  Continuous
+   Y           X
+
+Observed independent variables
+   W
+
+Continuous latent variables
+   SC
+
+Variables with special functions
+
+  Between variables
+   W
+
+
+Estimator                                                    BAYES
+Specifications for Bayesian Estimation
+  Point estimate                                            MEDIAN
+  Number of Markov chain Monte Carlo (MCMC) chains               2
+  Random seed for the first chain                                0
+  Starting value information                           UNPERTURBED
+  Algorithm used for Markov chain Monte Carlo           GIBBS(PX1)
+  Convergence criterion                                  0.500D-01
+  Maximum number of iterations                               50000
+  K-th iteration used for thinning                               1
+
+
+SUMMARY OF DATA FOR THE FIRST REPLICATION
+
+     Cluster information
+
+       Size (s)    Number of clusters of Size s
+
+         10           100
+
+
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       11
+
+Information Criteria
+
+    Deviance (DIC)
+
+        Mean                              4794.804
+        Std Dev                             16.370
+        Number of successful computations        2
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       1.000         4756.723       4778.434
+           0.980       1.000         4761.185       4778.434
+           0.950       1.000         4767.877       4778.434
+           0.900       1.000         4773.824       4778.434
+           0.800       0.500         4781.027       4778.434
+           0.700       0.500         4786.220       4778.434
+           0.500       0.500         4794.804       4778.434
+           0.300       0.500         4803.389       4778.434
+           0.200       0.500         4808.581       4778.434
+           0.100       0.000         4815.784       4778.434
+           0.050       0.000         4821.731       4778.434
+           0.020       0.000         4828.423       4778.434
+           0.010       0.000         4832.886       4778.434
+
+    Estimated Number of Parameters (pD)
+
+        Mean                               252.714
+        Std Dev                              3.953
+        Number of successful computations        2
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       1.000          243.517        248.761
+           0.980       1.000          244.595        248.761
+           0.950       1.000          246.211        248.761
+           0.900       1.000          247.647        248.761
+           0.800       0.500          249.387        248.761
+           0.700       0.500          250.641        248.761
+           0.500       0.500          252.714        248.761
+           0.300       0.500          254.787        248.761
+           0.200       0.500          256.041        248.761
+           0.100       0.000          257.781        248.761
+           0.050       0.000          259.217        248.761
+           0.020       0.000          260.833        248.761
+           0.010       0.000          261.911        248.761
+
+
+
+MODEL RESULTS
+
+                              ESTIMATES              S. E.     M. S. E.  95%  % Sig
+                 Population   Average   Std. Dev.   Average             Cover Coeff
+
+Within Level
+
+ Variances
+  X                   0.500     0.5000     0.0000     0.0000     0.0000 1.000 0.000
+
+ Residual Variances
+  Y                   0.500     0.4823     0.0253     0.0232     0.0006 1.000 1.000
+
+Between Level
+
+ Y          ON
+  X                   0.300     0.3035     0.0015     0.0897     0.0000 1.000 1.000
+  W                   0.200     0.2242     0.0312     0.0757     0.0011 1.000 1.000
+
+ Y        WITH
+  SC                  0.000     0.0033     0.0375     0.0631     0.0007 1.000 0.000
+
+ Means
+  W                   3.000     2.9546     0.0905     0.0968     0.0062 1.000 1.000
+  X                   2.000     2.0000     0.0000     0.0000     0.0000 1.000 0.000
+  SC                 -0.200    -0.0568     0.0382     0.0912     0.0212 1.000 0.000
+
+ Intercepts
+  Y                   3.000     2.8972     0.1765     0.2881     0.0262 1.000 1.000
+
+ Variances
+  W                   1.000     0.9947     0.2412     0.1323     0.0291 1.000 1.000
+  X                   1.000     0.8290     0.1576     0.1383     0.0417 1.000 1.000
+  SC                  0.500     0.4737     0.0426     0.0772     0.0016 1.000 1.000
+
+ Residual Variances
+  Y                   0.400     0.4826     0.1106     0.0868     0.0129 0.500 1.000
+
+
+CORRELATIONS AND MEAN SQUARE ERROR OF THE TRUE FACTOR VALUES AND THE FACTOR SCORES
+
+                        CORRELATIONS                MEAN SQUARE ERROR
+                    Average    Std. Dev.           Average    Std. Dev.
+  SC                  0.886       0.021              0.301       0.001
+  Y                   0.941       0.017              0.256       0.035
+  X                   0.975       0.000              0.211       0.022
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION FOR WITHIN
+
+
+           NU
+              Y             X
+              ________      ________
+                    0             0
+
+
+           LAMBDA
+              Y             X
+              ________      ________
+ Y                  0             0
+ X                  0             0
+
+
+           THETA
+              Y             X
+              ________      ________
+ Y                  0
+ X                  0             0
+
+
+           ALPHA
+              Y             X
+              ________      ________
+                    0             0
+
+
+           BETA
+              Y             X
+              ________      ________
+ Y                  0             0
+ X                  0             0
+
+
+           PSI
+              Y             X
+              ________      ________
+ Y                  1
+ X                  0             0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN
+
+
+           NU
+              W             Y             X
+              ________      ________      ________
+                    0             0             0
+
+
+           LAMBDA
+              SC            W             Y             X
+              ________      ________      ________      ________
+ W                  0             0             0             0
+ Y                  0             0             0             0
+ X                  0             0             0             0
+
+
+           THETA
+              W             Y             X
+              ________      ________      ________
+ W                  0
+ Y                  0             0
+ X                  0             0             0
+
+
+           ALPHA
+              SC            W             Y             X
+              ________      ________      ________      ________
+                    2             3             4             0
+
+
+           BETA
+              SC            W             Y             X
+              ________      ________      ________      ________
+ SC                 0             0             0             0
+ W                  0             0             0             0
+ Y                  0             5             0             6
+ X                  0             0             0             0
+
+
+           PSI
+              SC            W             Y             X
+              ________      ________      ________      ________
+ SC                 7
+ W                  0             8
+ Y                  9             0            10
+ X                  0             0             0            11
+
+
+     STARTING VALUES FOR WITHIN
+
+
+           NU
+              Y             X
+              ________      ________
+                0.000         0.000
+
+
+           LAMBDA
+              Y             X
+              ________      ________
+ Y              1.000         0.000
+ X              0.000         1.000
+
+
+           THETA
+              Y             X
+              ________      ________
+ Y              0.000
+ X              0.000         0.000
+
+
+           ALPHA
+              Y             X
+              ________      ________
+                0.000         0.000
+
+
+           BETA
+              Y             X
+              ________      ________
+ Y              0.000         0.000
+ X              0.000         0.000
+
+
+           PSI
+              Y             X
+              ________      ________
+ Y              0.500
+ X              0.000         0.500
+
+
+     STARTING VALUES FOR BETWEEN
+
+
+           NU
+              W             Y             X
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           LAMBDA
+              SC            W             Y             X
+              ________      ________      ________      ________
+ W              0.000         1.000         0.000         0.000
+ Y              0.000         0.000         1.000         0.000
+ X              0.000         0.000         0.000         1.000
+
+
+           THETA
+              W             Y             X
+              ________      ________      ________
+ W              0.000
+ Y              0.000         0.000
+ X              0.000         0.000         0.000
+
+
+           ALPHA
+              SC            W             Y             X
+              ________      ________      ________      ________
+               -0.200         3.000         3.000         2.000
+
+
+           BETA
+              SC            W             Y             X
+              ________      ________      ________      ________
+ SC             0.000         0.000         0.000         0.000
+ W              0.000         0.000         0.000         0.000
+ Y              0.000         0.200         0.000         0.300
+ X              0.000         0.000         0.000         0.000
+
+
+           PSI
+              SC            W             Y             X
+              ________      ________      ________      ________
+ SC             0.500
+ W              0.000         1.000
+ Y              0.000         0.000         0.400
+ X              0.000         0.000         0.000         1.000
+
+
+     POPULATION VALUES FOR WITHIN
+
+
+           NU
+              Y             X
+              ________      ________
+                0.000         0.000
+
+
+           LAMBDA
+              Y             X
+              ________      ________
+ Y              1.000         0.000
+ X              0.000         1.000
+
+
+           THETA
+              Y             X
+              ________      ________
+ Y              0.000
+ X              0.000         0.000
+
+
+           ALPHA
+              Y             X
+              ________      ________
+                0.000         0.000
+
+
+           BETA
+              Y             X
+              ________      ________
+ Y              0.000         0.000
+ X              0.000         0.000
+
+
+           PSI
+              Y             X
+              ________      ________
+ Y              0.500
+ X              0.000         0.500
+
+
+     POPULATION VALUES FOR BETWEEN
+
+
+           NU
+              W             Y             X
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           LAMBDA
+              SC            W             Y             X
+              ________      ________      ________      ________
+ W              0.000         1.000         0.000         0.000
+ Y              0.000         0.000         1.000         0.000
+ X              0.000         0.000         0.000         1.000
+
+
+           THETA
+              W             Y             X
+              ________      ________      ________
+ W              0.000
+ Y              0.000         0.000
+ X              0.000         0.000         0.000
+
+
+           ALPHA
+              SC            W             Y             X
+              ________      ________      ________      ________
+               -0.200         3.000         3.000         2.000
+
+
+           BETA
+              SC            W             Y             X
+              ________      ________      ________      ________
+ SC             0.000         0.000         0.000         0.000
+ W              0.000         0.000         0.000         0.000
+ Y              0.000         0.200         0.000         0.300
+ X              0.000         0.000         0.000         0.000
+
+
+           PSI
+              SC            W             Y             X
+              ________      ________      ________      ________
+ SC             0.500
+ W              0.000         1.000
+ Y              0.000         0.000         0.400
+ X              0.000         0.000         0.000         1.000
+
+
+
+     PRIORS FOR ALL PARAMETERS            PRIOR MEAN      PRIOR VARIANCE     PRIOR STD. DEV.
+
+     Parameter 1~IG(-1.000,0.000)          infinity            infinity            infinity
+     Parameter 2~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 3~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 4~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 5~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 6~N(0.000,infinity)           0.0000            infinity            infinity
+     Parameter 7~IW(0.000,-3)              infinity            infinity            infinity
+     Parameter 8~IG(-1.000,0.000)          infinity            infinity            infinity
+     Parameter 9~IW(0.000,-3)              infinity            infinity            infinity
+     Parameter 10~IW(0.000,-3)             infinity            infinity            infinity
+     Parameter 11~IG(-1.000,0.000)         infinity            infinity            infinity
+
+
+TECHNICAL 9 OUTPUT
+
+  Error messages for each replication (if any)
+
+
+
+SAVEDATA INFORMATION
+
+  Order of variables
+
+    W
+    Y
+    X
+    CLUSTER
+
+  Save file
+    example1drep*.dat
+
+  Save file format           Free
+  Save file record length    10000
+
+
+     Beginning Time:  14:18:27
+        Ending Time:  14:18:27
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2020 Muthen & Muthen

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -63,10 +63,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="01b_Data Preparation Scale Level_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="01b_Data Preparation Scale Level_files/libs/quarto-html/anchor.min.js"></script>
 <link href="01b_Data Preparation Scale Level_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="01b_Data Preparation Scale Level_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="01b_Data Preparation Scale Level_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="01b_Data Preparation Scale Level_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="01b_Data Preparation Scale Level_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="01b_Data Preparation Scale Level_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="01b_Data Preparation Scale Level_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -109,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="reading-example-data">Reading example data</h2>
 <p>In diesem Beispiel sind die Skalen bereits erstellt und Daten auf der Item-Ebene werden nicht benötigt.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_example1 <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"data_simulation/example1rep2.dat"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, </span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_example1 <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"../data_simulation/example1rep2.dat"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.strings =</span> <span class="st">"*"</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_example1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"w"</span>, <span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"id"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df_example1 <span class="ot">&lt;-</span> df_example1 <span class="sc">|&gt;</span> <span class="fu">select</span>(id, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -137,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <col style="width: 11%">
 <col style="width: 11%">
 <col style="width: 9%">
-<col style="width: 9%">
+<col style="width: 7%">
 <col style="width: 9%">
 </colgroup>
 <thead>
@@ -159,94 +159,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4.197914</td>
-<td style="text-align: right;">3.011446</td>
-<td style="text-align: right;">10.308137</td>
-<td style="text-align: right;">4.589282</td>
-<td style="text-align: right;">-0.6645568</td>
-<td style="text-align: right;">2.4082097</td>
-<td style="text-align: right;">1.1370078</td>
-<td style="text-align: right;">3.676003</td>
-<td style="text-align: right;">7.899927</td>
-<td style="text-align: right;">3.452274</td>
+<td style="text-align: right;">2.258143</td>
+<td style="text-align: right;">8.818522</td>
+<td style="text-align: right;">4.156087</td>
+<td style="text-align: right;">-1.2334698</td>
+<td style="text-align: right;">1.5517219</td>
+<td style="text-align: right;">0.8039858</td>
+<td style="text-align: right;">3.491613</td>
+<td style="text-align: right;">7.2668</td>
+<td style="text-align: right;">3.352101</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4.197914</td>
-<td style="text-align: right;">2.626475</td>
-<td style="text-align: right;">11.453267</td>
-<td style="text-align: right;">4.012610</td>
-<td style="text-align: right;">-1.0495278</td>
-<td style="text-align: right;">3.5533397</td>
-<td style="text-align: right;">0.5603358</td>
-<td style="text-align: right;">3.676003</td>
-<td style="text-align: right;">7.899927</td>
-<td style="text-align: right;">3.452274</td>
+<td style="text-align: right;">1.840168</td>
+<td style="text-align: right;">9.327718</td>
+<td style="text-align: right;">3.748318</td>
+<td style="text-align: right;">-1.6514448</td>
+<td style="text-align: right;">2.0609179</td>
+<td style="text-align: right;">0.3962168</td>
+<td style="text-align: right;">3.491613</td>
+<td style="text-align: right;">7.2668</td>
+<td style="text-align: right;">3.352101</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4.197914</td>
-<td style="text-align: right;">5.386153</td>
-<td style="text-align: right;">2.567876</td>
-<td style="text-align: right;">2.470737</td>
-<td style="text-align: right;">1.7101502</td>
-<td style="text-align: right;">-5.3320513</td>
-<td style="text-align: right;">-0.9815372</td>
-<td style="text-align: right;">3.676003</td>
-<td style="text-align: right;">7.899927</td>
-<td style="text-align: right;">3.452274</td>
+<td style="text-align: right;">6.069796</td>
+<td style="text-align: right;">4.145442</td>
+<td style="text-align: right;">2.658050</td>
+<td style="text-align: right;">2.5781832</td>
+<td style="text-align: right;">-3.1213581</td>
+<td style="text-align: right;">-0.6940512</td>
+<td style="text-align: right;">3.491613</td>
+<td style="text-align: right;">7.2668</td>
+<td style="text-align: right;">3.352101</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4.197914</td>
-<td style="text-align: right;">5.057397</td>
-<td style="text-align: right;">5.161109</td>
-<td style="text-align: right;">2.644283</td>
-<td style="text-align: right;">1.3813942</td>
-<td style="text-align: right;">-2.7388183</td>
-<td style="text-align: right;">-0.8079912</td>
-<td style="text-align: right;">3.676003</td>
-<td style="text-align: right;">7.899927</td>
-<td style="text-align: right;">3.452274</td>
+<td style="text-align: right;">5.147495</td>
+<td style="text-align: right;">5.601330</td>
+<td style="text-align: right;">2.780765</td>
+<td style="text-align: right;">1.6558822</td>
+<td style="text-align: right;">-1.6654701</td>
+<td style="text-align: right;">-0.5713362</td>
+<td style="text-align: right;">3.491613</td>
+<td style="text-align: right;">7.2668</td>
+<td style="text-align: right;">3.352101</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4.197914</td>
-<td style="text-align: right;">2.577875</td>
-<td style="text-align: right;">7.559273</td>
-<td style="text-align: right;">3.197373</td>
-<td style="text-align: right;">-1.0981278</td>
-<td style="text-align: right;">-0.3406543</td>
-<td style="text-align: right;">-0.2549012</td>
-<td style="text-align: right;">3.676003</td>
-<td style="text-align: right;">7.899927</td>
-<td style="text-align: right;">3.452274</td>
+<td style="text-align: right;">3.030506</td>
+<td style="text-align: right;">7.028050</td>
+<td style="text-align: right;">3.171859</td>
+<td style="text-align: right;">-0.4611068</td>
+<td style="text-align: right;">-0.2387501</td>
+<td style="text-align: right;">-0.1802422</td>
+<td style="text-align: right;">3.491613</td>
+<td style="text-align: right;">7.2668</td>
+<td style="text-align: right;">3.352101</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4.197914</td>
-<td style="text-align: right;">3.365455</td>
-<td style="text-align: right;">12.720338</td>
-<td style="text-align: right;">4.634817</td>
-<td style="text-align: right;">-0.3105478</td>
-<td style="text-align: right;">4.8204107</td>
-<td style="text-align: right;">1.1825428</td>
-<td style="text-align: right;">3.676003</td>
-<td style="text-align: right;">7.899927</td>
-<td style="text-align: right;">3.452274</td>
+<td style="text-align: right;">1.783024</td>
+<td style="text-align: right;">10.149058</td>
+<td style="text-align: right;">4.188285</td>
+<td style="text-align: right;">-1.7085888</td>
+<td style="text-align: right;">2.8822579</td>
+<td style="text-align: right;">0.8361838</td>
+<td style="text-align: right;">3.491613</td>
+<td style="text-align: right;">7.2668</td>
+<td style="text-align: right;">3.352101</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df_example1, <span class="at">file =</span> <span class="st">"data/df_example1.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df_example1, <span class="at">file =</span> <span class="st">"../data/df_example1.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt haben wir einen Datensatz mit den unzentrierten / Rohvariablen der Skalen (ohne Suffix), den zentrierten Variablen (Suffix <code>_dm</code>) und den Mittelwerten der Personen (Suffix <code>_gm</code>), den wir zur weiteren Verwendung auch abspeichern.</p>
-<p>Übung:</p>
-<p>Erstellt eine Korrelationstabelle von den Variablen w, x, m, und y mit Mittelwerten, Standardabweichungen, ICC, und Within/Between-Korrelationen wie in Kapitel 1a gezeigt.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(franzpak)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cortable_multilevel</span>(...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 </section>
 
@@ -334,8 +328,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -446,7 +438,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

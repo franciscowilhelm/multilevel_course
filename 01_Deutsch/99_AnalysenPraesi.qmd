@@ -1,0 +1,205 @@
+---
+title: "Analysen aus Praesentation"
+format:
+  html:
+    toc: true
+    number-sections: true
+    highlight-style: github
+editor: visual
+---
+
+## Quarto
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(haven, psych,
+               sjmisc, sjPlot, writexl, lmerTest,
+               tidyverse, multilevelTools, parameters)
+```
+
+## MLM-Motivierendes Beispiel
+
+```{r}
+load("../data/df_example1.RData")
+load("../data/df_example1c.RData")
+
+df_example1d <- read.table(file = "../data_simulation/example1drep2.dat", header = FALSE, 
+        na.strings = "*", strip.white = TRUE) |> as_tibble()
+names(df_example1d) <- c("w", "y", "x", "id")
+df_example1d <- df_example1d |> select(id, everything())
+
+df_example1d <- df_example1d |>
+  mutate(id = as.factor(id)) |> 
+  de_mean(y, x, grp = "id")
+```
+
+## Variante 1: Klassisches lineares Modell ohne Berücksichtigung der hierarchischen Datenstruktur
+
+```{r}
+v1_results <- lm(y ~ x, df_example1d)
+model_parameters(v1_results) |> print_html()
+
+df_example1d |> 
+    mutate(id = as.factor(id)) |> 
+    ggplot(aes(x = x, y = y)) + 
+    geom_point(aes(color = id)) +
+    geom_smooth(method = lm)
+ggsave("Plots/01_standardlm_idseingefärbt.png", width = 10, height = 7)
+
+# zeigt nur 50 - der übersicht halber
+```
+
+## Variante 2: Personen-Mittelwerte
+
+```{r}
+df_personlevel <- df_example1d |> group_by(id) |> 
+  summarise(across(c(y,x), mean))
+
+v2_results <- lm(y ~ x, df_personlevel)
+model_parameters(v2_results) |> print_html()
+```
+
+Grossere Standardfehler / Konfidenzintervalle
+
+## Variante 3: Mehrebenen-Modell
+
+```{r}
+ri.fs_modell <- lmer(y ~ x_dm + x_gm + (1 | id), data = df_example1d)
+model_parameters(ri.fs_modell) |> print_html()
+
+
+df_example1d |>
+  filter(id %in% 1:20) |> 
+    mutate(id = as.factor(id)) |> 
+    ggplot(aes(x = x, y = y)) + 
+    geom_point(aes(color = id)) +
+    geom_smooth(method = lm, se = FALSE, size = 1.5) +
+    geom_smooth(aes(color = id), method = lm, se = FALSE, alpha = 0.2)
+
+ggsave("Plots/01_mlm_individuelleregression.png", width = 10, height = 7)
+
+
+df_example1d_withpred <- df_example1d %>%
+  mutate(predicted = predict(ri.fs_modell))
+
+# Plot raw data and regression line
+df_example1d_withpred |> 
+  filter(id %in% 1:4) |> 
+  ggplot(aes(x = x, y = y, color = id)) +
+  geom_point() +  # Raw data points
+  geom_line(aes(y = predicted), size = 1.2) +  # Regression line from the model
+  labs(title = "Multilevel Model with Raw Data and Regression Line",
+       x = "X Variable",
+       y = "Y Variable") +
+    facet_wrap(vars(id))
+ggsave("Plots/01_fixedsloperandomintercept.png", width = 10, height = 7)
+
+```
+
+```{r}
+ri.rs_modell <- lmer(y ~ x_dm + x_gm + (x_dm + 1 | id), data = df_example1d)
+df_example1d_withpredrs <- df_example1d %>%
+  mutate(predicted = predict(ri.rs_modell))
+# Plot raw data and regression line
+df_example1d_withpredrs |> 
+  filter(id %in% 1:12) |> 
+  ggplot(aes(x = x, y = y, color = id)) +
+  geom_point() +  # Raw data points
+  geom_line(aes(y = predicted), size = 1.2) +  # Regression line from the model
+  labs(title = "Multilevel Model with Raw Data and Regression Line",
+       x = "X Variable",
+       y = "Y Variable") +
+    facet_wrap(vars(id))
+
+ggsave("Plots/01_randomsloperandomintercept.png", width = 10, height = 7)
+```
+
+Separat pro Person
+
+```{r}
+df_example1d |>
+    filter(id %in% 1:4) |>
+  mutate(time = rep(1:10, 4)) |> 
+    mutate(id = as.factor(id)) |> 
+    ggplot(aes(x = time, y = y, group = id, color = id)) + 
+    geom_point() +
+    geom_smooth(method = lm) +
+    facet_wrap(vars(id))
+ggsave("Plots/01_separat_zeit.png", width = 10, height = 7)
+```
+
+```{r}
+sep_plot <- function(df, y, x, idvar, idnum) {
+  df |>
+    filter(!!sym(idvar) %in% idnum) |> 
+    mutate(!!sym(idvar) := as.factor(!!sym(idvar))) |> 
+    ggplot(aes(x = x, y = y, group = !!sym(idvar), color = !!sym(idvar))) + 
+    geom_point() +
+    geom_smooth(method = lm) +
+    facet_wrap(vars(!!sym(idvar)))
+}
+
+sep_plot(df_example1d, "y", "x", "id", 1:4)
+ggsave("Plots/01_separat_yx.png", width = 10, height = 7)
+```
+
+## Sample Paper
+
+### Einlesen
+
+```{r}
+df_example_cli <- read.table(file = "../data_simulation/example_cli1.dat", header = FALSE, 
+        na.strings = "999.000000", strip.white = TRUE) |> as_tibble()
+names(df_example_cli) <- c("w", "y", "x", "pattern", "id")
+df_example_cli <- df_example_cli |> select(id, everything())
+
+df_example_cli <- df_example_cli |> 
+  de_mean(y, x, w, grp = "id")
+
+df_example_cli <- df_example_cli |> 
+  group_by(id) |> 
+  mutate(
+    y_dm_l1 = lag(y_dm),
+    day = 1:10
+  )
+
+df_example_cli <- df_example_cli |> filter(!is.na(y)) |> ungroup()
+
+df_example_cli <- df_example_cli |> sjlabelled::var_labels(y = "Daily Negative Affect", y_dm_l1 = "Previous-day Negative Affect", x_dm = "Daily Illegitimate Tasks", x_gm = "Illegitimate Tasks (average)", w = "Coworker support")
+
+save(df_example_cli, file = "../data/df_example_cli.RData")
+```
+
+### Analysis
+
+```{r}
+library(franzpak)
+cortable_integriert2 <- cortable_multilevel(df_example_cli,
+                                            varnames = c("w", "y", "x"),
+                                            grp = "id")
+
+cortable_integriert2 |> kableExtra::kable()
+```
+
+```{r}
+ri.rs_modell <- lmer(y ~ x_dm + x_gm + y_dm_l1 + (1 + x_dm | id), data = df_example_cli)
+model_parameters(ri.rs_modell) |> print_html(pretty_names = "labels")
+```
+
+```{r}
+cli_model <- lmer(y ~ x_dm + x_gm + y_dm_l1 + w + w*x_dm + (1 + x_dm | id), data = df_example_cli)
+model_parameters(cli_model) |> print_html(pretty_names = "labels")
+```
+
+```{r}
+plot_model(cli_model, type = "int", terms = c("x_dm", "w"))
+ggsave("Plots/examplepaper_CLI.png", width = 7, height = 5)
+```
+
+### Export to Excel table
+
+```{r}
+# cortable_integriert2 |> writexl::write_xlsx()
+# h1_modelsummary <- model_parameters(ri.rs_modell)
+# h2_modelsummary <- model_parameters(cli_model)
+```

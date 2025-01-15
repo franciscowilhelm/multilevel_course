@@ -17,66 +17,101 @@ pacman::p_load(haven, psych,
 ## Daten einlesen
 
 ```{r}
-df_example2 <- read.table(file = "data_simulation/example2rep1.dat", header = FALSE, 
-        na.strings = "*", strip.white = TRUE) |> as_tibble()
-names(df_example2) <- c("w1", "w2", "w3", "w4", "w5",
-                        "a1", "a2", "a3", "a4", "a5", "b1", "b2", "b3", "b4", "b5", "c1", "c2", "c3", "id")
-df_example2 <- df_example2 |> mutate(t = rep(1:10, 100)) |> select(id, t, everything())
-
+load("../data/df_cfa_wide.RData")
 # add day here or already in data generation
-
 ```
 
 
-### Reliabilitätsanalyse
+## Daten ansehen
 
-Die Reliabilitätsanalyse basiert auf den Items, nicht auf den Skalenwerten.
-
-Bei Skalen aus der Daily Erhebung nehmen wir die `omegaSEM()` Funktion. Als erstes Argument geben wir die Items in einem Character-Vector mittels `c()`, die Items werden mit Anführungszeichen angegeben. Falls ihr die Itemnamen nicht wisst, könnt ihr sie mit `names(df_items)` nachsehen.
+Der Datensatz hat 131 (!) Spalten (`ncol()`) und 100 Zeilen (`nrow()`) (eine pro Person). Aufgrund des breiten Datenformats gibt es so viele Spalten, da jeder Tag (1-10 Tage) von jeder Variable seine eigene Spalte bekommt.
+Wie wir mit `names()` sehen, gibt es die Variablen id für die Personidentifikation (jede Person hat ihre eigene Nummer), a1-a5, b1-b5, und c1-c3. w,a,b und c bilden jeweils eine Skala mit 5 bzw. bei c 3 Indikatoren.
+Mit `head()` können wir einen Blick in die Daten werfen.
 
 ```{r}
-names(df_example2)
-scalea_reliab <- multilevelTools::omegaSEM(c("a1", "a2", "a3", "a4", "a5"), "id", df_example2)
-scalea_reliab$Results
+ncol(df_cfa_wide)
+nrow(df_cfa_wide)
+names(df_cfa_wide)
+head(df_cfa_wide)
 ```
-Hier erscheint meist eine Warnung, weil nicht alle Personen (cluster) Varianz auf den Items haben. Dies koennen wir ignorieren.
-In den simulierten Daten, die wir verwenden, ist dies jedoch nicht der Fall.
-Dann koennen wir den Output ansehen. Omega_within und Omega_between sollten über .70 liegen für eine gute Reliabilität auf beiden Leveln.
+
+## Daten transformieren: Langformat
+
+Als erstes transformieren wir die Daten vom Breit- ins Langformat, so dass jede Messung (Tag 1-Tag 10) eine eigene Zeile bekommt.
+Im ersten Schritt machen wir den Datensatz seehr lang, es bekommt nämlich jede Messung von jeder Variable ihre eigenen Zeile.
+Wir machen den Datensatz dann im zweiten Schritt wieder etwas breiter mit dem Ziel, eine Zeile pro Person und Tag zu bekommen, und jeweils eine Spalte pro Item.
+
+Die Funktionsweise von pivot_longer() und pivot_wider() ist in https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping beschrieben.
 
 ```{r}
-scaleb_reliab <- multilevelTools::omegaSEM(c("b1", "b2", "b3", "b4", "b5"), "id", df_example2)
-scaleb_reliab$Results
+
+df_cfa_superlong <- df_cfa_wide |> 
+  pivot_longer(
+    cols = -id, # All columns except id
+    names_to = c("variable", "time"),
+    names_sep = "_t"
+  ) 
+
+df_cfa_long <- df_cfa_superlong |> 
+  pivot_wider(names_from = variable,
+              values_from = value) |> 
+  mutate(time = as.numeric(time)) # time geht von 1-10, wurde aber zuvor als Charakter abgespeichert
+
 ```
+
+## Daten transformieren: Skalenscores erstellen
+
+Als nächstes können wir die Skalenscores erstellen.
 
 ```{r}
-scalec_reliab <- multilevelTools::omegaSEM(c("c1", "c2", "c3"), "id", df_example2)
-scalec_reliab$Results
+df_cfa_long_scores <- df_cfa_long |> group_by(id, time) |> 
+  summarise(
+    a = rowMeans(across(starts_with("a")), na.rm = TRUE),
+    b = rowMeans(across(starts_with("b")), na.rm = TRUE),
+    c = rowMeans(across(starts_with("c")), na.rm = TRUE),
+    .groups = "drop" # group_by() wieder aufheben für den finalen Datensatz
+  )
 ```
 
-Für eine genauere Auswertung können wir `omegaSEM()` mit dem Parameter `savemodel = TRUE` laufen lassen und uns mittels `summary()` die konfirmatorische Faktoranalyse genauer ansehen.
-Zudem können wir uns mit `lavInspect()` die Modellparameter ansehen, um zu verstehen wie die Reliabilitätskoeffizient gebildet wird.
+
+## Daten transformieren: Zentrierung
+
+Für die spätere Verwendung zerlegen wir die Rohvariablen mittels person-mean Zentrierung.
+Wir zentrieren wir die Skalenvariablen, die täglich gemessen werden (aber nicht Baseline-Variablen), mittels `de_mean()`. de_mean() nimmt als Argumente (a) mit Komma getrennte Namen der Variablen, die wir zentrieren wollen (mehrere auf einmal ist möglich), (b) mittels grp Argument die identifizierende Variable für die Gruppenzugehörigkeit.
+
 
 ```{r}
-scaleb_reliab <- multilevelTools::omegaSEM(c("b1", "b2", "b3", "b4", "b5"), "id", df_example2, savemodel = TRUE)
-scaleb_reliab$Fit |> summary(fit = TRUE, stand = TRUE)
-lavaan::lavInspect(scaleb_reliab$Fit, "list") # alternatively, parTable()
+df_cfa_long_scores <- df_cfa_long_scores |> 
+  de_mean(a,b, c, grp = "id")
+head(df_cfa_long_scores)
+
 ```
 
+Als Ergebnis erhalten wir die zusätzlichen Variablen a, b, c jeweils mit "_dm" und "_gm". Was verbirgt sich dahinter? 
+Wir haben einen Datensatz mit den unzentrierten / Rohvariablen der Skalen (ohne Suffix), den zentrierten Variablen (Suffix `_dm`) und den Mittelwerten der Personen (Suffix `_gm`), den wir zur weiteren Verwendung auch abspeichern.
 
-### Reliabilitaeten Level-2 Skalen
 
-Für die Baseline-Variablen verwenden wir die Funktion `alpha()` aus dem `psych` Paket. Als Argument nimmt die Funktion hier (a) den Datensatz und (b) die Variablennamen der Items der Skala in einem Vektor `c()`. Revers kodierte Items werden mit einem "-" als Präfix eingetragen (z.B. "-reversitem_1").
+Damit ist die Transformation der Daten abgeschlossen! Wir können den Datensatz nun abspeichern.
 
-Der Datensatz muss hier angepasst werden. Aktuell haben wir eine Zeile pro tägliche Messung. Da die Funktion alpha es nicht berücksichtigt, dass es sich hier um genestete Daten handelt (100 Personen x 10 Tage), müssen wir den Datensatz so transformieren, dass wir nur einen Wert pro Person haben. 
 ```{r}
-# create dataframe that has one row per person
-df_w <- df_example2 |> select(id, c("w1", "w2", "w3", "w4", "w5")) |>
-  group_by(id) |> 
-  summarise(across(everything(), ~mean(.x, na.rm = TRUE))) # we use mean as a shortcut, useful when we have missing data
-w_reliab <- psych::alpha(df_w, keys = list(w = c("w1", "w2", "w3", "w4", "w5")))
-print(w_reliab)
+save(df_cfa_long_scores, file = "../data/df_cfa_long_scores.RData")
 ```
-Wir erhalten umfangreiche Angaben zur Reliabilität. Wichtig ist der Alpha-Wert der Gesamtskala (std.alpha). Dieser ist im Beispiel > .70.
+
+
+## Überprüfe dein Verständnis
+
+```{r}
+df_cfa_long_scores |> filter(id == 1) |> select(id, time, a, a_dm, a_gm)
+```
+
+Warum ist der Wert für a_gm  in jeder Zeile gleich, nicht aber für a_dm und a? 
+Wie müsste man a_dm und a_gm zusammensetzen, damit man auf a kommt?
+
+## Übung
+
+
+
+
 
 ## Skalenbildung
 
