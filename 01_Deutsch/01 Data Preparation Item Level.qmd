@@ -1,0 +1,161 @@
+---
+title: "Kapitel 1a: Datenaufbereitung Item Level"
+format:
+  html:
+    df-print: kable
+editor: source
+---
+
+## Pakete installieren und laden
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(haven, psych,
+               sjmisc, sjPlot, writexl,
+               tidyverse, multilevelTools)
+```
+
+
+## Daten einlesen
+
+```{r}
+load("../data/df_cfa_wide.RData")
+```
+
+
+## Daten ansehen
+
+Der Datensatz hat 131 (!) Spalten (`ncol()`) und 100 Zeilen (`nrow()`) (eine pro Person). Aufgrund des breiten Datenformats gibt es so viele Spalten, da jeder Tag (1-10 Tage) von jeder Variable seine eigene Spalte bekommt.
+Wie wir mit `names()` sehen, gibt es die Variablen id für die Personidentifikation (jede Person hat ihre eigene Nummer), a1-a5, b1-b5, und c1-c3. w,a,b und c bilden jeweils eine Skala mit 5 bzw. bei c 3 Indikatoren.
+Mit `head()` können wir einen Blick in die Daten werfen.
+
+```{r}
+ncol(df_cfa_wide)
+nrow(df_cfa_wide)
+names(df_cfa_wide)
+head(df_cfa_wide)
+```
+
+## Daten transformieren: Langformat
+
+Als erstes transformieren wir die Daten vom Breit- ins Langformat, so dass jede Messung (Tag 1-Tag 10) eine eigene Zeile bekommt. Diese Variable nennen wir "time".
+Im ersten Schritt machen wir mit `pivot_longer()` den Datensatz seehr lang, es bekommt nämlich jede Messung von jeder Variable ihre eigenen Zeile.
+Wir machen den Datensatz dann im zweiten Schritt mit `pivot_wider()`  wieder etwas breiter mit dem Ziel, eine Zeile pro Person und Tag zu bekommen, und jeweils eine Spalte pro Item.
+
+Die Funktionsweise von pivot_longer() und pivot_wider() ist in der [Einführung zu R](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping) beschrieben.
+
+```{r}
+
+df_cfa_superlong <- df_cfa_wide |> 
+  pivot_longer(
+    cols = -id, # All columns except id
+    names_to = c("variable", "time"),
+    names_sep = "_t"
+  ) 
+
+df_cfa_long <- df_cfa_superlong |> 
+  pivot_wider(names_from = variable,
+              values_from = value) |> 
+  mutate(time = as.numeric(time)) # time ist eine Zahl von 1-10, wurde aber zuvor als Character-Vector abgespeichert
+
+```
+
+## Daten transformieren: Skalenscores erstellen
+
+Als nächstes können wir die Skalenscores erstellen.
+
+```{r}
+df_cfa_long_scores <- df_cfa_long |> group_by(id, time) |> 
+  summarise(
+    a = rowMeans(across(starts_with("a")), na.rm = TRUE),
+    b = rowMeans(across(starts_with("b")), na.rm = TRUE),
+    c = rowMeans(across(starts_with("c")), na.rm = TRUE),
+    .groups = "drop" # group_by() wieder aufheben für den finalen Datensatz
+  )
+```
+
+Wir verwenden eine simple Form der Skalenerstellung bei dem der Mittelwert aller vorhandenen Items einer Skala verwendet wird.
+(Best-practice ist es bei fehlenden Daten genau hinzuschauen und nur dann einen Skalenwert zu erstellen, wenn die Personen zu einen gewissen Prozentsatz aller Items eine Antwort geben (etwa 2/3). Eine solche Funktion könnten wir programmieren, lassen es aber für das Beispiel weg.)
+
+## Daten transformieren: Zentrierung
+
+Für die spätere Verwendung zerlegen wir die Rohvariablen mittels person-mean Zentrierung.
+Wir zentrieren wir die Skalenvariablen, die täglich gemessen werden (aber nicht Baseline-Variablen), mittels `de_mean()`. `de_mean()` nimmt als Argumente (a) mit Komma getrennte Namen der Variablen, die wir zentrieren wollen (mehrere auf einmal ist möglich), (b) mittels `grp = ` Argument die identifizierende Variable für die Gruppenzugehörigkeit in Anführungszeichen (`"id"`.
+
+```{r}
+df_cfa_long_scores <- df_cfa_long_scores |> 
+  de_mean(a,b, c, grp = "id")
+head(df_cfa_long_scores)
+
+```
+
+Als Ergebnis erhalten wir die zusätzlichen Variablen a, b, c jeweils mit "_dm" und "_gm". Was verbirgt sich dahinter? 
+Wir haben einen Datensatz mit den unzentrierten / Rohvariablen der Skalen (ohne Suffix), den zentrierten Variablen (Suffix `_dm`) und den Mittelwerten der Personen (Suffix `_gm`), den wir zur weiteren Verwendung auch abspeichern.
+
+Damit ist die Transformation der Daten abgeschlossen! Wir können die Datensätze - "df_cfa_long" für die Items und "df_cfa_long_scores" für die Skalen nun abspeichern.
+
+```{r}
+save(df_cfa_long, df_cfa_long_scores, file = "../data/df_cfa_long.RData")
+```
+
+## Überprüfe dein Verständnis
+
+```{r}
+df_cfa_long_scores |> 
+  filter(id == 1) |> 
+  select(id, time, a, a_dm, a_gm)
+```
+
+Warum ist der Wert, den Person 1 in  "a_gm" hat, in jeder Zeile gleich, nicht aber bei "a_dm" und "a"? 
+Wie müsste man a_dm und a_gm zusammensetzen, damit man auf a kommt?
+
+## Übung Datenaufbereitung
+
+Schau dir den Datensatz an und repliziere die Schritte oben:
+
+1) Daten in Langformat transformieren und als `df_uebung_lang <-` zuweisen. 
+2) Skalenscores für x und y erstellen und als `df_uebung_lang_scores <-` zuweisen.
+3) Skalenscores für x und y zentrieren (weiterhin in `df_uebung_lang_scores`).
+
+```{r}
+# laden
+load("../data/df_cfa_exercise.RData")
+
+# 1. Daten in Langformat transformieren - funktionen: pivot_longer(), pivot_wider()
+df_uebung_superlang <- df_cfa_exercise |> 
+  pivot_longer(
+    cols = -id, # All columns except id
+    names_to = c("variable", "time"),
+    names_sep = "_t"
+  ) 
+df_uebung_lang <- df_uebung_superlang |> 
+  pivot_wider(names_from = variable,
+              values_from = value) |> 
+  mutate(time = as.numeric(time)) 
+
+# 2. Skalenscores für X und Y erstellen - funktionen: group_by(), summarise()
+df_uebung_lang_scores <- df_uebung_lang |> group_by(id, time) |> 
+  summarise(
+    x = rowMeans(across(starts_with("x")), na.rm = TRUE),
+    y = rowMeans(across(starts_with("y")), na.rm = TRUE),
+    .groups = "drop" # group_by() wieder aufheben für den finalen Datensatz
+  )
+
+# 3. Skalenscores für X und Y zentrieren - Funktionen: de_mean()
+df_uebung_lang_scores <- df_uebung_lang_scores |> 
+  de_mean(x, y, grp = "id")
+
+
+head(df_uebung_lang_scores)
+```
+
+
+## Abspeichern der gebildeten Skalen
+
+Zum Schluss speichern wir die Ergebnisse (sowohl die Items als auch die Skalen in Langformat) der Übung ab.
+
+```{r}
+#| eval: false
+save(df_uebung_lang, df_uebung_lang_scores, file = "../data/df_uebung.RData")
+```
+

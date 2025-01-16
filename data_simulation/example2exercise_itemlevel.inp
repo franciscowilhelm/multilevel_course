@@ -1,0 +1,89 @@
+TITLE: multilevel item generation (MCFA)
+
+MONTECARLO:
+    NAMES = x1-x5 y1-y5 w1-w5;
+    BETWEEN = w1-w5;
+    nobservations = 1000;
+    ncsizes = 1;
+    csizes = 100 (10);
+    nreps = 1;
+    SEED = 42;
+	REPSAVE = ALL; SAVE = example2b_exercise_rep*.dat;
+
+ANALYSIS: 
+    TYPE = TWOLEVEL RANDOM;
+    ESTIMATOR = BAYES; FBITER = 800;
+
+MODEL POPULATION: 
+    %WITHIN%
+    ! factor definitions
+    xw BY x1*0.6 x2-x5*0.6;
+    yw BY y1*0.35 y2-y5*0.30;
+    ! factor variances
+    xw@1; yw@1;
+
+    ! (residual) item variances
+    x1-x5*.65; y1-y5*.85;
+
+    ! covariances of factors at within level
+    xw WITH yw*.05;
+
+    %BETWEEN%
+    ! factor definitions
+    xb BY x1*0.6 x2-x5*0.7;
+    yb BY y1*0.6 y2-y5*0.7;
+    w BY w1-w5*0.7;
+    ! factor variances
+    xb@1; yb@1; w@1;
+
+    ! (residual) item variances
+    x1-x5*.35; y1-y5*.40;
+    w1-w5*.45;
+
+    ! covariances of factors at between level
+    xb WITH yb*.35;
+    xb WITH w*.2; yb WITH w*.15;
+
+    ! item intercepts
+    [x1-x5*3];
+    [y1-y5*2];
+    [w1-w5*3.5];
+
+MODEL: 
+    %WITHIN%
+    ! factor definitions
+    xw BY x1*0.6 x2-x5*0.6;
+    yw BY y1*0.6 y2-y5*0.6;
+    ! factor variances
+    xw@1; yw@1;
+
+    ! (residual) item variances
+    x1-x5*.65; y1-y5*.65;
+
+    ! covariances of factors at within level
+    xw WITH yw*.25;
+
+    %BETWEEN%
+    ! factor definitions
+    xb BY x1*0.6 x2-x5*0.7;
+    yb BY y1*0.6 y2-y5*0.7;
+    w BY w1-w5*0.7;
+    ! factor variances
+    xb@1; yb@1; w@1;
+
+    ! (residual) item variances
+    x1-x5*.35; y1-y5*.40;
+    w1-w5*.45;
+
+    ! covariances of factors at between level
+    xb WITH yb*.35;
+    xb WITH w*.2; yb WITH w*.15;
+
+    ! item intercepts
+    [x1-x5*3];
+    [y1-y5*2];
+    [w1-w5*3.5];
+
+
+output:
+		tech9 stdyx;

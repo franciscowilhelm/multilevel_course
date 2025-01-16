@@ -1,0 +1,20 @@
+---
+title: "Addendum Zwischen-Person Variablen"
+format: html
+---
+
+## Reliabilitäten Level-2 Skalen
+
+Für die Baseline-Variablen verwenden wir die Funktion `alpha()` aus dem `psych` Paket. Als Argument nimmt die Funktion hier (a) den Datensatz und (b) die Variablennamen der Items der Skala in einem Vektor `c()`. Revers kodierte Items werden mit einem "-" als Präfix eingetragen (z.B. "-reversitem_1").
+
+Der Datensatz muss hier angepasst werden. Aktuell haben wir eine Zeile pro tägliche Messung. Da die Funktion alpha es nicht berücksichtigt, dass es sich hier um genestete Daten handelt (100 Personen x 10 Tage), müssen wir den Datensatz so transformieren, dass wir nur einen Wert pro Person haben. 
+```{r}
+# create dataframe that has one row per person
+df_w <- df_example2 |> select(id, c("w1", "w2", "w3", "w4", "w5")) |>
+  group_by(id) |> 
+  summarise(across(everything(), ~mean(.x, na.rm = TRUE))) # we use mean as a shortcut, useful when we have missing data
+w_reliab <- psych::alpha(df_w, keys = list(w = c("w1", "w2", "w3", "w4", "w5")))
+print(w_reliab)
+```
+Wir erhalten umfangreiche Angaben zur Reliabilität. Wichtig ist der Alpha-Wert der Gesamtskala (std.alpha). Dieser ist im Beispiel > .70.
+

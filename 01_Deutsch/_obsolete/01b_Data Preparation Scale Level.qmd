@@ -1,0 +1,59 @@
+---
+title: "Kapitel 1a: Datenaufbereitung Skalen-Level"
+format:
+  html:
+    df-print: kable
+editor: source
+---
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(haven, psych,
+               sjmisc, sjPlot, writexl,
+               tidyverse, multilevelTools)
+```
+
+## Reading example data
+
+In diesem Beispiel sind die Skalen bereits erstellt und Daten auf der Item-Ebene werden nicht benötigt.
+
+```{r}
+df_example1 <- read.table(file = "../data_simulation/example1rep2.dat", header = FALSE, 
+        na.strings = "*", strip.white = TRUE) |> as_tibble()
+names(df_example1) <- c("y", "x", "m", "id")
+df_example1 <- df_example1 |> select(id, everything())
+```
+
+## Scale-level dataset
+
+### Zentrierung
+
+Für die spätere Verwendung zerlegen wir die Rohvariablen mittels person-mean Zentrierung.
+Wir zentrieren wir die Skalenvariablen, die täglich gemessen werden (aber nicht Baseline-Variablen), mittels `de_mean()`. de_mean() nimmt als Argumente (a) mit Komma getrennte Namen der Variablen, die wir zentrieren wollen (mehrere auf einmal ist möglich), (b) mittels grp Argument die identifizierende Variable für die Gruppenzugehörigkeit. Setzt entsprechend die interessierende täglichen Variablen ein.
+
+```{r}
+df_example1 <- df_example1 |> 
+  de_mean(y, m, x, grp = "id")
+head(df_example1)
+
+save(df_example1, file = "../data/df_example1.RData")
+```
+
+Jetzt haben wir einen Datensatz mit den unzentrierten / Rohvariablen der Skalen (ohne Suffix), den zentrierten Variablen (Suffix `_dm`) und den Mittelwerten der Personen (Suffix `_gm`), den wir zur weiteren Verwendung auch abspeichern.
+
+
+## Beispiel 2: Mit Cross-Level Moderator
+
+```{r}
+df_example1c <- read.table(file = "../data_simulation/example1crep2.dat", header = FALSE, 
+        na.strings = "*", strip.white = TRUE) |> as_tibble()
+names(df_example1c) <- c("w", "y", "x", "m", "id")
+df_example1c <- df_example1c |> select(id, everything())
+
+df_example1c <- df_example1c |> 
+  de_mean(y, m, x, grp = "id")
+head(df_example1c)
+
+save(df_example1c, file = "../data/df_example1c.RData")
+```
+
