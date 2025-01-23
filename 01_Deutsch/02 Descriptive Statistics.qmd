@@ -1,5 +1,5 @@
 ---
-title: "Deskriptive Analysen und Überprüfung von Voraussetzungen"
+title: "Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen"
 format:
   html:
     df-print: kable
@@ -24,7 +24,7 @@ pacman::p_load(haven, psych,
 ```{r}
 load("../data/df_cfa_long.RData")
 
-df_cfa_long_scores
+head(df_cfa_long_scores)
 ```
 Schauen wir uns nochmal die Datenstruktur unseres aufbereiteten Datensatzes an.
 Wir haben die Variablen:
@@ -65,10 +65,10 @@ Alle Skalen im Beispiel haben ICCs in einem angemessenen Bereich (<.80). Dies he
 
 ## Reliabilitätsanalyse
 
-Die Reliabilitätsanalyse basiert auf den Items, nicht auf den Skalenwerten. Diese haben wir im df_cfa_long Dataframe abgespeichert.
+Die Reliabilitätsanalyse basiert auf den Items, nicht auf den Skalenwerten. Diese haben wir im `df_cfa_long` Dataframe abgespeichert.
 
 ```{r}
-df_cfa_long
+head(df_cfa_long)
 ```
 
 Bei Skalen aus der Daily Erhebung nehmen wir die `omegaSEM()` Funktion. Als erstes Argument geben wir die Items in einem Character-Vector mittels `c()`, die Items werden mit Anführungszeichen angegeben. Falls ihr die Itemnamen nicht wisst, könnt ihr sie mit `names(df_cfa_long)` nachsehen.
@@ -166,6 +166,7 @@ cortable_integriert
 Wir exportieren die Korrelationstabelle nach Excel mittels `write_xlsx()`.
 
 ```{r}
+# eval: false
 write_xlsx(cortable_integriert, path = "korrelationstabelle.xlsx")
 ```
 
@@ -177,12 +178,12 @@ Wendet diese Schritte nun auf den Datensatz aus der letzten Übung an. Zunächst
 
 ```{r}
 load("../data/df_uebung.RData")
-df_uebung_lang
+head(df_uebung_lang)
 
 ```
 
 ```{r}
-df_uebung_lang_scores
+head(df_uebung_lang_scores)
 ```
 
 ### ICC
@@ -190,6 +191,9 @@ df_uebung_lang_scores
 Berechnet den ICC für X und Y mittels `statsBy()` und analysiert die Angaben:
 
 - Weisen die Skalen X und Y hinreichend Varianz auf der Inner-Person-Ebene auf, um sie mittels Mehrebenen-Modelle zu analysieren? Begründet eure Antwort.
+
+:::{.callout-tip collapse="true"}
+### Lösung
 
 ```{r}
 mehrebenen_stats <- df_uebung_lang_scores |> 
@@ -200,6 +204,7 @@ print(mehrebenen_stats)
 # oder
 mehrebenen_stats$ICC1
 ```
+:::
 
 ### Reliabilitsätsanalyse
 
@@ -207,6 +212,9 @@ Berechnet die Omega-Within und Omega-Between Reliabilitäten für X und Y mittel
 
 - Weisen die Skalen X und Y hinreichende Omega-Werte auf, um Inner-Person Unterschiede reliabel zu messen? Begründet eure Antworten.
 - Weisen die Skalen X und Y hinreichend Omega-Werte auf, um Zwischen-Person Unterschiede reliabel zu messen? Begründet eure Antworten.
+
+:::{.callout-tip collapse="true"}
+### Lösung
 
 
 ```{r}
@@ -218,24 +226,40 @@ scalex_reliab$Results
 scaley_reliab <- multilevelTools::omegaSEM(c("y1", "y2", "y3", "y4", "y5"), "id", df_uebung_lang)
 scaley_reliab$Results
 ```
-
+:::
 
 ### Integration in Korrelationstabelle
 
 Erstellt eine Korrelationstabelle von den Variablen w, x, m, und y mit Mittelwerten, Standardabweichungen, ICC, und Within/Between-Korrelationen wie in Kapitel 1a gezeigt.
 
+:::{.callout-tip collapse="true"}
+### Lösung
+
 ```{r}
 cortable_integriert_uebung <- franzpak::cortable_multilevel(df_uebung_lang_scores, c("x", "y"), grp = "id")
 cortable_integriert_uebung
 ```
+:::
 
 Basierend auf euren Analysen zu ICC, Reliabilitsätsanalysen, und der Betrachtung der Korrelationstabelle, beantwortet folgende Fragen:
 
 - Wie fällt die Korrelation zwischen X und Y auf Zwischen-Person Ebene aus? Ist es basierend auf der Prüfungen der Voraussetzungen (ICCs, Reliabilitäten) sinnvoll, diese zu interpretieren?
 - Wie fällt die Korrelation zwischen X und Y auf Inner-Person Ebene aus? Ist es basierend auf der Prüfungen der Voraussetzungen (ICCs, Reliabilitäten) sinnvoll, diese zu interpretieren?
 
+:::{.callout-tip collapse="true"}
+### Lösung
 
-# Zusatz
+#### Zwischen-Person Ebene
+Die Korrelation zwischen X und Y beträgt r = .28 und ist signifikant. Die Reliabilität auf Level-2/ Zwischen-Person Ebene, durch omega_between angegeben, ist für X und Y gut (> .80).
+Die ICCs weisen auf ausreichend Varianz auf Zwischen-Person Ebene hin (53%-69%). Daher ist sie sinnvoll zu interpretieren. DIe Variablen sind moderat positiv miteinander assoziiert.
+
+#### Inner-Person Ebene
+Für Y, auch wenn es durchaus Varianz auf Inner-Person Ebene gibt (ICC = .69, damit sind 31% der Varianz auf Inner-Person Ebene), ist auf Inner-Person Ebene ist die Reliabilität sehr niedrig (Omega-within = .32). Das heisst, dass die  Varianz innerhalb der Personen über die Tage auf Variable Y nicht reliabel gemessen werden. Die Inner-Person Varianz auf Y ist somit nicht sinnvoll zu interpretieren und stellt vermutlich nur "Rauschen" dar. Die Korrelation mit X ist nicht sinnvoll zu interpretieren (und fällt auch nicht signifikant aus), auch wenn X sowohl ausreichend Level-1 Varianz hat als auch reliabel gemessen ist.
+
+:::
+
+
+## Zusatz
 
 Die folgenden Analysen sind optional, geben aber ein tieferes Verständnis des Materials.
 
@@ -251,7 +275,9 @@ Zudem können wir uns mit `lavInspect()` die Modellparameter ansehen, um zu vers
 ```{r}
 scalec_reliab <- multilevelTools::omegaSEM(c("c1", "c2", "c3"), "id", df_cfa_long, savemodel = TRUE)
 scalec_reliab$Fit |> summary(fit = TRUE, stand = TRUE)
-lavaan::lavInspect(scalec_reliab$Fit, "list") # alternatively, parTable()
+lavInspect(scalec_reliab$Fit, "list") |> 
+  select(lhs, op, rhs, free, level, free, label, est, se) |> 
+  mutate(across(where(is.numeric), round, 2)) # alternatively, parTable()
 ```
 
 Wie der Output zeigt, ergibt sich die Omega-Reliabilität aus dem Anteil der durch den Faktor (f_within für den Faktor auf Level-1 bzw. f_between für den Faktor auf Level-2) erklärten Varianz der Items (Summe aller  Item-Ladungen, quadriert für Varianz) geteilt durch die Gesamtvarianz der Items (durch Faktor erklärte Varianz der Items + Residualvarianz, d.h. übrigbleibende Varianz der Items). Diese Formel wird pro Varianzebene (Level-1, also tägliche Schwankungen innerhalb der Person) und Level-2 (Unterschiede zwischen Personen) getrennt berechnet.

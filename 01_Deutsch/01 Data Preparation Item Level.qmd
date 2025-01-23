@@ -1,8 +1,13 @@
 ---
-title: "Kapitel 1a: Datenaufbereitung Item Level"
+title: "Kapitel 1: Datenaufbereitung"
 format:
   html:
     df-print: kable
+    code_folding: hide
+    highlight: haddock
+    theme: cosmos
+    toc: true
+    toc_float: true
 editor: source
 ---
 
@@ -101,25 +106,50 @@ save(df_cfa_long, df_cfa_long_scores, file = "../data/df_cfa_long.RData")
 ## Überprüfe dein Verständnis
 
 ```{r}
-df_cfa_long_scores |> 
+beispiel_zentrierung <- df_cfa_long_scores |> 
   filter(id == 1) |> 
   select(id, time, a, a_dm, a_gm)
+
+beispiel_zentrierung
 ```
 
 Warum ist der Wert, den Person 1 in  "a_gm" hat, in jeder Zeile gleich, nicht aber bei "a_dm" und "a"? 
-Wie müsste man a_dm und a_gm zusammensetzen, damit man auf a kommt?
+Wie müsste man a transformieren, damit man auf a_dm kommt? Denke an die mathematischen Operationen die du in `mutate()` eingeben müsstest, wie `+`, `-`, `/`, `mean()`.
+
+:::{.callout-tip collapse="true"}
+### Lösung
+
+Die Variable a ist die Rohvariable, die den gemessenen Wert auf der Skala an jedem Tag angibt.
+Variablen mit "_gm" und "_dm" werden von `sjmisc::de_mean()` erstellt und stehen für den Mittelwert der Person über alle Tage hinweg.
+Variablen mit "_dm" stehen für die täglichen Abweichungen vom Mittelwert der Person.
+"a_dm" ergibt sich aus: $a = a - a\_gm$. Wir können dies auch in R replizieren mit:
+
+```{r}
+beispiel_zentrierung |> 
+  mutate(a_dm_manuell = a - mean(a))
+```
+:::
+
 
 ## Übung Datenaufbereitung
 
-Schau dir den Datensatz an und repliziere die Schritte oben:
+Schau dir den Datensatz `df_cfa_exercise`  an und repliziere die Schritte oben:
 
 1) Daten in Langformat transformieren und als `df_uebung_lang <-` zuweisen. 
 2) Skalenscores für x und y erstellen und als `df_uebung_lang_scores <-` zuweisen.
 3) Skalenscores für x und y zentrieren (weiterhin in `df_uebung_lang_scores`).
 
 ```{r}
-# laden
 load("../data/df_cfa_exercise.RData")
+head(df_cfa_exercise)
+```
+
+
+:::{.callout-tip collapse="true"}
+### Lösung
+
+```{r}
+# laden
 
 # 1. Daten in Langformat transformieren - funktionen: pivot_longer(), pivot_wider()
 df_uebung_superlang <- df_cfa_exercise |> 
@@ -148,6 +178,7 @@ df_uebung_lang_scores <- df_uebung_lang_scores |>
 
 head(df_uebung_lang_scores)
 ```
+:::
 
 
 ## Abspeichern der gebildeten Skalen
@@ -155,7 +186,6 @@ head(df_uebung_lang_scores)
 Zum Schluss speichern wir die Ergebnisse (sowohl die Items als auch die Skalen in Langformat) der Übung ab.
 
 ```{r}
-#| eval: false
 save(df_uebung_lang, df_uebung_lang_scores, file = "../data/df_uebung.RData")
 ```
 
