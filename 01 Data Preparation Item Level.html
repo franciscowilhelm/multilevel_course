@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Kapitel 1a: Datenaufbereitung Item Level – Tagebuchstudien und Mehrebenenmodelle</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02 Descriptive Statistics.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-77205cbbef6a5b90ba72edc25dea2156.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01 Data Preparation Item Level.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1a: Datenaufbereitung Item Level</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Tagebuchstudien und Mehrebenenmodelle</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.qmd</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01 Data Preparation Item Level.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1a: Datenaufbereitung Item Level</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02 Descriptive Statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03 Hypotheses Tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pakete-installieren-und-laden" id="toc-pakete-installieren-und-laden" class="nav-link active" data-scroll-target="#pakete-installieren-und-laden"><span class="header-section-number">2.1</span> Pakete installieren und laden</a></li>
+  <li><a href="#daten-einlesen" id="toc-daten-einlesen" class="nav-link" data-scroll-target="#daten-einlesen"><span class="header-section-number">2.2</span> Daten einlesen</a></li>
+  <li><a href="#daten-ansehen" id="toc-daten-ansehen" class="nav-link" data-scroll-target="#daten-ansehen"><span class="header-section-number">2.3</span> Daten ansehen</a></li>
+  <li><a href="#daten-transformieren-langformat" id="toc-daten-transformieren-langformat" class="nav-link" data-scroll-target="#daten-transformieren-langformat"><span class="header-section-number">2.4</span> Daten transformieren: Langformat</a></li>
+  <li><a href="#daten-transformieren-skalenscores-erstellen" id="toc-daten-transformieren-skalenscores-erstellen" class="nav-link" data-scroll-target="#daten-transformieren-skalenscores-erstellen"><span class="header-section-number">2.5</span> Daten transformieren: Skalenscores erstellen</a></li>
+  <li><a href="#daten-transformieren-zentrierung" id="toc-daten-transformieren-zentrierung" class="nav-link" data-scroll-target="#daten-transformieren-zentrierung"><span class="header-section-number">2.6</span> Daten transformieren: Zentrierung</a></li>
+  <li><a href="#überprüfe-dein-verständnis" id="toc-überprüfe-dein-verständnis" class="nav-link" data-scroll-target="#überprüfe-dein-verständnis"><span class="header-section-number">2.7</span> Überprüfe dein Verständnis</a></li>
+  <li><a href="#übung-datenaufbereitung" id="toc-übung-datenaufbereitung" class="nav-link" data-scroll-target="#übung-datenaufbereitung"><span class="header-section-number">2.8</span> Übung Datenaufbereitung</a></li>
+  <li><a href="#abspeichern-der-gebildeten-skalen" id="toc-abspeichern-der-gebildeten-skalen" class="nav-link" data-scroll-target="#abspeichern-der-gebildeten-skalen"><span class="header-section-number">2.9</span> Abspeichern der gebildeten Skalen</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1a: Datenaufbereitung Item Level</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="pakete-installieren-und-laden" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="pakete-installieren-und-laden"><span class="header-section-number">2.1</span> Pakete installieren und laden</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(haven, psych,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>               sjmisc, sjPlot, writexl,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               tidyverse, multilevelTools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="daten-einlesen" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="daten-einlesen"><span class="header-section-number">2.2</span> Daten einlesen</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_cfa_wide.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="daten-ansehen" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="daten-ansehen"><span class="header-section-number">2.3</span> Daten ansehen</h2>
+<p>Der Datensatz hat 131 (!) Spalten (<code>ncol()</code>) und 100 Zeilen (<code>nrow()</code>) (eine pro Person). Aufgrund des breiten Datenformats gibt es so viele Spalten, da jeder Tag (1-10 Tage) von jeder Variable seine eigene Spalte bekommt. Wie wir mit <code>names()</code> sehen, gibt es die Variablen id für die Personidentifikation (jede Person hat ihre eigene Nummer), a1-a5, b1-b5, und c1-c3. w,a,b und c bilden jeweils eine Skala mit 5 bzw. bei c 3 Indikatoren. Mit <code>head()</code> können wir einen Blick in die Daten werfen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(df_cfa_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 131</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df_cfa_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_cfa_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "id"     "a1_t1"  "a1_t2"  "a1_t3"  "a1_t4"  "a1_t5"  "a1_t6"  "a1_t7" 
+  [9] "a1_t8"  "a1_t9"  "a1_t10" "a2_t1"  "a2_t2"  "a2_t3"  "a2_t4"  "a2_t5" 
+ [17] "a2_t6"  "a2_t7"  "a2_t8"  "a2_t9"  "a2_t10" "a3_t1"  "a3_t2"  "a3_t3" 
+ [25] "a3_t4"  "a3_t5"  "a3_t6"  "a3_t7"  "a3_t8"  "a3_t9"  "a3_t10" "a4_t1" 
+ [33] "a4_t2"  "a4_t3"  "a4_t4"  "a4_t5"  "a4_t6"  "a4_t7"  "a4_t8"  "a4_t9" 
+ [41] "a4_t10" "a5_t1"  "a5_t2"  "a5_t3"  "a5_t4"  "a5_t5"  "a5_t6"  "a5_t7" 
+ [49] "a5_t8"  "a5_t9"  "a5_t10" "b1_t1"  "b1_t2"  "b1_t3"  "b1_t4"  "b1_t5" 
+ [57] "b1_t6"  "b1_t7"  "b1_t8"  "b1_t9"  "b1_t10" "b2_t1"  "b2_t2"  "b2_t3" 
+ [65] "b2_t4"  "b2_t5"  "b2_t6"  "b2_t7"  "b2_t8"  "b2_t9"  "b2_t10" "b3_t1" 
+ [73] "b3_t2"  "b3_t3"  "b3_t4"  "b3_t5"  "b3_t6"  "b3_t7"  "b3_t8"  "b3_t9" 
+ [81] "b3_t10" "b4_t1"  "b4_t2"  "b4_t3"  "b4_t4"  "b4_t5"  "b4_t6"  "b4_t7" 
+ [89] "b4_t8"  "b4_t9"  "b4_t10" "b5_t1"  "b5_t2"  "b5_t3"  "b5_t4"  "b5_t5" 
+ [97] "b5_t6"  "b5_t7"  "b5_t8"  "b5_t9"  "b5_t10" "c1_t1"  "c1_t2"  "c1_t3" 
+[105] "c1_t4"  "c1_t5"  "c1_t6"  "c1_t7"  "c1_t8"  "c1_t9"  "c1_t10" "c2_t1" 
+[113] "c2_t2"  "c2_t3"  "c2_t4"  "c2_t5"  "c2_t6"  "c2_t7"  "c2_t8"  "c2_t9" 
+[121] "c2_t10" "c3_t1"  "c3_t2"  "c3_t3"  "c3_t4"  "c3_t5"  "c3_t6"  "c3_t7" 
+[129] "c3_t8"  "c3_t9"  "c3_t10"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">a1_t1</th>
+<th style="text-align: right;">a1_t2</th>
+<th style="text-align: right;">a1_t3</th>
+<th style="text-align: right;">a1_t4</th>
+<th style="text-align: right;">a1_t5</th>
+<th style="text-align: right;">a1_t6</th>
+<th style="text-align: right;">a1_t7</th>
+<th style="text-align: right;">a1_t8</th>
+<th style="text-align: right;">a1_t9</th>
+<th style="text-align: right;">a1_t10</th>
+<th style="text-align: right;">a2_t1</th>
+<th style="text-align: right;">a2_t2</th>
+<th style="text-align: right;">a2_t3</th>
+<th style="text-align: right;">a2_t4</th>
+<th style="text-align: right;">a2_t5</th>
+<th style="text-align: right;">a2_t6</th>
+<th style="text-align: right;">a2_t7</th>
+<th style="text-align: right;">a2_t8</th>
+<th style="text-align: right;">a2_t9</th>
+<th style="text-align: right;">a2_t10</th>
+<th style="text-align: right;">a3_t1</th>
+<th style="text-align: right;">a3_t2</th>
+<th style="text-align: right;">a3_t3</th>
+<th style="text-align: right;">a3_t4</th>
+<th style="text-align: right;">a3_t5</th>
+<th style="text-align: right;">a3_t6</th>
+<th style="text-align: right;">a3_t7</th>
+<th style="text-align: right;">a3_t8</th>
+<th style="text-align: right;">a3_t9</th>
+<th style="text-align: right;">a3_t10</th>
+<th style="text-align: right;">a4_t1</th>
+<th style="text-align: right;">a4_t2</th>
+<th style="text-align: right;">a4_t3</th>
+<th style="text-align: right;">a4_t4</th>
+<th style="text-align: right;">a4_t5</th>
+<th style="text-align: right;">a4_t6</th>
+<th style="text-align: right;">a4_t7</th>
+<th style="text-align: right;">a4_t8</th>
+<th style="text-align: right;">a4_t9</th>
+<th style="text-align: right;">a4_t10</th>
+<th style="text-align: right;">a5_t1</th>
+<th style="text-align: right;">a5_t2</th>
+<th style="text-align: right;">a5_t3</th>
+<th style="text-align: right;">a5_t4</th>
+<th style="text-align: right;">a5_t5</th>
+<th style="text-align: right;">a5_t6</th>
+<th style="text-align: right;">a5_t7</th>
+<th style="text-align: right;">a5_t8</th>
+<th style="text-align: right;">a5_t9</th>
+<th style="text-align: right;">a5_t10</th>
+<th style="text-align: right;">b1_t1</th>
+<th style="text-align: right;">b1_t2</th>
+<th style="text-align: right;">b1_t3</th>
+<th style="text-align: right;">b1_t4</th>
+<th style="text-align: right;">b1_t5</th>
+<th style="text-align: right;">b1_t6</th>
+<th style="text-align: right;">b1_t7</th>
+<th style="text-align: right;">b1_t8</th>
+<th style="text-align: right;">b1_t9</th>
+<th style="text-align: right;">b1_t10</th>
+<th style="text-align: right;">b2_t1</th>
+<th style="text-align: right;">b2_t2</th>
+<th style="text-align: right;">b2_t3</th>
+<th style="text-align: right;">b2_t4</th>
+<th style="text-align: right;">b2_t5</th>
+<th style="text-align: right;">b2_t6</th>
+<th style="text-align: right;">b2_t7</th>
+<th style="text-align: right;">b2_t8</th>
+<th style="text-align: right;">b2_t9</th>
+<th style="text-align: right;">b2_t10</th>
+<th style="text-align: right;">b3_t1</th>
+<th style="text-align: right;">b3_t2</th>
+<th style="text-align: right;">b3_t3</th>
+<th style="text-align: right;">b3_t4</th>
+<th style="text-align: right;">b3_t5</th>
+<th style="text-align: right;">b3_t6</th>
+<th style="text-align: right;">b3_t7</th>
+<th style="text-align: right;">b3_t8</th>
+<th style="text-align: right;">b3_t9</th>
+<th style="text-align: right;">b3_t10</th>
+<th style="text-align: right;">b4_t1</th>
+<th style="text-align: right;">b4_t2</th>
+<th style="text-align: right;">b4_t3</th>
+<th style="text-align: right;">b4_t4</th>
+<th style="text-align: right;">b4_t5</th>
+<th style="text-align: right;">b4_t6</th>
+<th style="text-align: right;">b4_t7</th>
+<th style="text-align: right;">b4_t8</th>
+<th style="text-align: right;">b4_t9</th>
+<th style="text-align: right;">b4_t10</th>
+<th style="text-align: right;">b5_t1</th>
+<th style="text-align: right;">b5_t2</th>
+<th style="text-align: right;">b5_t3</th>
+<th style="text-align: right;">b5_t4</th>
+<th style="text-align: right;">b5_t5</th>
+<th style="text-align: right;">b5_t6</th>
+<th style="text-align: right;">b5_t7</th>
+<th style="text-align: right;">b5_t8</th>
+<th style="text-align: right;">b5_t9</th>
+<th style="text-align: right;">b5_t10</th>
+<th style="text-align: right;">c1_t1</th>
+<th style="text-align: right;">c1_t2</th>
+<th style="text-align: right;">c1_t3</th>
+<th style="text-align: right;">c1_t4</th>
+<th style="text-align: right;">c1_t5</th>
+<th style="text-align: right;">c1_t6</th>
+<th style="text-align: right;">c1_t7</th>
+<th style="text-align: right;">c1_t8</th>
+<th style="text-align: right;">c1_t9</th>
+<th style="text-align: right;">c1_t10</th>
+<th style="text-align: right;">c2_t1</th>
+<th style="text-align: right;">c2_t2</th>
+<th style="text-align: right;">c2_t3</th>
+<th style="text-align: right;">c2_t4</th>
+<th style="text-align: right;">c2_t5</th>
+<th style="text-align: right;">c2_t6</th>
+<th style="text-align: right;">c2_t7</th>
+<th style="text-align: right;">c2_t8</th>
+<th style="text-align: right;">c2_t9</th>
+<th style="text-align: right;">c2_t10</th>
+<th style="text-align: right;">c3_t1</th>
+<th style="text-align: right;">c3_t2</th>
+<th style="text-align: right;">c3_t3</th>
+<th style="text-align: right;">c3_t4</th>
+<th style="text-align: right;">c3_t5</th>
+<th style="text-align: right;">c3_t6</th>
+<th style="text-align: right;">c3_t7</th>
+<th style="text-align: right;">c3_t8</th>
+<th style="text-align: right;">c3_t9</th>
+<th style="text-align: right;">c3_t10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.336252</td>
+<td style="text-align: right;">2.149828</td>
+<td style="text-align: right;">1.613518</td>
+<td style="text-align: right;">3.351085</td>
+<td style="text-align: right;">3.320900</td>
+<td style="text-align: right;">4.173775</td>
+<td style="text-align: right;">3.653771</td>
+<td style="text-align: right;">1.926106</td>
+<td style="text-align: right;">5.621661</td>
+<td style="text-align: right;">4.948758</td>
+<td style="text-align: right;">3.380463</td>
+<td style="text-align: right;">5.110309</td>
+<td style="text-align: right;">3.004133</td>
+<td style="text-align: right;">3.852294</td>
+<td style="text-align: right;">3.694431</td>
+<td style="text-align: right;">5.658948</td>
+<td style="text-align: right;">4.973751</td>
+<td style="text-align: right;">4.999227</td>
+<td style="text-align: right;">5.123906</td>
+<td style="text-align: right;">6.090460</td>
+<td style="text-align: right;">3.223528</td>
+<td style="text-align: right;">5.678413</td>
+<td style="text-align: right;">2.503233</td>
+<td style="text-align: right;">4.972103</td>
+<td style="text-align: right;">4.703663</td>
+<td style="text-align: right;">3.273027</td>
+<td style="text-align: right;">3.187604</td>
+<td style="text-align: right;">3.664482</td>
+<td style="text-align: right;">5.464105</td>
+<td style="text-align: right;">3.765162</td>
+<td style="text-align: right;">4.399347</td>
+<td style="text-align: right;">2.765556</td>
+<td style="text-align: right;">1.898476</td>
+<td style="text-align: right;">2.612551</td>
+<td style="text-align: right;">3.476859</td>
+<td style="text-align: right;">4.192700</td>
+<td style="text-align: right;">2.856953</td>
+<td style="text-align: right;">4.112356</td>
+<td style="text-align: right;">4.579488</td>
+<td style="text-align: right;">3.134414</td>
+<td style="text-align: right;">3.542602</td>
+<td style="text-align: right;">2.387270</td>
+<td style="text-align: right;">2.807670</td>
+<td style="text-align: right;">3.233779</td>
+<td style="text-align: right;">4.210036</td>
+<td style="text-align: right;">3.565438</td>
+<td style="text-align: right;">3.293944</td>
+<td style="text-align: right;">3.909548</td>
+<td style="text-align: right;">5.635526</td>
+<td style="text-align: right;">4.620410</td>
+<td style="text-align: right;">3.370896</td>
+<td style="text-align: right;">2.486919</td>
+<td style="text-align: right;">0.991958</td>
+<td style="text-align: right;">2.248097</td>
+<td style="text-align: right;">1.953658</td>
+<td style="text-align: right;">1.544111</td>
+<td style="text-align: right;">2.103968</td>
+<td style="text-align: right;">1.763424</td>
+<td style="text-align: right;">3.087552</td>
+<td style="text-align: right;">1.618470</td>
+<td style="text-align: right;">1.697640</td>
+<td style="text-align: right;">0.952220</td>
+<td style="text-align: right;">-0.685685</td>
+<td style="text-align: right;">0.004118</td>
+<td style="text-align: right;">0.675750</td>
+<td style="text-align: right;">-0.373186</td>
+<td style="text-align: right;">1.938302</td>
+<td style="text-align: right;">0.447036</td>
+<td style="text-align: right;">3.860272</td>
+<td style="text-align: right;">1.211009</td>
+<td style="text-align: right;">0.584167</td>
+<td style="text-align: right;">2.101517</td>
+<td style="text-align: right;">0.003147</td>
+<td style="text-align: right;">0.711264</td>
+<td style="text-align: right;">0.921623</td>
+<td style="text-align: right;">1.303905</td>
+<td style="text-align: right;">1.201749</td>
+<td style="text-align: right;">0.899882</td>
+<td style="text-align: right;">1.797242</td>
+<td style="text-align: right;">0.734580</td>
+<td style="text-align: right;">1.576649</td>
+<td style="text-align: right;">0.331000</td>
+<td style="text-align: right;">-0.517730</td>
+<td style="text-align: right;">2.185949</td>
+<td style="text-align: right;">0.284884</td>
+<td style="text-align: right;">1.687402</td>
+<td style="text-align: right;">1.388842</td>
+<td style="text-align: right;">0.160632</td>
+<td style="text-align: right;">2.144261</td>
+<td style="text-align: right;">1.205662</td>
+<td style="text-align: right;">2.847195</td>
+<td style="text-align: right;">2.552073</td>
+<td style="text-align: right;">1.955846</td>
+<td style="text-align: right;">2.028044</td>
+<td style="text-align: right;">2.361978</td>
+<td style="text-align: right;">2.539967</td>
+<td style="text-align: right;">2.125510</td>
+<td style="text-align: right;">1.206909</td>
+<td style="text-align: right;">4.844395</td>
+<td style="text-align: right;">4.320178</td>
+<td style="text-align: right;">4.325797</td>
+<td style="text-align: right;">3.364003</td>
+<td style="text-align: right;">2.582169</td>
+<td style="text-align: right;">2.918614</td>
+<td style="text-align: right;">2.829237</td>
+<td style="text-align: right;">4.141474</td>
+<td style="text-align: right;">2.711044</td>
+<td style="text-align: right;">4.787052</td>
+<td style="text-align: right;">4.594232</td>
+<td style="text-align: right;">2.511473</td>
+<td style="text-align: right;">1.030847</td>
+<td style="text-align: right;">5.711729</td>
+<td style="text-align: right;">2.659834</td>
+<td style="text-align: right;">3.163276</td>
+<td style="text-align: right;">3.910432</td>
+<td style="text-align: right;">5.234767</td>
+<td style="text-align: right;">5.515933</td>
+<td style="text-align: right;">5.206142</td>
+<td style="text-align: right;">4.431722</td>
+<td style="text-align: right;">4.953160</td>
+<td style="text-align: right;">3.822098</td>
+<td style="text-align: right;">3.613752</td>
+<td style="text-align: right;">2.155132</td>
+<td style="text-align: right;">2.463234</td>
+<td style="text-align: right;">2.739723</td>
+<td style="text-align: right;">3.409232</td>
+<td style="text-align: right;">3.488225</td>
+<td style="text-align: right;">1.453246</td>
+<td style="text-align: right;">4.117747</td>
+<td style="text-align: right;">3.745528</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.707018</td>
+<td style="text-align: right;">2.377418</td>
+<td style="text-align: right;">1.854018</td>
+<td style="text-align: right;">4.632683</td>
+<td style="text-align: right;">2.479164</td>
+<td style="text-align: right;">2.234632</td>
+<td style="text-align: right;">4.485121</td>
+<td style="text-align: right;">4.011457</td>
+<td style="text-align: right;">2.427658</td>
+<td style="text-align: right;">2.600831</td>
+<td style="text-align: right;">3.996684</td>
+<td style="text-align: right;">3.074568</td>
+<td style="text-align: right;">3.716554</td>
+<td style="text-align: right;">3.796472</td>
+<td style="text-align: right;">3.108752</td>
+<td style="text-align: right;">2.922636</td>
+<td style="text-align: right;">4.654462</td>
+<td style="text-align: right;">4.431057</td>
+<td style="text-align: right;">3.497468</td>
+<td style="text-align: right;">4.130753</td>
+<td style="text-align: right;">0.810690</td>
+<td style="text-align: right;">2.874266</td>
+<td style="text-align: right;">3.669414</td>
+<td style="text-align: right;">2.478778</td>
+<td style="text-align: right;">2.406462</td>
+<td style="text-align: right;">2.515853</td>
+<td style="text-align: right;">3.129976</td>
+<td style="text-align: right;">3.718570</td>
+<td style="text-align: right;">2.542158</td>
+<td style="text-align: right;">2.606330</td>
+<td style="text-align: right;">3.515638</td>
+<td style="text-align: right;">4.128262</td>
+<td style="text-align: right;">3.577047</td>
+<td style="text-align: right;">4.258751</td>
+<td style="text-align: right;">4.238509</td>
+<td style="text-align: right;">3.267878</td>
+<td style="text-align: right;">4.119021</td>
+<td style="text-align: right;">2.712250</td>
+<td style="text-align: right;">2.601381</td>
+<td style="text-align: right;">5.293957</td>
+<td style="text-align: right;">2.907960</td>
+<td style="text-align: right;">2.834590</td>
+<td style="text-align: right;">3.827659</td>
+<td style="text-align: right;">5.278379</td>
+<td style="text-align: right;">3.967381</td>
+<td style="text-align: right;">4.134327</td>
+<td style="text-align: right;">5.923659</td>
+<td style="text-align: right;">4.251589</td>
+<td style="text-align: right;">3.292468</td>
+<td style="text-align: right;">3.639972</td>
+<td style="text-align: right;">2.323243</td>
+<td style="text-align: right;">2.042416</td>
+<td style="text-align: right;">2.601619</td>
+<td style="text-align: right;">0.235322</td>
+<td style="text-align: right;">1.990456</td>
+<td style="text-align: right;">3.388960</td>
+<td style="text-align: right;">0.995331</td>
+<td style="text-align: right;">3.325457</td>
+<td style="text-align: right;">2.207927</td>
+<td style="text-align: right;">0.221311</td>
+<td style="text-align: right;">2.990608</td>
+<td style="text-align: right;">1.476811</td>
+<td style="text-align: right;">2.349784</td>
+<td style="text-align: right;">3.097647</td>
+<td style="text-align: right;">2.047705</td>
+<td style="text-align: right;">2.722032</td>
+<td style="text-align: right;">3.112804</td>
+<td style="text-align: right;">1.368452</td>
+<td style="text-align: right;">2.251611</td>
+<td style="text-align: right;">1.587188</td>
+<td style="text-align: right;">1.013232</td>
+<td style="text-align: right;">2.926646</td>
+<td style="text-align: right;">2.095343</td>
+<td style="text-align: right;">2.858416</td>
+<td style="text-align: right;">3.019904</td>
+<td style="text-align: right;">1.726097</td>
+<td style="text-align: right;">3.515165</td>
+<td style="text-align: right;">1.348090</td>
+<td style="text-align: right;">1.890474</td>
+<td style="text-align: right;">2.311975</td>
+<td style="text-align: right;">1.190393</td>
+<td style="text-align: right;">2.184150</td>
+<td style="text-align: right;">1.549624</td>
+<td style="text-align: right;">0.452129</td>
+<td style="text-align: right;">1.513757</td>
+<td style="text-align: right;">1.432716</td>
+<td style="text-align: right;">1.950500</td>
+<td style="text-align: right;">2.007023</td>
+<td style="text-align: right;">0.249291</td>
+<td style="text-align: right;">-0.504312</td>
+<td style="text-align: right;">2.010378</td>
+<td style="text-align: right;">4.018477</td>
+<td style="text-align: right;">3.410691</td>
+<td style="text-align: right;">3.063017</td>
+<td style="text-align: right;">3.897992</td>
+<td style="text-align: right;">2.469268</td>
+<td style="text-align: right;">2.906900</td>
+<td style="text-align: right;">2.914951</td>
+<td style="text-align: right;">0.608605</td>
+<td style="text-align: right;">2.239330</td>
+<td style="text-align: right;">2.576924</td>
+<td style="text-align: right;">1.208644</td>
+<td style="text-align: right;">2.606353</td>
+<td style="text-align: right;">3.886131</td>
+<td style="text-align: right;">3.856964</td>
+<td style="text-align: right;">3.332155</td>
+<td style="text-align: right;">0.597512</td>
+<td style="text-align: right;">2.731819</td>
+<td style="text-align: right;">2.110466</td>
+<td style="text-align: right;">2.687502</td>
+<td style="text-align: right;">-1.710033</td>
+<td style="text-align: right;">-0.670529</td>
+<td style="text-align: right;">-0.330814</td>
+<td style="text-align: right;">-0.601643</td>
+<td style="text-align: right;">-0.251286</td>
+<td style="text-align: right;">0.439045</td>
+<td style="text-align: right;">0.734464</td>
+<td style="text-align: right;">0.066167</td>
+<td style="text-align: right;">-0.849054</td>
+<td style="text-align: right;">-0.757472</td>
+<td style="text-align: right;">0.351828</td>
+<td style="text-align: right;">0.095795</td>
+<td style="text-align: right;">0.897598</td>
+<td style="text-align: right;">2.615174</td>
+<td style="text-align: right;">0.455632</td>
+<td style="text-align: right;">2.211615</td>
+<td style="text-align: right;">-0.235576</td>
+<td style="text-align: right;">0.389909</td>
+<td style="text-align: right;">-0.160126</td>
+<td style="text-align: right;">1.833746</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5.177071</td>
+<td style="text-align: right;">-0.128053</td>
+<td style="text-align: right;">2.797632</td>
+<td style="text-align: right;">0.303081</td>
+<td style="text-align: right;">4.314881</td>
+<td style="text-align: right;">2.337009</td>
+<td style="text-align: right;">3.575595</td>
+<td style="text-align: right;">1.818855</td>
+<td style="text-align: right;">-0.306364</td>
+<td style="text-align: right;">1.614770</td>
+<td style="text-align: right;">2.958702</td>
+<td style="text-align: right;">2.735971</td>
+<td style="text-align: right;">2.978813</td>
+<td style="text-align: right;">4.107814</td>
+<td style="text-align: right;">4.661105</td>
+<td style="text-align: right;">3.033462</td>
+<td style="text-align: right;">2.912859</td>
+<td style="text-align: right;">3.754350</td>
+<td style="text-align: right;">1.986925</td>
+<td style="text-align: right;">2.453018</td>
+<td style="text-align: right;">5.346752</td>
+<td style="text-align: right;">4.501127</td>
+<td style="text-align: right;">4.825683</td>
+<td style="text-align: right;">4.908117</td>
+<td style="text-align: right;">5.724673</td>
+<td style="text-align: right;">5.153263</td>
+<td style="text-align: right;">4.766531</td>
+<td style="text-align: right;">5.198076</td>
+<td style="text-align: right;">1.471673</td>
+<td style="text-align: right;">3.829653</td>
+<td style="text-align: right;">4.772178</td>
+<td style="text-align: right;">2.755005</td>
+<td style="text-align: right;">4.204091</td>
+<td style="text-align: right;">2.631057</td>
+<td style="text-align: right;">4.744125</td>
+<td style="text-align: right;">3.983818</td>
+<td style="text-align: right;">2.875329</td>
+<td style="text-align: right;">3.684137</td>
+<td style="text-align: right;">1.252706</td>
+<td style="text-align: right;">1.649124</td>
+<td style="text-align: right;">5.782683</td>
+<td style="text-align: right;">4.648184</td>
+<td style="text-align: right;">3.675335</td>
+<td style="text-align: right;">5.918703</td>
+<td style="text-align: right;">5.729757</td>
+<td style="text-align: right;">5.027148</td>
+<td style="text-align: right;">4.950459</td>
+<td style="text-align: right;">5.555384</td>
+<td style="text-align: right;">2.874046</td>
+<td style="text-align: right;">2.074345</td>
+<td style="text-align: right;">3.034341</td>
+<td style="text-align: right;">5.163917</td>
+<td style="text-align: right;">1.010752</td>
+<td style="text-align: right;">1.666880</td>
+<td style="text-align: right;">1.295466</td>
+<td style="text-align: right;">1.477020</td>
+<td style="text-align: right;">1.009490</td>
+<td style="text-align: right;">1.175458</td>
+<td style="text-align: right;">1.284057</td>
+<td style="text-align: right;">3.434230</td>
+<td style="text-align: right;">4.263902</td>
+<td style="text-align: right;">3.116927</td>
+<td style="text-align: right;">2.598624</td>
+<td style="text-align: right;">2.281766</td>
+<td style="text-align: right;">4.053404</td>
+<td style="text-align: right;">2.417430</td>
+<td style="text-align: right;">1.154442</td>
+<td style="text-align: right;">2.357182</td>
+<td style="text-align: right;">-0.103946</td>
+<td style="text-align: right;">2.599341</td>
+<td style="text-align: right;">3.981286</td>
+<td style="text-align: right;">1.433954</td>
+<td style="text-align: right;">2.329805</td>
+<td style="text-align: right;">3.582351</td>
+<td style="text-align: right;">2.509821</td>
+<td style="text-align: right;">-0.341738</td>
+<td style="text-align: right;">1.558373</td>
+<td style="text-align: right;">2.687843</td>
+<td style="text-align: right;">1.337345</td>
+<td style="text-align: right;">3.732375</td>
+<td style="text-align: right;">3.988386</td>
+<td style="text-align: right;">2.509786</td>
+<td style="text-align: right;">2.058585</td>
+<td style="text-align: right;">3.740040</td>
+<td style="text-align: right;">3.256067</td>
+<td style="text-align: right;">3.500106</td>
+<td style="text-align: right;">0.782067</td>
+<td style="text-align: right;">3.601466</td>
+<td style="text-align: right;">0.922850</td>
+<td style="text-align: right;">4.635307</td>
+<td style="text-align: right;">3.024556</td>
+<td style="text-align: right;">1.150083</td>
+<td style="text-align: right;">3.052157</td>
+<td style="text-align: right;">3.163149</td>
+<td style="text-align: right;">2.655710</td>
+<td style="text-align: right;">0.093386</td>
+<td style="text-align: right;">-0.073910</td>
+<td style="text-align: right;">2.227515</td>
+<td style="text-align: right;">1.712568</td>
+<td style="text-align: right;">2.898763</td>
+<td style="text-align: right;">2.820979</td>
+<td style="text-align: right;">1.664689</td>
+<td style="text-align: right;">2.688626</td>
+<td style="text-align: right;">2.657114</td>
+<td style="text-align: right;">1.381627</td>
+<td style="text-align: right;">2.417342</td>
+<td style="text-align: right;">1.443182</td>
+<td style="text-align: right;">2.776111</td>
+<td style="text-align: right;">2.248535</td>
+<td style="text-align: right;">2.684371</td>
+<td style="text-align: right;">1.748407</td>
+<td style="text-align: right;">2.869058</td>
+<td style="text-align: right;">1.052509</td>
+<td style="text-align: right;">3.174517</td>
+<td style="text-align: right;">0.118054</td>
+<td style="text-align: right;">0.789280</td>
+<td style="text-align: right;">2.679447</td>
+<td style="text-align: right;">0.740977</td>
+<td style="text-align: right;">1.135104</td>
+<td style="text-align: right;">0.980832</td>
+<td style="text-align: right;">1.537544</td>
+<td style="text-align: right;">2.950929</td>
+<td style="text-align: right;">1.429920</td>
+<td style="text-align: right;">2.534687</td>
+<td style="text-align: right;">3.792833</td>
+<td style="text-align: right;">1.161559</td>
+<td style="text-align: right;">0.105494</td>
+<td style="text-align: right;">2.915895</td>
+<td style="text-align: right;">1.714465</td>
+<td style="text-align: right;">2.815621</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4.705740</td>
+<td style="text-align: right;">3.597286</td>
+<td style="text-align: right;">2.948942</td>
+<td style="text-align: right;">2.098839</td>
+<td style="text-align: right;">2.783596</td>
+<td style="text-align: right;">4.420878</td>
+<td style="text-align: right;">1.358347</td>
+<td style="text-align: right;">3.848268</td>
+<td style="text-align: right;">3.714631</td>
+<td style="text-align: right;">2.284839</td>
+<td style="text-align: right;">4.038396</td>
+<td style="text-align: right;">4.916627</td>
+<td style="text-align: right;">2.739167</td>
+<td style="text-align: right;">3.144930</td>
+<td style="text-align: right;">2.224095</td>
+<td style="text-align: right;">2.968036</td>
+<td style="text-align: right;">2.365223</td>
+<td style="text-align: right;">3.665594</td>
+<td style="text-align: right;">2.585768</td>
+<td style="text-align: right;">3.208773</td>
+<td style="text-align: right;">5.110747</td>
+<td style="text-align: right;">4.059650</td>
+<td style="text-align: right;">3.327694</td>
+<td style="text-align: right;">4.411642</td>
+<td style="text-align: right;">3.937307</td>
+<td style="text-align: right;">5.154507</td>
+<td style="text-align: right;">3.126869</td>
+<td style="text-align: right;">4.554551</td>
+<td style="text-align: right;">3.766840</td>
+<td style="text-align: right;">4.039097</td>
+<td style="text-align: right;">5.965881</td>
+<td style="text-align: right;">5.027371</td>
+<td style="text-align: right;">4.130869</td>
+<td style="text-align: right;">5.175652</td>
+<td style="text-align: right;">4.037358</td>
+<td style="text-align: right;">5.245027</td>
+<td style="text-align: right;">3.205133</td>
+<td style="text-align: right;">3.004498</td>
+<td style="text-align: right;">6.786242</td>
+<td style="text-align: right;">4.499281</td>
+<td style="text-align: right;">3.958800</td>
+<td style="text-align: right;">3.838211</td>
+<td style="text-align: right;">3.211688</td>
+<td style="text-align: right;">2.475119</td>
+<td style="text-align: right;">2.191741</td>
+<td style="text-align: right;">2.052676</td>
+<td style="text-align: right;">2.687921</td>
+<td style="text-align: right;">2.079803</td>
+<td style="text-align: right;">3.929772</td>
+<td style="text-align: right;">1.621818</td>
+<td style="text-align: right;">3.621642</td>
+<td style="text-align: right;">3.197431</td>
+<td style="text-align: right;">2.838179</td>
+<td style="text-align: right;">1.280215</td>
+<td style="text-align: right;">1.746913</td>
+<td style="text-align: right;">2.267367</td>
+<td style="text-align: right;">1.597599</td>
+<td style="text-align: right;">2.441468</td>
+<td style="text-align: right;">1.211542</td>
+<td style="text-align: right;">4.138991</td>
+<td style="text-align: right;">1.342898</td>
+<td style="text-align: right;">1.821522</td>
+<td style="text-align: right;">1.688056</td>
+<td style="text-align: right;">2.463308</td>
+<td style="text-align: right;">2.030884</td>
+<td style="text-align: right;">0.815056</td>
+<td style="text-align: right;">0.953910</td>
+<td style="text-align: right;">1.729489</td>
+<td style="text-align: right;">1.332197</td>
+<td style="text-align: right;">3.093290</td>
+<td style="text-align: right;">2.400477</td>
+<td style="text-align: right;">2.873127</td>
+<td style="text-align: right;">1.997939</td>
+<td style="text-align: right;">1.791812</td>
+<td style="text-align: right;">-0.960833</td>
+<td style="text-align: right;">0.893946</td>
+<td style="text-align: right;">0.647417</td>
+<td style="text-align: right;">1.110916</td>
+<td style="text-align: right;">1.748169</td>
+<td style="text-align: right;">2.121472</td>
+<td style="text-align: right;">1.952886</td>
+<td style="text-align: right;">2.904973</td>
+<td style="text-align: right;">0.878772</td>
+<td style="text-align: right;">1.269630</td>
+<td style="text-align: right;">0.835469</td>
+<td style="text-align: right;">-1.070358</td>
+<td style="text-align: right;">-0.541286</td>
+<td style="text-align: right;">1.063053</td>
+<td style="text-align: right;">1.485312</td>
+<td style="text-align: right;">3.607293</td>
+<td style="text-align: right;">4.027168</td>
+<td style="text-align: right;">3.804839</td>
+<td style="text-align: right;">2.787383</td>
+<td style="text-align: right;">2.807136</td>
+<td style="text-align: right;">2.706166</td>
+<td style="text-align: right;">2.527843</td>
+<td style="text-align: right;">1.675010</td>
+<td style="text-align: right;">2.839636</td>
+<td style="text-align: right;">3.124758</td>
+<td style="text-align: right;">4.327591</td>
+<td style="text-align: right;">-0.571315</td>
+<td style="text-align: right;">2.285224</td>
+<td style="text-align: right;">1.057377</td>
+<td style="text-align: right;">1.803651</td>
+<td style="text-align: right;">0.992669</td>
+<td style="text-align: right;">1.980404</td>
+<td style="text-align: right;">3.310448</td>
+<td style="text-align: right;">1.662047</td>
+<td style="text-align: right;">2.537811</td>
+<td style="text-align: right;">1.245361</td>
+<td style="text-align: right;">1.490392</td>
+<td style="text-align: right;">0.456182</td>
+<td style="text-align: right;">1.328019</td>
+<td style="text-align: right;">1.697168</td>
+<td style="text-align: right;">0.693560</td>
+<td style="text-align: right;">0.252673</td>
+<td style="text-align: right;">2.728439</td>
+<td style="text-align: right;">1.103803</td>
+<td style="text-align: right;">1.332902</td>
+<td style="text-align: right;">0.163830</td>
+<td style="text-align: right;">0.043749</td>
+<td style="text-align: right;">0.744745</td>
+<td style="text-align: right;">0.204956</td>
+<td style="text-align: right;">-0.370906</td>
+<td style="text-align: right;">-1.022587</td>
+<td style="text-align: right;">-0.403501</td>
+<td style="text-align: right;">1.095947</td>
+<td style="text-align: right;">0.274934</td>
+<td style="text-align: right;">1.170815</td>
+<td style="text-align: right;">-1.658070</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.949976</td>
+<td style="text-align: right;">3.330208</td>
+<td style="text-align: right;">5.413867</td>
+<td style="text-align: right;">3.719810</td>
+<td style="text-align: right;">5.798861</td>
+<td style="text-align: right;">3.088709</td>
+<td style="text-align: right;">4.012137</td>
+<td style="text-align: right;">5.875070</td>
+<td style="text-align: right;">3.181456</td>
+<td style="text-align: right;">4.931577</td>
+<td style="text-align: right;">3.317796</td>
+<td style="text-align: right;">5.810359</td>
+<td style="text-align: right;">5.343310</td>
+<td style="text-align: right;">3.928448</td>
+<td style="text-align: right;">3.798973</td>
+<td style="text-align: right;">3.932334</td>
+<td style="text-align: right;">2.986737</td>
+<td style="text-align: right;">6.926680</td>
+<td style="text-align: right;">4.932457</td>
+<td style="text-align: right;">6.716081</td>
+<td style="text-align: right;">3.673230</td>
+<td style="text-align: right;">3.927261</td>
+<td style="text-align: right;">4.515421</td>
+<td style="text-align: right;">3.791699</td>
+<td style="text-align: right;">4.846026</td>
+<td style="text-align: right;">3.398835</td>
+<td style="text-align: right;">2.273474</td>
+<td style="text-align: right;">4.371252</td>
+<td style="text-align: right;">1.762524</td>
+<td style="text-align: right;">3.275910</td>
+<td style="text-align: right;">5.841838</td>
+<td style="text-align: right;">8.072948</td>
+<td style="text-align: right;">6.721671</td>
+<td style="text-align: right;">6.987111</td>
+<td style="text-align: right;">5.944237</td>
+<td style="text-align: right;">4.489158</td>
+<td style="text-align: right;">4.921571</td>
+<td style="text-align: right;">7.603350</td>
+<td style="text-align: right;">6.165390</td>
+<td style="text-align: right;">6.983403</td>
+<td style="text-align: right;">3.389670</td>
+<td style="text-align: right;">5.893949</td>
+<td style="text-align: right;">3.749111</td>
+<td style="text-align: right;">4.411794</td>
+<td style="text-align: right;">2.873486</td>
+<td style="text-align: right;">2.611568</td>
+<td style="text-align: right;">1.286889</td>
+<td style="text-align: right;">4.646997</td>
+<td style="text-align: right;">3.107310</td>
+<td style="text-align: right;">4.433750</td>
+<td style="text-align: right;">1.701253</td>
+<td style="text-align: right;">0.278520</td>
+<td style="text-align: right;">3.249563</td>
+<td style="text-align: right;">2.181162</td>
+<td style="text-align: right;">3.107517</td>
+<td style="text-align: right;">0.092424</td>
+<td style="text-align: right;">1.985821</td>
+<td style="text-align: right;">1.740418</td>
+<td style="text-align: right;">3.187945</td>
+<td style="text-align: right;">2.244310</td>
+<td style="text-align: right;">3.361174</td>
+<td style="text-align: right;">3.497546</td>
+<td style="text-align: right;">3.372372</td>
+<td style="text-align: right;">2.430237</td>
+<td style="text-align: right;">5.397523</td>
+<td style="text-align: right;">3.270945</td>
+<td style="text-align: right;">3.053623</td>
+<td style="text-align: right;">1.919141</td>
+<td style="text-align: right;">3.688502</td>
+<td style="text-align: right;">2.961518</td>
+<td style="text-align: right;">4.337413</td>
+<td style="text-align: right;">3.496237</td>
+<td style="text-align: right;">5.441549</td>
+<td style="text-align: right;">3.444545</td>
+<td style="text-align: right;">4.486709</td>
+<td style="text-align: right;">4.455020</td>
+<td style="text-align: right;">2.470650</td>
+<td style="text-align: right;">5.844872</td>
+<td style="text-align: right;">4.583409</td>
+<td style="text-align: right;">6.108861</td>
+<td style="text-align: right;">4.302733</td>
+<td style="text-align: right;">2.764837</td>
+<td style="text-align: right;">3.876676</td>
+<td style="text-align: right;">3.527337</td>
+<td style="text-align: right;">5.128605</td>
+<td style="text-align: right;">2.163503</td>
+<td style="text-align: right;">1.886539</td>
+<td style="text-align: right;">1.734753</td>
+<td style="text-align: right;">3.437857</td>
+<td style="text-align: right;">3.740089</td>
+<td style="text-align: right;">4.179862</td>
+<td style="text-align: right;">3.775715</td>
+<td style="text-align: right;">5.299768</td>
+<td style="text-align: right;">2.953386</td>
+<td style="text-align: right;">3.807893</td>
+<td style="text-align: right;">2.537854</td>
+<td style="text-align: right;">2.901724</td>
+<td style="text-align: right;">4.785203</td>
+<td style="text-align: right;">5.926126</td>
+<td style="text-align: right;">4.928503</td>
+<td style="text-align: right;">3.053878</td>
+<td style="text-align: right;">1.885364</td>
+<td style="text-align: right;">4.448834</td>
+<td style="text-align: right;">3.900540</td>
+<td style="text-align: right;">4.728735</td>
+<td style="text-align: right;">2.129385</td>
+<td style="text-align: right;">3.805631</td>
+<td style="text-align: right;">2.089345</td>
+<td style="text-align: right;">3.743529</td>
+<td style="text-align: right;">2.992289</td>
+<td style="text-align: right;">1.790360</td>
+<td style="text-align: right;">1.515488</td>
+<td style="text-align: right;">3.618075</td>
+<td style="text-align: right;">3.781413</td>
+<td style="text-align: right;">4.205560</td>
+<td style="text-align: right;">1.303834</td>
+<td style="text-align: right;">3.673459</td>
+<td style="text-align: right;">3.327604</td>
+<td style="text-align: right;">3.160806</td>
+<td style="text-align: right;">3.722098</td>
+<td style="text-align: right;">1.817841</td>
+<td style="text-align: right;">2.362278</td>
+<td style="text-align: right;">2.812572</td>
+<td style="text-align: right;">4.554119</td>
+<td style="text-align: right;">3.287976</td>
+<td style="text-align: right;">3.279677</td>
+<td style="text-align: right;">1.435943</td>
+<td style="text-align: right;">3.242930</td>
+<td style="text-align: right;">0.500366</td>
+<td style="text-align: right;">5.079764</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.274255</td>
+<td style="text-align: right;">2.290222</td>
+<td style="text-align: right;">1.376191</td>
+<td style="text-align: right;">2.173916</td>
+<td style="text-align: right;">2.099371</td>
+<td style="text-align: right;">3.312339</td>
+<td style="text-align: right;">2.172030</td>
+<td style="text-align: right;">2.595873</td>
+<td style="text-align: right;">2.289308</td>
+<td style="text-align: right;">1.580778</td>
+<td style="text-align: right;">2.787734</td>
+<td style="text-align: right;">2.067549</td>
+<td style="text-align: right;">2.180852</td>
+<td style="text-align: right;">3.302369</td>
+<td style="text-align: right;">1.863362</td>
+<td style="text-align: right;">3.760236</td>
+<td style="text-align: right;">2.294264</td>
+<td style="text-align: right;">2.135892</td>
+<td style="text-align: right;">1.550506</td>
+<td style="text-align: right;">2.432511</td>
+<td style="text-align: right;">3.703579</td>
+<td style="text-align: right;">2.047107</td>
+<td style="text-align: right;">3.065654</td>
+<td style="text-align: right;">1.978181</td>
+<td style="text-align: right;">2.963593</td>
+<td style="text-align: right;">2.955959</td>
+<td style="text-align: right;">3.468359</td>
+<td style="text-align: right;">4.343268</td>
+<td style="text-align: right;">3.525407</td>
+<td style="text-align: right;">3.837417</td>
+<td style="text-align: right;">4.151001</td>
+<td style="text-align: right;">0.835873</td>
+<td style="text-align: right;">1.884775</td>
+<td style="text-align: right;">2.608722</td>
+<td style="text-align: right;">3.012065</td>
+<td style="text-align: right;">2.776904</td>
+<td style="text-align: right;">2.578840</td>
+<td style="text-align: right;">3.399579</td>
+<td style="text-align: right;">3.577152</td>
+<td style="text-align: right;">3.039595</td>
+<td style="text-align: right;">1.512579</td>
+<td style="text-align: right;">0.621510</td>
+<td style="text-align: right;">1.092427</td>
+<td style="text-align: right;">1.911605</td>
+<td style="text-align: right;">1.368582</td>
+<td style="text-align: right;">2.511084</td>
+<td style="text-align: right;">0.839038</td>
+<td style="text-align: right;">3.272104</td>
+<td style="text-align: right;">1.121144</td>
+<td style="text-align: right;">1.740897</td>
+<td style="text-align: right;">2.996994</td>
+<td style="text-align: right;">-1.267884</td>
+<td style="text-align: right;">2.586945</td>
+<td style="text-align: right;">2.184757</td>
+<td style="text-align: right;">-0.124601</td>
+<td style="text-align: right;">2.601747</td>
+<td style="text-align: right;">1.747253</td>
+<td style="text-align: right;">2.520691</td>
+<td style="text-align: right;">4.051763</td>
+<td style="text-align: right;">2.738223</td>
+<td style="text-align: right;">1.022146</td>
+<td style="text-align: right;">-1.129770</td>
+<td style="text-align: right;">1.219736</td>
+<td style="text-align: right;">-0.032099</td>
+<td style="text-align: right;">2.843606</td>
+<td style="text-align: right;">-1.122089</td>
+<td style="text-align: right;">0.739502</td>
+<td style="text-align: right;">2.138073</td>
+<td style="text-align: right;">0.272516</td>
+<td style="text-align: right;">0.625661</td>
+<td style="text-align: right;">2.134281</td>
+<td style="text-align: right;">0.231331</td>
+<td style="text-align: right;">2.861858</td>
+<td style="text-align: right;">1.303966</td>
+<td style="text-align: right;">1.199804</td>
+<td style="text-align: right;">1.300905</td>
+<td style="text-align: right;">1.312581</td>
+<td style="text-align: right;">2.266003</td>
+<td style="text-align: right;">3.106999</td>
+<td style="text-align: right;">2.869239</td>
+<td style="text-align: right;">2.308207</td>
+<td style="text-align: right;">1.068449</td>
+<td style="text-align: right;">2.414964</td>
+<td style="text-align: right;">1.894137</td>
+<td style="text-align: right;">2.681821</td>
+<td style="text-align: right;">0.512435</td>
+<td style="text-align: right;">2.125864</td>
+<td style="text-align: right;">2.787195</td>
+<td style="text-align: right;">2.595406</td>
+<td style="text-align: right;">2.191860</td>
+<td style="text-align: right;">2.267998</td>
+<td style="text-align: right;">0.203488</td>
+<td style="text-align: right;">2.181351</td>
+<td style="text-align: right;">1.670791</td>
+<td style="text-align: right;">0.222494</td>
+<td style="text-align: right;">0.947280</td>
+<td style="text-align: right;">2.464313</td>
+<td style="text-align: right;">2.733245</td>
+<td style="text-align: right;">2.599860</td>
+<td style="text-align: right;">1.042442</td>
+<td style="text-align: right;">1.648781</td>
+<td style="text-align: right;">0.598068</td>
+<td style="text-align: right;">0.225724</td>
+<td style="text-align: right;">0.521410</td>
+<td style="text-align: right;">1.669001</td>
+<td style="text-align: right;">1.384766</td>
+<td style="text-align: right;">2.299040</td>
+<td style="text-align: right;">2.014711</td>
+<td style="text-align: right;">2.088084</td>
+<td style="text-align: right;">0.651604</td>
+<td style="text-align: right;">2.356883</td>
+<td style="text-align: right;">0.718648</td>
+<td style="text-align: right;">1.309239</td>
+<td style="text-align: right;">2.011107</td>
+<td style="text-align: right;">1.617811</td>
+<td style="text-align: right;">3.844703</td>
+<td style="text-align: right;">1.838274</td>
+<td style="text-align: right;">2.215482</td>
+<td style="text-align: right;">2.364317</td>
+<td style="text-align: right;">1.437971</td>
+<td style="text-align: right;">2.745956</td>
+<td style="text-align: right;">3.067538</td>
+<td style="text-align: right;">3.096565</td>
+<td style="text-align: right;">2.927631</td>
+<td style="text-align: right;">4.206480</td>
+<td style="text-align: right;">3.969140</td>
+<td style="text-align: right;">5.377585</td>
+<td style="text-align: right;">2.509150</td>
+<td style="text-align: right;">2.817378</td>
+<td style="text-align: right;">1.073844</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="daten-transformieren-langformat" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="daten-transformieren-langformat"><span class="header-section-number">2.4</span> Daten transformieren: Langformat</h2>
+<p>Als erstes transformieren wir die Daten vom Breit- ins Langformat, so dass jede Messung (Tag 1-Tag 10) eine eigene Zeile bekommt. Diese Variable nennen wir “time”. Im ersten Schritt machen wir mit <code>pivot_longer()</code> den Datensatz seehr lang, es bekommt nämlich jede Messung von jeder Variable ihre eigenen Zeile. Wir machen den Datensatz dann im zweiten Schritt mit <code>pivot_wider()</code> wieder etwas breiter mit dem Ziel, eine Zeile pro Person und Tag zu bekommen, und jeweils eine Spalte pro Item.</p>
+<p>Die Funktionsweise von pivot_longer() und pivot_wider() ist in der <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping">Einführung zu R</a> beschrieben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_cfa_superlong <span class="ot">&lt;-</span> df_cfa_wide <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>id, <span class="co"># All columns except id</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"time"</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_t"</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>df_cfa_long <span class="ot">&lt;-</span> df_cfa_superlong <span class="sc">|&gt;</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> value) <span class="sc">|&gt;</span> </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time)) <span class="co"># time ist eine Zahl von 1-10, wurde aber zuvor als Character-Vector abgespeichert</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="daten-transformieren-skalenscores-erstellen" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="daten-transformieren-skalenscores-erstellen"><span class="header-section-number">2.5</span> Daten transformieren: Skalenscores erstellen</h2>
+<p>Als nächstes können wir die Skalenscores erstellen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_cfa_long_scores <span class="ot">&lt;-</span> df_cfa_long <span class="sc">|&gt;</span> <span class="fu">group_by</span>(id, time) <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">a =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"a"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">b =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"b"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">c =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"c"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span> <span class="co"># group_by() wieder aufheben für den finalen Datensatz</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wir verwenden eine simple Form der Skalenerstellung bei dem der Mittelwert aller vorhandenen Items einer Skala verwendet wird. (Best-practice ist es bei fehlenden Daten genau hinzuschauen und nur dann einen Skalenwert zu erstellen, wenn die Personen zu einen gewissen Prozentsatz aller Items eine Antwort geben (etwa 2/3). Eine solche Funktion könnten wir programmieren, lassen es aber für das Beispiel weg.)</p>
+</section>
+<section id="daten-transformieren-zentrierung" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="daten-transformieren-zentrierung"><span class="header-section-number">2.6</span> Daten transformieren: Zentrierung</h2>
+<p>Für die spätere Verwendung zerlegen wir die Rohvariablen mittels person-mean Zentrierung. Wir zentrieren wir die Skalenvariablen, die täglich gemessen werden (aber nicht Baseline-Variablen), mittels <code>de_mean()</code>. <code>de_mean()</code> nimmt als Argumente (a) mit Komma getrennte Namen der Variablen, die wir zentrieren wollen (mehrere auf einmal ist möglich), (b) mittels <code>grp =</code> Argument die identifizierende Variable für die Gruppenzugehörigkeit in Anführungszeichen (<code>"id"</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_cfa_long_scores <span class="ot">&lt;-</span> df_cfa_long_scores <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">de_mean</span>(a,b, c, <span class="at">grp =</span> <span class="st">"id"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_long_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">b</th>
+<th style="text-align: right;">c</th>
+<th style="text-align: right;">a_dm</th>
+<th style="text-align: right;">b_dm</th>
+<th style="text-align: right;">c_dm</th>
+<th style="text-align: right;">a_gm</th>
+<th style="text-align: right;">b_gm</th>
+<th style="text-align: right;">c_gm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.576438</td>
+<td style="text-align: right;">2.0153094</td>
+<td style="text-align: right;">3.059581</td>
+<td style="text-align: right;">-0.2566380</td>
+<td style="text-align: right;">0.4476044</td>
+<td style="text-align: right;">-0.5267811</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.618275</td>
+<td style="text-align: right;">1.6847458</td>
+<td style="text-align: right;">4.229828</td>
+<td style="text-align: right;">-0.2148012</td>
+<td style="text-align: right;">0.1170408</td>
+<td style="text-align: right;">0.6434662</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2.365406</td>
+<td style="text-align: right;">0.3495072</td>
+<td style="text-align: right;">2.465712</td>
+<td style="text-align: right;">-1.4676704</td>
+<td style="text-align: right;">-1.2181978</td>
+<td style="text-align: right;">-1.1206501</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.604362</td>
+<td style="text-align: right;">1.4354944</td>
+<td style="text-align: right;">2.848375</td>
+<td style="text-align: right;">-0.2287140</td>
+<td style="text-align: right;">-0.1322106</td>
+<td style="text-align: right;">-0.7379871</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.881178</td>
+<td style="text-align: right;">1.2395786</td>
+<td style="text-align: right;">3.159797</td>
+<td style="text-align: right;">0.0481014</td>
+<td style="text-align: right;">-0.3281264</td>
+<td style="text-align: right;">-0.4265645</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4.172778</td>
+<td style="text-align: right;">1.3404398</td>
+<td style="text-align: right;">4.261824</td>
+<td style="text-align: right;">0.3397012</td>
+<td style="text-align: right;">-0.2272652</td>
+<td style="text-align: right;">0.6754625</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Als Ergebnis erhalten wir die zusätzlichen Variablen a, b, c jeweils mit “_dm” und “_gm”. Was verbirgt sich dahinter? Wir haben einen Datensatz mit den unzentrierten / Rohvariablen der Skalen (ohne Suffix), den zentrierten Variablen (Suffix <code>_dm</code>) und den Mittelwerten der Personen (Suffix <code>_gm</code>), den wir zur weiteren Verwendung auch abspeichern.</p>
+<p>Damit ist die Transformation der Daten abgeschlossen! Wir können die Datensätze - “df_cfa_long” für die Items und “df_cfa_long_scores” für die Skalen nun abspeichern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df_cfa_long, df_cfa_long_scores, <span class="at">file =</span> <span class="st">"../data/df_cfa_long.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="überprüfe-dein-verständnis" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="überprüfe-dein-verständnis"><span class="header-section-number">2.7</span> Überprüfe dein Verständnis</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung <span class="ot">&lt;-</span> df_cfa_long_scores <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, time, a, a_dm, a_gm)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">a_dm</th>
+<th style="text-align: right;">a_gm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.576438</td>
+<td style="text-align: right;">-0.2566380</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.618275</td>
+<td style="text-align: right;">-0.2148012</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2.365406</td>
+<td style="text-align: right;">-1.4676704</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.604362</td>
+<td style="text-align: right;">-0.2287140</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.881178</td>
+<td style="text-align: right;">0.0481014</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4.172778</td>
+<td style="text-align: right;">0.3397012</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.593205</td>
+<td style="text-align: right;">-0.2398718</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.722344</td>
+<td style="text-align: right;">-0.1107326</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">5.284937</td>
+<td style="text-align: right;">1.4518608</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4.511841</td>
+<td style="text-align: right;">0.6787644</td>
+<td style="text-align: right;">3.833076</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Warum ist der Wert, den Person 1 in “a_gm” hat, in jeder Zeile gleich, nicht aber bei “a_dm” und “a”? Wie müsste man a transformieren, damit man auf a_dm kommt? Denke an die mathematischen Operationen die du in <code>mutate()</code> eingeben müsstest, wie <code>+</code>, <code>-</code>, <code>/</code>, <code>mean()</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lösung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Variable a ist die Rohvariable, die den gemessenen Wert auf der Skala an jedem Tag angibt. Variablen mit “_gm” und “_dm” werden von <code>sjmisc::de_mean()</code> erstellt und stehen für den Mittelwert der Person über alle Tage hinweg. Variablen mit “_dm” stehen für die täglichen Abweichungen vom Mittelwert der Person. “a_dm” ergibt sich aus: <span class="math inline">\(a = a - a\_gm\)</span>. Wir können dies auch in R replizieren mit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a_dm_manuell =</span> a <span class="sc">-</span> <span class="fu">mean</span>(a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">a_dm</th>
+<th style="text-align: right;">a_gm</th>
+<th style="text-align: right;">a_dm_manuell</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.576438</td>
+<td style="text-align: right;">-0.2566380</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">-0.2566380</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.618275</td>
+<td style="text-align: right;">-0.2148012</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">-0.2148012</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2.365406</td>
+<td style="text-align: right;">-1.4676704</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">-1.4676704</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.604362</td>
+<td style="text-align: right;">-0.2287140</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">-0.2287140</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.881178</td>
+<td style="text-align: right;">0.0481014</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">0.0481014</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4.172778</td>
+<td style="text-align: right;">0.3397012</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">0.3397012</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.593205</td>
+<td style="text-align: right;">-0.2398718</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">-0.2398718</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.722344</td>
+<td style="text-align: right;">-0.1107326</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">-0.1107326</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">5.284937</td>
+<td style="text-align: right;">1.4518608</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.4518608</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4.511841</td>
+<td style="text-align: right;">0.6787644</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">0.6787644</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="übung-datenaufbereitung" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="übung-datenaufbereitung"><span class="header-section-number">2.8</span> Übung Datenaufbereitung</h2>
+<p>Schau dir den Datensatz an und repliziere die Schritte oben:</p>
+<ol type="1">
+<li>Daten in Langformat transformieren und als <code>df_uebung_lang &lt;-</code> zuweisen.</li>
+<li>Skalenscores für x und y erstellen und als <code>df_uebung_lang_scores &lt;-</code> zuweisen.</li>
+<li>Skalenscores für x und y zentrieren (weiterhin in <code>df_uebung_lang_scores</code>).</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lösung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># laden</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_cfa_exercise.RData"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Daten in Langformat transformieren - funktionen: pivot_longer(), pivot_wider()</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>df_uebung_superlang <span class="ot">&lt;-</span> df_cfa_exercise <span class="sc">|&gt;</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>id, <span class="co"># All columns except id</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"time"</span>),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_t"</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>df_uebung_lang <span class="ot">&lt;-</span> df_uebung_superlang <span class="sc">|&gt;</span> </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> value) <span class="sc">|&gt;</span> </span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time)) </span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Skalenscores für X und Y erstellen - funktionen: group_by(), summarise()</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>df_uebung_lang_scores <span class="ot">&lt;-</span> df_uebung_lang <span class="sc">|&gt;</span> <span class="fu">group_by</span>(id, time) <span class="sc">|&gt;</span> </span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"x"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"y"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span> <span class="co"># group_by() wieder aufheben für den finalen Datensatz</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Skalenscores für X und Y zentrieren - Funktionen: de_mean()</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>df_uebung_lang_scores <span class="ot">&lt;-</span> df_uebung_lang_scores <span class="sc">|&gt;</span> </span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">de_mean</span>(x, y, <span class="at">grp =</span> <span class="st">"id"</span>)</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_uebung_lang_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">x</th>
+<th style="text-align: right;">y</th>
+<th style="text-align: right;">x_dm</th>
+<th style="text-align: right;">y_dm</th>
+<th style="text-align: right;">x_gm</th>
+<th style="text-align: right;">y_gm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.415787</td>
+<td style="text-align: right;">3.962804</td>
+<td style="text-align: right;">0.3959958</td>
+<td style="text-align: right;">0.1601657</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.569166</td>
+<td style="text-align: right;">4.301619</td>
+<td style="text-align: right;">-0.4506258</td>
+<td style="text-align: right;">0.4989815</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4.527970</td>
+<td style="text-align: right;">3.908551</td>
+<td style="text-align: right;">0.5081786</td>
+<td style="text-align: right;">0.1059135</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.446667</td>
+<td style="text-align: right;">3.494870</td>
+<td style="text-align: right;">-0.5731246</td>
+<td style="text-align: right;">-0.3077683</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.900859</td>
+<td style="text-align: right;">3.557375</td>
+<td style="text-align: right;">-0.1189324</td>
+<td style="text-align: right;">-0.2452633</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.924495</td>
+<td style="text-align: right;">4.196442</td>
+<td style="text-align: right;">-0.0952970</td>
+<td style="text-align: right;">0.3938045</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="abspeichern-der-gebildeten-skalen" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="abspeichern-der-gebildeten-skalen"><span class="header-section-number">2.9</span> Abspeichern der gebildeten Skalen</h2>
+<p>Zum Schluss speichern wir die Ergebnisse (sowohl die Items als auch die Skalen in Langformat) der Übung ab.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df_uebung_lang, df_uebung_lang_scores, <span class="at">file =</span> <span class="st">"../data/df_uebung.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="index.qmd">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.qmd</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02 Descriptive Statistics.html" class="pagination-link" aria-label="Deskriptive Analysen und Überprüfung von Voraussetzungen">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
