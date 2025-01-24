@@ -1,0 +1,120 @@
+---
+title: "Sektionen unter Entwicklung"
+format: html
+editor: visual
+---
+
+### 1-1-1 Mediation mit Moderation
+
+```{r}
+fit_modmed.mlm <- multilevelmediation::modmed.mlm(df_example1c, "id", "x_dm", "y", "m_dm", "w", moderator = "w", mod.a = TRUE,
+                                random.int.m = FALSE,
+                                na.action = na.omit)
+
+summary(fit_modmed.mlm$model)
+
+fit_modmed.mlm_glmmtmb <- multilevelmediation::modmed.mlm(df_example1c, "id", "x_dm", "y", "m_dm", "w", moderator = "w", mod.a = TRUE,
+                                random.int.m = FALSE,
+                                na.action = na.omit,
+                                estimator = "glmmTMB")
+
+summary(fit_modmed.mlm_glmmtmb$model)
+```
+
+```{r}
+# buggy currently
+extract.modmed.mlm(fit_modmed.mlm_glmmtmb, type="indirect.diff", modval1 = 1, modval2 = 5)
+```
+
+## Bootstrapped moderated within-person mediation
+
+```{r}
+library(parallel)
+library(boot)
+library(multilevelmediation)
+ncpu<-2
+RNGkind("L'Ecuyer-CMRG") # set type of random number generation that works in parallel
+cl<-makeCluster(ncpu)
+clusterSetRNGStream(cl, 42) # set random number seeds for cluster
+
+
+# boot.result<-boot(df_example1, statistic=boot.modmed.mlm, R=10,
+#                   L2ID = "id", X = "x_dm", Y = "y", M = "m_dm", moderator = "w", mod.a = TRUE,
+#                   modval1 = 1, modval2 = 5,
+#                                 random.int.m = FALSE,
+#                                 na.action = na.omit,
+#   type="all",
+#   control=list(opt="nlm"),
+#   parallel="snow",ncpus=ncpu,cl=cl)
+
+# trace(stack_bpg, browser, at = 1)
+# untrace(stack_bpg)
+# trace(modmed.mlm, browser, at = 1)
+# untrace(modmed.mlm)
+boot.custom.results <- boot.modmed.mlm.custom(
+  data = df_example1c,
+  L2ID = "id",
+  X = "x_dm",
+  Y = "y",
+  M = "m_dm",
+  moderator = "w",
+  mod.a = TRUE,
+  mod.b = FALSE,
+  mod.cprime = FALSE,
+  random.int.m = FALSE,
+  control = list(opt = "nlm"),
+  na.action = na.omit,
+  return.type = "all",
+  modval1 = 1,
+  modval2 = 5,
+  nrep = 500,
+  parallel.type = "parallel",
+  ncores = 4,
+  seed = 2299)
+
+
+```
+
+```{r}
+boot.custom.results[["model"]]
+#extract.boot.modmed.mlm(boot.custom.results, type="indirect", ci.conf=.95) # buggy
+# extract.boot.modmed.mlm(boot.custom.results, type="indirect.diff", modval1 = 1, modval2 =5, ci.conf=.95) # buggy
+
+
+# extract.boot.modmed.mlm(boot.result, type="indirect.diff", ci.conf=.95)
+```
+
+multilevelmediation is still in alpha and many functions dont return errors or weird results.
+
+### Bayes Variante mit brms
+
+Diese Berechnung dauert (bei mir 5-10 Minuten). Daher speichere ich sie hier ab, um sie nicht jedes mal neu ausfuehren zu muessen. Die Funktion setzt unter Windows RTools voraus, unter MacOS, Siehe <https://learnb4ss.github.io/learnB4SS/articles/install-brms.html>
+
+```{r}
+#| eval: false
+#| # setzt Rtools voraus
+fitbayes <- mlmediation_wrapper(x = "x_dm",
+                                y = "y",
+                                m = "m_dm",
+                                id = "id",
+                                df = df_example1,
+                                randomcor = FALSE) # dauert
+
+save(fitbayes, file = "cache/fitbayes.RData")
+```
+
+Ergebnisdarstellung: (Die folgende Syntax muss nicht angepasst werden.)
+
+```{r}
+load("fitbayes.RData")
+
+# summary(fitbayes)
+tidy(fitbayes, effects = c("fixed")) |> mutate(across(where(is.numeric), ~round(.x,2)))
+extract_indirect(fitbayes)
+```
+
+Dies ergibt zwei Outputs. Der erste (von der Funktion `tidy()`) beinhaltet die fixed effects. SmX = a-Pfad SyM = b-Pfad SyX = c'-Pfad.
+
+Es werden keine p-Werte angegeben, da es sich um bayessche Schätzungen handelt. Der 95% Credibility Interval gibt Auskunft, ob ein Effekt signifikant ist.
+
+Der zweite (von der Funktion `extract_indirect()`) beinhaltet den kalkulierten indirekten Effekt. = a\*b, indirekter Effekt.

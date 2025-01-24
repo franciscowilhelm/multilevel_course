@@ -15,30 +15,110 @@ pacman::p_load(lmerTest, haven, brms, psych,
                tidyverse, multilevelTools, parameters, devtools)
 
 # devtools::install_github("falkcarl/multilevelmediation")
+library(multilevelmediation)
+
 ```
 
 ## Daten einlesen
 
 ```{r}
 load("../data/df_example1.RData")
+load("../data/df_example1c.RData")
+
 ```
 Im Folgenden erstellen wir ein Mediationsmodellen und spezifizieren bei den Argumenten x, y, und m die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variablen wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.
+
+
+### Cross-Level Interaktion
+
+Erwarten wir dass der Effekt von täglichen Schwankungen in X auf Y abhängig von einer Variablen ist, die auf Level-2 gemessen wird (z.B. relativ stabile Persönlichkeitsmerkmale), können wir dies mit einer Cross-Level Interaktion testen.
+
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+Level 2 (random slope for x): $\beta_{1j} = \gamma_{10} + u_{2j}$
+
+```{r}
+head(df_example1c)
+```
+
+
+```{r}
+ri.rs_cli_modell <- lmer(y ~ x_dm + w + w*x_dm + (1 + x_dm | id), data = df_example1c)
+model_parameters(ri.rs_cli_modell) |> print_html()
+```
+Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr interpretiert werden.
+
+Visualisierung des Interaktionseffekt mittels der `plot_model()` Funktion.
+Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt.
+
+```{r}
+plot_model(ri.rs_cli_modell, type = "int", terms = c("x_dm", "w"))
+ggsave("test.png")
+```
+
+Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen.
+
+```{r}
+plot_model(ri.rs_cli_modell, type = "int", mdrt.values = "meansd")
+```
+Der Plot zeigt, dass bei höheren Ausprägungen von w der Effekt von x_dm stärker ausfällt.
+
+
+### Within-level Interaktion
+
+Analog zur Cross-level Interaktion gibt es auch Within-level Interaktionen, bei der die Level-1 Anteile von Prädiktorvariablen miteinander interagieren.
+
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*(M_{ij}-\overline{M_j}) + \beta_{3j}*((M_{ij}-\overline{M_j})*(X_{ij}-\overline{X_j})) + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+Level 2 (random slope X): $\beta_{1j} = \gamma_{10} + u_{1j}$
+Level 2 (random slope M): $\beta_{2j} = \gamma_{20} + u_{2j}$
+
+```{r}
+ri.rs_wli_modell <- lmer(y ~ x_dm + m_dm + x_dm*m_dm + (1 + x_dm + m_dm | id), data = df_example1)
+model_parameters(ri.rs_wli_modell) |> print_html()
+```
+
+```{r}
+plot_model(ri.rs_wli_modell, type = "int", mdrt.values = "meansd")
+```
+
+Der Interaktionseffekt ist nicht signifikant. Dies bedeutet, wie der Plot zeigt, dass die Linien bei allen Ausprägungen des Moderators mehr oder wenig parallel sind.
 
 
 ## Maximum Likelihood Variante
 
 ### 1-1-1 Mediation
 
+Die 1-1-1 Mediation ist die gängigste Variante, in der alle Variablen (X, M[ediator], und Y) auf Tagesebene gemessen werden.
+Zum Testen verwenden wir zunächst die Funktion `modmed.mlm()`.
+Anders als bei den früheren ANalysen steht uns das `parameters` Paket hier nicht zur Verfügung um die Ergebnisse zusammenzufassen. Stattdessen nehmen wir die `summary()` Funktion.
+
 ```{r}
-fit_mediation <- multilevelmediation::modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm",
+
+fit_mediation <- modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm",
                                 random.int.m = FALSE,
                                 na.action = na.omit)
 
 summary(fit_mediation$model)
 ```
+Die ausgegebenen Zeilen/Parameter sind etwas kryptisch beschrieben.
+
+- Sm - fixed Intercept von M
+- Sy - fixed Intercept von Y
+- SmX - fixed Slope von X auf M (a-Pfad)
+- SyX - fixed Slope von Y auf X (c'-Pfad)
+- SyM - fixed Slope von Y auf M (b-Pfad)
+
+Random slopes werden in diesem Modell keine geschätzt.
+
 ### Bootstrapped Version
 
+Der indirekte Effekt von X auf Y via M (a-Pfad * b-Pfad) der uns in der Mediation von zentralem Interesse ist, ist in der Regel nicht normalverteilt, da ein Produkt zweier (oder mehrerer) Pfadkoeffizienten nicht wie die Pfadkoeffizienten selber approximativ normalverteilt ist. Aufgrund der fehlenden Normalverteilung verwenden wir die Bootstrap-Schätzung, um eine robustere Aussage über die Signifikanz des indirekten Effekts zu bekommen.
+
 ```{r}
+#| cache: true
 boot.custom.results <- boot.modmed.mlm.custom(
   data = df_example1,
   L2ID = "id",
@@ -57,141 +137,32 @@ boot.custom.results <- boot.modmed.mlm.custom(
 ```
 
 ```{r}
-summary(boot.custom.results$model)
-extract.modmed.mlm(boot.custom.results, type="all")
 extract.modmed.mlm(boot.custom.results, type="indirect")
 # manual extract of CI
+
 indirect_boot <- tibble(SyM = boot.custom.results[["t"]][,which(names(boot.custom.results[["t0"]]) == "SyM")], 
                         SmX = boot.custom.results[["t"]][,which(names(boot.custom.results[["t0"]]) == "SmX")]) |> 
   mutate(indirect = SyM * SmX)
 quantile(indirect_boot$indirect, c(0.025, 0.975), na.rm = TRUE)
 
-```
+# zusammenfassen
+indirect_punktschaetzung <- extract.modmed.mlm(boot.custom.results, type="indirect")
+indirekt_ci <- quantile(indirect_boot$indirect, c(0.025, 0.975), na.rm = TRUE)
+indirekt_zusammenfassung <-
+  tibble(Koeffizient = indirect_punktschaetzung,
+         LLCI = indirekt_ci[1],
+         ULCI = indirekt_ci[2]) |> 
+  mutate(across(where(is.numeric), round, 3))
 
-Das Paket gibt aktuell keine aus den Bootstrap ermittelte Konfidenzintervalle des indirekten Effekts aus, aber wir können sie aus den Bootstrap Results berechnen.
-
-### 1-1-1 Mediation mit Moderation
-
-```{r}
-fit_modmed.mlm <- multilevelmediation::modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm", "w", moderator = "w", mod.a = TRUE,
-                                random.int.m = FALSE,
-                                na.action = na.omit)
-
-summary(fit_modmed.mlm$model)
-
-fit_modmed.mlm_glmmtmb <- multilevelmediation::modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm", "w", moderator = "w", mod.a = TRUE,
-                                random.int.m = FALSE,
-                                na.action = na.omit,
-                                estimator = "glmmTMB")
-
-summary(fit_modmed.mlm_glmmtmb$model)
-```
-
-```{r}
-# extract.modmed.mlm(fit_modmed.mlm_glmmtmb, type="indirect.diff", modval1 = 1, modval2 = 5)
-```
-
-
-## Bootstrapped moderated within-person mediation
- 
-```{r}
-library(parallel)
-library(boot)
-library(multilevelmediation)
-ncpu<-2
-RNGkind("L'Ecuyer-CMRG") # set type of random number generation that works in parallel
-cl<-makeCluster(ncpu)
-clusterSetRNGStream(cl, 42) # set random number seeds for cluster
-
-
-# boot.result<-boot(df_example1, statistic=boot.modmed.mlm, R=10,
-#                   L2ID = "id", X = "x_dm", Y = "y", M = "m_dm", moderator = "w", mod.a = TRUE,
-#                   modval1 = 1, modval2 = 5,
-#                                 random.int.m = FALSE,
-#                                 na.action = na.omit,
-#   type="all",
-#   control=list(opt="nlm"),
-#   parallel="snow",ncpus=ncpu,cl=cl)
-
-# trace(stack_bpg, browser, at = 1)
-# untrace(stack_bpg)
-# trace(modmed.mlm, browser, at = 1)
-# untrace(modmed.mlm)
-boot.custom.results <- boot.modmed.mlm.custom(
-  data = df_example1,
-  L2ID = "id",
-  X = "x_dm",
-  Y = "y",
-  M = "m_dm",
-  moderator = "w",
-  mod.a = TRUE,
-  mod.b = FALSE,
-  mod.cprime = FALSE,
-  random.int.m = FALSE,
-  control = list(opt = "nlm"),
-  na.action = na.omit,
-  return.type = "all",
-  modval1 = 1,
-  modval2 = 5,
-  nrep = 500,
-  parallel.type = "parallel",
-  ncores = 4,
-  seed = 2299)
-
+indirekt_zusammenfassung
 
 ```
- 
- 
 
-```{r}
-boot.custom.results[["model"]]
-extract.boot.modmed.mlm(boot.custom.results, type="indirect", ci.conf=.95)
-extract.boot.modmed.mlm(boot.result, type="indirect.diff", modval1 = 1, modval2 =5, ci.conf=.95)
+Der indirekte Effekt und sein 95% Konfidenzintervall müssen wir aus den Daten extrahieren. Wenn der 95% Konfidenzintervall die 0 ausschliesst (also sowohl unterer als auch oberes Limit entweder unter Null oder über Null liegen) können wir den indirekten Effekt als signifikant ansehen.
 
-
-# extract.boot.modmed.mlm(boot.result, type="indirect.diff", ci.conf=.95)
-```
-
-multilevelmediation is still in alpha and many functions dont return errors or weird results.
-
-### Bayes Variante mit brms
-
-Diese Berechnung dauert (bei mir 5-10 Minuten). Daher speichere ich sie hier ab, um sie nicht jedes mal neu ausfuehren zu muessen.
-Die Funktion setzt unter Windows RTools voraus, unter MacOS, Siehe https://learnb4ss.github.io/learnB4SS/articles/install-brms.html
-
-
-```{r}
-#| eval: false
-#| # setzt Rtools voraus
-fitbayes <- mlmediation_wrapper(x = "x_dm",
-                                y = "y",
-                                m = "m_dm",
-                                id = "id",
-                                df = df_example1,
-                                randomcor = FALSE) # dauert
-
-save(fitbayes, file = "cache/fitbayes.RData")
-```
-
-
-
-Ergebnisdarstellung:
-(Die folgende Syntax muss nicht angepasst werden.)
-```{r}
-load("fitbayes.RData")
-
-# summary(fitbayes)
-tidy(fitbayes, effects = c("fixed")) |> mutate(across(where(is.numeric), ~round(.x,2)))
-extract_indirect(fitbayes)
-```
-Dies ergibt zwei Outputs. Der erste (von der Funktion `tidy()`) beinhaltet die fixed effects.
-SmX = a-Pfad SyM = b-Pfad SyX = c'-Pfad.
-
-Es werden keine p-Werte angegeben, da es sich um bayessche Schätzungen handelt. Der 95% Credibility Interval gibt Auskunft, ob ein Effekt signifikant ist.
-
-Der zweite (von der Funktion `extract_indirect()`) beinhaltet den kalkulierten indirekten Effekt.
- = a\*b, indirekter Effekt.
- 
+In diesem Beispiel finden wir also einen signifikanten indirekten Effekt mit Koeffizient = 0.30, 95% CI = [0.19, 0.41].
+LLCI = Lower Limit of Confidence Interval
+ULCI = Upper Limit of Confidence Interval
 
 
  
