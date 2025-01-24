@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Kapitel 3: Hypothesentests - Teil 1</title>
+<title>4&nbsp; Kapitel 3: Hypothesentests - Teil 1 – Tagebuchstudien und Mehrebenenmodelle</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -57,57 +57,174 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="03 Hypotheses Tests_files/libs/clipboard/clipboard.min.js"></script>
-<script src="03 Hypotheses Tests_files/libs/quarto-html/quarto.js"></script>
-<script src="03 Hypotheses Tests_files/libs/quarto-html/popper.min.js"></script>
-<script src="03 Hypotheses Tests_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="03 Hypotheses Tests_files/libs/quarto-html/anchor.min.js"></script>
-<link href="03 Hypotheses Tests_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="03 Hypotheses Tests_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="03 Hypotheses Tests_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="03 Hypotheses Tests_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="03 Hypotheses Tests_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02 Descriptive Statistics.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8da5b4427184b79ecddefad3d342027e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body>
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03 Hypotheses Tests.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Tagebuchstudien und Mehrebenenmodelle</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.qmd</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01 Data Preparation Item Level.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1: Datenaufbereitung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02 Descriptive Statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03 Hypotheses Tests.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link active" data-scroll-target="#vorbereitung">Vorbereitung</a></li>
-  <li><a href="#daten-einlesen" id="toc-daten-einlesen" class="nav-link" data-scroll-target="#daten-einlesen">Daten einlesen</a></li>
-  <li><a href="#random-intercept-modell-null-model" id="toc-random-intercept-modell-null-model" class="nav-link" data-scroll-target="#random-intercept-modell-null-model">Random Intercept Modell / Null-Model</a>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link active" data-scroll-target="#vorbereitung"><span class="header-section-number">4.1</span> Vorbereitung</a></li>
+  <li><a href="#daten-einlesen" id="toc-daten-einlesen" class="nav-link" data-scroll-target="#daten-einlesen"><span class="header-section-number">4.2</span> Daten einlesen</a></li>
+  <li><a href="#random-intercept-modell-null-model" id="toc-random-intercept-modell-null-model" class="nav-link" data-scroll-target="#random-intercept-modell-null-model"><span class="header-section-number">4.3</span> Random Intercept Modell / Null-Model</a>
   <ul class="collapse">
-  <li><a href="#icc" id="toc-icc" class="nav-link" data-scroll-target="#icc">ICC</a></li>
-  <li><a href="#visualisierung" id="toc-visualisierung" class="nav-link" data-scroll-target="#visualisierung">Visualisierung</a></li>
+  <li><a href="#icc" id="toc-icc" class="nav-link" data-scroll-target="#icc"><span class="header-section-number">4.3.1</span> ICC</a></li>
+  <li><a href="#visualisierung" id="toc-visualisierung" class="nav-link" data-scroll-target="#visualisierung"><span class="header-section-number">4.3.2</span> Visualisierung</a></li>
   </ul></li>
-  <li><a href="#random-intercept-fixed-slope-modell" id="toc-random-intercept-fixed-slope-modell" class="nav-link" data-scroll-target="#random-intercept-fixed-slope-modell">Random Intercept, fixed slope Modell</a>
+  <li><a href="#random-intercept-fixed-slope-modell" id="toc-random-intercept-fixed-slope-modell" class="nav-link" data-scroll-target="#random-intercept-fixed-slope-modell"><span class="header-section-number">4.4</span> Random Intercept, fixed slope Modell</a>
   <ul class="collapse">
-  <li><a href="#visualisierung-1" id="toc-visualisierung-1" class="nav-link" data-scroll-target="#visualisierung-1">Visualisierung</a></li>
-  <li><a href="#random-intercept-random-slope-modell" id="toc-random-intercept-random-slope-modell" class="nav-link" data-scroll-target="#random-intercept-random-slope-modell">Random intercept, random slope Modell</a></li>
-  <li><a href="#visualisierung-2" id="toc-visualisierung-2" class="nav-link" data-scroll-target="#visualisierung-2">Visualisierung</a></li>
+  <li><a href="#visualisierung-1" id="toc-visualisierung-1" class="nav-link" data-scroll-target="#visualisierung-1"><span class="header-section-number">4.4.1</span> Visualisierung</a></li>
+  <li><a href="#random-intercept-random-slope-modell" id="toc-random-intercept-random-slope-modell" class="nav-link" data-scroll-target="#random-intercept-random-slope-modell"><span class="header-section-number">4.4.2</span> Random intercept, random slope Modell</a></li>
+  <li><a href="#visualisierung-2" id="toc-visualisierung-2" class="nav-link" data-scroll-target="#visualisierung-2"><span class="header-section-number">4.4.3</span> Visualisierung</a></li>
   </ul></li>
-  <li><a href="#level-2-prädiktoren" id="toc-level-2-prädiktoren" class="nav-link" data-scroll-target="#level-2-prädiktoren">Level-2 Prädiktoren</a></li>
-  <li><a href="#cross-level-interaktion" id="toc-cross-level-interaktion" class="nav-link" data-scroll-target="#cross-level-interaktion">Cross-Level Interaktion</a>
-  <ul class="collapse">
-  <li><a href="#visualisierung-3" id="toc-visualisierung-3" class="nav-link" data-scroll-target="#visualisierung-3">Visualisierung</a></li>
-  <li><a href="#within-level-interaktion" id="toc-within-level-interaktion" class="nav-link" data-scroll-target="#within-level-interaktion">Within-level Interaktion</a></li>
-  </ul></li>
+  <li><a href="#level-2-prädiktoren" id="toc-level-2-prädiktoren" class="nav-link" data-scroll-target="#level-2-prädiktoren"><span class="header-section-number">4.5</span> Level-2 Prädiktoren</a></li>
   </ul>
 </nav>
-</div>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Kapitel 3: Hypothesentests - Teil 1</h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></h1>
 </div>
 
 
@@ -120,7 +237,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>In diesem Kapitel verwenden wir verschiedene Regressionsmodelle die zur Überprüfung von Hypothesen eingesetzt werden.</p>
 <ul>
@@ -130,8 +249,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Erweiterung um Level-2 Prädiktoren</li>
 <li>Cross-level und within-level Interaktionen</li>
 </ul>
-<section id="vorbereitung" class="level2">
-<h2 class="anchored" data-anchor-id="vorbereitung">Vorbereitung</h2>
+<section id="vorbereitung" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">4.1</span> Vorbereitung</h2>
 <p>Install packages</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -143,8 +262,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               tidyverse, multilevelTools, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="daten-einlesen" class="level2">
-<h2 class="anchored" data-anchor-id="daten-einlesen">Daten einlesen</h2>
+<section id="daten-einlesen" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="daten-einlesen"><span class="header-section-number">4.2</span> Daten einlesen</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_example1.RData"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_example1c.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -157,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_example1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 3%">
 <col style="width: 10%">
@@ -264,8 +383,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Im Folgenden betrachten wir ein Modell in dem y durch x vorhergesagt wird.</p>
 </section>
-<section id="random-intercept-modell-null-model" class="level2">
-<h2 class="anchored" data-anchor-id="random-intercept-modell-null-model">Random Intercept Modell / Null-Model</h2>
+<section id="random-intercept-modell-null-model" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="random-intercept-modell-null-model"><span class="header-section-number">4.3</span> Random Intercept Modell / Null-Model</h2>
 <p>Die Funktion lmer() benötigt zwei Argumente, (a) die Formel und (b) den Datensatz. Zum Aufbau und Details der Formeln s. Folien.</p>
 <p>Level 1: <span class="math inline">\(y_{ij} = \beta_{0j} + e_{ij}\)</span></p>
 <p>Level 2 (random intercept): <span class="math inline">\(\beta_{0j} = \gamma_{00} + u_{0j}\)</span></p>
@@ -304,7 +423,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(nullmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 12%">
 <col style="width: 12%">
@@ -366,24 +485,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(nullmodel) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div id="kdvptusabu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kdvptusabu table {
+<div id="uegohwzjzc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uegohwzjzc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kdvptusabu thead, #kdvptusabu tbody, #kdvptusabu tfoot, #kdvptusabu tr, #kdvptusabu td, #kdvptusabu th {
+#uegohwzjzc thead, #uegohwzjzc tbody, #uegohwzjzc tfoot, #uegohwzjzc tr, #uegohwzjzc td, #uegohwzjzc th {
   border-style: none;
 }
 
-#kdvptusabu p {
+#uegohwzjzc p {
   margin: 0;
   padding: 0;
 }
 
-#kdvptusabu .gt_table {
+#uegohwzjzc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -409,12 +527,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_caption {
+#uegohwzjzc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kdvptusabu .gt_title {
+#uegohwzjzc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -426,7 +544,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-width: 0;
 }
 
-#kdvptusabu .gt_subtitle {
+#uegohwzjzc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -438,7 +556,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-width: 0;
 }
 
-#kdvptusabu .gt_heading {
+#uegohwzjzc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -450,13 +568,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_bottom_border {
+#uegohwzjzc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_col_headings {
+#uegohwzjzc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -471,7 +589,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_col_heading {
+#uegohwzjzc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -491,7 +609,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#kdvptusabu .gt_column_spanner_outer {
+#uegohwzjzc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -503,15 +621,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 4px;
 }
 
-#kdvptusabu .gt_column_spanner_outer:first-child {
+#uegohwzjzc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kdvptusabu .gt_column_spanner_outer:last-child {
+#uegohwzjzc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kdvptusabu .gt_column_spanner {
+#uegohwzjzc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -523,11 +641,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   width: 100%;
 }
 
-#kdvptusabu .gt_spanner_row {
+#uegohwzjzc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kdvptusabu .gt_group_heading {
+#uegohwzjzc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -553,7 +671,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   text-align: left;
 }
 
-#kdvptusabu .gt_empty_group_heading {
+#uegohwzjzc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -568,15 +686,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: middle;
 }
 
-#kdvptusabu .gt_from_md > :first-child {
+#uegohwzjzc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kdvptusabu .gt_from_md > :last-child {
+#uegohwzjzc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kdvptusabu .gt_row {
+#uegohwzjzc .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -595,7 +713,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#kdvptusabu .gt_stub {
+#uegohwzjzc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -608,7 +726,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#kdvptusabu .gt_stub_row_group {
+#uegohwzjzc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -622,15 +740,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: top;
 }
 
-#kdvptusabu .gt_row_group_first td {
+#uegohwzjzc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kdvptusabu .gt_row_group_first th {
+#uegohwzjzc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kdvptusabu .gt_summary_row {
+#uegohwzjzc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -640,16 +758,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#kdvptusabu .gt_first_summary_row {
+#uegohwzjzc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_first_summary_row.thick {
+#uegohwzjzc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kdvptusabu .gt_last_summary_row {
+#uegohwzjzc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -659,7 +777,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_grand_summary_row {
+#uegohwzjzc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -669,7 +787,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#kdvptusabu .gt_first_grand_summary_row {
+#uegohwzjzc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -679,7 +797,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_last_grand_summary_row_top {
+#uegohwzjzc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -689,11 +807,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_striped {
+#uegohwzjzc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kdvptusabu .gt_table_body {
+#uegohwzjzc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -702,7 +820,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_footnotes {
+#uegohwzjzc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -716,7 +834,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_footnote {
+#uegohwzjzc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -725,7 +843,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#kdvptusabu .gt_sourcenotes {
+#uegohwzjzc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -739,7 +857,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#kdvptusabu .gt_sourcenote {
+#uegohwzjzc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -747,129 +865,135 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#kdvptusabu .gt_left {
+#uegohwzjzc .gt_left {
   text-align: left;
 }
 
-#kdvptusabu .gt_center {
+#uegohwzjzc .gt_center {
   text-align: center;
 }
 
-#kdvptusabu .gt_right {
+#uegohwzjzc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kdvptusabu .gt_font_normal {
+#uegohwzjzc .gt_font_normal {
   font-weight: normal;
 }
 
-#kdvptusabu .gt_font_bold {
+#uegohwzjzc .gt_font_bold {
   font-weight: bold;
 }
 
-#kdvptusabu .gt_font_italic {
+#uegohwzjzc .gt_font_italic {
   font-style: italic;
 }
 
-#kdvptusabu .gt_super {
+#uegohwzjzc .gt_super {
   font-size: 65%;
 }
 
-#kdvptusabu .gt_footnote_marks {
+#uegohwzjzc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kdvptusabu .gt_asterisk {
+#uegohwzjzc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kdvptusabu .gt_indent_1 {
+#uegohwzjzc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kdvptusabu .gt_indent_2 {
+#uegohwzjzc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kdvptusabu .gt_indent_3 {
+#uegohwzjzc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kdvptusabu .gt_indent_4 {
+#uegohwzjzc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kdvptusabu .gt_indent_5 {
+#uegohwzjzc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kdvptusabu .katex-display {
+#uegohwzjzc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kdvptusabu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uegohwzjzc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Model Summary</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Parameter">Parameter</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Coefficient">Coefficient</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="SE">SE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="95% CI">95% CI</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="t(997)">t(997)</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="p">p</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Fixed Effects ">Fixed Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">(Intercept)</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">5.37</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.09</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(5.20, 5.54)</td>
-<td headers="Fixed Effects   t(997)" class="gt_row gt_center">61.50</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Random Effects ">Random Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Intercept: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.83</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(997)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Residual)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.85</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(997)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-  </tbody>
-  <tfoot class="gt_sourcenotes">
-    <tr>
-      <td class="gt_sourcenote" colspan="6"></td>
-    </tr>
-  </tfoot>
-  
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border">Model Summary</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Parameter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Parameter</th>
+<th id="Coefficient" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient</th>
+<th id="SE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">SE</th>
+<th id="95% CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
+<th id="t(997)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">t(997)</th>
+<th id="p" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row odd">
+<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Fixed Effects</td>
+</tr>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">(Intercept)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">5.37</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.09</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(5.20, 5.54)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(997)">61.50</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
+</tr>
+<tr class="gt_group_heading_row odd">
+<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Random Effects</td>
+</tr>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Intercept: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.83</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(997)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Residual)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.85</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(997)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="6" class="gt_sourcenote"></td>
+</tr>
+</tfoot>
+
 </table>
+
 </div>
 </div>
 </div>
 <p>Ich bevorzuge persönlich den Output von model_parameters(), aber das ist Geschmackssache.</p>
-<section id="icc" class="level3">
-<h3 class="anchored" data-anchor-id="icc">ICC</h3>
+<section id="icc" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="icc"><span class="header-section-number">4.3.1</span> ICC</h3>
 <p>Aus dem Null-Model wird der ICC bestimmt. Dies haben wir in der vorhergehenden</p>
 <p>ICC: <span class="math inline">\(\frac{\tau_{00}}{\tau_{00}+\tau_{ij}}\)</span>, <span class="math inline">\(\tau\)</span> gibt die Varianz des jewiligen Koeffizienten an.</p>
 <p>Wir können dies aus dem Modelloutput nehmen und berechnen:</p>
@@ -884,8 +1008,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># performance::icc(nullmodel) # Alternativfunktion</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="visualisierung" class="level3">
-<h3 class="anchored" data-anchor-id="visualisierung">Visualisierung</h3>
+<section id="visualisierung" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="visualisierung"><span class="header-section-number">4.3.2</span> Visualisierung</h3>
 <p>Wir können uns die Analysen visualisieren, hier zur reduzierten visuellen Komplexität nur auf Basis der ersten 20 Personen (ID 1-20.)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_example1 <span class="ot">&lt;-</span> df_example1 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">predicted_ri =</span> <span class="fu">predict</span>(nullmodel))</span>
@@ -913,7 +1037,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Oder zwei Personen, um uns die einzelnen Punkte auch anschauen zu können</p>
@@ -934,13 +1062,17 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 </section>
-<section id="random-intercept-fixed-slope-modell" class="level2">
-<h2 class="anchored" data-anchor-id="random-intercept-fixed-slope-modell">Random Intercept, fixed slope Modell</h2>
+<section id="random-intercept-fixed-slope-modell" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="random-intercept-fixed-slope-modell"><span class="header-section-number">4.4</span> Random Intercept, fixed slope Modell</h2>
 <p>Als nächstes bauen wir den Prädiktor x ein. Wir verwenden hier die zentrierte Variable “<code>_dm</code>” um Inner-Person Effekte zu berechnen.</p>
 <p>Level 1: <span class="math inline">\(y_{ij} = \beta_{0j} + \beta_{1j}*X_{ij} + e_{ij}\)</span></p>
 <p>Level 2 (random intercept): <span class="math inline">\(\beta_{0j} = \gamma_{00} + u_{0j}\)</span></p>
@@ -951,24 +1083,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.fs_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div id="eufhpziknr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#eufhpziknr table {
+<div id="itlhfdmhrb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#itlhfdmhrb table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#eufhpziknr thead, #eufhpziknr tbody, #eufhpziknr tfoot, #eufhpziknr tr, #eufhpziknr td, #eufhpziknr th {
+#itlhfdmhrb thead, #itlhfdmhrb tbody, #itlhfdmhrb tfoot, #itlhfdmhrb tr, #itlhfdmhrb td, #itlhfdmhrb th {
   border-style: none;
 }
 
-#eufhpziknr p {
+#itlhfdmhrb p {
   margin: 0;
   padding: 0;
 }
 
-#eufhpziknr .gt_table {
+#itlhfdmhrb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -994,12 +1125,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_caption {
+#itlhfdmhrb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#eufhpziknr .gt_title {
+#itlhfdmhrb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1011,7 +1142,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-width: 0;
 }
 
-#eufhpziknr .gt_subtitle {
+#itlhfdmhrb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1023,7 +1154,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-width: 0;
 }
 
-#eufhpziknr .gt_heading {
+#itlhfdmhrb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1035,13 +1166,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_bottom_border {
+#itlhfdmhrb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_col_headings {
+#itlhfdmhrb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1056,7 +1187,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_col_heading {
+#itlhfdmhrb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1076,7 +1207,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#eufhpziknr .gt_column_spanner_outer {
+#itlhfdmhrb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1088,15 +1219,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 4px;
 }
 
-#eufhpziknr .gt_column_spanner_outer:first-child {
+#itlhfdmhrb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eufhpziknr .gt_column_spanner_outer:last-child {
+#itlhfdmhrb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eufhpziknr .gt_column_spanner {
+#itlhfdmhrb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1108,11 +1239,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   width: 100%;
 }
 
-#eufhpziknr .gt_spanner_row {
+#itlhfdmhrb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#eufhpziknr .gt_group_heading {
+#itlhfdmhrb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1138,7 +1269,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   text-align: left;
 }
 
-#eufhpziknr .gt_empty_group_heading {
+#itlhfdmhrb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1153,15 +1284,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: middle;
 }
 
-#eufhpziknr .gt_from_md > :first-child {
+#itlhfdmhrb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eufhpziknr .gt_from_md > :last-child {
+#itlhfdmhrb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eufhpziknr .gt_row {
+#itlhfdmhrb .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1180,7 +1311,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#eufhpziknr .gt_stub {
+#itlhfdmhrb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1193,7 +1324,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eufhpziknr .gt_stub_row_group {
+#itlhfdmhrb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1207,15 +1338,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: top;
 }
 
-#eufhpziknr .gt_row_group_first td {
+#itlhfdmhrb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#eufhpziknr .gt_row_group_first th {
+#itlhfdmhrb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#eufhpziknr .gt_summary_row {
+#itlhfdmhrb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1225,16 +1356,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eufhpziknr .gt_first_summary_row {
+#itlhfdmhrb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_first_summary_row.thick {
+#itlhfdmhrb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#eufhpziknr .gt_last_summary_row {
+#itlhfdmhrb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1244,7 +1375,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_grand_summary_row {
+#itlhfdmhrb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1254,7 +1385,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eufhpziknr .gt_first_grand_summary_row {
+#itlhfdmhrb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1264,7 +1395,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_last_grand_summary_row_top {
+#itlhfdmhrb .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1274,11 +1405,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_striped {
+#itlhfdmhrb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eufhpziknr .gt_table_body {
+#itlhfdmhrb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1287,7 +1418,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_footnotes {
+#itlhfdmhrb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1301,7 +1432,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_footnote {
+#itlhfdmhrb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1310,7 +1441,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eufhpziknr .gt_sourcenotes {
+#itlhfdmhrb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1324,7 +1455,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#eufhpziknr .gt_sourcenote {
+#itlhfdmhrb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1332,134 +1463,142 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eufhpziknr .gt_left {
+#itlhfdmhrb .gt_left {
   text-align: left;
 }
 
-#eufhpziknr .gt_center {
+#itlhfdmhrb .gt_center {
   text-align: center;
 }
 
-#eufhpziknr .gt_right {
+#itlhfdmhrb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eufhpziknr .gt_font_normal {
+#itlhfdmhrb .gt_font_normal {
   font-weight: normal;
 }
 
-#eufhpziknr .gt_font_bold {
+#itlhfdmhrb .gt_font_bold {
   font-weight: bold;
 }
 
-#eufhpziknr .gt_font_italic {
+#itlhfdmhrb .gt_font_italic {
   font-style: italic;
 }
 
-#eufhpziknr .gt_super {
+#itlhfdmhrb .gt_super {
   font-size: 65%;
 }
 
-#eufhpziknr .gt_footnote_marks {
+#itlhfdmhrb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#eufhpziknr .gt_asterisk {
+#itlhfdmhrb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#eufhpziknr .gt_indent_1 {
+#itlhfdmhrb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#eufhpziknr .gt_indent_2 {
+#itlhfdmhrb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#eufhpziknr .gt_indent_3 {
+#itlhfdmhrb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#eufhpziknr .gt_indent_4 {
+#itlhfdmhrb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#eufhpziknr .gt_indent_5 {
+#itlhfdmhrb .gt_indent_5 {
   text-indent: 25px;
 }
 
-#eufhpziknr .katex-display {
+#itlhfdmhrb .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#eufhpziknr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#itlhfdmhrb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Model Summary</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Parameter">Parameter</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Coefficient">Coefficient</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="SE">SE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="95% CI">95% CI</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="t(996)">t(996)</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="p">p</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Fixed Effects ">Fixed Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">(Intercept)</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">5.37</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.09</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(5.20, 5.54)</td>
-<td headers="Fixed Effects   t(996)" class="gt_row gt_center">61.50</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">x dm</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">0.44</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.04</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(0.36, 0.51)</td>
-<td headers="Fixed Effects   t(996)" class="gt_row gt_center">11.63</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Random Effects ">Random Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Intercept: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.84</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(996)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Residual)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.79</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(996)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-  </tbody>
-  <tfoot class="gt_sourcenotes">
-    <tr>
-      <td class="gt_sourcenote" colspan="6"></td>
-    </tr>
-  </tfoot>
-  
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border">Model Summary</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Parameter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Parameter</th>
+<th id="Coefficient" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient</th>
+<th id="SE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">SE</th>
+<th id="95% CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
+<th id="t(996)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">t(996)</th>
+<th id="p" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row odd">
+<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Fixed Effects</td>
+</tr>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">(Intercept)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">5.37</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.09</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(5.20, 5.54)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(996)">61.50</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">x dm</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">0.44</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.04</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(0.36, 0.51)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(996)">11.63</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
+</tr>
+<tr class="gt_group_heading_row even">
+<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Random Effects</td>
+</tr>
+<tr class="gt_row_group_first odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Intercept: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.84</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(996)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Residual)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.79</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(996)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="6" class="gt_sourcenote"></td>
+</tr>
+</tfoot>
+
 </table>
+
 </div>
 </div>
 </div>
-<section id="visualisierung-1" class="level3">
-<h3 class="anchored" data-anchor-id="visualisierung-1">Visualisierung</h3>
+<section id="visualisierung-1" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="visualisierung-1"><span class="header-section-number">4.4.1</span> Visualisierung</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_example1 <span class="ot">&lt;-</span> df_example1 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">predicted_rifs =</span> <span class="fu">predict</span>(ri.fs_modell))</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1483,12 +1622,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
-<section id="random-intercept-random-slope-modell" class="level3">
-<h3 class="anchored" data-anchor-id="random-intercept-random-slope-modell">Random intercept, random slope Modell</h3>
+<section id="random-intercept-random-slope-modell" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="random-intercept-random-slope-modell"><span class="header-section-number">4.4.2</span> Random intercept, random slope Modell</h3>
 <p>Als nächstes fügen wir den random slope der Prädiktorvariable x_dm hinzu, in dem wir die random effect Struktur erweitern - “(1 + x_dm | id)”.</p>
 <p>Level 1: <span class="math inline">\(y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + e_{ij}\)</span></p>
 <p>Level 2 (random intercept): <span class="math inline">\(\beta_{0j} = \gamma_{00} + u_{0j}\)</span></p>
@@ -1497,24 +1640,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ri.rs_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x_dm <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> x_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example1)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.rs_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div id="yvcekcbqlc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yvcekcbqlc table {
+<div id="svinrgwntp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#svinrgwntp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yvcekcbqlc thead, #yvcekcbqlc tbody, #yvcekcbqlc tfoot, #yvcekcbqlc tr, #yvcekcbqlc td, #yvcekcbqlc th {
+#svinrgwntp thead, #svinrgwntp tbody, #svinrgwntp tfoot, #svinrgwntp tr, #svinrgwntp td, #svinrgwntp th {
   border-style: none;
 }
 
-#yvcekcbqlc p {
+#svinrgwntp p {
   margin: 0;
   padding: 0;
 }
 
-#yvcekcbqlc .gt_table {
+#svinrgwntp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1540,12 +1682,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_caption {
+#svinrgwntp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yvcekcbqlc .gt_title {
+#svinrgwntp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1557,7 +1699,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-width: 0;
 }
 
-#yvcekcbqlc .gt_subtitle {
+#svinrgwntp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1569,7 +1711,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-width: 0;
 }
 
-#yvcekcbqlc .gt_heading {
+#svinrgwntp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1581,13 +1723,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_bottom_border {
+#svinrgwntp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_col_headings {
+#svinrgwntp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1602,7 +1744,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_col_heading {
+#svinrgwntp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1622,7 +1764,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#yvcekcbqlc .gt_column_spanner_outer {
+#svinrgwntp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1634,15 +1776,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 4px;
 }
 
-#yvcekcbqlc .gt_column_spanner_outer:first-child {
+#svinrgwntp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yvcekcbqlc .gt_column_spanner_outer:last-child {
+#svinrgwntp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yvcekcbqlc .gt_column_spanner {
+#svinrgwntp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1654,11 +1796,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   width: 100%;
 }
 
-#yvcekcbqlc .gt_spanner_row {
+#svinrgwntp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yvcekcbqlc .gt_group_heading {
+#svinrgwntp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1684,7 +1826,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   text-align: left;
 }
 
-#yvcekcbqlc .gt_empty_group_heading {
+#svinrgwntp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1699,15 +1841,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: middle;
 }
 
-#yvcekcbqlc .gt_from_md > :first-child {
+#svinrgwntp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yvcekcbqlc .gt_from_md > :last-child {
+#svinrgwntp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yvcekcbqlc .gt_row {
+#svinrgwntp .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1726,7 +1868,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#yvcekcbqlc .gt_stub {
+#svinrgwntp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1739,7 +1881,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#yvcekcbqlc .gt_stub_row_group {
+#svinrgwntp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1753,15 +1895,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: top;
 }
 
-#yvcekcbqlc .gt_row_group_first td {
+#svinrgwntp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yvcekcbqlc .gt_row_group_first th {
+#svinrgwntp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yvcekcbqlc .gt_summary_row {
+#svinrgwntp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1771,16 +1913,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#yvcekcbqlc .gt_first_summary_row {
+#svinrgwntp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_first_summary_row.thick {
+#svinrgwntp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yvcekcbqlc .gt_last_summary_row {
+#svinrgwntp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1790,7 +1932,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_grand_summary_row {
+#svinrgwntp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1800,7 +1942,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#yvcekcbqlc .gt_first_grand_summary_row {
+#svinrgwntp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1810,7 +1952,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_last_grand_summary_row_top {
+#svinrgwntp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1820,11 +1962,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_striped {
+#svinrgwntp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yvcekcbqlc .gt_table_body {
+#svinrgwntp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1833,7 +1975,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_footnotes {
+#svinrgwntp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1847,7 +1989,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_footnote {
+#svinrgwntp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1856,7 +1998,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#yvcekcbqlc .gt_sourcenotes {
+#svinrgwntp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1870,7 +2012,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#yvcekcbqlc .gt_sourcenote {
+#svinrgwntp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1878,147 +2020,159 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#yvcekcbqlc .gt_left {
+#svinrgwntp .gt_left {
   text-align: left;
 }
 
-#yvcekcbqlc .gt_center {
+#svinrgwntp .gt_center {
   text-align: center;
 }
 
-#yvcekcbqlc .gt_right {
+#svinrgwntp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yvcekcbqlc .gt_font_normal {
+#svinrgwntp .gt_font_normal {
   font-weight: normal;
 }
 
-#yvcekcbqlc .gt_font_bold {
+#svinrgwntp .gt_font_bold {
   font-weight: bold;
 }
 
-#yvcekcbqlc .gt_font_italic {
+#svinrgwntp .gt_font_italic {
   font-style: italic;
 }
 
-#yvcekcbqlc .gt_super {
+#svinrgwntp .gt_super {
   font-size: 65%;
 }
 
-#yvcekcbqlc .gt_footnote_marks {
+#svinrgwntp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yvcekcbqlc .gt_asterisk {
+#svinrgwntp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yvcekcbqlc .gt_indent_1 {
+#svinrgwntp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yvcekcbqlc .gt_indent_2 {
+#svinrgwntp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yvcekcbqlc .gt_indent_3 {
+#svinrgwntp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yvcekcbqlc .gt_indent_4 {
+#svinrgwntp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yvcekcbqlc .gt_indent_5 {
+#svinrgwntp .gt_indent_5 {
   text-indent: 25px;
 }
 
-#yvcekcbqlc .katex-display {
+#svinrgwntp .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#yvcekcbqlc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#svinrgwntp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Model Summary</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Parameter">Parameter</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Coefficient">Coefficient</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="SE">SE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="95% CI">95% CI</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="t(994)">t(994)</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="p">p</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Fixed Effects ">Fixed Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">(Intercept)</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">5.37</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.09</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(5.20, 5.54)</td>
-<td headers="Fixed Effects   t(994)" class="gt_row gt_center">61.50</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">x dm</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">0.42</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.07</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(0.28, 0.56)</td>
-<td headers="Fixed Effects   t(994)" class="gt_row gt_center">5.88</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Random Effects ">Random Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Intercept: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.85</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(994)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (x_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.63</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(994)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">Cor (Intercept~x_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.20</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(994)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Residual)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.65</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(994)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-  </tbody>
-  <tfoot class="gt_sourcenotes">
-    <tr>
-      <td class="gt_sourcenote" colspan="6"></td>
-    </tr>
-  </tfoot>
-  
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border">Model Summary</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Parameter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Parameter</th>
+<th id="Coefficient" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient</th>
+<th id="SE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">SE</th>
+<th id="95% CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
+<th id="t(994)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">t(994)</th>
+<th id="p" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row odd">
+<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Fixed Effects</td>
+</tr>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">(Intercept)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">5.37</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.09</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(5.20, 5.54)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(994)">61.50</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">x dm</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">0.42</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.07</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(0.28, 0.56)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(994)">5.88</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
+</tr>
+<tr class="gt_group_heading_row even">
+<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Random Effects</td>
+</tr>
+<tr class="gt_row_group_first odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Intercept: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.85</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(994)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (x_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.63</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(994)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">Cor (Intercept~x_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.20</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(994)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Residual)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.65</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(994)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="6" class="gt_sourcenote"></td>
+</tr>
+</tfoot>
+
 </table>
+
 </div>
 </div>
 </div>
 </section>
-<section id="visualisierung-2" class="level3">
-<h3 class="anchored" data-anchor-id="visualisierung-2">Visualisierung</h3>
+<section id="visualisierung-2" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="visualisierung-2"><span class="header-section-number">4.4.3</span> Visualisierung</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_example1 <span class="ot">&lt;-</span> df_example1 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">predicted_rirs =</span> <span class="fu">predict</span>(ri.rs_modell))</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2042,13 +2196,17 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 </section>
-<section id="level-2-prädiktoren" class="level2">
-<h2 class="anchored" data-anchor-id="level-2-prädiktoren">Level-2 Prädiktoren</h2>
+<section id="level-2-prädiktoren" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="level-2-prädiktoren"><span class="header-section-number">4.5</span> Level-2 Prädiktoren</h2>
 <p>Als nächstes fügen wir einen Level-2 Prädiktor hinzu, der pro Person nur einmal gemessen wurde. Dabei handelt es sich für gewöhnlich um (1) Variablen, bei denen wir nicht an täglichen Schwankungen interessiert sind, wie soziodemografischen oder Persönlichkeitsvariablen, oder (2) den Mittelwert der Personen auf einer täglich gemessenen Variable. Im Beispiel verwenden wir (2), “x_gm”.</p>
 <p>Level 1: <span class="math inline">\(y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*\overline{X_j} + e_{ij}\)</span></p>
 <p>Level 2 (random intercept): <span class="math inline">\(\beta_{0j} = \gamma_{00} + u_{0j}\)</span> Level 2 (random slope for x): <span class="math inline">\(\beta_{1j} = \gamma_{10} + u_{2j}\)</span></p>
@@ -2056,24 +2214,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ri.rs_l2_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x_dm <span class="sc">+</span> x_gm <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> x_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example1)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.rs_l2_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div id="jvqfvngjax" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jvqfvngjax table {
+<div id="yefmehnlwx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yefmehnlwx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jvqfvngjax thead, #jvqfvngjax tbody, #jvqfvngjax tfoot, #jvqfvngjax tr, #jvqfvngjax td, #jvqfvngjax th {
+#yefmehnlwx thead, #yefmehnlwx tbody, #yefmehnlwx tfoot, #yefmehnlwx tr, #yefmehnlwx td, #yefmehnlwx th {
   border-style: none;
 }
 
-#jvqfvngjax p {
+#yefmehnlwx p {
   margin: 0;
   padding: 0;
 }
 
-#jvqfvngjax .gt_table {
+#yefmehnlwx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2099,12 +2256,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_caption {
+#yefmehnlwx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jvqfvngjax .gt_title {
+#yefmehnlwx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2116,7 +2273,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-width: 0;
 }
 
-#jvqfvngjax .gt_subtitle {
+#yefmehnlwx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2128,7 +2285,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-width: 0;
 }
 
-#jvqfvngjax .gt_heading {
+#yefmehnlwx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2140,13 +2297,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_bottom_border {
+#yefmehnlwx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_col_headings {
+#yefmehnlwx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2161,7 +2318,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_col_heading {
+#yefmehnlwx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2181,7 +2338,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#jvqfvngjax .gt_column_spanner_outer {
+#yefmehnlwx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2193,15 +2350,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 4px;
 }
 
-#jvqfvngjax .gt_column_spanner_outer:first-child {
+#yefmehnlwx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jvqfvngjax .gt_column_spanner_outer:last-child {
+#yefmehnlwx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jvqfvngjax .gt_column_spanner {
+#yefmehnlwx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2213,11 +2370,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   width: 100%;
 }
 
-#jvqfvngjax .gt_spanner_row {
+#yefmehnlwx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jvqfvngjax .gt_group_heading {
+#yefmehnlwx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2243,7 +2400,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   text-align: left;
 }
 
-#jvqfvngjax .gt_empty_group_heading {
+#yefmehnlwx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2258,15 +2415,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: middle;
 }
 
-#jvqfvngjax .gt_from_md > :first-child {
+#yefmehnlwx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jvqfvngjax .gt_from_md > :last-child {
+#yefmehnlwx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jvqfvngjax .gt_row {
+#yefmehnlwx .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -2285,7 +2442,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#jvqfvngjax .gt_stub {
+#yefmehnlwx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2298,7 +2455,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#jvqfvngjax .gt_stub_row_group {
+#yefmehnlwx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2312,15 +2469,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: top;
 }
 
-#jvqfvngjax .gt_row_group_first td {
+#yefmehnlwx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jvqfvngjax .gt_row_group_first th {
+#yefmehnlwx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jvqfvngjax .gt_summary_row {
+#yefmehnlwx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2330,16 +2487,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#jvqfvngjax .gt_first_summary_row {
+#yefmehnlwx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_first_summary_row.thick {
+#yefmehnlwx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jvqfvngjax .gt_last_summary_row {
+#yefmehnlwx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2349,7 +2506,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_grand_summary_row {
+#yefmehnlwx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2359,7 +2516,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#jvqfvngjax .gt_first_grand_summary_row {
+#yefmehnlwx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2369,7 +2526,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_last_grand_summary_row_top {
+#yefmehnlwx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2379,11 +2536,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_striped {
+#yefmehnlwx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jvqfvngjax .gt_table_body {
+#yefmehnlwx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2392,7 +2549,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_footnotes {
+#yefmehnlwx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2406,7 +2563,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_footnote {
+#yefmehnlwx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2415,7 +2572,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#jvqfvngjax .gt_sourcenotes {
+#yefmehnlwx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2429,7 +2586,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#jvqfvngjax .gt_sourcenote {
+#yefmehnlwx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2437,1401 +2594,169 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#jvqfvngjax .gt_left {
+#yefmehnlwx .gt_left {
   text-align: left;
 }
 
-#jvqfvngjax .gt_center {
+#yefmehnlwx .gt_center {
   text-align: center;
 }
 
-#jvqfvngjax .gt_right {
+#yefmehnlwx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jvqfvngjax .gt_font_normal {
+#yefmehnlwx .gt_font_normal {
   font-weight: normal;
 }
 
-#jvqfvngjax .gt_font_bold {
+#yefmehnlwx .gt_font_bold {
   font-weight: bold;
 }
 
-#jvqfvngjax .gt_font_italic {
+#yefmehnlwx .gt_font_italic {
   font-style: italic;
 }
 
-#jvqfvngjax .gt_super {
+#yefmehnlwx .gt_super {
   font-size: 65%;
 }
 
-#jvqfvngjax .gt_footnote_marks {
+#yefmehnlwx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jvqfvngjax .gt_asterisk {
+#yefmehnlwx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jvqfvngjax .gt_indent_1 {
+#yefmehnlwx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jvqfvngjax .gt_indent_2 {
+#yefmehnlwx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jvqfvngjax .gt_indent_3 {
+#yefmehnlwx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jvqfvngjax .gt_indent_4 {
+#yefmehnlwx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jvqfvngjax .gt_indent_5 {
+#yefmehnlwx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#jvqfvngjax .katex-display {
+#yefmehnlwx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#jvqfvngjax div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#yefmehnlwx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Model Summary</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Parameter">Parameter</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Coefficient">Coefficient</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="SE">SE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="95% CI">95% CI</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="t(993)">t(993)</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="p">p</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Fixed Effects ">Fixed Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">(Intercept)</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">4.47</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.19</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(4.09, 4.84)</td>
-<td headers="Fixed Effects   t(993)" class="gt_row gt_center">23.30</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">x dm</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">0.42</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.07</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(0.28, 0.56)</td>
-<td headers="Fixed Effects   t(993)" class="gt_row gt_center">5.85</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">x gm</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">0.43</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.08</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(0.26, 0.59)</td>
-<td headers="Fixed Effects   t(993)" class="gt_row gt_center">5.13</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Random Effects ">Random Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Intercept: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.75</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(993)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (x_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.63</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(993)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">Cor (Intercept~x_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.17</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(993)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Residual)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.65</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(993)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-  </tbody>
-  <tfoot class="gt_sourcenotes">
-    <tr>
-      <td class="gt_sourcenote" colspan="6"></td>
-    </tr>
-  </tfoot>
-  
-</table>
-</div>
-</div>
-</div>
-</section>
-<section id="cross-level-interaktion" class="level2">
-<h2 class="anchored" data-anchor-id="cross-level-interaktion">Cross-Level Interaktion</h2>
-<p>Erwarten wir dass der Effekt von täglichen Schwankungen in X auf Y abhängig von einer Variablen ist, die auf Level-2 gemessen wird (z.B. relativ stabile Persönlichkeitsmerkmale), können wir dies mit einer Cross-Level Interaktion testen.</p>
-<p>Level 1: <span class="math inline">\(y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}\)</span></p>
-<p>Level 2 (random intercept): <span class="math inline">\(\beta_{0j} = \gamma_{00} + u_{0j}\)</span> Level 2 (random slope for x): <span class="math inline">\(\beta_{1j} = \gamma_{10} + u_{2j}\)</span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_example1c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 10%">
-<col style="width: 9%">
-<col style="width: 8%">
-<col style="width: 9%">
-</colgroup>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
-<tr class="header">
-<th style="text-align: left;">id</th>
-<th style="text-align: right;">w</th>
-<th style="text-align: right;">y</th>
-<th style="text-align: right;">m</th>
-<th style="text-align: right;">x</th>
-<th style="text-align: right;">y_dm</th>
-<th style="text-align: right;">m_dm</th>
-<th style="text-align: right;">x_dm</th>
-<th style="text-align: right;">y_gm</th>
-<th style="text-align: right;">m_gm</th>
-<th style="text-align: right;">x_gm</th>
+<tr class="gt_heading header">
+<th colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border">Model Summary</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Parameter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Parameter</th>
+<th id="Coefficient" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient</th>
+<th id="SE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">SE</th>
+<th id="95% CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
+<th id="t(993)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">t(993)</th>
+<th id="p" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p</th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: right;">3.847053</td>
-<td style="text-align: right;">4.064028</td>
-<td style="text-align: right;">8.492899</td>
-<td style="text-align: right;">4.136489</td>
-<td style="text-align: right;">-1.1414789</td>
-<td style="text-align: right;">1.4106789</td>
-<td style="text-align: right;">0.803986</td>
-<td style="text-align: right;">5.205507</td>
-<td style="text-align: right;">7.08222</td>
-<td style="text-align: right;">3.332503</td>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row odd">
+<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Fixed Effects</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: right;">3.847053</td>
-<td style="text-align: right;">3.599397</td>
-<td style="text-align: right;">9.073630</td>
-<td style="text-align: right;">3.728720</td>
-<td style="text-align: right;">-1.6061099</td>
-<td style="text-align: right;">1.9914099</td>
-<td style="text-align: right;">0.396217</td>
-<td style="text-align: right;">5.205507</td>
-<td style="text-align: right;">7.08222</td>
-<td style="text-align: right;">3.332503</td>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">(Intercept)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">4.47</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.19</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(4.09, 4.84)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(993)">23.30</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: right;">3.847053</td>
-<td style="text-align: right;">7.704277</td>
-<td style="text-align: right;">4.082619</td>
-<td style="text-align: right;">2.638451</td>
-<td style="text-align: right;">2.4987701</td>
-<td style="text-align: right;">-2.9996011</td>
-<td style="text-align: right;">-0.694052</td>
-<td style="text-align: right;">5.205507</td>
-<td style="text-align: right;">7.08222</td>
-<td style="text-align: right;">3.332503</td>
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">x dm</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">0.42</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.07</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(0.28, 0.56)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(993)">5.85</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: right;">3.847053</td>
-<td style="text-align: right;">6.796018</td>
-<td style="text-align: right;">5.516980</td>
-<td style="text-align: right;">2.761167</td>
-<td style="text-align: right;">1.5905111</td>
-<td style="text-align: right;">-1.5652401</td>
-<td style="text-align: right;">-0.571336</td>
-<td style="text-align: right;">5.205507</td>
-<td style="text-align: right;">7.08222</td>
-<td style="text-align: right;">3.332503</td>
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">x gm</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">0.43</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.08</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(0.26, 0.59)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(993)">5.13</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
+</tr>
+<tr class="gt_group_heading_row odd">
+<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Random Effects</td>
+</tr>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Intercept: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.75</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(993)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: right;">3.847053</td>
-<td style="text-align: right;">4.723777</td>
-<td style="text-align: right;">6.875090</td>
-<td style="text-align: right;">3.152261</td>
-<td style="text-align: right;">-0.4817299</td>
-<td style="text-align: right;">-0.2071301</td>
-<td style="text-align: right;">-0.180242</td>
-<td style="text-align: right;">5.205507</td>
-<td style="text-align: right;">7.08222</td>
-<td style="text-align: right;">3.332503</td>
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (x_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.63</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(993)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: right;">3.847053</td>
-<td style="text-align: right;">3.592594</td>
-<td style="text-align: right;">9.817786</td>
-<td style="text-align: right;">4.168687</td>
-<td style="text-align: right;">-1.6129129</td>
-<td style="text-align: right;">2.7355659</td>
-<td style="text-align: right;">0.836184</td>
-<td style="text-align: right;">5.205507</td>
-<td style="text-align: right;">7.08222</td>
-<td style="text-align: right;">3.332503</td>
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">Cor (Intercept~x_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.17</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(993)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
 </tr>
-</tbody>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Residual)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.65</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(993)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="6" class="gt_sourcenote"></td>
+</tr>
+</tfoot>
+
 </table>
+
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ri.rs_cli_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x_dm <span class="sc">+</span> w <span class="sc">+</span> w<span class="sc">*</span>x_dm <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> x_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example1c)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.rs_cli_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
 
-<div id="axbdwwtmjr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#axbdwwtmjr table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
-#axbdwwtmjr thead, #axbdwwtmjr tbody, #axbdwwtmjr tfoot, #axbdwwtmjr tr, #axbdwwtmjr td, #axbdwwtmjr th {
-  border-style: none;
-}
-
-#axbdwwtmjr p {
-  margin: 0;
-  padding: 0;
-}
-
-#axbdwwtmjr .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 100%;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#axbdwwtmjr .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#axbdwwtmjr .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#axbdwwtmjr .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#axbdwwtmjr .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#axbdwwtmjr .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#axbdwwtmjr .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#axbdwwtmjr .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#axbdwwtmjr .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#axbdwwtmjr .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#axbdwwtmjr .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#axbdwwtmjr .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#axbdwwtmjr .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#axbdwwtmjr .gt_row {
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#axbdwwtmjr .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#axbdwwtmjr .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#axbdwwtmjr .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#axbdwwtmjr .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#axbdwwtmjr .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#axbdwwtmjr .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#axbdwwtmjr .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#axbdwwtmjr .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#axbdwwtmjr .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#axbdwwtmjr .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#axbdwwtmjr .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#axbdwwtmjr .gt_left {
-  text-align: left;
-}
-
-#axbdwwtmjr .gt_center {
-  text-align: center;
-}
-
-#axbdwwtmjr .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#axbdwwtmjr .gt_font_normal {
-  font-weight: normal;
-}
-
-#axbdwwtmjr .gt_font_bold {
-  font-weight: bold;
-}
-
-#axbdwwtmjr .gt_font_italic {
-  font-style: italic;
-}
-
-#axbdwwtmjr .gt_super {
-  font-size: 65%;
-}
-
-#axbdwwtmjr .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#axbdwwtmjr .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#axbdwwtmjr .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#axbdwwtmjr .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#axbdwwtmjr .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#axbdwwtmjr .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#axbdwwtmjr .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#axbdwwtmjr .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#axbdwwtmjr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Model Summary</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Parameter">Parameter</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Coefficient">Coefficient</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="SE">SE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="95% CI">95% CI</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="t(992)">t(992)</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="p">p</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Fixed Effects ">Fixed Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">(Intercept)</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">4.03</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.48</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(3.10, 4.97)</td>
-<td headers="Fixed Effects   t(992)" class="gt_row gt_center">8.47</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">x dm</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">4.91e-03</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.55</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(-1.07, 1.08)</td>
-<td headers="Fixed Effects   t(992)" class="gt_row gt_center">8.99e-03</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">0.993 </td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">w</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">0.49</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.15</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(0.19, 0.79)</td>
-<td headers="Fixed Effects   t(992)" class="gt_row gt_center">3.19</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">0.001 </td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">x dm × w</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">0.39</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.18</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(0.05, 0.74)</td>
-<td headers="Fixed Effects   t(992)" class="gt_row gt_center">2.23</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">0.026 </td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Random Effects ">Random Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Intercept: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.93</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(992)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (x_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">1.04</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(992)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">Cor (Intercept~x_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.14</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(992)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Residual)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.66</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(992)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-  </tbody>
-  <tfoot class="gt_sourcenotes">
-    <tr>
-      <td class="gt_sourcenote" colspan="6"></td>
-    </tr>
-  </tfoot>
-  
-</table>
-</div>
-</div>
-</div>
-<p>Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr interpretiert werden.</p>
-<section id="visualisierung-3" class="level3">
-<h3 class="anchored" data-anchor-id="visualisierung-3">Visualisierung</h3>
-<p>Visualisierung des Interaktionseffekt mittels der <code>plot_model()</code> Funktion. Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_cli_modell, <span class="at">type =</span> <span class="st">"int"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"x_dm"</span>, <span class="st">"w"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"test.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Saving 7 x 5 in image</code></pre>
-</div>
-</div>
-<p>Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_cli_modell, <span class="at">type =</span> <span class="st">"int"</span>, <span class="at">mdrt.values =</span> <span class="st">"meansd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Der Plot zeigt, dass bei höheren Ausprägungen von w der Effekt von x_dm stärker ausfällt.</p>
-</section>
-<section id="within-level-interaktion" class="level3">
-<h3 class="anchored" data-anchor-id="within-level-interaktion">Within-level Interaktion</h3>
-<p>Analog zur Cross-level Interaktion gibt es auch Within-level Interaktionen, bei der die Level-1 Anteile von Prädiktorvariablen miteinander interagieren.</p>
-<p>Level 1: <span class="math inline">\(y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*(M_{ij}-\overline{M_j}) + \beta_{3j}*((M_{ij}-\overline{M_j})*(X_{ij}-\overline{X_j})) + e_{ij}\)</span></p>
-<p>Level 2 (random intercept): <span class="math inline">\(\beta_{0j} = \gamma_{00} + u_{0j}\)</span> Level 2 (random slope X): <span class="math inline">\(\beta_{1j} = \gamma_{10} + u_{1j}\)</span> Level 2 (random slope M): <span class="math inline">\(\beta_{2j} = \gamma_{20} + u_{2j}\)</span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ri.rs_wli_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x_dm <span class="sc">+</span> m_dm <span class="sc">+</span> x_dm<span class="sc">*</span>m_dm <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> x_dm <span class="sc">+</span> m_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example1)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.rs_wli_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-
-<div id="mftdivzcds" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mftdivzcds table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#mftdivzcds thead, #mftdivzcds tbody, #mftdivzcds tfoot, #mftdivzcds tr, #mftdivzcds td, #mftdivzcds th {
-  border-style: none;
-}
-
-#mftdivzcds p {
-  margin: 0;
-  padding: 0;
-}
-
-#mftdivzcds .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 100%;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#mftdivzcds .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#mftdivzcds .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#mftdivzcds .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#mftdivzcds .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#mftdivzcds .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#mftdivzcds .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#mftdivzcds .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#mftdivzcds .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#mftdivzcds .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#mftdivzcds .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#mftdivzcds .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#mftdivzcds .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#mftdivzcds .gt_row {
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#mftdivzcds .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#mftdivzcds .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#mftdivzcds .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#mftdivzcds .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#mftdivzcds .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#mftdivzcds .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#mftdivzcds .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#mftdivzcds .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#mftdivzcds .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#mftdivzcds .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#mftdivzcds .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#mftdivzcds .gt_left {
-  text-align: left;
-}
-
-#mftdivzcds .gt_center {
-  text-align: center;
-}
-
-#mftdivzcds .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#mftdivzcds .gt_font_normal {
-  font-weight: normal;
-}
-
-#mftdivzcds .gt_font_bold {
-  font-weight: bold;
-}
-
-#mftdivzcds .gt_font_italic {
-  font-style: italic;
-}
-
-#mftdivzcds .gt_super {
-  font-size: 65%;
-}
-
-#mftdivzcds .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#mftdivzcds .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#mftdivzcds .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#mftdivzcds .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#mftdivzcds .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#mftdivzcds .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#mftdivzcds .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#mftdivzcds .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#mftdivzcds div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Model Summary</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Parameter">Parameter</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Coefficient">Coefficient</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="SE">SE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="95% CI">95% CI</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="t(989)">t(989)</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="p">p</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Fixed Effects ">Fixed Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">(Intercept)</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">5.37</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.09</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(5.20, 5.54)</td>
-<td headers="Fixed Effects   t(989)" class="gt_row gt_center">61.25</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">x dm</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">0.14</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.05</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(0.05, 0.23)</td>
-<td headers="Fixed Effects   t(989)" class="gt_row gt_center">3.14</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">0.002 </td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">m dm</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">0.53</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.06</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(0.41, 0.65)</td>
-<td headers="Fixed Effects   t(989)" class="gt_row gt_center">8.94</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">&lt; .001</td></tr>
-    <tr><td headers="Fixed Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">x dm × m dm</td>
-<td headers="Fixed Effects   Coefficient" class="gt_row gt_center">-2.87e-03</td>
-<td headers="Fixed Effects   SE" class="gt_row gt_center">0.04</td>
-<td headers="Fixed Effects   95% CI" class="gt_row gt_center">(-0.07, 0.07)</td>
-<td headers="Fixed Effects   t(989)" class="gt_row gt_center">-0.08</td>
-<td headers="Fixed Effects   p" class="gt_row gt_center">0.936 </td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="6" class="gt_group_heading" scope="colgroup" id="Random Effects ">Random Effects </th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Intercept: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.86</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(989)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (x_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.30</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(989)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (m_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.48</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(989)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">Cor (Intercept~x_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.29</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(989)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">Cor (Intercept~m_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.38</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(989)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">Cor (x_dm~m_dm: id)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.57</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(989)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-    <tr><td headers="Random Effects   Parameter" class="gt_row gt_left" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3;">SD (Residual)</td>
-<td headers="Random Effects   Coefficient" class="gt_row gt_center">0.54</td>
-<td headers="Random Effects   SE" class="gt_row gt_center"></td>
-<td headers="Random Effects   95% CI" class="gt_row gt_center"></td>
-<td headers="Random Effects   t(989)" class="gt_row gt_center"></td>
-<td headers="Random Effects   p" class="gt_row gt_center"></td></tr>
-  </tbody>
-  <tfoot class="gt_sourcenotes">
-    <tr>
-      <td class="gt_sourcenote" colspan="6"></td>
-    </tr>
-  </tfoot>
-  
-</table>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_wli_modell, <span class="at">type =</span> <span class="st">"int"</span>, <span class="at">mdrt.values =</span> <span class="st">"meansd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="03-Hypotheses-Tests_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Der Interaktionseffekt ist nicht signifikant. Dies bedeutet, wie der Plot zeigt, dass die Linien bei allen Ausprägungen des Moderators mehr oder wenig parallel sind.</p>
-</section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -3867,18 +2792,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -3910,11 +2824,48 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -3924,8 +2875,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -3937,7 +2897,129 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -3981,6 +3063,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -4006,6 +3089,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -4065,7 +3174,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02 Descriptive Statistics.html" class="pagination-link" aria-label="Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
+
 
 
 

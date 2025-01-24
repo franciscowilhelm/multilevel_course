@@ -139,6 +139,8 @@ Schau dir den Datensatz `df_cfa_exercise`  an und repliziere die Schritte oben:
 2) Skalenscores für x und y erstellen und als `df_uebung_lang_scores <-` zuweisen.
 3) Skalenscores für x und y zentrieren (weiterhin in `df_uebung_lang_scores`).
 
+Du kannst dazu den Code von oben wiederverwenden und auf den hier verwendeten Datensatz und seine Variablen anpassen.
+
 ```{r}
 load("../data/df_cfa_exercise.RData")
 head(df_cfa_exercise)
@@ -149,7 +151,8 @@ head(df_cfa_exercise)
 ### Lösung
 
 ```{r}
-# laden
+load("../data/df_cfa_exercise.RData")
+head(df_cfa_exercise)
 
 # 1. Daten in Langformat transformieren - funktionen: pivot_longer(), pivot_wider()
 df_uebung_superlang <- df_cfa_exercise |> 
@@ -179,7 +182,6 @@ df_uebung_lang_scores <- df_uebung_lang_scores |>
 head(df_uebung_lang_scores)
 ```
 :::
-
 
 ## Abspeichern der gebildeten Skalen
 

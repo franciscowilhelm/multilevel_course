@@ -151,21 +151,34 @@ ggsave("Plots/01_separat_yx.png", width = 10, height = 7)
 df_example_cli <- read.table(file = "../data_simulation/example_cli1.dat", header = FALSE, 
         na.strings = "999.000000", strip.white = TRUE) |> as_tibble()
 names(df_example_cli) <- c("w", "y", "x", "pattern", "id")
-df_example_cli <- df_example_cli |> select(id, everything())
+df_example_cli <- df_example_cli |> select(id, y, x, w) |> 
+  rename(illtask = x, negativ = y, support = w)
 
 df_example_cli <- df_example_cli |> 
-  de_mean(y, x, w, grp = "id")
+  de_mean(illtask, negativ, grp = "id")
 
 df_example_cli <- df_example_cli |> 
   group_by(id) |> 
   mutate(
-    y_dm_l1 = lag(y_dm),
+    negativ_dm_l1 = lag(negativ_dm),
     day = 1:10
   )
 
-df_example_cli <- df_example_cli |> filter(!is.na(y)) |> ungroup()
+df_example_cli <- df_example_cli |> filter(!is.na(negativ)) |> ungroup()
 
-df_example_cli <- df_example_cli |> sjlabelled::var_labels(y = "Daily Negative Affect", y_dm_l1 = "Previous-day Negative Affect", x_dm = "Daily Illegitimate Tasks", x_gm = "Illegitimate Tasks (average)", w = "Coworker support")
+df_example_cli <- df_example_cli |>
+  sjlabelled::var_labels(
+  id = "Personen-ID",
+  illtask = "Daily Illegitimate Tasks",
+  negativ = "Daily Negative Affect",
+  negativ_gm = "Neg. Affect (person average)",
+  negativ_dm = "Neg. Affect (person-mean centered)",
+  negativ_dm_l1 = "Previous-day Neg. Affect",
+  illtask_dm = "Illegitimate Tasks (person-mean centered)",
+  illtask_gm = "Illegitimate Tasks (person average)",
+  support = "Coworker support",
+  day = "Tag (1-10)"
+)
 
 save(df_example_cli, file = "../data/df_example_cli.RData")
 ```
@@ -174,6 +187,11 @@ save(df_example_cli, file = "../data/df_example_cli.RData")
 
 ```{r}
 library(franzpak)
+
+df_example_cli <- df_example_cli |> rename(
+  x = illtask, y = negativ, w = support
+)
+
 cortable_integriert2 <- cortable_multilevel(df_example_cli,
                                             varnames = c("w", "y", "x"),
                                             grp = "id")

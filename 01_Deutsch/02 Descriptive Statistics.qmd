@@ -247,7 +247,6 @@ Basierend auf euren Analysen zu ICC, Reliabilitsätsanalysen, und der Betrachtun
 - Wie fällt die Korrelation zwischen X und Y auf Inner-Person Ebene aus? Ist es basierend auf der Prüfungen der Voraussetzungen (ICCs, Reliabilitäten) sinnvoll, diese zu interpretieren?
 
 :::{.callout-tip collapse="true"}
-### Lösung
 
 #### Zwischen-Person Ebene
 Die Korrelation zwischen X und Y beträgt r = .28 und ist signifikant. Die Reliabilität auf Level-2/ Zwischen-Person Ebene, durch omega_between angegeben, ist für X und Y gut (> .80).

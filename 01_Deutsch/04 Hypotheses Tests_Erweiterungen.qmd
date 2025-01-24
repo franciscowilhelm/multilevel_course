@@ -6,16 +6,120 @@ format:
 editor: source
 ---
 
-Das entsprechende Paket multilevelmediation ist noch in Entwicklung und kann fehlerhafte Werte ausgeben oder andere Probleme.
-
 ```{r}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(lmerTest, haven, brms, psych,
-               sjmisc, sjPlot, writexl, broom.mixed, qgraph,
+               sjmisc, sjlabelled, sjPlot, writexl, broom.mixed, qgraph,
                tidyverse, multilevelTools, parameters, devtools)
 
-# devtools::install_github("falkcarl/multilevelmediation")
+
+load("../data/df_example1c.RData")
+
+
 ```
+
+## Cross-Level Interaktion
+
+%% zuerst repetieren Modell ohne Moderationseffekt %% 
+
+Erwarten wir, dass der Effekt von täglichen Schwankungen in X auf Y abhängig von einer Variable ist, die auf Level-2 gemessen wird (z.B. relativ stabile Persönlichkeitsmerkmale), können wir dies mit einer Cross-Level Interaktion testen.
+
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+Level 2 (random slope for x): $\beta_{1j} = \gamma_{10} + u_{2j}$
+
+```{r}
+head(df_example1c)
+```
+
+
+```{r}
+ri.rs_cli_modell <- lmer(y ~ x_dm + w + w*x_dm + (1 + x_dm | id), data = df_example1c)
+model_parameters(ri.rs_cli_modell) |> print_html()
+```
+Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr interpretiert werden.
+
+### Visualisierung
+
+Visualisierung des Interaktionseffekt mittels der `plot_model()` Funktion.
+Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt.
+
+```{r}
+plot_model(ri.rs_cli_modell, type = "int", terms = c("x_dm", "w"))
+ggsave("test.png")
+```
+
+Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen.
+
+```{r}
+plot_model(ri.rs_cli_modell, type = "int", mdrt.values = "meansd")
+```
+Der Plot zeigt, dass bei höheren Ausprägungen von w der Effekt von x_dm stärker ausfällt.
+
+
+### Within-level Interaktion
+
+Analog zur Cross-level Interaktion gibt es auch Within-level Interaktionen, bei der die Level-1 Anteile von Prädiktorvariablen miteinander interagieren.
+
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*(M_{ij}-\overline{M_j}) + \beta_{3j}*((M_{ij}-\overline{M_j})*(X_{ij}-\overline{X_j})) + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+Level 2 (random slope X): $\beta_{1j} = \gamma_{10} + u_{1j}$
+Level 2 (random slope M): $\beta_{2j} = \gamma_{20} + u_{2j}$
+
+```{r}
+ri.rs_wli_modell <- lmer(y ~ x_dm + m_dm + x_dm*m_dm + (1 + x_dm + m_dm | id), data = df_example1)
+model_parameters(ri.rs_wli_modell) |> print_html()
+```
+
+```{r}
+plot_model(ri.rs_wli_modell, type = "int", mdrt.values = "meansd")
+```
+
+Der Interaktionseffekt ist nicht signifikant. Dies bedeutet, wie der Plot zeigt, dass die Linien bei allen Ausprägungen des Moderators mehr oder wenig parallel sind.
+ 
+## Übung
+
+Wir arbeiten in der Übung mit einem neuen Datensatz.
+
+Mache dich mit ihm vertraut.
+Diesmal benutzen wir einen Datensatz in dem die Variablen "labelled" sind, also Beschriftungen haben. Wir können die Labels mit `get_label()` abrufen.
+
+```{r}
+load("../data/df_example_cli.RData")
+
+head(df_example_cli)
+get_label(df_example_cli)
+# alternativ
+view_df(df_example_cli)
+```
+
+Berechne Modelle mit denen du die folgenden Hypothesen testest: 
+
+H1: Illegitime Aufgaben hängen positiv mit negativem Affekt zusammen.
+H2: Der positive Zusammenhang von illegitime Aufgaben mit negativem Affekt fällt schwächer aus, wenn Unterstützung von Kolleg:innen hoch ausgeprägt ist.
+
+Gehe Schritt für Schritt vor und teste erst in einem Modell H1, dann in einem anderen Modell H2.
+Urteile, ob die Hypothesen angenommen oder verworfen werden sollten.
+
+:::{.callout-tip collapse="true"}
+
+```{r}
+ri.rs_modell <- lmer(negativ ~ illtask_dm  + support + (1 + illtask_dm | id), data = df_example_cli)
+parameters(ri.rs_modell)
+```
+Der Zusammenhang von täglichen illegitimen Aufgaben (illtask_dm)  mit negativem Affekt (negativ) ist signifikant (b = 0.33, p < .001), was Hypothese 1 unterstützt.
+
+```{r}
+ri.rs_cli_modell <- lmer(negativ ~ illtask_dm  + support*illtask_dm + (1 + illtask_dm | id), data = df_example_cli)
+parameters(ri.rs_cli_modell)
+
+```
+Der Interaktionseffekt von täglichen illegitimen AUfgaben mit sozialer Unterstützung durch Kolleg:innen auf negativen Affekt ist nicht signifikant (b = -0.01, p = .89). Hypothese 2 muss somit verworfen werden.
+
+:::{.callout-tip collapse="true"}
+
 
 ## Daten einlesen
 

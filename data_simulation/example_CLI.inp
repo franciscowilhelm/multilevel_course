@@ -43,7 +43,7 @@ model population:
 		! cross-level interaction for sa (first stage mediation)
         [w*3]; w*0.5;
 		w with x*.-3;
-		y on w*0.2;
+		y on w*-0.3;
 		sc on w*0.01; ! non significant version
         y with sc*.2;
 
@@ -73,7 +73,7 @@ model:
 		! cross-level interaction for sa (first stage mediation)
         [w*3]; w*0.5;
 		w with x*.-3;
-		y on w*0.2;
+		y on w*-0.3;
 		sc on w*0.01; ! non significant version
         y with sc*.2;
 
