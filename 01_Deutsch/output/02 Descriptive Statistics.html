@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen – Tagebuchstudien und Mehrebenenmodelle</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03 Hypotheses Tests.html" rel="next">
+<link href="./01 Data Preparation Item Level.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8da5b4427184b79ecddefad3d342027e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02 Descriptive Statistics.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Tagebuchstudien und Mehrebenenmodelle</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.qmd</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01 Data Preparation Item Level.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1: Datenaufbereitung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02 Descriptive Statistics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03 Hypotheses Tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pakete-laden" id="toc-pakete-laden" class="nav-link active" data-scroll-target="#pakete-laden"><span class="header-section-number">3.1</span> Pakete laden</a></li>
+  <li><a href="#daten-laden" id="toc-daten-laden" class="nav-link" data-scroll-target="#daten-laden"><span class="header-section-number">3.2</span> Daten laden</a></li>
+  <li><a href="#icc-und-within-person-variance" id="toc-icc-und-within-person-variance" class="nav-link" data-scroll-target="#icc-und-within-person-variance"><span class="header-section-number">3.3</span> ICC und Within-Person Variance</a></li>
+  <li><a href="#reliabilitätsanalyse" id="toc-reliabilitätsanalyse" class="nav-link" data-scroll-target="#reliabilitätsanalyse"><span class="header-section-number">3.4</span> Reliabilitätsanalyse</a></li>
+  <li><a href="#korrelationstabelle" id="toc-korrelationstabelle" class="nav-link" data-scroll-target="#korrelationstabelle"><span class="header-section-number">3.5</span> Korrelationstabelle</a>
+  <ul class="collapse">
+  <li><a href="#mittelwerte" id="toc-mittelwerte" class="nav-link" data-scroll-target="#mittelwerte"><span class="header-section-number">3.5.1</span> Mittelwerte</a></li>
+  <li><a href="#standardabweichungen" id="toc-standardabweichungen" class="nav-link" data-scroll-target="#standardabweichungen"><span class="header-section-number">3.5.2</span> Standardabweichungen</a></li>
+  <li><a href="#korrelationen" id="toc-korrelationen" class="nav-link" data-scroll-target="#korrelationen"><span class="header-section-number">3.5.3</span> Korrelationen</a></li>
+  <li><a href="#integration-in-tabelle" id="toc-integration-in-tabelle" class="nav-link" data-scroll-target="#integration-in-tabelle"><span class="header-section-number">3.5.4</span> Integration in Tabelle</a></li>
+  <li><a href="#export-von-tabellen-zu-excel" id="toc-export-von-tabellen-zu-excel" class="nav-link" data-scroll-target="#export-von-tabellen-zu-excel"><span class="header-section-number">3.5.5</span> Export von Tabellen zu Excel</a></li>
+  </ul></li>
+  <li><a href="#übung" id="toc-übung" class="nav-link" data-scroll-target="#übung"><span class="header-section-number">4</span> Übung:</a>
+  <ul class="collapse">
+  <li><a href="#icc" id="toc-icc" class="nav-link" data-scroll-target="#icc"><span class="header-section-number">4.0.1</span> ICC</a></li>
+  <li><a href="#reliabilitsätsanalyse" id="toc-reliabilitsätsanalyse" class="nav-link" data-scroll-target="#reliabilitsätsanalyse"><span class="header-section-number">4.0.2</span> Reliabilitsätsanalyse</a></li>
+  <li><a href="#integration-in-korrelationstabelle" id="toc-integration-in-korrelationstabelle" class="nav-link" data-scroll-target="#integration-in-korrelationstabelle"><span class="header-section-number">4.0.3</span> Integration in Korrelationstabelle</a></li>
+  <li><a href="#zusatz" id="toc-zusatz" class="nav-link" data-scroll-target="#zusatz"><span class="header-section-number">4.1</span> Zusatz</a></li>
+  <li><a href="#blick-hinter-die-kulissen-berechnung-von-omega-mittels-einer-mehrebenen-konfirmatorischen-faktorenanalysen" id="toc-blick-hinter-die-kulissen-berechnung-von-omega-mittels-einer-mehrebenen-konfirmatorischen-faktorenanalysen" class="nav-link" data-scroll-target="#blick-hinter-die-kulissen-berechnung-von-omega-mittels-einer-mehrebenen-konfirmatorischen-faktorenanalysen"><span class="header-section-number">4.2</span> Blick hinter die Kulissen: Berechnung von Omega mittels einer Mehrebenen konfirmatorischen Faktorenanalysen</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="pakete-laden" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="pakete-laden"><span class="header-section-number">3.1</span> Pakete laden</h2>
+<p>%todo: Franzpak integrieren %</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"franzpak"</span>)) devtools<span class="sc">::</span><span class="fu">install_github</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: franzpak</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(haven, psych,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>               sjmisc, sjPlot, writexl, lavaan,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>               tidyverse, multilevelTools, franzpak)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="daten-laden" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="daten-laden"><span class="header-section-number">3.2</span> Daten laden</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_cfa_long.RData"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_long_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">b</th>
+<th style="text-align: right;">c</th>
+<th style="text-align: right;">a_dm</th>
+<th style="text-align: right;">b_dm</th>
+<th style="text-align: right;">c_dm</th>
+<th style="text-align: right;">a_gm</th>
+<th style="text-align: right;">b_gm</th>
+<th style="text-align: right;">c_gm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.576438</td>
+<td style="text-align: right;">2.0153094</td>
+<td style="text-align: right;">3.059581</td>
+<td style="text-align: right;">-0.2566380</td>
+<td style="text-align: right;">0.4476044</td>
+<td style="text-align: right;">-0.5267811</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.618275</td>
+<td style="text-align: right;">1.6847458</td>
+<td style="text-align: right;">4.229828</td>
+<td style="text-align: right;">-0.2148012</td>
+<td style="text-align: right;">0.1170408</td>
+<td style="text-align: right;">0.6434662</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2.365406</td>
+<td style="text-align: right;">0.3495072</td>
+<td style="text-align: right;">2.465712</td>
+<td style="text-align: right;">-1.4676704</td>
+<td style="text-align: right;">-1.2181978</td>
+<td style="text-align: right;">-1.1206501</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.604362</td>
+<td style="text-align: right;">1.4354944</td>
+<td style="text-align: right;">2.848375</td>
+<td style="text-align: right;">-0.2287140</td>
+<td style="text-align: right;">-0.1322106</td>
+<td style="text-align: right;">-0.7379871</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.881178</td>
+<td style="text-align: right;">1.2395786</td>
+<td style="text-align: right;">3.159797</td>
+<td style="text-align: right;">0.0481014</td>
+<td style="text-align: right;">-0.3281264</td>
+<td style="text-align: right;">-0.4265645</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4.172778</td>
+<td style="text-align: right;">1.3404398</td>
+<td style="text-align: right;">4.261824</td>
+<td style="text-align: right;">0.3397012</td>
+<td style="text-align: right;">-0.2272652</td>
+<td style="text-align: right;">0.6754625</td>
+<td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">1.567705</td>
+<td style="text-align: right;">3.586362</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Schauen wir uns nochmal die Datenstruktur unseres aufbereiteten Datensatzes an. Wir haben die Variablen:</p>
+<ul>
+<li>id: Gruppierungsvariable / Personen-ID, von 1 - 100</li>
+<li>time: Zeitpunkt / Tag der Messung, von 1-10</li>
+<li>a, b, c: Rohvariablen</li>
+<li>a_dm - c_dm: Personen-zentrierte Variablen</li>
+<li>a_gm - c_gm : Personen-Mittelwerte</li>
+</ul>
+</section>
+<section id="icc-und-within-person-variance" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="icc-und-within-person-variance"><span class="header-section-number">3.3</span> ICC und Within-Person Variance</h2>
+<p>Uns interessiert wie gross der Anteil der Varianz ist, der auf die zwei Ebenen der Daten entfallen (Inner-Person, Zwischen-Person-Ebene). Dies kann uns der ICC angeben. Mittels der Funktion <code>statsBy()</code> bekommen wir einige Analysen zu unseren Mehrebenen-Daten geliefert. Die Funktion benötigt zwei Argumente: den Datensatz und und die Gruppierungsvariable. Wir wählen entsprechend im <code>select()</code> die Variablen, die uns interessieren. Dies sind die Gruppierungsvariable “id” und die Rohvarianten der Variablen aus, da nur diese die Informationen über beide Ebenen enthalten. Die zerlegten Variablen mit den Kürzeln _dm und _gm brauchen wir erst später.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mehrebenen_stats <span class="ot">&lt;-</span> df_cfa_long_scores <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, a, b, c) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">statsBy</span>(<span class="at">group =</span> <span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wir bekommen hier manchmal Warnungen, wenn wir auch reine Level-2 Variablen eingeschlossen haben. Dies können wir jedoch ignorieren. Mit <code>print()</code> bekommen wir eine Übersicht über die Ergebnisse der Resultate der <code>statsBy()</code> Funktion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mehrebenen_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Statistics within and between groups  
+Call: statsBy(data = select(df_cfa_long_scores, id, a, b, c), group = "id")
+Intraclass Correlation 1 (Percentage of variance due to groups) 
+  id    a    b    c 
+1.00 0.49 0.55 0.47 
+Intraclass Correlation 2 (Reliability of group differences) 
+  id    a    b    c 
+1.00 0.91 0.92 0.90 
+eta^2 between groups  
+a.bg b.bg c.bg 
+0.54 0.59 0.52 
+
+To see the correlations between and within groups, use the short=FALSE option in your print statement.
+Many results are not shown directly. To see specific objects select from the following list:
+ mean sd n F ICC1 ICC2 ci1 ci2 raw rbg ci.bg pbg rwg nw ci.wg pwg etabg etawg nwg nG Call</code></pre>
+</div>
+</div>
+<p>Uns interessiert nur die Intraclass Correlation (ICC) 1. ICC(2) und Eta-Quadrat interessieren uns nicht.</p>
+<p>Den ICC können wir uns auch direkt angeben lassen, indem wir aus dem Listenobjekt <code>mehrebenen_stats</code> mit dem Dollarzeichen <code>$</code> die Untervariable <code>ICC1</code> anwählen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>icc <span class="ot">&lt;-</span> mehrebenen_stats<span class="sc">$</span>ICC1 <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>) <span class="co"># runden</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>icc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id    a    b    c 
+1.00 0.49 0.55 0.47 </code></pre>
+</div>
+</div>
+<p>Alle Skalen im Beispiel haben ICCs in einem angemessenen Bereich (&lt;.80). Dies heisst, dass genug tägliche Varianz vorhanden ist, um Mehrebenen-Analysen durchzuführen.</p>
+</section>
+<section id="reliabilitätsanalyse" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="reliabilitätsanalyse"><span class="header-section-number">3.4</span> Reliabilitätsanalyse</h2>
+<p>Die Reliabilitätsanalyse basiert auf den Items, nicht auf den Skalenwerten. Diese haben wir im <code>df_cfa_long</code> Dataframe abgespeichert.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">a1</th>
+<th style="text-align: right;">a2</th>
+<th style="text-align: right;">a3</th>
+<th style="text-align: right;">a4</th>
+<th style="text-align: right;">a5</th>
+<th style="text-align: right;">b1</th>
+<th style="text-align: right;">b2</th>
+<th style="text-align: right;">b3</th>
+<th style="text-align: right;">b4</th>
+<th style="text-align: right;">b5</th>
+<th style="text-align: right;">c1</th>
+<th style="text-align: right;">c2</th>
+<th style="text-align: right;">c3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.336252</td>
+<td style="text-align: right;">3.380463</td>
+<td style="text-align: right;">3.223528</td>
+<td style="text-align: right;">4.399347</td>
+<td style="text-align: right;">3.542602</td>
+<td style="text-align: right;">3.370896</td>
+<td style="text-align: right;">1.697640</td>
+<td style="text-align: right;">0.584167</td>
+<td style="text-align: right;">1.576649</td>
+<td style="text-align: right;">2.847195</td>
+<td style="text-align: right;">4.325797</td>
+<td style="text-align: right;">1.030847</td>
+<td style="text-align: right;">3.822098</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.149828</td>
+<td style="text-align: right;">5.110309</td>
+<td style="text-align: right;">5.678413</td>
+<td style="text-align: right;">2.765556</td>
+<td style="text-align: right;">2.387270</td>
+<td style="text-align: right;">2.486919</td>
+<td style="text-align: right;">0.952220</td>
+<td style="text-align: right;">2.101517</td>
+<td style="text-align: right;">0.331000</td>
+<td style="text-align: right;">2.552073</td>
+<td style="text-align: right;">3.364003</td>
+<td style="text-align: right;">5.711729</td>
+<td style="text-align: right;">3.613752</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.613518</td>
+<td style="text-align: right;">3.004133</td>
+<td style="text-align: right;">2.503233</td>
+<td style="text-align: right;">1.898476</td>
+<td style="text-align: right;">2.807670</td>
+<td style="text-align: right;">0.991958</td>
+<td style="text-align: right;">-0.685685</td>
+<td style="text-align: right;">0.003147</td>
+<td style="text-align: right;">-0.517730</td>
+<td style="text-align: right;">1.955846</td>
+<td style="text-align: right;">2.582169</td>
+<td style="text-align: right;">2.659834</td>
+<td style="text-align: right;">2.155132</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.351085</td>
+<td style="text-align: right;">3.852294</td>
+<td style="text-align: right;">4.972103</td>
+<td style="text-align: right;">2.612551</td>
+<td style="text-align: right;">3.233779</td>
+<td style="text-align: right;">2.248097</td>
+<td style="text-align: right;">0.004118</td>
+<td style="text-align: right;">0.711264</td>
+<td style="text-align: right;">2.185949</td>
+<td style="text-align: right;">2.028044</td>
+<td style="text-align: right;">2.918614</td>
+<td style="text-align: right;">3.163276</td>
+<td style="text-align: right;">2.463234</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.320900</td>
+<td style="text-align: right;">3.694431</td>
+<td style="text-align: right;">4.703663</td>
+<td style="text-align: right;">3.476859</td>
+<td style="text-align: right;">4.210036</td>
+<td style="text-align: right;">1.953658</td>
+<td style="text-align: right;">0.675750</td>
+<td style="text-align: right;">0.921623</td>
+<td style="text-align: right;">0.284884</td>
+<td style="text-align: right;">2.361978</td>
+<td style="text-align: right;">2.829237</td>
+<td style="text-align: right;">3.910432</td>
+<td style="text-align: right;">2.739723</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4.173775</td>
+<td style="text-align: right;">5.658948</td>
+<td style="text-align: right;">3.273027</td>
+<td style="text-align: right;">4.192700</td>
+<td style="text-align: right;">3.565438</td>
+<td style="text-align: right;">1.544111</td>
+<td style="text-align: right;">-0.373186</td>
+<td style="text-align: right;">1.303905</td>
+<td style="text-align: right;">1.687402</td>
+<td style="text-align: right;">2.539967</td>
+<td style="text-align: right;">4.141474</td>
+<td style="text-align: right;">5.234767</td>
+<td style="text-align: right;">3.409232</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Bei Skalen aus der Daily Erhebung nehmen wir die <code>omegaSEM()</code> Funktion. Als erstes Argument geben wir die Items in einem Character-Vector mittels <code>c()</code>, die Items werden mit Anführungszeichen angegeben. Falls ihr die Itemnamen nicht wisst, könnt ihr sie mit <code>names(df_cfa_long)</code> nachsehen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>scalea_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"a1"</span>, <span class="st">"a2"</span>, <span class="st">"a3"</span>, <span class="st">"a4"</span>, <span class="st">"a5"</span>), <span class="st">"id"</span>, df_cfa_long)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>scalea_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">label</th>
+<th style="text-align: right;">est</th>
+<th style="text-align: right;">ci.lower</th>
+<th style="text-align: right;">ci.upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">omega_within</td>
+<td style="text-align: right;">0.7390195</td>
+<td style="text-align: right;">0.7120809</td>
+<td style="text-align: right;">0.7659581</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">omega_between</td>
+<td style="text-align: right;">0.8480644</td>
+<td style="text-align: right;">0.7955281</td>
+<td style="text-align: right;">0.9006008</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Hier erscheint teils eine Warnung, weil nicht alle Personen (cluster) Varianz auf den Items haben. Dies können wir ignorieren. In den simulierten Daten, die wir verwenden, ist dies jedoch nicht der Fall. Dann können wir den Output ansehen. Omega_within gibt die Reliabilität für Unterschiede innerhalb der Person an, und Omega_between gibt die Reliabilität für Unterschiede zwischen Personen an. Die Reliabilitäten sollten über .70 liegen für eine gute Reliabilität auf beiden Leveln.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>scaleb_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"b1"</span>, <span class="st">"b2"</span>, <span class="st">"b3"</span>, <span class="st">"b4"</span>, <span class="st">"b5"</span>), <span class="st">"id"</span>, df_cfa_long)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>scaleb_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">label</th>
+<th style="text-align: right;">est</th>
+<th style="text-align: right;">ci.lower</th>
+<th style="text-align: right;">ci.upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">omega_within</td>
+<td style="text-align: right;">0.7439948</td>
+<td style="text-align: right;">0.7175652</td>
+<td style="text-align: right;">0.7704245</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">omega_between</td>
+<td style="text-align: right;">0.8884161</td>
+<td style="text-align: right;">0.8502350</td>
+<td style="text-align: right;">0.9265972</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>scalec_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span>), <span class="st">"id"</span>, df_cfa_long)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>scalec_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">label</th>
+<th style="text-align: right;">est</th>
+<th style="text-align: right;">ci.lower</th>
+<th style="text-align: right;">ci.upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">28</td>
+<td style="text-align: left;">omega_within</td>
+<td style="text-align: right;">0.6276604</td>
+<td style="text-align: right;">0.5854945</td>
+<td style="text-align: right;">0.6698263</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">34</td>
+<td style="text-align: left;">omega_between</td>
+<td style="text-align: right;">0.7638922</td>
+<td style="text-align: right;">0.6728196</td>
+<td style="text-align: right;">0.8549647</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="korrelationstabelle" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="korrelationstabelle"><span class="header-section-number">3.5</span> Korrelationstabelle</h2>
+<p>In psychologischen Artikeln ist (fast) immer die Korrelationstabelle die erste Tabelle des Artikels. Unser nächstes Ziel ist es, die Korrelationstabelle anzufertigen in der wir auch die Mittelwerte und Standardabweichungen integrieren.</p>
+<section id="mittelwerte" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="mittelwerte"><span class="header-section-number">3.5.1</span> Mittelwerte</h3>
+<p>Mittelwerte wurden bereits - pro Person - durch die statsBy() Funktion gebildet. Den allgemeinen Mittelwert bekommen wir mit der Funktion <code>summarise()</code>. Diese erlaubt uns, zusammenfassende Werte zu bilden. Da wir dies gleich für mehrere Variablen machen, benutzen wir zudem <code>across()</code> um die Summary gleich für mehrere Variablen zu bilden. Die Funktion benötigt als Argumente (a) die Namen der Variablen mit <code>c()</code> als einen Vektor zusammengefasst, (b) die Funktionen, wie sie gebildet werden (hier: <code>~mean(.x, na.rm = TRUE)</code> für das arithmetische Mittel unter Ausschluss aller nicht vorhandenen Werte) und (c) optional die Namen der ausgegebenen Variablen mittels “.names”. Wir verwenden “m_{.col}”. Abschliessend runden wir die Werte.</p>
+<p>Ersetzt im folgenden Code in der Klammer von <code>c()</code> die Variablennamen mit denen, die euch interessieren, hier sowohl die täglichen als auch Baselinevariablen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mittelwerte <span class="ot">&lt;-</span> mehrebenen_stats<span class="sc">$</span>mean <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(a,b,c), <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>mittelwerte</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">b</th>
+<th style="text-align: right;">c</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">3.034273</td>
+<td style="text-align: right;">1.949319</td>
+<td style="text-align: right;">1.990651</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Wir sehen, dass a einen höheren Mittelwert (M = 3.03) als b und c (M = 1.94, M = 1.99) aufweist. Für die Verteilung der Variablen sehen wir uns idealerweise auch Histogramme an.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mehrebenen_stats<span class="sc">$</span>mean[,<span class="st">"a"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-Descriptive-Statistics_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mehrebenen_stats<span class="sc">$</span>mean[,<span class="st">"b"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-Descriptive-Statistics_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mehrebenen_stats<span class="sc">$</span>mean[,<span class="st">"c"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-Descriptive-Statistics_files/figure-html/unnamed-chunk-11-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Alle Variablen scheinen vom Histogram her hinreichend normalverteilt.</p>
+</section>
+<section id="standardabweichungen" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="standardabweichungen"><span class="header-section-number">3.5.2</span> Standardabweichungen</h3>
+<p>Ganz ähnlich wie mit Mittelwerten verfahren wir für die Standardabweichung, nur dass wir hier als Funktion <code>~sd(.x, na.rm = TRUE)</code> verwenden. Ersetzt auch hier im folgenden Code in der Klammer von <code>c()</code> die Variablennamen mit denen, die euch interessieren, hier sowohl die täglichen als auch Baselinevariablen. Die Baselinevariable “w” zeigt hier keine SD mit dieser Berechnung und muss separat berechnet werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>standardabweichung <span class="ot">&lt;-</span> mehrebenen_stats<span class="sc">$</span>sd <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(a, b, c), <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>standardabweichung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">b</th>
+<th style="text-align: right;">c</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.6875217</td>
+<td style="text-align: right;">0.6956185</td>
+<td style="text-align: right;">0.7549543</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="korrelationen" class="level3" data-number="3.5.3">
+<h3 data-number="3.5.3" class="anchored" data-anchor-id="korrelationen"><span class="header-section-number">3.5.3</span> Korrelationen</h3>
+<p>Wir wollen eine Korrelationstabelle, in der wir auf einen Blick sowohl die Zwischen-Person-Korrelationen als auch die Inner-Person-Korrelationen sehen. Die <code>statsBy()</code> Funktion, die wir bereits aufgerufen haben, gibt uns beides separat aus. und</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mehrebenen_stats<span class="sc">$</span>rbg <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>) <span class="co"># Zwischen Person Kor.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     a.bg b.bg c.bg
+a.bg 1.00 0.32 0.39
+b.bg 0.32 1.00 0.29
+c.bg 0.39 0.29 1.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mehrebenen_stats<span class="sc">$</span>rwg <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>) <span class="co"># Inner Person Kor.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     a.wg b.wg c.wg
+a.wg 1.00 0.22 0.25
+b.wg 0.22 1.00 0.29
+c.wg 0.25 0.29 1.00</code></pre>
+</div>
+</div>
+<p>Wir erhalten im unteren Dreieck die Inner-Person-Korrelationen, und im oberen Dreieck die Zwischen-Person-Korrelationen.</p>
+</section>
+<section id="integration-in-tabelle" class="level3" data-number="3.5.4">
+<h3 data-number="3.5.4" class="anchored" data-anchor-id="integration-in-tabelle"><span class="header-section-number">3.5.4</span> Integration in Tabelle</h3>
+<p>Jetzt gilt es, die Mittelwerte, Standardabweichungen, ICCs, und Korrelationen Zwischen und Innerhalb von Personen in einer Tabelle zu integrieren. Mit der <code>tibble()</code> Funktion bauen wir einen neue Datensatz-Tabelle, in der wir alle Variablen integrieren.</p>
+<p>Die vorhergehenden Analysen zeigen wie man die einzelnen Komponenten der Tabelle erstellt. Die Funktion <code>cortable_multilevel()</code> führt die einzelnen Funktionen direkt zusammen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cortable_integriert <span class="ot">&lt;-</span> franzpak<span class="sc">::</span><span class="fu">cortable_multilevel</span>(df_cfa_long_scores, <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), <span class="at">grp =</span> <span class="st">"id"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>cortable_integriert</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">M</th>
+<th style="text-align: left;">SD</th>
+<th style="text-align: left;">ICC</th>
+<th style="text-align: left;">1.</th>
+<th style="text-align: left;">2.</th>
+<th style="text-align: left;">3.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1.a</td>
+<td style="text-align: left;">3.03</td>
+<td style="text-align: left;">0.99</td>
+<td style="text-align: left;">.49</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">.32**</td>
+<td style="text-align: left;">.39***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.b</td>
+<td style="text-align: left;">1.95</td>
+<td style="text-align: left;">1.07</td>
+<td style="text-align: left;">.55</td>
+<td style="text-align: left;">.22***</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">.29**</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3.c</td>
+<td style="text-align: left;">1.99</td>
+<td style="text-align: left;">1.06</td>
+<td style="text-align: left;">.47</td>
+<td style="text-align: left;">.25***</td>
+<td style="text-align: left;">.29***</td>
+<td style="text-align: left;">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="export-von-tabellen-zu-excel" class="level3" data-number="3.5.5">
+<h3 data-number="3.5.5" class="anchored" data-anchor-id="export-von-tabellen-zu-excel"><span class="header-section-number">3.5.5</span> Export von Tabellen zu Excel</h3>
+<p>Wir exportieren die Korrelationstabelle nach Excel mittels <code>write_xlsx()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eval: false</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(cortable_integriert, <span class="at">path =</span> <span class="st">"korrelationstabelle.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Excel-Tabelle lässt sich dann in Word kopieren und weiter verarbeitet werden, z.B. mit den richtigen Variablennamen versehen werden etc. Damit haben wir nun die Datenaufbereitung und deskriptive Datenanalyse abgeschlossen.</p>
+</section>
+</section>
+<section id="übung" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Übung:</h1>
+<p>Wendet diese Schritte nun auf den Datensatz aus der letzten Übung an. Zunächst laden wir die Daten, die in der letzten Übung abgespeichert werden sollten.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_uebung.RData"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_uebung_lang)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">x1</th>
+<th style="text-align: right;">x2</th>
+<th style="text-align: right;">x3</th>
+<th style="text-align: right;">x4</th>
+<th style="text-align: right;">x5</th>
+<th style="text-align: right;">y1</th>
+<th style="text-align: right;">y2</th>
+<th style="text-align: right;">y3</th>
+<th style="text-align: right;">y4</th>
+<th style="text-align: right;">y5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.927017</td>
+<td style="text-align: right;">3.569244</td>
+<td style="text-align: right;">3.123268</td>
+<td style="text-align: right;">5.759150</td>
+<td style="text-align: right;">4.700258</td>
+<td style="text-align: right;">4.329297</td>
+<td style="text-align: right;">4.477198</td>
+<td style="text-align: right;">2.848577</td>
+<td style="text-align: right;">4.678402</td>
+<td style="text-align: right;">3.480544</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.484359</td>
+<td style="text-align: right;">3.716360</td>
+<td style="text-align: right;">2.200183</td>
+<td style="text-align: right;">4.865658</td>
+<td style="text-align: right;">3.579269</td>
+<td style="text-align: right;">3.597471</td>
+<td style="text-align: right;">4.454955</td>
+<td style="text-align: right;">5.551165</td>
+<td style="text-align: right;">4.682683</td>
+<td style="text-align: right;">3.221823</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5.209319</td>
+<td style="text-align: right;">4.025572</td>
+<td style="text-align: right;">2.416466</td>
+<td style="text-align: right;">5.106690</td>
+<td style="text-align: right;">5.881804</td>
+<td style="text-align: right;">3.552542</td>
+<td style="text-align: right;">4.760682</td>
+<td style="text-align: right;">3.769263</td>
+<td style="text-align: right;">3.607138</td>
+<td style="text-align: right;">3.853132</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.777327</td>
+<td style="text-align: right;">2.601702</td>
+<td style="text-align: right;">2.600930</td>
+<td style="text-align: right;">4.142291</td>
+<td style="text-align: right;">4.111085</td>
+<td style="text-align: right;">3.052100</td>
+<td style="text-align: right;">3.288172</td>
+<td style="text-align: right;">3.649328</td>
+<td style="text-align: right;">4.363976</td>
+<td style="text-align: right;">3.120772</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.822955</td>
+<td style="text-align: right;">4.917407</td>
+<td style="text-align: right;">2.179303</td>
+<td style="text-align: right;">4.984553</td>
+<td style="text-align: right;">4.600078</td>
+<td style="text-align: right;">2.592308</td>
+<td style="text-align: right;">5.678996</td>
+<td style="text-align: right;">2.271035</td>
+<td style="text-align: right;">3.401883</td>
+<td style="text-align: right;">3.842651</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.874990</td>
+<td style="text-align: right;">4.417907</td>
+<td style="text-align: right;">3.370835</td>
+<td style="text-align: right;">4.902819</td>
+<td style="text-align: right;">4.055922</td>
+<td style="text-align: right;">3.082656</td>
+<td style="text-align: right;">4.679951</td>
+<td style="text-align: right;">5.264214</td>
+<td style="text-align: right;">5.139966</td>
+<td style="text-align: right;">2.815425</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_uebung_lang_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">x</th>
+<th style="text-align: right;">y</th>
+<th style="text-align: right;">x_dm</th>
+<th style="text-align: right;">y_dm</th>
+<th style="text-align: right;">x_gm</th>
+<th style="text-align: right;">y_gm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.415787</td>
+<td style="text-align: right;">3.962804</td>
+<td style="text-align: right;">0.3959958</td>
+<td style="text-align: right;">0.1601657</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.569166</td>
+<td style="text-align: right;">4.301619</td>
+<td style="text-align: right;">-0.4506258</td>
+<td style="text-align: right;">0.4989815</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4.527970</td>
+<td style="text-align: right;">3.908551</td>
+<td style="text-align: right;">0.5081786</td>
+<td style="text-align: right;">0.1059135</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.446667</td>
+<td style="text-align: right;">3.494870</td>
+<td style="text-align: right;">-0.5731246</td>
+<td style="text-align: right;">-0.3077683</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.900859</td>
+<td style="text-align: right;">3.557375</td>
+<td style="text-align: right;">-0.1189324</td>
+<td style="text-align: right;">-0.2452633</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.924495</td>
+<td style="text-align: right;">4.196442</td>
+<td style="text-align: right;">-0.0952970</td>
+<td style="text-align: right;">0.3938045</td>
+<td style="text-align: right;">4.019792</td>
+<td style="text-align: right;">3.802638</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="icc" class="level3" data-number="4.0.1">
+<h3 data-number="4.0.1" class="anchored" data-anchor-id="icc"><span class="header-section-number">4.0.1</span> ICC</h3>
+<p>Berechnet den ICC für X und Y mittels <code>statsBy()</code> und analysiert die Angaben:</p>
+<ul>
+<li>Weisen die Skalen X und Y hinreichend Varianz auf der Inner-Person-Ebene auf, um sie mittels Mehrebenen-Modelle zu analysieren? Begründet eure Antwort.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lösung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mehrebenen_stats <span class="ot">&lt;-</span> df_uebung_lang_scores <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, x,y) <span class="sc">|&gt;</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">statsBy</span>(<span class="at">group =</span> <span class="st">"id"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mehrebenen_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Statistics within and between groups  
+Call: statsBy(data = select(df_uebung_lang_scores, id, x, y), group = "id")
+Intraclass Correlation 1 (Percentage of variance due to groups) 
+  id    x    y 
+1.00 0.53 0.69 
+Intraclass Correlation 2 (Reliability of group differences) 
+  id    x    y 
+1.00 0.92 0.96 
+eta^2 between groups  
+x.bg y.bg 
+0.57 0.72 
+
+To see the correlations between and within groups, use the short=FALSE option in your print statement.
+Many results are not shown directly. To see specific objects select from the following list:
+ mean sd n F ICC1 ICC2 ci1 ci2 raw rbg ci.bg pbg rwg nw ci.wg pwg etabg etawg nwg nG Call</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># oder</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>mehrebenen_stats<span class="sc">$</span>ICC1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       id         x         y 
+1.0000000 0.5289733 0.6911339 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="reliabilitsätsanalyse" class="level3" data-number="4.0.2">
+<h3 data-number="4.0.2" class="anchored" data-anchor-id="reliabilitsätsanalyse"><span class="header-section-number">4.0.2</span> Reliabilitsätsanalyse</h3>
+<p>Berechnet die Omega-Within und Omega-Between Reliabilitäten für X und Y mittels <code>omegaSEM()</code> und analysiert die Angaben:</p>
+<ul>
+<li>Weisen die Skalen X und Y hinreichende Omega-Werte auf, um Inner-Person Unterschiede reliabel zu messen? Begründet eure Antworten.</li>
+<li>Weisen die Skalen X und Y hinreichend Omega-Werte auf, um Zwischen-Person Unterschiede reliabel zu messen? Begründet eure Antworten.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lösung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>scalex_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span>), <span class="st">"id"</span>, df_uebung_lang)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>scalex_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">label</th>
+<th style="text-align: right;">est</th>
+<th style="text-align: right;">ci.lower</th>
+<th style="text-align: right;">ci.upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">omega_within</td>
+<td style="text-align: right;">0.7207947</td>
+<td style="text-align: right;">0.6919655</td>
+<td style="text-align: right;">0.7496239</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">omega_between</td>
+<td style="text-align: right;">0.8765616</td>
+<td style="text-align: right;">0.8338820</td>
+<td style="text-align: right;">0.9192411</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>scaley_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>, <span class="st">"y4"</span>, <span class="st">"y5"</span>), <span class="st">"id"</span>, df_uebung_lang)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>scaley_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">label</th>
+<th style="text-align: right;">est</th>
+<th style="text-align: right;">ci.lower</th>
+<th style="text-align: right;">ci.upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">omega_within</td>
+<td style="text-align: right;">0.3624765</td>
+<td style="text-align: right;">0.2969411</td>
+<td style="text-align: right;">0.4280119</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">omega_between</td>
+<td style="text-align: right;">0.8844400</td>
+<td style="text-align: right;">0.8452825</td>
+<td style="text-align: right;">0.9235976</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="integration-in-korrelationstabelle" class="level3" data-number="4.0.3">
+<h3 data-number="4.0.3" class="anchored" data-anchor-id="integration-in-korrelationstabelle"><span class="header-section-number">4.0.3</span> Integration in Korrelationstabelle</h3>
+<p>Erstellt eine Korrelationstabelle von den Variablen w, x, m, und y mit Mittelwerten, Standardabweichungen, ICC, und Within/Between-Korrelationen wie in Kapitel 1a gezeigt.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lösung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>cortable_integriert_uebung <span class="ot">&lt;-</span> franzpak<span class="sc">::</span><span class="fu">cortable_multilevel</span>(df_uebung_lang_scores, <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), <span class="at">grp =</span> <span class="st">"id"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>cortable_integriert_uebung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">M</th>
+<th style="text-align: left;">SD</th>
+<th style="text-align: left;">ICC</th>
+<th style="text-align: left;">1.</th>
+<th style="text-align: left;">2.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1.x</td>
+<td style="text-align: left;">3.04</td>
+<td style="text-align: left;">0.99</td>
+<td style="text-align: left;">.53</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">.28**</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.y</td>
+<td style="text-align: left;">2.05</td>
+<td style="text-align: left;">0.93</td>
+<td style="text-align: left;">.69</td>
+<td style="text-align: left;">.02</td>
+<td style="text-align: left;">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Basierend auf euren Analysen zu ICC, Reliabilitsätsanalysen, und der Betrachtung der Korrelationstabelle, beantwortet folgende Fragen:</p>
+<ul>
+<li>Wie fällt die Korrelation zwischen X und Y auf Zwischen-Person Ebene aus? Ist es basierend auf der Prüfungen der Voraussetzungen (ICCs, Reliabilitäten) sinnvoll, diese zu interpretieren?</li>
+<li>Wie fällt die Korrelation zwischen X und Y auf Inner-Person Ebene aus? Ist es basierend auf der Prüfungen der Voraussetzungen (ICCs, Reliabilitäten) sinnvoll, diese zu interpretieren?</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Zwischen-Person Ebene
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Die Korrelation zwischen X und Y beträgt r = .28 und ist signifikant. Die Reliabilität auf Level-2/ Zwischen-Person Ebene, durch omega_between angegeben, ist für X und Y gut (&gt; .80). Die ICCs weisen auf ausreichend Varianz auf Zwischen-Person Ebene hin (53%-69%). Daher ist sie sinnvoll zu interpretieren. DIe Variablen sind moderat positiv miteinander assoziiert.</p>
+<section id="inner-person-ebene" class="level4" data-number="4.0.3.1">
+<h4 data-number="4.0.3.1" class="anchored" data-anchor-id="inner-person-ebene"><span class="header-section-number">4.0.3.1</span> Inner-Person Ebene</h4>
+<p>Für Y, auch wenn es durchaus Varianz auf Inner-Person Ebene gibt (ICC = .69, damit sind 31% der Varianz auf Inner-Person Ebene), ist auf Inner-Person Ebene ist die Reliabilität sehr niedrig (Omega-within = .32). Das heisst, dass die Varianz innerhalb der Personen über die Tage auf Variable Y nicht reliabel gemessen werden. Die Inner-Person Varianz auf Y ist somit nicht sinnvoll zu interpretieren und stellt vermutlich nur “Rauschen” dar. Die Korrelation mit X ist nicht sinnvoll zu interpretieren (und fällt auch nicht signifikant aus), auch wenn X sowohl ausreichend Level-1 Varianz hat als auch reliabel gemessen ist.</p>
+</section>
+</div>
+</div>
+</div>
+</section>
+<section id="zusatz" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="zusatz"><span class="header-section-number">4.1</span> Zusatz</h2>
+<p>Die folgenden Analysen sind optional, geben aber ein tieferes Verständnis des Materials.</p>
+</section>
+<section id="blick-hinter-die-kulissen-berechnung-von-omega-mittels-einer-mehrebenen-konfirmatorischen-faktorenanalysen" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="blick-hinter-die-kulissen-berechnung-von-omega-mittels-einer-mehrebenen-konfirmatorischen-faktorenanalysen"><span class="header-section-number">4.2</span> Blick hinter die Kulissen: Berechnung von Omega mittels einer Mehrebenen konfirmatorischen Faktorenanalysen</h2>
+<p>Für eine genauere Auswertung können wir <code>omegaSEM()</code> mit dem Parameter <code>savemodel = TRUE</code> laufen lassen und uns mittels <code>summary()</code> die konfirmatorische Faktoranalyse (CFA) genauer ansehen.</p>
+<p>Wie CFAs funktionieren, kann hier repetiert werden: <a href="https://methodenlehre.github.io/statistik-IV/chapters/CFA.html">Statistik IV - Methodenlehre</a></p>
+<p>Zudem können wir uns mit <code>lavInspect()</code> die Modellparameter ansehen, um zu verstehen wie die Reliabilitätskoeffizient gebildet wird.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>scalec_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span>), <span class="st">"id"</span>, df_cfa_long, <span class="at">savemodel =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>scalec_reliab<span class="sc">$</span>Fit <span class="sc">|&gt;</span> <span class="fu">summary</span>(<span class="at">fit =</span> <span class="cn">TRUE</span>, <span class="at">stand =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-18 ended normally after 32 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        15
+  Number of inequality constraints                   6
+
+  Number of observations                          1000
+  Number of clusters [id]                          100
+
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+
+Model Test Baseline Model:
+
+  Test statistic                               383.809
+  Degrees of freedom                                 6
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.000
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -4446.130
+  Loglikelihood unrestricted model (H1)      -4446.130
+                                                      
+  Akaike (AIC)                                8922.260
+  Bayesian (BIC)                              8995.876
+  Sample-size adjusted Bayesian (SABIC)       8948.235
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.000
+  P-value H_0: RMSEA &lt;= 0.050                       NA
+  P-value H_0: RMSEA &gt;= 0.080                       NA
+
+Standardized Root Mean Square Residual (corr metric):
+
+  SRMR (within covariance matrix)                0.000
+  SRMR (between covariance matrix)               0.000
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Observed
+  Observed information based on                Hessian
+
+
+Level 1 [within]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  f_within =~                                                           
+    c1       (wl1)    0.596    0.043   13.816    0.000    0.596    0.595
+    c2       (wl2)    0.653    0.046   14.176    0.000    0.653    0.622
+    c3       (wl3)    0.587    0.043   13.605    0.000    0.587    0.580
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+    f_within          1.000                               1.000    1.000
+   .c1       (wr1)    0.648    0.048   13.565    0.000    0.648    0.645
+   .c2       (wr2)    0.675    0.054   12.435    0.000    0.675    0.613
+   .c3       (wr3)    0.677    0.048   14.183    0.000    0.677    0.663
+
+
+Level 2 [id]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  f_between =~                                                          
+    c1       (bl1)    0.529    0.095    5.570    0.000    0.529    0.660
+    c2       (bl2)    0.704    0.106    6.614    0.000    0.704    0.803
+    c3       (bl3)    0.680    0.115    5.905    0.000    0.680    0.694
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .c1                2.003    0.086   23.252    0.000    2.003    2.500
+   .c2                1.948    0.094   20.798    0.000    1.948    2.224
+   .c3                2.021    0.103   19.615    0.000    2.021    2.063
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+    f_betwen          1.000                               1.000    1.000
+   .c1       (br1)    0.362    0.081    4.446    0.000    0.362    0.564
+   .c2       (br2)    0.272    0.107    2.536    0.011    0.272    0.355
+   .c3       (br3)    0.497    0.120    4.132    0.000    0.497    0.518
+
+Defined Parameters:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+    num_within        3.371    0.262   12.875    0.000    3.371    3.233
+    denom_within      5.370    0.253   21.213    0.000    5.370    5.155
+    omega_within      0.628    0.022   29.175    0.000    0.628    0.627
+    num_between       3.659    0.764    4.787    0.000    3.659    4.657
+    denom_between     4.789    0.754    6.354    0.000    4.789    6.094
+    omega_between     0.764    0.046   16.440    0.000    0.764    0.764
+
+Constraints:
+                                               |Slack|
+    wr1 - 0                                      0.648
+    wr2 - 0                                      0.675
+    wr3 - 0                                      0.677
+    br1 - 0                                      0.362
+    br2 - 0                                      0.272
+    br3 - 0                                      0.497</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavInspect</span>(scalec_reliab<span class="sc">$</span>Fit, <span class="st">"list"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lhs, op, rhs, free, level, free, label, est, se) <span class="sc">|&gt;</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">2</span>)) <span class="co"># alternatively, parTable()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `across(where(is.numeric), round, 2)`.
+Caused by warning:
+! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+Supply arguments directly to `.fns` through an anonymous function instead.
+
+  # Previously
+  across(a:b, mean, na.rm = TRUE)
+
+  # Now
+  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 3%">
+<col style="width: 36%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 17%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">lhs</th>
+<th style="text-align: left;">op</th>
+<th style="text-align: left;">rhs</th>
+<th style="text-align: right;">free</th>
+<th style="text-align: right;">level</th>
+<th style="text-align: left;">label</th>
+<th style="text-align: right;">est</th>
+<th style="text-align: right;">se</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">f_within</td>
+<td style="text-align: left;">=~</td>
+<td style="text-align: left;">c1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">wl1</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f_within</td>
+<td style="text-align: left;">=~</td>
+<td style="text-align: left;">c2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">wl2</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f_within</td>
+<td style="text-align: left;">=~</td>
+<td style="text-align: left;">c3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">wl3</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f_within</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">f_within</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c1</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">c1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">wr1</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">c2</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">c2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">wr2</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c3</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">c3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">wr3</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">c1</td>
+<td style="text-align: left;">~1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c2</td>
+<td style="text-align: left;">~1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">c3</td>
+<td style="text-align: left;">~1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f_within</td>
+<td style="text-align: left;">~1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f_between</td>
+<td style="text-align: left;">=~</td>
+<td style="text-align: left;">c1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">bl1</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f_between</td>
+<td style="text-align: left;">=~</td>
+<td style="text-align: left;">c2</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">bl2</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f_between</td>
+<td style="text-align: left;">=~</td>
+<td style="text-align: left;">c3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">bl3</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">0.12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f_between</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">f_between</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">c1</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">c1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">br1</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">0.08</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c2</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">c2</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">br2</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">c3</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">c3</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">br3</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c1</td>
+<td style="text-align: left;">~1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">c2</td>
+<td style="text-align: left;">~1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">1.95</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c3</td>
+<td style="text-align: left;">~1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">2.02</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f_between</td>
+<td style="text-align: left;">~1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wr1</td>
+<td style="text-align: left;">&gt;</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wr2</td>
+<td style="text-align: left;">&gt;</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wr3</td>
+<td style="text-align: left;">&gt;</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">num_within</td>
+<td style="text-align: left;">:=</td>
+<td style="text-align: left;">(wl1+wl2+wl3)^2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">num_within</td>
+<td style="text-align: right;">3.37</td>
+<td style="text-align: right;">0.26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">denom_within</td>
+<td style="text-align: left;">:=</td>
+<td style="text-align: left;">(wl1+wl2+wl3)^2+(wr1+wr2+wr3)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">denom_within</td>
+<td style="text-align: right;">5.37</td>
+<td style="text-align: right;">0.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">omega_within</td>
+<td style="text-align: left;">:=</td>
+<td style="text-align: left;">num_within/denom_within</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">omega_within</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">br1</td>
+<td style="text-align: left;">&gt;</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">br2</td>
+<td style="text-align: left;">&gt;</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">br3</td>
+<td style="text-align: left;">&gt;</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">num_between</td>
+<td style="text-align: left;">:=</td>
+<td style="text-align: left;">(bl1+bl2+bl3)^2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">num_between</td>
+<td style="text-align: right;">3.66</td>
+<td style="text-align: right;">0.76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">denom_between</td>
+<td style="text-align: left;">:=</td>
+<td style="text-align: left;">(bl1+bl2+bl3)^2+(br1+br2+br3)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">denom_between</td>
+<td style="text-align: right;">4.79</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">omega_between</td>
+<td style="text-align: left;">:=</td>
+<td style="text-align: left;">num_between/denom_between</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">omega_between</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Wie der Output zeigt, ergibt sich die Omega-Reliabilität aus dem Anteil der durch den Faktor (f_within für den Faktor auf Level-1 bzw. f_between für den Faktor auf Level-2) erklärten Varianz der Items (Summe aller Item-Ladungen, quadriert für Varianz) geteilt durch die Gesamtvarianz der Items (durch Faktor erklärte Varianz der Items + Residualvarianz, d.h. übrigbleibende Varianz der Items). Diese Formel wird pro Varianzebene (Level-1, also tägliche Schwankungen innerhalb der Person) und Level-2 (Unterschiede zwischen Personen) getrennt berechnet.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01 Data Preparation Item Level.html" class="pagination-link" aria-label="Kapitel 1: Datenaufbereitung">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1: Datenaufbereitung</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03 Hypotheses Tests.html" class="pagination-link" aria-label="Kapitel 3: Hypothesentests - Teil 1">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
