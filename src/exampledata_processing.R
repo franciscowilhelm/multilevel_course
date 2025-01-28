@@ -40,3 +40,28 @@ df_example1 <- df_example1 |>
 head(df_example1)
 
 save(df_example1, file = "data/df_example1.RData")
+
+# 1-1-1 Alt version, no significant b path
+df_111_uebung <- read.table(file = "data_simulation/example1_altrep1.dat", header = FALSE, 
+                          na.strings = "*", strip.white = TRUE) |> as_tibble()
+names(df_111_uebung) <- c("helfen", "wertschaetz", "selbstwert", "id")
+df_111_uebung <- df_111_uebung |> select(id, everything())
+
+df_111_uebung <- df_111_uebung |> 
+  mutate(id = as.factor(id)) |> 
+  de_mean(wertschaetz, selbstwert, grp = "id")
+head(df_111_uebung)
+
+df_111_uebung <- df_111_uebung |>
+  sjlabelled::var_labels(
+    id = "Personen-ID",
+    helfen = "Proaktives Helfen",
+    wertschaetz = "erfahrene Wertschaetzung",
+    wertschaetz_gm = "erfahrene Wertschaetzung (person average)",
+    wertschaetz_dm = "erfahrene Wertschaetzung (person-mean centered)",
+    selbstwert = "Selbstwert",
+    selbstwert_dm = "Selbstwert (person-mean centered)",
+    selbstwert_gm = "Selbstwert (person average)",
+  )
+
+save(df_111_uebung, file = "data/df_111_uebung.RData")

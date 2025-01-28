@@ -13,8 +13,26 @@ Materialien:
 
 - RStudio (erstellt RStudio 2024.12.0, Build 467)
 - R (erstellt mit R 4.4.2)
+- Installation von Paketen mit dem Code unten.
+
 
 Kenntnisse:
 
 - Data Wrangling in R, Umgang mit Notebooks (.qmd)
 - Statistisches Wissen zu linearen Modellen (Regressionen) und Testkonstruktion
+
+### Installation von R-Paketen, die im Kurs verwendet werden
+
+```{r}
+#| eval: false
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(devtools)
+devtools::install_github("falkcarl/multilevelmediation")
+
+pacman::p_load(lmerTest, haven, brms, psych,
+               sjmisc, sjlabelled, sjPlot, writexl, broom.mixed, qgraph,
+               tidyverse, multilevelTools, parameters, devtools,
+               multilevelmediation)
+```
+
