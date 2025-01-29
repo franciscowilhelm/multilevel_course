@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-8da5b4427184b79ecddefad3d342027e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-77205cbbef6a5b90ba72edc25dea2156.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -143,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.qmd</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -162,6 +162,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./03 Hypotheses Tests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00 Data Wrangling Basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Anhang: Data Wrangling</span></span></a>
   </div>
 </li>
     </ul>
@@ -221,13 +227,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="pakete-laden" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="pakete-laden"><span class="header-section-number">3.1</span> Pakete laden</h2>
-<p>%todo: Franzpak integrieren %</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: pacman</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"franzpak"</span>)) devtools<span class="sc">::</span><span class="fu">install_github</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"franzpak"</span>)) devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"franciscowilhelm/franzpak"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: franzpak</code></pre>
 </div>
@@ -368,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="icc-und-within-person-variance" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="icc-und-within-person-variance"><span class="header-section-number">3.3</span> ICC und Within-Person Variance</h2>
-<p>Uns interessiert wie gross der Anteil der Varianz ist, der auf die zwei Ebenen der Daten entfallen (Inner-Person, Zwischen-Person-Ebene). Dies kann uns der ICC angeben. Mittels der Funktion <code>statsBy()</code> bekommen wir einige Analysen zu unseren Mehrebenen-Daten geliefert. Die Funktion benötigt zwei Argumente: den Datensatz und und die Gruppierungsvariable. Wir wählen entsprechend im <code>select()</code> die Variablen, die uns interessieren. Dies sind die Gruppierungsvariable “id” und die Rohvarianten der Variablen aus, da nur diese die Informationen über beide Ebenen enthalten. Die zerlegten Variablen mit den Kürzeln _dm und _gm brauchen wir erst später.</p>
+<p>Uns interessiert wie gross der Anteil der Varianz ist, der jeweils auf die zwei Ebenen der Daten entfallen (Inner-Person, Zwischen-Person-Ebene). Dies kann uns der ICC angeben. Mittels der Funktion <code>statsBy()</code> bekommen wir einige Analysen zu unseren Mehrebenen-Daten geliefert. Die Funktion benötigt zwei Argumente: den Datensatz und und die Gruppierungsvariable. Wir wählen entsprechend in <code>select()</code> die Variablen, die uns interessieren. Dies sind die Gruppierungsvariable “id” und die Rohvarianten der Variablen aus, da nur diese die Informationen über <strong>beide</strong> Ebenen enthalten (personen-zentrierte Variablen beinhalten nur Varianz auf Inner-Person-Ebene, Personen-Mittelwerte nur Varianz auf Zwischen-Person-Ebene). Die zerlegten Variablen mit den Kürzeln _dm und _gm brauchen wir erst später.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mehrebenen_stats <span class="ot">&lt;-</span> df_cfa_long_scores <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, a, b, c) <span class="sc">|&gt;</span> </span>
@@ -395,7 +400,7 @@ Many results are not shown directly. To see specific objects select from the fol
  mean sd n F ICC1 ICC2 ci1 ci2 raw rbg ci.bg pbg rwg nw ci.wg pwg etabg etawg nwg nG Call</code></pre>
 </div>
 </div>
-<p>Uns interessiert nur die Intraclass Correlation (ICC) 1. ICC(2) und Eta-Quadrat interessieren uns nicht.</p>
+<p>Uns interessiert nur die Intraclass Correlation 1. Intraclass Correlation (2) und Eta-Quadrat interessieren uns nicht.</p>
 <p>Den ICC können wir uns auch direkt angeben lassen, indem wir aus dem Listenobjekt <code>mehrebenen_stats</code> mit dem Dollarzeichen <code>$</code> die Untervariable <code>ICC1</code> anwählen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>icc <span class="ot">&lt;-</span> mehrebenen_stats<span class="sc">$</span>ICC1 <span class="sc">|&gt;</span> </span>
@@ -560,10 +565,13 @@ Many results are not shown directly. To see specific objects select from the fol
 </div>
 </div>
 </div>
-<p>Bei Skalen aus der Daily Erhebung nehmen wir die <code>omegaSEM()</code> Funktion. Als erstes Argument geben wir die Items in einem Character-Vector mittels <code>c()</code>, die Items werden mit Anführungszeichen angegeben. Falls ihr die Itemnamen nicht wisst, könnt ihr sie mit <code>names(df_cfa_long)</code> nachsehen.</p>
+<p>Bei täglich erhobenen Skalen nehmen wir die <code>omegaSEM()</code> Funktion. Als erstes Argument geben wir die Items in einem Character-Vector mittels <code>c()</code>, die Items werden mit Anführungszeichen angegeben. Falls ihr die Itemnamen nicht wisst, könnt ihr sie mit <code>names(df_cfa_long)</code> nachsehen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>scalea_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"a1"</span>, <span class="st">"a2"</span>, <span class="st">"a3"</span>, <span class="st">"a4"</span>, <span class="st">"a5"</span>), <span class="st">"id"</span>, df_cfa_long)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>scalea_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>scalea_reliab <span class="ot">&lt;-</span> <span class="fu">omegaSEM</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">items =</span> <span class="fu">c</span>(<span class="st">"a1"</span>, <span class="st">"a2"</span>, <span class="st">"a3"</span>, <span class="st">"a4"</span>, <span class="st">"a5"</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"id"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_cfa_long)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>scalea_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -598,8 +606,12 @@ Many results are not shown directly. To see specific objects select from the fol
 </div>
 <p>Hier erscheint teils eine Warnung, weil nicht alle Personen (cluster) Varianz auf den Items haben. Dies können wir ignorieren. In den simulierten Daten, die wir verwenden, ist dies jedoch nicht der Fall. Dann können wir den Output ansehen. Omega_within gibt die Reliabilität für Unterschiede innerhalb der Person an, und Omega_between gibt die Reliabilität für Unterschiede zwischen Personen an. Die Reliabilitäten sollten über .70 liegen für eine gute Reliabilität auf beiden Leveln.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>scaleb_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"b1"</span>, <span class="st">"b2"</span>, <span class="st">"b3"</span>, <span class="st">"b4"</span>, <span class="st">"b5"</span>), <span class="st">"id"</span>, df_cfa_long)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>scaleb_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>scaleb_reliab <span class="ot">&lt;-</span> <span class="fu">omegaSEM</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">items =</span> <span class="fu">c</span>(<span class="st">"b1"</span>, <span class="st">"b2"</span>, <span class="st">"b3"</span>, <span class="st">"b4"</span>, <span class="st">"b5"</span>),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"id"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_cfa_long)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>scaleb_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -633,8 +645,12 @@ Many results are not shown directly. To see specific objects select from the fol
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>scalec_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span>), <span class="st">"id"</span>, df_cfa_long)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>scalec_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>scalec_reliab <span class="ot">&lt;-</span> <span class="fu">omegaSEM</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">items =</span> <span class="fu">c</span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"id"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_cfa_long)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>scalec_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -670,10 +686,10 @@ Many results are not shown directly. To see specific objects select from the fol
 </section>
 <section id="korrelationstabelle" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="korrelationstabelle"><span class="header-section-number">3.5</span> Korrelationstabelle</h2>
-<p>In psychologischen Artikeln ist (fast) immer die Korrelationstabelle die erste Tabelle des Artikels. Unser nächstes Ziel ist es, die Korrelationstabelle anzufertigen in der wir auch die Mittelwerte und Standardabweichungen integrieren.</p>
+<p>In quantitativ-empirischen psychologischen Artikeln ist (fast) immer die Korrelationstabelle die erste Tabelle des Artikels. Unser nächstes Ziel ist es, eine Korrelationstabelle anzufertigen, in der wir auch die Mittelwerte und Standardabweichungen integrieren.</p>
 <section id="mittelwerte" class="level3" data-number="3.5.1">
 <h3 data-number="3.5.1" class="anchored" data-anchor-id="mittelwerte"><span class="header-section-number">3.5.1</span> Mittelwerte</h3>
-<p>Mittelwerte wurden bereits - pro Person - durch die statsBy() Funktion gebildet. Den allgemeinen Mittelwert bekommen wir mit der Funktion <code>summarise()</code>. Diese erlaubt uns, zusammenfassende Werte zu bilden. Da wir dies gleich für mehrere Variablen machen, benutzen wir zudem <code>across()</code> um die Summary gleich für mehrere Variablen zu bilden. Die Funktion benötigt als Argumente (a) die Namen der Variablen mit <code>c()</code> als einen Vektor zusammengefasst, (b) die Funktionen, wie sie gebildet werden (hier: <code>~mean(.x, na.rm = TRUE)</code> für das arithmetische Mittel unter Ausschluss aller nicht vorhandenen Werte) und (c) optional die Namen der ausgegebenen Variablen mittels “.names”. Wir verwenden “m_{.col}”. Abschliessend runden wir die Werte.</p>
+<p>Mittelwerte wurden bereits - pro Person - durch die <code>statsBy()</code> Funktion gebildet. Den allgemeinen Mittelwert bekommen wir mit der Funktion <code>summarise()</code>. Diese erlaubt uns, zusammenfassende Werte zu bilden. Da wir dies gleich für mehrere Variablen machen, benutzen wir zudem <code>across()</code>, um die Summary gleich für mehrere Variablen zu bilden. Die Funktion benötigt als Argumente (a) die Namen der Variablen mit <code>c()</code> als einen Vektor zusammengefasst, (b) die Funktionen, wie sie gebildet werden (hier: <code>~mean(.x, na.rm = TRUE)</code> für das arithmetische Mittel unter Ausschluss aller nicht vorhandenen Werte) und (c) optional die Namen der ausgegebenen Variablen mittels “.names”. Wir verwenden “m_{.col}”. Abschliessend runden wir die Werte.</p>
 <p>Ersetzt im folgenden Code in der Klammer von <code>c()</code> die Variablennamen mit denen, die euch interessieren, hier sowohl die täglichen als auch Baselinevariablen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mittelwerte <span class="ot">&lt;-</span> mehrebenen_stats<span class="sc">$</span>mean <span class="sc">|&gt;</span> </span>
@@ -787,7 +803,7 @@ c.wg 0.25 0.29 1.00</code></pre>
 <p>Jetzt gilt es, die Mittelwerte, Standardabweichungen, ICCs, und Korrelationen Zwischen und Innerhalb von Personen in einer Tabelle zu integrieren. Mit der <code>tibble()</code> Funktion bauen wir einen neue Datensatz-Tabelle, in der wir alle Variablen integrieren.</p>
 <p>Die vorhergehenden Analysen zeigen wie man die einzelnen Komponenten der Tabelle erstellt. Die Funktion <code>cortable_multilevel()</code> führt die einzelnen Funktionen direkt zusammen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cortable_integriert <span class="ot">&lt;-</span> franzpak<span class="sc">::</span><span class="fu">cortable_multilevel</span>(df_cfa_long_scores, <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), <span class="at">grp =</span> <span class="st">"id"</span>)</span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cortable_integriert <span class="ot">&lt;-</span> <span class="fu">cortable_multilevel</span>(df_cfa_long_scores, <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), <span class="at">grp =</span> <span class="st">"id"</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>cortable_integriert</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -1141,7 +1157,7 @@ Lösung
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>scalex_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span>), <span class="st">"id"</span>, df_uebung_lang)</span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>scalex_reliab <span class="ot">&lt;-</span> <span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span>), <span class="st">"id"</span>, df_uebung_lang)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>scalex_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -1176,7 +1192,7 @@ Lösung
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>scaley_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>, <span class="st">"y4"</span>, <span class="st">"y5"</span>), <span class="st">"id"</span>, df_uebung_lang)</span>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>scaley_reliab <span class="ot">&lt;-</span> <span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>, <span class="st">"y4"</span>, <span class="st">"y5"</span>), <span class="st">"id"</span>, df_uebung_lang)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>scaley_reliab<span class="sc">$</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -1230,7 +1246,7 @@ Lösung
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>cortable_integriert_uebung <span class="ot">&lt;-</span> franzpak<span class="sc">::</span><span class="fu">cortable_multilevel</span>(df_uebung_lang_scores, <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), <span class="at">grp =</span> <span class="st">"id"</span>)</span>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>cortable_integriert_uebung <span class="ot">&lt;-</span> <span class="fu">cortable_multilevel</span>(df_uebung_lang_scores, <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), <span class="at">grp =</span> <span class="st">"id"</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>cortable_integriert_uebung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -1306,7 +1322,7 @@ Zwischen-Person Ebene
 <p>Wie CFAs funktionieren, kann hier repetiert werden: <a href="https://methodenlehre.github.io/statistik-IV/chapters/CFA.html">Statistik IV - Methodenlehre</a></p>
 <p>Zudem können wir uns mit <code>lavInspect()</code> die Modellparameter ansehen, um zu verstehen wie die Reliabilitätskoeffizient gebildet wird.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>scalec_reliab <span class="ot">&lt;-</span> multilevelTools<span class="sc">::</span><span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span>), <span class="st">"id"</span>, df_cfa_long, <span class="at">savemodel =</span> <span class="cn">TRUE</span>)</span>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>scalec_reliab <span class="ot">&lt;-</span> <span class="fu">omegaSEM</span>(<span class="fu">c</span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span>), <span class="st">"id"</span>, df_cfa_long, <span class="at">savemodel =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>scalec_reliab<span class="sc">$</span>Fit <span class="sc">|&gt;</span> <span class="fu">summary</span>(<span class="at">fit =</span> <span class="cn">TRUE</span>, <span class="at">stand =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-18 ended normally after 32 iterations
