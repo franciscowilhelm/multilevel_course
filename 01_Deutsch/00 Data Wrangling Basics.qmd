@@ -1,19 +1,26 @@
 ---
-title: "Data Wrangling Übung"
+title: "Anhang: Data Wrangling"
 author: "Francisco Wilhelm"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
+    df-print: paged
     code_folding: hide
     highlight: haddock
-    theme: flatly
-    toc: yes
-    toc_float: yes
+    theme: cosmos
+    toc: true
+    toc_float: true
 ---
 
 basierend auf Kurs von Ian Hussey - https://github.com/ianhussey/data-wrangling-workshop/
 S. auch https://methodenlehre.github.io/einfuehrung-in-R/
 
+Data Wrangling bezeichnet im Kontext der psychologischen Datenanalyse mit R den systematischen Prozess der Aufbereitung, Bereinigung und Umstrukturierung von Rohdaten, damit sie für statistische Auswertungen und Interpretationen nutzbar werden.
+Ziel ist es, aus unübersichtlichen Rohdaten ein strukturiertes und hochwertiges Daten-Set zu erzeugen, das sich zuverlässig und nachvollziehbar für weiterführende statistische Analysen, Modellierungen und Visualisierungen in R nutzen lässt.
+
+Im Folgenden werden dazu verschiedene Funktionen und Techniken dargestellt.
+
+# Notebooks
 
 In diesem Kurs arbeiten wir mit R-Notebooks. Diese enthalten sowohl normalen Text als auch "Chunks" von R-Code. Chunks sind Abschnitte von R-Code. Diese Chunks lassen sich mit einem Klick auf Code --> Insert Chunk (oder der Tastenkombination Alt + Ctrl / Cmd + I) einfügen.
 Diese lassen sich mit einem Klcik auf den grünen Play-Button ganz rechts ausführen.
@@ -43,7 +50,7 @@ Für jede Funktion in einem geladenen Paket können Sie einfach `? ` vor den Fun
 Sie können auch auf den Namen der Funktion klicken (an beliebiger Stelle im Namen) und "F1" drücken.
 
 ```{r}
-
+#| eval: false
 ?head
 head(df_beispiel)
 
@@ -167,7 +174,7 @@ Wie können wir herausfinden, welche Variablen sich in einem Data Frame befinden
 # print all column names
 colnames(df_beispiel)
 # print all column names as a vector using the pipe
-df_beispiel %>%
+df_beispiel |> 
   colnames()
 
 ```
@@ -178,7 +185,7 @@ Oft sind die Variablennamen nicht intuitiv. Ein früher Schritt bei jeder Datena
 
 ```{r}
 
-df_beispiel_renamed <- df_beispiel %>%
+df_beispiel_renamed <- df_beispiel |> 
   rename(Alter = age,
          Bildung = education) 
 ```
@@ -227,6 +234,38 @@ beispielliste[[2]]
 
 # $ - geht nur mit benannten Listenelementen
 beispielliste$x2
+```
+
+## Auswahl von Spalten / Variablen mittels Helfern
+
+
+Beim Data Wrangling bearbeiten wir häufig **Gruppen von Variablen / Spalten**. Damit wir nicht immer jede einzelne Variable ausschreiben müssen, gibt es verschiedene Methoden. Hilfreich sind vor allem die sogenannten "tidyselect" Helferfunktionen. Diese können wir in `select()`, aber auch vielen anderen Funktionen verwenden, bei der wir Spalten aus einem Datensatz ansteuern.
+
+Die häufigsten Helfer sind `:`, `c()`, `starts_with()`, `ends_with()`, `contains()`, `all_of()`, `num_range`.
+
+```{r}
+names(df_beispiel)
+df_beispiel |> select(age:gender)
+df_beispiel |> select(c(age,gender))
+df_beispiel |> select(starts_with("S"))
+df_beispiel |> select(ends_with("V"))
+df_beispiel |> select(contains("SAT"))
+
+meine_variablen <- c("SATV", "SATQ", "gender")
+df_beispiel |> select(all_of(meine_variablen))
+```
+
+Wir können auch mit logischen Operatoren arbeiten und diese verketten. Zu logischen Operatoren siehe auch: [Einführung in R, Kapitel 2.1.2](https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html#logische-operatoren-und-funktionen).
+
+```{r}
+data(bfi)  
+names(bfi) #Big Five Items, OCEAN mit je 5 Items sowie gender, education und age
+bfi |> select(starts_with("E")) # auch education dabei
+bfi |> select(starts_with("E") & !all_of("education")) # nur die Extraversion Items, kein education
+# oder eleganter mit num_range()
+bfi |> select(num_range("E", 1:5)) # nur die Extraversion Items
+
+bfi |> select(starts_with("E"), starts_with("C")) # "," wird als einschliessendes oder (OR) gelesen
 ```
 
 # Spalten mutieren und neue Anlegen

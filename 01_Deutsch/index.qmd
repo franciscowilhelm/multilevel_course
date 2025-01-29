@@ -18,10 +18,12 @@ Materialien:
 
 Kenntnisse:
 
-- Data Wrangling in R, Umgang mit Notebooks (.qmd)
-- Statistisches Wissen zu linearen Modellen (Regressionen) und Testkonstruktion
+- Data Wrangling in R, Umgang mit R-Notebooks, s. Anhang: Data Wrangling, sowie https://methodenlehre.github.io/einfuehrung-in-R/
+- Statistisches Wissen zu linearen Modellen (Regressionen) und Testkonstruktion (Likert-Skalen, Reliabilitätsanalyse)
 
 ### Installation von R-Paketen, die im Kurs verwendet werden
+
+Der Code unten installiert, falls noch nicht vorhanden, den "pacman" Paketmanager und danach alle R-Pakete, die für den Kurs benötigt werden.
 
 ```{r}
 #| eval: false

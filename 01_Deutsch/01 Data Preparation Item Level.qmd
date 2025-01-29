@@ -23,6 +23,8 @@ pacman::p_load(haven, psych,
 
 ## Daten einlesen
 
+Mit `load()` können wir `.RData` Dateien einlesen (für weitergehende Infos s. auch [Einführung in R](https://methodenlehre.github.io/einfuehrung-in-R/chapters/03-data_frames.html), Kapitel 3.2.4.)
+
 ```{r}
 load("../data/df_cfa_wide.RData")
 ```
@@ -44,26 +46,40 @@ head(df_cfa_wide)
 ## Daten transformieren: Langformat
 
 Als erstes transformieren wir die Daten vom Breit- ins Langformat, so dass jede Messung (Tag 1-Tag 10) eine eigene Zeile bekommt. Diese Variable nennen wir "time".
-Im ersten Schritt machen wir mit `pivot_longer()` den Datensatz seehr lang, es bekommt nämlich jede Messung von jeder Variable ihre eigenen Zeile.
+Im ersten Schritt machen wir mit `pivot_longer()` den Datensatz seeehr lang, es bekommt nämlich jede Messung von jeder Variable ihre eigenen Zeile.
 Wir machen den Datensatz dann im zweiten Schritt mit `pivot_wider()`  wieder etwas breiter mit dem Ziel, eine Zeile pro Person und Tag zu bekommen, und jeweils eine Spalte pro Item.
 
-Die Funktionsweise von pivot_longer() und pivot_wider() ist in der [Einführung zu R](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping) beschrieben.
+Die Funktionsweise von pivot_longer() und pivot_wider() ist in der [Einführung zu R, Kapitel 4.3](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping) beschrieben.
 
 ```{r}
 
 df_cfa_superlong <- df_cfa_wide |> 
   pivot_longer(
     cols = -id, # All columns except id
-    names_to = c("variable", "time"),
-    names_sep = "_t"
+    names_to = c("variable", "time"), # Namensgebende Spalten sollen heissen: variable, time
+    names_sep = "_t" 
+    # Namensgebende Spalten anhand "_t_ separieren (z.B. "a1_t1" --> gespalten in "a1" und "1", "_t" ist der Separator)
   ) 
 
-df_cfa_long <- df_cfa_superlong |> 
-  pivot_wider(names_from = variable,
-              values_from = value) |> 
-  mutate(time = as.numeric(time)) # time ist eine Zahl von 1-10, wurde aber zuvor als Character-Vector abgespeichert
+head(df_cfa_superlong)
+
 
 ```
+
+```{r}
+df_cfa_long <- df_cfa_superlong |> 
+  pivot_wider(names_from = variable, #namen aus variable
+              values_from = value) |>  # werte aus "value" (Standardname)
+  mutate(time = as.numeric(time)) # time ist eine Zahl von 1-10, wurde aber zuvor als Character-Vector abgespeichert
+
+head(df_cfa_long)
+
+```
+Das Ergebnis:
+
+- eine Zeile pro Person (id) und Messung (time). Die Spalten id und time identifizieren also für jede Zeile, von welcher Person und welchem Tag die Werte in den folgenden Spalten kommen.
+- eine Spalte pro Variable (a1-a5, b1-b5, c1-c3)
+
 
 ## Daten transformieren: Skalenscores erstellen
 
@@ -80,6 +96,7 @@ df_cfa_long_scores <- df_cfa_long |> group_by(id, time) |>
 ```
 
 Wir verwenden eine simple Form der Skalenerstellung bei dem der Mittelwert aller vorhandenen Items einer Skala verwendet wird.
+
 (Best-practice ist es bei fehlenden Daten genau hinzuschauen und nur dann einen Skalenwert zu erstellen, wenn die Personen zu einen gewissen Prozentsatz aller Items eine Antwort geben (etwa 2/3). Eine solche Funktion könnten wir programmieren, lassen es aber für das Beispiel weg.)
 
 ## Daten transformieren: Zentrierung
@@ -144,6 +161,13 @@ Du kannst dazu den Code von oben wiederverwenden und auf den hier verwendeten Da
 ```{r}
 load("../data/df_cfa_exercise.RData")
 head(df_cfa_exercise)
+
+# 1. Daten in Langformat transformieren - funktionen: pivot_longer(), pivot_wider()
+
+
+# 2. Skalenscores für X und Y erstellen - funktionen: group_by(), summarise()
+
+# 3. Skalenscores für X und Y zentrieren - Funktionen: de_mean()
 ```
 
 
