@@ -3,16 +3,19 @@ title: "Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen"
 format:
   html:
     df-print: kable
+    code_folding: hide
+    highlight: haddock
+    theme: cosmos
+    toc: true
+    toc_float: true
 editor: source
 ---
 
 ## Pakete laden
 
-%todo: Franzpak integrieren %
-
 ```{r}
 if (!require("pacman")) install.packages("pacman")
-if (!require("franzpak")) devtools::install_github()
+if (!require("franzpak")) devtools::install_github("franciscowilhelm/franzpak")
 pacman::p_load(haven, psych,
                sjmisc, sjPlot, writexl, lavaan,
                tidyverse, multilevelTools, franzpak)
@@ -37,8 +40,8 @@ Wir haben die Variablen:
 
 ## ICC und Within-Person Variance
 
-Uns interessiert wie gross der Anteil der Varianz ist, der auf die zwei Ebenen der Daten entfallen (Inner-Person, Zwischen-Person-Ebene). Dies kann uns der ICC angeben. Mittels der Funktion `statsBy()` bekommen wir einige Analysen zu unseren Mehrebenen-Daten geliefert. Die Funktion benötigt zwei Argumente: den Datensatz und und die Gruppierungsvariable.
-Wir wählen entsprechend im `select()` die Variablen, die uns interessieren. Dies sind die Gruppierungsvariable "id" und die Rohvarianten der Variablen aus, da nur diese die Informationen über beide Ebenen enthalten. Die zerlegten Variablen mit den Kürzeln _dm und _gm brauchen wir erst später.
+Uns interessiert wie gross der Anteil der Varianz ist, der jeweils auf die zwei Ebenen der Daten entfallen (Inner-Person, Zwischen-Person-Ebene). Dies kann uns der ICC angeben. Mittels der Funktion `statsBy()` bekommen wir einige Analysen zu unseren Mehrebenen-Daten geliefert. Die Funktion benötigt zwei Argumente: den Datensatz und und die Gruppierungsvariable.
+Wir wählen entsprechend in `select()` die Variablen, die uns interessieren. Dies sind die Gruppierungsvariable "id" und die Rohvarianten der Variablen aus, da nur diese die Informationen über **beide** Ebenen enthalten (personen-zentrierte Variablen beinhalten nur Varianz auf Inner-Person-Ebene, Personen-Mittelwerte nur Varianz auf Zwischen-Person-Ebene). Die zerlegten Variablen mit den Kürzeln _dm und _gm brauchen wir erst später.
 
 ```{r}
 mehrebenen_stats <- df_cfa_long_scores |> 
@@ -52,7 +55,7 @@ Mit `print()` bekommen wir eine Übersicht über die Ergebnisse der Resultate de
 print(mehrebenen_stats)
 ```
 
-Uns interessiert nur die Intraclass Correlation (ICC) 1. ICC(2) und Eta-Quadrat interessieren uns nicht.
+Uns interessiert nur die Intraclass Correlation 1. Intraclass Correlation (2) und Eta-Quadrat interessieren uns nicht.
 
 Den ICC können wir uns auch direkt angeben lassen, indem wir aus dem Listenobjekt `mehrebenen_stats` mit dem Dollarzeichen `$` die Untervariable `ICC1` anwählen.
 
@@ -71,10 +74,13 @@ Die Reliabilitätsanalyse basiert auf den Items, nicht auf den Skalenwerten. Die
 head(df_cfa_long)
 ```
 
-Bei Skalen aus der Daily Erhebung nehmen wir die `omegaSEM()` Funktion. Als erstes Argument geben wir die Items in einem Character-Vector mittels `c()`, die Items werden mit Anführungszeichen angegeben. Falls ihr die Itemnamen nicht wisst, könnt ihr sie mit `names(df_cfa_long)` nachsehen.
+Bei täglich erhobenen Skalen nehmen wir die `omegaSEM()` Funktion. Als erstes Argument geben wir die Items in einem Character-Vector mittels `c()`, die Items werden mit Anführungszeichen angegeben. Falls ihr die Itemnamen nicht wisst, könnt ihr sie mit `names(df_cfa_long)` nachsehen.
 
 ```{r}
-scalea_reliab <- multilevelTools::omegaSEM(c("a1", "a2", "a3", "a4", "a5"), "id", df_cfa_long)
+scalea_reliab <- omegaSEM(
+  items = c("a1", "a2", "a3", "a4", "a5"),
+  id = "id",
+  data = df_cfa_long)
 scalea_reliab$Results
 ```
 
@@ -83,23 +89,31 @@ In den simulierten Daten, die wir verwenden, ist dies jedoch nicht der Fall.
 Dann können wir den Output ansehen. Omega_within gibt die Reliabilität für Unterschiede innerhalb der Person an, und Omega_between gibt die Reliabilität für Unterschiede zwischen Personen an. Die Reliabilitäten sollten über .70 liegen für eine gute Reliabilität auf beiden Leveln.
 
 ```{r}
-scaleb_reliab <- multilevelTools::omegaSEM(c("b1", "b2", "b3", "b4", "b5"), "id", df_cfa_long)
+scaleb_reliab <- omegaSEM(
+  items = c("b1", "b2", "b3", "b4", "b5"),
+  id = "id",
+  data = df_cfa_long)
+
 scaleb_reliab$Results
 ```
 
 ```{r}
-scalec_reliab <- multilevelTools::omegaSEM(c("c1", "c2", "c3"), "id", df_cfa_long)
+scalec_reliab <- omegaSEM(
+  items = c("c1", "c2", "c3"),
+  id = "id",
+  data = df_cfa_long)
+
 scalec_reliab$Results
 ```
 
 ## Korrelationstabelle
 
-In psychologischen Artikeln ist (fast) immer die Korrelationstabelle die erste Tabelle des Artikels. Unser nächstes Ziel ist es, die Korrelationstabelle anzufertigen in der wir auch die Mittelwerte und Standardabweichungen integrieren. 
+In quantitativ-empirischen psychologischen Artikeln ist (fast) immer die Korrelationstabelle die erste Tabelle des Artikels. Unser nächstes Ziel ist es, eine Korrelationstabelle anzufertigen, in der wir auch die Mittelwerte und Standardabweichungen integrieren. 
 
 
 ### Mittelwerte
 
-Mittelwerte wurden bereits - pro Person - durch die statsBy() Funktion gebildet. Den allgemeinen Mittelwert bekommen wir  mit der Funktion `summarise()`. Diese erlaubt uns, zusammenfassende Werte zu bilden. Da wir dies gleich für mehrere Variablen machen, benutzen wir zudem `across()` um die Summary gleich für mehrere Variablen zu bilden. Die Funktion benötigt als Argumente (a) die Namen der Variablen mit `c()` als einen Vektor zusammengefasst, (b) die Funktionen, wie sie gebildet werden (hier: `~mean(.x, na.rm = TRUE)` für das arithmetische Mittel unter Ausschluss aller nicht vorhandenen Werte) und (c) optional die Namen der ausgegebenen Variablen mittels ".names". Wir verwenden "m_{.col}". Abschliessend runden wir die Werte.
+Mittelwerte wurden bereits - pro Person - durch die `statsBy()` Funktion gebildet. Den allgemeinen Mittelwert bekommen wir  mit der Funktion `summarise()`. Diese erlaubt uns, zusammenfassende Werte zu bilden. Da wir dies gleich für mehrere Variablen machen, benutzen wir zudem `across()`, um die Summary gleich für mehrere Variablen zu bilden. Die Funktion benötigt als Argumente (a) die Namen der Variablen mit `c()` als einen Vektor zusammengefasst, (b) die Funktionen, wie sie gebildet werden (hier: `~mean(.x, na.rm = TRUE)` für das arithmetische Mittel unter Ausschluss aller nicht vorhandenen Werte) und (c) optional die Namen der ausgegebenen Variablen mittels ".names". Wir verwenden "m_{.col}". Abschliessend runden wir die Werte.
 
 Ersetzt im folgenden Code in der Klammer von `c()` die Variablennamen  mit denen, die euch interessieren, hier sowohl die täglichen als auch Baselinevariablen.
 
@@ -157,7 +171,7 @@ Die vorhergehenden Analysen zeigen wie man die einzelnen Komponenten der Tabelle
 Die Funktion `cortable_multilevel()` führt die einzelnen Funktionen direkt zusammen.
 
 ```{r}
-cortable_integriert <- franzpak::cortable_multilevel(df_cfa_long_scores, c("a", "b", "c"), grp = "id")
+cortable_integriert <- cortable_multilevel(df_cfa_long_scores, c("a", "b", "c"), grp = "id")
 cortable_integriert
 ```
 
@@ -218,12 +232,12 @@ Berechnet die Omega-Within und Omega-Between Reliabilitäten für X und Y mittel
 
 
 ```{r}
-scalex_reliab <- multilevelTools::omegaSEM(c("x1", "x2", "x3", "x4", "x5"), "id", df_uebung_lang)
+scalex_reliab <- omegaSEM(c("x1", "x2", "x3", "x4", "x5"), "id", df_uebung_lang)
 scalex_reliab$Results
 ```
 
 ```{r}
-scaley_reliab <- multilevelTools::omegaSEM(c("y1", "y2", "y3", "y4", "y5"), "id", df_uebung_lang)
+scaley_reliab <- omegaSEM(c("y1", "y2", "y3", "y4", "y5"), "id", df_uebung_lang)
 scaley_reliab$Results
 ```
 :::
@@ -236,7 +250,7 @@ Erstellt eine Korrelationstabelle von den Variablen w, x, m, und y mit Mittelwer
 ### Lösung
 
 ```{r}
-cortable_integriert_uebung <- franzpak::cortable_multilevel(df_uebung_lang_scores, c("x", "y"), grp = "id")
+cortable_integriert_uebung <- cortable_multilevel(df_uebung_lang_scores, c("x", "y"), grp = "id")
 cortable_integriert_uebung
 ```
 :::
@@ -262,7 +276,7 @@ Für Y, auch wenn es durchaus Varianz auf Inner-Person Ebene gibt (ICC = .69, da
 
 Die folgenden Analysen sind optional, geben aber ein tieferes Verständnis des Materials.
 
-## Blick hinter die Kulissen: Berechnung von Omega mittels einer Mehrebenen konfirmatorischen Faktorenanalysen
+### Blick hinter die Kulissen: Berechnung von Omega mittels einer  Mehrebenen konfirmatorischen Faktorenanalysen
 
  Für eine genauere Auswertung können wir `omegaSEM()` mit dem Parameter `savemodel = TRUE` laufen lassen und uns mittels `summary()` die konfirmatorische Faktoranalyse (CFA) genauer ansehen.
 
@@ -272,7 +286,7 @@ Wie CFAs funktionieren, kann hier repetiert werden:
 Zudem können wir uns mit `lavInspect()` die Modellparameter ansehen, um zu verstehen wie die Reliabilitätskoeffizient gebildet wird.
 
 ```{r}
-scalec_reliab <- multilevelTools::omegaSEM(c("c1", "c2", "c3"), "id", df_cfa_long, savemodel = TRUE)
+scalec_reliab <- omegaSEM(c("c1", "c2", "c3"), "id", df_cfa_long, savemodel = TRUE)
 scalec_reliab$Fit |> summary(fit = TRUE, stand = TRUE)
 lavInspect(scalec_reliab$Fit, "list") |> 
   select(lhs, op, rhs, free, level, free, label, est, se) |> 

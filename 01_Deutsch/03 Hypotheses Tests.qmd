@@ -5,6 +5,7 @@ format:
     df-print: kable
     code_folding: hide
     highlight: haddock
+    theme: cosmos
     toc: true
     toc_float: true
 editor: source
@@ -95,6 +96,7 @@ tauij <- modelsummary$Coefficient[modelsummary$Parameter == "SD (Observations)"]
 tau00 / (tau00+tauij)
 # performance::icc(nullmodel) # Alternativfunktion
 ```
+
 ### Visualisierung
 
 Wir können uns die Analysen visualisieren, hier zur reduzierten visuellen Komplexität nur auf Basis der ersten 20 Personen (ID 1-20.)

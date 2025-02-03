@@ -6,13 +6,14 @@ project:
 book:
   title: "Tagebuchstudien und Mehrebenenmodelle"
   author: "Dr. Francisco Wilhelm"
-  date: "Bern, Februar 2025"
+  date: "February 2025"
   chapters:
     - index.qmd
     #- Einleitung.qmd
     - 01 Data Preparation Item Level.qmd
     - 02 Descriptive Statistics.qmd
     - 03 Hypotheses Tests.qmd
+    - 00 Data Wrangling Basics.qmd
     #- 04 Hypotheses Tests_Erweiterungen.qmd
     #- 05 Ausblick.qmd
 

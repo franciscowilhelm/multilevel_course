@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Francisco Wilhelm">
+<meta name="dcterms.date" content="2025-01-29">
+
+<title>5&nbsp; Anhang: Data Wrangling – Tagebuchstudien und Mehrebenenmodelle</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03 Hypotheses Tests.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8da5b4427184b79ecddefad3d342027e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./00 Data Wrangling Basics.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Anhang: Data Wrangling</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Tagebuchstudien und Mehrebenenmodelle</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01 Data Preparation Item Level.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1: Datenaufbereitung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02 Descriptive Statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03 Hypotheses Tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00 Data Wrangling Basics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Anhang: Data Wrangling</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pakete-laden" id="toc-pakete-laden" class="nav-link active" data-scroll-target="#pakete-laden"><span class="header-section-number">6</span> Pakete laden</a></li>
+  <li><a href="#hilfe-menü-und-dokumentation" id="toc-hilfe-menü-und-dokumentation" class="nav-link" data-scroll-target="#hilfe-menü-und-dokumentation"><span class="header-section-number">7</span> Hilfe-Menü und Dokumentation</a></li>
+  <li><a href="#struktur-von-funktionen" id="toc-struktur-von-funktionen" class="nav-link" data-scroll-target="#struktur-von-funktionen"><span class="header-section-number">8</span> Struktur von Funktionen</a></li>
+  <li><a href="#zuweisung-assignment-mittels--" id="toc-zuweisung-assignment-mittels--" class="nav-link" data-scroll-target="#zuweisung-assignment-mittels--"><span class="header-section-number">9</span> Zuweisung / Assignment mittels &lt;-</a></li>
+  <li><a href="#typen-von-objekten" id="toc-typen-von-objekten" class="nav-link" data-scroll-target="#typen-von-objekten"><span class="header-section-number">10</span> Typen von Objekten</a></li>
+  <li><a href="#die-pipe-or" id="toc-die-pipe-or" class="nav-link" data-scroll-target="#die-pipe-or"><span class="header-section-number">11</span> Die “Pipe” (%&gt;% or |&gt;)</a>
+  <ul class="collapse">
+  <li><a href="#warum-lohnt-es-sich-die-pipe-zu-nutzen" id="toc-warum-lohnt-es-sich-die-pipe-zu-nutzen" class="nav-link" data-scroll-target="#warum-lohnt-es-sich-die-pipe-zu-nutzen"><span class="header-section-number">11.1</span> Warum lohnt es sich, die Pipe zu nutzen?</a></li>
+  </ul></li>
+  <li><a href="#spaltennamen-anzeigen" id="toc-spaltennamen-anzeigen" class="nav-link" data-scroll-target="#spaltennamen-anzeigen"><span class="header-section-number">12</span> Spaltennamen anzeigen</a></li>
+  <li><a href="#spalten-umbenennen---rename" id="toc-spalten-umbenennen---rename" class="nav-link" data-scroll-target="#spalten-umbenennen---rename"><span class="header-section-number">13</span> Spalten umbenennen - rename()</a></li>
+  <li><a href="#auswahl-und-extraktion" id="toc-auswahl-und-extraktion" class="nav-link" data-scroll-target="#auswahl-und-extraktion"><span class="header-section-number">14</span> Auswahl und Extraktion</a></li>
+  <li><a href="#spalten-mutieren-und-neue-anlegen" id="toc-spalten-mutieren-und-neue-anlegen" class="nav-link" data-scroll-target="#spalten-mutieren-und-neue-anlegen"><span class="header-section-number">15</span> Spalten mutieren und neue Anlegen</a></li>
+  <li><a href="#zeilen-filtern" id="toc-zeilen-filtern" class="nav-link" data-scroll-target="#zeilen-filtern"><span class="header-section-number">16</span> Zeilen filtern</a></li>
+  <li><a href="#übung-data-wrangling" id="toc-übung-data-wrangling" class="nav-link" data-scroll-target="#übung-data-wrangling"><span class="header-section-number">17</span> Übung Data Wrangling</a></li>
+  <li><a href="#zusammenfassung-über-zeilen" id="toc-zusammenfassung-über-zeilen" class="nav-link" data-scroll-target="#zusammenfassung-über-zeilen"><span class="header-section-number">18</span> Zusammenfassung über Zeilen</a>
+  <ul class="collapse">
+  <li><a href="#group_by" id="toc-group_by" class="nav-link" data-scroll-target="#group_by"><span class="header-section-number">18.1</span> <code>group_by()</code></a></li>
+  <li><a href="#komplexere-zusammenfassungen" id="toc-komplexere-zusammenfassungen" class="nav-link" data-scroll-target="#komplexere-zusammenfassungen"><span class="header-section-number">18.2</span> Komplexere Zusammenfassungen</a></li>
+  </ul></li>
+  <li><a href="#übung-summarize" id="toc-übung-summarize" class="nav-link" data-scroll-target="#übung-summarize"><span class="header-section-number">19</span> Übung <code>summarize()</code></a></li>
+  <li><a href="#kontrolliere-deinen-lernfortschritt" id="toc-kontrolliere-deinen-lernfortschritt" class="nav-link" data-scroll-target="#kontrolliere-deinen-lernfortschritt"><span class="header-section-number">20</span> Kontrolliere deinen Lernfortschritt</a></li>
+  <li><a href="#daten-auf-festplatte-schreiben" id="toc-daten-auf-festplatte-schreiben" class="nav-link" data-scroll-target="#daten-auf-festplatte-schreiben"><span class="header-section-number">21</span> Daten auf Festplatte schreiben</a>
+  <ul class="collapse">
+  <li><a href="#lösung-übung-data-wrangling" id="toc-lösung-übung-data-wrangling" class="nav-link" data-scroll-target="#lösung-übung-data-wrangling"><span class="header-section-number">21.1</span> Lösung: Übung Data Wrangling</a></li>
+  <li><a href="#lösung-übung-summarize" id="toc-lösung-übung-summarize" class="nav-link" data-scroll-target="#lösung-übung-summarize"><span class="header-section-number">21.2</span> Lösung: Übung <code>summarize()</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Anhang: Data Wrangling</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Francisco Wilhelm </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 29, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>basierend auf Kurs von Ian Hussey - https://github.com/ianhussey/data-wrangling-workshop/ S. auch https://methodenlehre.github.io/einfuehrung-in-R/</p>
+<p>In diesem Kurs arbeiten wir mit R-Notebooks. Diese enthalten sowohl normalen Text als auch “Chunks” von R-Code. Chunks sind Abschnitte von R-Code. Diese Chunks lassen sich mit einem Klick auf Code –&gt; Insert Chunk (oder der Tastenkombination Alt + Ctrl / Cmd + I) einfügen. Diese lassen sich mit einem Klcik auf den grünen Play-Button ganz rechts ausführen. Der Pfeil nach unten Button (zweiter von Rechts) führt alle Chunks, die vor dem Chunk gelagert sind, aus.</p>
+<section id="pakete-laden" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Pakete laden</h1>
+<p>Zunächst laden wir die Pakete die wir für die Sitzung brauchen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(psych, tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sat.act)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="ot">&lt;-</span><span class="fu">as_tibble</span>(sat.act)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hilfe-menü-und-dokumentation" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Hilfe-Menü und Dokumentation</h1>
+<p>Für jede Funktion in einem geladenen Paket können Sie einfach <code>?</code> vor den Funktionsnamen schreiben, um das Hilfemenü bzw. ihre Dokumentation aufzurufen. Dies hilft Ihnen, den Zweck der Funktion, ihre Argumente und Ausgaben zu verstehen. Sie können auch auf den Namen der Funktion klicken (an beliebiger Stelle im Namen) und “F1” drücken.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>?head</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_beispiel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="struktur-von-funktionen" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Struktur von Funktionen</h1>
+<p>Fast alles in R geschieht mittels Funktionen. Funktionen nehmen Inputs und Transformieren sie nach den Regeln der Funktion in Outputs. Die Funktion kann mittels Argumenten gesteuert werden.</p>
+<ul>
+<li>Funktionen sind i.d.R. benannt (hier <code>head</code>, <code>mean</code>) und mit Klammern <code>()</code> gekennzeichet. In der Klammer befinden sich die Argumente der Funktion, mit einem Komma getrennt. Argumente können benannt oder unbenannt sein. Werden Sie nicht benannt, folgt R der Reihenfolge der erwarteten Argumente, wie sie in der Funktionsdokumentation beschrieben sind.</li>
+<li>Unbenannt hier: <code>10</code> bei head()</li>
+<li>Benannt hier: <code>na.rm = TRUE</code> bei mean(), wobei na.rm der Name und TRUE der Inhalt des Argument sind.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_beispiel, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+   gender education   age   ACT  SATV  SATQ
+    &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1      2         3    19    24   500   500
+ 2      2         3    23    35   600   500
+ 3      2         3    20    21   480   470
+ 4      1         4    27    26   550   520
+ 5      1         2    33    31   600   550
+ 6      1         5    26    28   640   640
+ 7      2         5    30    36   610   500
+ 8      1         3    19    22   520   560
+ 9      2         4    23    22   400   600
+10      2         5    40    35   730   800</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df_beispiel<span class="sc">$</span>age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25.59429</code></pre>
+</div>
+</div>
+</section>
+<section id="zuweisung-assignment-mittels--" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Zuweisung / Assignment mittels &lt;-</h1>
+<ul>
+<li><code>&lt;-</code> führt die Zuweisung (assignment) von Inhalten der rechten Seite unter dem Namen auf der linken Seite aus. Wir nennen die zugewiesenen Inhalte, etwas verkürzt gesagt, Objekte oder Variablen.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>durchschnitt_von_SATV <span class="ot">&lt;-</span> <span class="fu">mean</span>(df_beispiel<span class="sc">$</span>SATV, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In diesem Beispiel ist durchschnitt_von_x der Name des Objekts/Variable.</p>
+</section>
+<section id="typen-von-objekten" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Typen von Objekten</h1>
+<p>Die häufigsten Typen von Objekten/Variablen sind:</p>
+<ul>
+<li>Vektor, numerisch</li>
+<li>Vektor, Character (Buchstaben)</li>
+<li>data frame (Datenframe, Tabelle)</li>
+<li>tibble - eine verbesserte Variante eines data frame</li>
+<li>list (Liste)</li>
+</ul>
+<p>Einen Vektor erstellt man mit der <code>c()</code> Funktionen</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>vektor_numerisch <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>vektor_character <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Zytglogge"</span>, <span class="st">"Hirschengraben"</span>, <span class="st">"Bahnhof"</span>, <span class="st">"Bundesplatz"</span>, <span class="st">"Viktoriaplatz"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>datenframe <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Nummer =</span> vektor_numerisch, <span class="at">Ort =</span> vektor_character)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>datenframe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Nummer            Ort
+1      1      Zytglogge
+2      2 Hirschengraben
+3      3        Bahnhof
+4      4    Bundesplatz
+5      5  Viktoriaplatz</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tibble_beispiel <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Nummer =</span> vektor_numerisch, <span class="at">Ort =</span> vektor_character)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tibble_beispiel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  Nummer Ort           
+   &lt;dbl&gt; &lt;chr&gt;         
+1      1 Zytglogge     
+2      2 Hirschengraben
+3      3 Bahnhof       
+4      4 Bundesplatz   
+5      5 Viktoriaplatz </code></pre>
+</div>
+</div>
+<p>Wie wir sehen, sind Datenframes i.d.R. aus Vektoren der gleichen Länge, aber oft unterschiedlichen Typs, aufgebaut.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>beispielliste <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">x1 =</span> vektor_numerisch, <span class="at">x2 =</span> vektor_character, <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>), <span class="at">x3 =</span> tibble_beispiel, <span class="st">"test"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>beispielliste</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$x1
+[1] 1 2 3 4 5
+
+$x2
+[1] "Zytglogge"      "Hirschengraben" "Bahnhof"        "Bundesplatz"   
+[5] "Viktoriaplatz" 
+
+[[3]]
+[1] 6 7 8
+
+$x3
+# A tibble: 5 × 2
+  Nummer Ort           
+   &lt;dbl&gt; &lt;chr&gt;         
+1      1 Zytglogge     
+2      2 Hirschengraben
+3      3 Bahnhof       
+4      4 Bundesplatz   
+5      5 Viktoriaplatz 
+
+[[5]]
+[1] "test"</code></pre>
+</div>
+</div>
+<p>Listen sind extrem flexibel was ihre Anhalte angeht - wir können quasi alles reinpacken. Das macht sie teils aber auch schwer zu durchschauen. Wenn möglich empfiehlt es sich, mit tibble/data.frame zu arbeiten; dies spart kognitive Ressourcen.</p>
+</section>
+<section id="die-pipe-or" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Die “Pipe” (%&gt;% or |&gt;)</h1>
+<p><code>%&gt;%</code> ist der ursprüngliche Pipe-Operator, der für das Paket {magrittr} entwickelt wurde und in den gesamten tidyverse-Paketen verwendet wird. Er ist etwas langsamer, aber auch flexibler. <code>|&gt;</code> ist eine neuere Version des Pipe-Operators, die in Base-R integriert wurde. Sie ist etwas schneller, aber weniger flexibel.</p>
+<p>Die Ausgabe des linken Teils der Pipe wird als Eingabe für den rechten Teil der Pipe verwendet, in der Regel als erstes Argument oder als Datenargument. Effektiv transportiert die Pipe den Inhalt von links nach rechts weiter. Schreiben lässt sich die Pipe mit den Tasten Ctrl + Shift + M (unter Windows; unter Mac Cmd + Shift + M?).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use a function without the pipe</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>example_without_pipe <span class="ot">&lt;-</span> <span class="fu">select</span>(df_beispiel, gender, ACT)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># use a function with the pipe. </span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>example_with_pipe <span class="ot">&lt;-</span> df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gender, ACT)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>example_without_pipe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 700 × 2
+   gender   ACT
+    &lt;int&gt; &lt;int&gt;
+ 1      2    24
+ 2      2    35
+ 3      2    21
+ 4      1    26
+ 5      1    31
+ 6      1    28
+ 7      2    36
+ 8      1    22
+ 9      2    22
+10      2    35
+# ℹ 690 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>example_with_pipe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 700 × 2
+   gender   ACT
+    &lt;int&gt; &lt;int&gt;
+ 1      2    24
+ 2      2    35
+ 3      2    21
+ 4      1    26
+ 5      1    31
+ 6      1    28
+ 7      2    36
+ 8      1    22
+ 9      2    22
+10      2    35
+# ℹ 690 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check they produce identical results</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(example_without_pipe, example_with_pipe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<section id="warum-lohnt-es-sich-die-pipe-zu-nutzen" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="warum-lohnt-es-sich-die-pipe-zu-nutzen"><span class="header-section-number">11.1</span> Warum lohnt es sich, die Pipe zu nutzen?</h2>
+<p>Der Pipe-Operator ermöglicht es uns, Code zu schreiben, der von oben nach unten gelesen wird und einer Abfolge von Schritten folgt – so, wie Menschen Schritte organisieren und beschreiben. Ohne den Pipe-Operator wird der Code von innen nach aussen geschrieben, auf eine Weise, die der Computer versteht, aber für Menschen weniger intuitiv ist. Die Unterscheide in der Lesbarkeit zeigen sich vor allem bei komplexeren, verketteten Funktionen.</p>
+<p>Wir verwenden im Folgenden einen Datenframe, wählen mit select() Spalten aus, und erstellen ihre Mittelwerte mit colMeans(). Ohne Pipe lesen wir von innen nach aussen: select(…), dann colMeans(…); mit Pipe lesen und schreiben wir: Objekt - select() - colMeans(), was einfacher nachzuvollziehen ist. Jede Funktion macht etwas, die Pipe gibt jeweils den transformierten Inhalt weiter an die nächste Funktion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use a function without the pipe</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>example_without_pipe <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(<span class="fu">select</span>(df_beispiel, SATV, SATQ), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>example_without_pipe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    SATV     SATQ 
+612.2343 610.2169 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use a function with the pipe. </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>example_with_pipe <span class="ot">&lt;-</span> df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SATV, SATQ) <span class="sc">|&gt;</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colMeans</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># check they produce identical results</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(example_without_pipe, example_with_pipe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="spaltennamen-anzeigen" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Spaltennamen anzeigen</h1>
+<p>Die meiste Zeit verbringen wir mit Data Frames - effektiv Tabellen. Wie können wir herausfinden, welche Variablen sich in einem Data Frame befinden? Wir können den Data Frame anzeigen, aber es kann auch hilfreich sein, ihn auszugeben. Zu wissen, welche Variablen vorhanden sind, ist einer der ersten Schritte, um mit den Daten zu arbeiten.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print all column names</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_beispiel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "gender"    "education" "age"       "ACT"       "SATV"      "SATQ"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print all column names as a vector using the pipe</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "gender"    "education" "age"       "ACT"       "SATV"      "SATQ"     </code></pre>
+</div>
+</div>
+</section>
+<section id="spalten-umbenennen---rename" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Spalten umbenennen - rename()</h1>
+<p>Oft sind die Variablennamen nicht intuitiv. Ein früher Schritt bei jeder Datenaufbereitung ist es, sie mithilfe der Funktion <code>rename()</code> intuitiver zu gestalten. Als Argumente schreiben wir jeweils <code>neuer_name = alter_name</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df_beispiel_renamed <span class="ot">&lt;-</span> df_beispiel <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Alter =</span> age,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Bildung =</span> education) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="auswahl-und-extraktion" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Auswahl und Extraktion</h1>
+<p>Es gibt verschieden Möglichkeiten, Inhalte aus Variablen auszuwählen und zu extrahieren:</p>
+<ul>
+<li>select() / |&gt; slice() / pluck()</li>
+<li>[]</li>
+<li>$</li>
+</ul>
+<p>Im ersten Beispiel wollen wir die Variable x aus unserem Dataframe df_beispiel auswählen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(df_beispiel, ACT) <span class="co"># select ohne pipe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 700 × 1
+     ACT
+   &lt;int&gt;
+ 1    24
+ 2    35
+ 3    21
+ 4    26
+ 5    31
+ 6    28
+ 7    36
+ 8    22
+ 9    22
+10    35
+# ℹ 690 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> <span class="fu">select</span>(ACT) <span class="co"># select mit pipe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 700 × 1
+     ACT
+   &lt;int&gt;
+ 1    24
+ 2    35
+ 3    21
+ 4    26
+ 5    31
+ 6    28
+ 7    36
+ 8    22
+ 9    22
+10    35
+# ℹ 690 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_beispiel[,<span class="st">"ACT"</span>] <span class="co"># []</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 700 × 1
+     ACT
+   &lt;int&gt;
+ 1    24
+ 2    35
+ 3    21
+ 4    26
+ 5    31
+ 6    28
+ 7    36
+ 8    22
+ 9    22
+10    35
+# ℹ 690 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_beispiel<span class="sc">$</span>ACT <span class="co"># $ </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 24 35 21 26 31 28 36 22 22 35 32 29 21 35 27 27 33 32 28 32 28 30 31 30 31
+ [26] 30 30 21 28 33 28 24 27 31 33 29 28 24 27 31 28 29 30 36 36 26 33 27 23 33
+ [51] 35 28 28 33 34 26 36 28 18 34 34 32 36 34 21 31 22 29 29 24 26 29 28 32 32
+ [76] 27 28 32 15 21 26 25 31 26 28 33 24 32 31 30 32 36 32 30 27 35 29 33 30 32
+[101] 26 36 36 27 26 29 23 23 29 32 32 30 28 23 36 26 36 34 23 28 23 28 32 16 29
+[126] 29 29 32 26 23 35 28 25 23 36 30 30 33 31 28 35 32 26 34 34 32 24 32 23 35
+[151] 24 30 26 26 30 34 19 23 31 28 32 25 26 31 34 31 30 36 32 33 29 25 30 34 32
+[176] 29 25 32 33 35 26 24 23 35 27 28 27 28 32 34 27 31 17 25 36 29 30 29 28 28
+[201] 30 30 31 29 28 26 31 25 21 24 36 34 32 23 36 34 28 19 31 21 19 22 30 18 36
+[226] 28 24 28 23 30 22 23 25 25 24 30 30 24 22 22 27 27 35 16 28 25 23 32 25 28
+[251] 35 28 24 27 30 34 35 33 19 25 35 26 24 20 30 32 30 29 28 23 36 25 29 20 32
+[276] 24 30 33 21 20 32 30 31 25 18 25 26 29 33 31 25 27 36 32 32 26 23 34 27 30
+[301] 30 28 25 20 26 33 23 33 25 27 26 28 28 35 21 28 29 32 30 18 32 32 27 17 28
+[326] 21 30 25 32 35 32 16 27 27 20 31 30 24 26 19 24 27 35 27 32 26 25 29 36 30
+[351] 25 22 27 23 34 31 33 31 26 35 33 29 28 27 27 31 31 32 22 35 25 25 23 26 27
+[376] 27 34 30 32 26 25 29 22 28 35 24 27 32 17 18 20 35 32 24 32 29 28 27 27 20
+[401] 22 33 30 34 28 32 30 23 34 26 32 22 29 23 35 32 31 27 29 29 33 35 21 24 29
+[426] 30 30 32 28 28 25 28 33 32 20 21 28 35 26  3 21 21 32 31 27 35 32 24 34 32
+[451] 31 36 23 28 35 22 26 29 29 21 31 36 25 27 17 32 32 22 26 30 25 25 34 24 20
+[476] 32 25 21 22 35 20 23 23 29 21 28 35 34 36 15 34 28 24 23 22 32 21 35 26 15
+[501] 32 28 28 25 30 28 20 22 20 18 32 35 30 25 26 21 24 16 30 28 34 35 25 34 27
+[526] 31 27 34 31 27 27 36 30 15 23 26 35 33 34 35 27 31 33 29 21 19 25 30 21 23
+[551] 32 21 25 27 29 20 32 28 32 32 35 18 32 31 20 32 33 34 31 30 34 32 28 34 31
+[576] 29 34 32 31 32 32 27 33 30 27 31 33 31 33 30 32 31 33 35 32 32 33 36 26 34
+[601] 36 31 30 24 34 34 29 30 31 31 26 32 30 28 32 32 25 32 36 25 29 28 32 28 33
+[626] 35 27 32 35 29 26 31 34 26 35 35 28 27 20 31 34 22 35 22 22 35 34 32 31 25
+[651] 32 31 29 32 27 27 34 22 36 36 34 33 34 21 28 29 25 31 29 31 22 23 33 36 30
+[676] 30 36 32 33 28 31 32 34 33 36 30 30 27 33 32 33 25 26 27 26 30 27 31 32 25</code></pre>
+</div>
+</div>
+<p>Wie wir sehen, behalten <code>|&gt;</code> und <code>[]</code> die Struktur des Inputs (ein Datenframe) standardmässig bei (ihr Output ist identisch), während <code>$</code> die Struktur “dropped” und eine simplere Struktur wählt (Vektor statt Datenframe). Deswegen ist der Output auch ganz anders.</p>
+<p>Im zweiten Beispiel wollen wir die Variablen x und y und die ersten zwei Zeilen aus unserem Dataframe df_beispiel auswählen. Nach dem “tidy” Verfahren wählen wir dafür Datenframe |&gt; select() |&gt; slice(). Nach dem “klassischen” Verfahren wählen wir in <code>[]</code> zuerst die Zeilen, dann die Spalten aus. Die Spalten müssen wir hier als richtigen Vektor eingeben, d.h. mittels <code>c()</code> “x”und “y” (in Anführungszeichen) angeben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> <span class="fu">select</span>(SATV, SATQ) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+   SATV  SATQ
+  &lt;int&gt; &lt;int&gt;
+1   500   500
+2   600   500</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df_beispiel[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="fu">c</span>(<span class="st">"SATV"</span>, <span class="st">"SATQ"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+   SATV  SATQ
+  &lt;int&gt; &lt;int&gt;
+1   500   500
+2   600   500</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(df_beispiel<span class="sc">$</span>SATV[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], df_beispiel<span class="sc">$</span>SATQ[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 500 600 500 500</code></pre>
+</div>
+</div>
+<p>Listen sind etwas komplizierter. Hier wird analog zu <code>select()</code> <code>pluck()</code> verwendet.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>beispielliste <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">x1 =</span> vektor_numerisch, <span class="at">x2 =</span> vektor_character, <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>), <span class="at">x3 =</span> tibble_beispiel, <span class="st">"test"</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>beispielliste <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Zytglogge"      "Hirschengraben" "Bahnhof"        "Bundesplatz"   
+[5] "Viktoriaplatz" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>beispielliste <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="st">"x2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Zytglogge"      "Hirschengraben" "Bahnhof"        "Bundesplatz"   
+[5] "Viktoriaplatz" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [] und [[]]</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>beispielliste[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$x2
+[1] "Zytglogge"      "Hirschengraben" "Bahnhof"        "Bundesplatz"   
+[5] "Viktoriaplatz" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>beispielliste[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Zytglogge"      "Hirschengraben" "Bahnhof"        "Bundesplatz"   
+[5] "Viktoriaplatz" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># $ - geht nur mit benannten Listenelementen</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>beispielliste<span class="sc">$</span>x2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Zytglogge"      "Hirschengraben" "Bahnhof"        "Bundesplatz"   
+[5] "Viktoriaplatz" </code></pre>
+</div>
+</div>
+</section>
+<section id="spalten-mutieren-und-neue-anlegen" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Spalten mutieren und neue Anlegen</h1>
+<p><code>mutate()</code> is used to create new columns or to change the contents of existing ones. Oft mutieren wir Variablen bei einer Analyse. Typisch ist etwa die Zentrierung von Variablen auf den Mittelwert der Stichprobe (grand mean; damit bekommen die Variablen einen Mittelwert von 0) oder die z-Standardisierung (Variablen bekommen einen Mittelwert von 0 <strong>und</strong> eine Standardabweichung von 1).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="ot">&lt;-</span> df_beispiel <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ACT_c =</span> <span class="fu">scale</span>(ACT, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">ACT_z =</span> <span class="fu">scale</span>(ACT, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>df_beispiel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 700 × 8
+   gender education   age   ACT  SATV  SATQ ACT_c[,1] ACT_z[,1]
+    &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+ 1      2         3    19    24   500   500    -4.55     -0.943
+ 2      2         3    23    35   600   500     6.45      1.34 
+ 3      2         3    20    21   480   470    -7.55     -1.56 
+ 4      1         4    27    26   550   520    -2.55     -0.528
+ 5      1         2    33    31   600   550     2.45      0.509
+ 6      1         5    26    28   640   640    -0.547    -0.113
+ 7      2         5    30    36   610   500     7.45      1.55 
+ 8      1         3    19    22   520   560    -6.55     -1.36 
+ 9      2         4    23    22   400   600    -6.55     -1.36 
+10      2         5    40    35   730   800     6.45      1.34 
+# ℹ 690 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="zeilen-filtern" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Zeilen filtern</h1>
+<p>Neben der Mutation/Transformation von Spalten ist das Filtern von Zeilen ein typisches Anliegen bei der Datenaufbereitung. Dies geht mittels <code>filter()</code>. Du kannst den logischen Test für das Filtern auf verschiedene Arten angeben, einschließlich Gleichheit (<code>==</code>), Negation (<code>!=</code>) oder Zugehörigkeit (<code>%in%</code>). Es ist oft besser zu definieren, was du möchtest (mithilfe von Gleichheit oder Zugehörigkeit), anstatt zu definieren, was du nicht möchtest (Negation), da Negationen weniger robust gegenüber neuen Daten mit ungewöhnlichen Werten sind, die du beim Schreiben des Codes nicht bedacht hast. Zum Beispiel könntest du <code>gender != 2</code> angeben, aber das würde non binary nicht erfassen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>df_beispiel_w <span class="ot">&lt;-</span> df_beispiel <span class="sc">|&gt;</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Du kannst auch mehrere Kriterien in deinem Filteraufruf verwenden, bei denen beide erfüllt sein müssen (x &amp; y) oder bei denen eines von beiden erfüllt sein muss (x | y).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>df_beispiel_w_and_edu <span class="ot">&lt;-</span> df_beispiel <span class="sc">|&gt;</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> education <span class="sc">&gt;</span> <span class="dv">2</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>df_beispiel_w_or_edu <span class="ot">&lt;-</span> df_beispiel <span class="sc">|&gt;</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="dv">2</span> <span class="sc">|</span> education <span class="sc">&gt;</span> <span class="dv">2</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="co"># note that these provide different results - make sure you understand why</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(df_beispiel_w_and_edu, df_beispiel_w_or_edu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="übung-data-wrangling" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Übung Data Wrangling</h1>
+<ol type="1">
+<li>Wähle zunächst die folgenden Variablen aus: education, SATQ.</li>
+<li>Erstelle eine neue Variable, in der die SATQ zentriert wird und nenne sie “SATQ_c”. Transformiere education in einen Faktor (<code>as.factor()</code>).</li>
+<li>Wähle alle Personen mit High School-Abschluss (Faktor-Level 1) aus.</li>
+</ol>
+<p>Führe zunächst jeden Schritt separat und sequentiell aus. Verknüpfe dann alle Funktionen/Schritte mittels mehrerer Pipes. Das führt dazu, dass weniger Objekte in deiner Umgebung existieren und somit weniger Verwirrung oder Fehlerpotenzial entsteht. Genereller Tipp: Wir lösen Programmierprobleme leichter, indem wir sie in kleinere Aufgaben und Probleme zerlegen, diese jeweils einzeln zum Laufen bringen und sie dann wieder zusammenfügen. Wenn man nur das Endprodukt sieht, könnte man leicht denken, der/die Autor:in hätte den Code genau so geschrieben, wie er aussieht. Dabei hat er/sie oft viel ausführlichere Codeabschnitte geschrieben und diese anschließend zusammengeführt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># auswählen</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a> df_auswahl <span class="ot">&lt;-</span> df_beispiel</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># neue variable erstellen</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>df_neuevariable <span class="ot">&lt;-</span> df_auswahl</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co"># filtern</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>df_filter <span class="ot">&lt;-</span> df_neuevariable </span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="co"># jetzt alles zusammen</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>df_kombiniert <span class="ot">&lt;-</span> df_beispiel </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="zusammenfassung-über-zeilen" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Zusammenfassung über Zeilen</h1>
+<p>Es ist sehr häufig, dass wir Zusammenfassungen über Zeilen hinweg erstellen müssen. Zum Beispiel, um den Mittelwert und die Standardabweichung einer Spalte wie age zu berechnen. Das kann mit <code>summarize()</code> erledigt werden. Denk daran: <code>mutate()</code> erstellt neue Spalten oder ändert den Inhalt bestehender Spalten, ohne die Anzahl der Zeilen zu verändern. <code>summarize()</code> hingegen reduziert einen Datensatz auf eine einzelne Zeile.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_age =</span> <span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  mean_age
+     &lt;dbl&gt;
+1     25.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># SD</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sd_age =</span> <span class="fu">sd</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  sd_age
+   &lt;dbl&gt;
+1   9.50</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean and SD with rounding, illustrating how multiple summarizes can be done in one function call</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_age =</span> <span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_age =</span> <span class="fu">round</span>(mean_age, <span class="at">digits =</span> <span class="dv">2</span>),</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_age =</span> <span class="fu">sd</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_age =</span> <span class="fu">round</span>(sd_age, <span class="at">digits =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_age sd_age
+     &lt;dbl&gt;  &lt;dbl&gt;
+1     25.6    9.5</code></pre>
+</div>
+</div>
+<section id="group_by" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="group_by"><span class="header-section-number">18.1</span> <code>group_by()</code></h2>
+<p>Oft wollen wir einen Datensatz jedoch nicht auf eine einzelne Zeile reduzieren bzw. den gesamten Datensatz zusammenfassen, sondern eine Zusammenfassung für jede (Unter-)Gruppe erstellen. Dies ist hilfreich, insbesondere da wir im Seminar mit Tagen verschachtelt in Personen arbeiten werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># illustrate use of group_by() and summarize()</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(education) <span class="sc">|&gt;</span> </span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">ACT_c =</span> <span class="fu">mean</span>(ACT_z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  education   ACT_c
+      &lt;int&gt;   &lt;dbl&gt;
+1         0 -0.223 
+2         1 -0.219 
+3         2 -0.325 
+4         3 -0.0524
+5         4  0.148 
+6         5  0.219 </code></pre>
+</div>
+</div>
+</section>
+<section id="komplexere-zusammenfassungen" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="komplexere-zusammenfassungen"><span class="header-section-number">18.2</span> Komplexere Zusammenfassungen</h2>
+<p>Ähnlich wie bei <code>mutate()</code> kann auch die Operation für <code>summarize()</code> komplexer sein, z. B. das Finden des Mittelwerts einer logischen Operation (d.h., logische Operatoren nutzend, wie &amp;, &lt;, &gt;, | etc.) , um einen Anteil zu berechnen. Im Folgenden berechnen wir den Anteil von niedrigen SAT Verbal Scores (hier definiert als -1 Standardabweichungen oder niedriger) gruppiert nach Bildung.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SATV_z =</span> <span class="fu">scale</span>(SATV)) <span class="sc">|&gt;</span> </span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(education) <span class="sc">|&gt;</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">SATV_unterdurchschnitt =</span> <span class="fu">mean</span>(SATV_z <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  education SATV_unterdurchschnitt
+      &lt;int&gt;                  &lt;dbl&gt;
+1         0                 0.193 
+2         1                 0.2   
+3         2                 0.25  
+4         3                 0.135 
+5         4                 0.0942
+6         5                 0.0851</code></pre>
+</div>
+</div>
+<p>Mit <code>across()</code> kannst du Zusammenfassungen (oder auch Änderungen mit mutate()) über mehrere Spalten hinweg auf dieselbe Weise durchführen. Wir werden hier nicht alle Möglichkeiten oder Details zu across() behandeln, aber es ist wichtig zu wissen, dass es möglich ist. Zum Beispiel:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... calculate the mean of every numeric column in the dataset ...</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... and then round every column to one decimal place</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), round, <span class="at">digits =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `summarise()`.
+ℹ In argument: `across(where(is.numeric), mean, na.rm = TRUE)`.
+Caused by warning:
+! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+Supply arguments directly to `.fns` through an anonymous function instead.
+
+  # Previously
+  across(a:b, mean, na.rm = TRUE)
+
+  # Now
+  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  gender education   age   ACT  SATV  SATQ ACT_c ACT_z
+   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1   1.65      3.16  25.6  28.6  612.  610.     0     0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="übung-summarize" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Übung <code>summarize()</code></h1>
+<p>Berechne min, max, mean, und SD aller Antworten auf dem selbstberichteten SAT Verbal Score (SATV).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data_selfreport_tidy</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 0</code></pre>
+</div>
+</div>
+<p>Für die zweiten Übung arbeiten wir mit dem Datensatz BFI, der Big Five Items beinhaltet (s. Dokumentation des Datensatzes). Berechne, getrennt nach Gender, Mittelwert un SD von C1 (ein Gewissenhaftigkeit-Item).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bfi)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bfi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      A1 A2 A3 A4 A5 C1 C2 C3 C4 C5 E1 E2 E3 E4 E5 N1 N2 N3 N4 N5 O1 O2 O3 O4
+61617  2  4  3  4  4  2  3  3  4  4  3  3  3  4  4  3  4  2  2  3  3  6  3  4
+61618  2  4  5  2  5  5  4  4  3  4  1  1  6  4  3  3  3  3  5  5  4  2  4  3
+61620  5  4  5  4  4  4  5  4  2  5  2  4  4  4  5  4  5  4  2  3  4  2  5  5
+61621  4  4  6  5  5  4  4  3  5  5  5  3  4  4  4  2  5  2  4  1  3  3  4  3
+61622  2  3  3  4  5  4  4  5  3  2  2  2  5  4  5  2  3  4  4  3  3  3  4  3
+61623  6  6  5  6  5  6  6  6  1  3  2  1  6  5  6  3  5  2  2  3  4  3  5  6
+      O5 gender education age
+61617  3      1        NA  16
+61618  3      2        NA  18
+61620  2      2        NA  17
+61621  5      2        NA  17
+61622  3      1        NA  17
+61623  1      2         3  21</code></pre>
+</div>
+</div>
+</section>
+<section id="kontrolliere-deinen-lernfortschritt" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> Kontrolliere deinen Lernfortschritt</h1>
+<p>Was ist der Unterschied zwischen <code>mutate()</code> und <code>summarize()</code>? Bekomme ich dasselbe Ergebnis, wenn ich die falsche Funktion verwende? Zum Beispiel: <code>mutate(mean_age = mean(age, na.rm = TRUE))</code> vs.<code>summarize(mean_age = mean(age, na.rm = TRUE))</code>.</p>
+</section>
+<section id="daten-auf-festplatte-schreiben" class="level1" data-number="21">
+<h1 data-number="21"><span class="header-section-number">21</span> Daten auf Festplatte schreiben</h1>
+<p>Am Ende von Data Wrangling Prozessen ist es sinnvoll, die Ergebnisse festzuhalten, damit wir sie nicht verlieren, bzw. beim nächsten Mal nicht alles von vorne ausführen müssen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>df_beispiel_standardisiert <span class="ot">&lt;-</span> df_beispiel <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">"SATV"</span>, <span class="st">"SATQ"</span>, <span class="st">"ACT"</span>),</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>                                                           scale))</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df_beispiel_standardisiert, <span class="at">file =</span>  <span class="st">"../data/df_beispiel_standardisiert.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="lösung-übung-data-wrangling" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="lösung-übung-data-wrangling"><span class="header-section-number">21.1</span> Lösung: Übung Data Wrangling</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># auswählen</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>df_auswahl <span class="ot">&lt;-</span> df_beispiel <span class="sc">|&gt;</span> <span class="fu">select</span>(education, SATQ)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="co"># neue variable erstellen</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>df_neuevariable <span class="ot">&lt;-</span> df_auswahl <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">education =</span> <span class="fu">as.factor</span>(education),</span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">SATQ_c =</span> <span class="fu">scale</span>(SATQ, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="co"># filtern</span></span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>df_filter <span class="ot">&lt;-</span> df_neuevariable <span class="sc">|&gt;</span> <span class="fu">filter</span>(education <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a><span class="co"># jetzt alles zusammen</span></span>
+<span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a>df_kombiniert <span class="ot">&lt;-</span> df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb79-12"><a href="#cb79-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(education, SATQ) <span class="sc">|&gt;</span> </span>
+<span id="cb79-13"><a href="#cb79-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb79-14"><a href="#cb79-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">education =</span> <span class="fu">as.factor</span>(education),</span>
+<span id="cb79-15"><a href="#cb79-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">SATQ_c =</span> <span class="fu">scale</span>(SATQ, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb79-16"><a href="#cb79-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(education <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb79-17"><a href="#cb79-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-18"><a href="#cb79-18" aria-hidden="true" tabindex="-1"></a><span class="co"># identical(df_filter, df_kombiniert) # check</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="lösung-übung-summarize" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="lösung-übung-summarize"><span class="header-section-number">21.2</span> Lösung: Übung <code>summarize()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>df_beispiel <span class="sc">|&gt;</span> </span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">min_satv =</span> <span class="fu">min</span>(SATV, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">max_satv =</span> <span class="fu">max</span>(SATV, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_satv =</span> <span class="fu">mean</span>(SATV, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_satv =</span> <span class="fu">sd</span>(SATV, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  min_satv max_satv mean_satv sd_satv
+     &lt;int&gt;    &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1      200      800      612.    113.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>bfi <span class="sc">|&gt;</span> <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">C1_na =</span> <span class="fu">sd</span>(C1, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">C1_mean =</span> <span class="fu">mean</span>(C1, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  gender C1_na C1_mean
+   &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1      1  1.24    4.48
+2      2  1.24    4.52</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03 Hypotheses Tests.html" class="pagination-link" aria-label="Kapitel 3: Hypothesentests - Teil 1">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
