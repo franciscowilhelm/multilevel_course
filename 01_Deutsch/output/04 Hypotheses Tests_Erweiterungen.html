@@ -1,0 +1,3119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Hypothesentests - Erweiterungen – Tagebuchstudien und Mehrebenenmodelle</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./00 Data Wrangling Basics.html" rel="next">
+<link href="./03 Hypotheses Tests.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-77205cbbef6a5b90ba72edc25dea2156.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04 Hypotheses Tests_Erweiterungen.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesentests - Erweiterungen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Tagebuchstudien und Mehrebenenmodelle</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01 Data Preparation Item Level.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1: Datenaufbereitung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02 Descriptive Statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03 Hypotheses Tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04 Hypotheses Tests_Erweiterungen.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesentests - Erweiterungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00 Data Wrangling Basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Anhang: Data Wrangling</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#cross-level-interaktion" id="toc-cross-level-interaktion" class="nav-link active" data-scroll-target="#cross-level-interaktion"><span class="header-section-number">5.1</span> Cross-Level Interaktion</a>
+  <ul class="collapse">
+  <li><a href="#visualisierung" id="toc-visualisierung" class="nav-link" data-scroll-target="#visualisierung"><span class="header-section-number">5.1.1</span> Visualisierung</a></li>
+  <li><a href="#within-level-interaktion" id="toc-within-level-interaktion" class="nav-link" data-scroll-target="#within-level-interaktion"><span class="header-section-number">5.1.2</span> Within-level Interaktion</a></li>
+  </ul></li>
+  <li><a href="#übung" id="toc-übung" class="nav-link" data-scroll-target="#übung"><span class="header-section-number">5.2</span> Übung</a></li>
+  <li><a href="#mediation" id="toc-mediation" class="nav-link" data-scroll-target="#mediation"><span class="header-section-number">5.3</span> 1-1-1 Mediation</a>
+  <ul class="collapse">
+  <li><a href="#daten-einlesen" id="toc-daten-einlesen" class="nav-link" data-scroll-target="#daten-einlesen"><span class="header-section-number">5.3.1</span> Daten einlesen</a></li>
+  <li><a href="#bootstrapped-version" id="toc-bootstrapped-version" class="nav-link" data-scroll-target="#bootstrapped-version"><span class="header-section-number">5.3.2</span> Bootstrapped Version</a></li>
+  </ul></li>
+  <li><a href="#übung-1" id="toc-übung-1" class="nav-link" data-scroll-target="#übung-1"><span class="header-section-number">5.4</span> Übung</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesentests - Erweiterungen</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(lmerTest, haven, brms, psych,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>               sjmisc, sjlabelled, sjPlot, writexl, broom.mixed, qgraph,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               multilevelmediation,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>               tidyverse, multilevelTools, parameters, devtools</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_example1c.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="cross-level-interaktion" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="cross-level-interaktion"><span class="header-section-number">5.1</span> Cross-Level Interaktion</h2>
+<p>%% zuerst repetieren Modell ohne Moderationseffekt %%</p>
+<p>Erwarten wir, dass der Effekt von täglichen Schwankungen in X auf Y abhängig von einer Variable ist, die auf Level-2 gemessen wird (z.B. relativ stabile Persönlichkeitsmerkmale), können wir dies mit einer Cross-Level Interaktion testen.</p>
+<p>Level 1: <span class="math inline">\(y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}\)</span></p>
+<p>Level 2 (random intercept): <span class="math inline">\(\beta_{0j} = \gamma_{00} + u_{0j}\)</span> Level 2 (random slope for x): <span class="math inline">\(\beta_{1j} = \gamma_{10} + u_{2j}\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_example1c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">id</th>
+<th style="text-align: right;">w</th>
+<th style="text-align: right;">y</th>
+<th style="text-align: right;">m</th>
+<th style="text-align: right;">x</th>
+<th style="text-align: right;">y_dm</th>
+<th style="text-align: right;">m_dm</th>
+<th style="text-align: right;">x_dm</th>
+<th style="text-align: right;">y_gm</th>
+<th style="text-align: right;">m_gm</th>
+<th style="text-align: right;">x_gm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.847053</td>
+<td style="text-align: right;">4.064028</td>
+<td style="text-align: right;">8.492899</td>
+<td style="text-align: right;">4.136489</td>
+<td style="text-align: right;">-1.1414789</td>
+<td style="text-align: right;">1.4106789</td>
+<td style="text-align: right;">0.803986</td>
+<td style="text-align: right;">5.205507</td>
+<td style="text-align: right;">7.08222</td>
+<td style="text-align: right;">3.332503</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.847053</td>
+<td style="text-align: right;">3.599397</td>
+<td style="text-align: right;">9.073630</td>
+<td style="text-align: right;">3.728720</td>
+<td style="text-align: right;">-1.6061099</td>
+<td style="text-align: right;">1.9914099</td>
+<td style="text-align: right;">0.396217</td>
+<td style="text-align: right;">5.205507</td>
+<td style="text-align: right;">7.08222</td>
+<td style="text-align: right;">3.332503</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.847053</td>
+<td style="text-align: right;">7.704277</td>
+<td style="text-align: right;">4.082619</td>
+<td style="text-align: right;">2.638451</td>
+<td style="text-align: right;">2.4987701</td>
+<td style="text-align: right;">-2.9996011</td>
+<td style="text-align: right;">-0.694052</td>
+<td style="text-align: right;">5.205507</td>
+<td style="text-align: right;">7.08222</td>
+<td style="text-align: right;">3.332503</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.847053</td>
+<td style="text-align: right;">6.796018</td>
+<td style="text-align: right;">5.516980</td>
+<td style="text-align: right;">2.761167</td>
+<td style="text-align: right;">1.5905111</td>
+<td style="text-align: right;">-1.5652401</td>
+<td style="text-align: right;">-0.571336</td>
+<td style="text-align: right;">5.205507</td>
+<td style="text-align: right;">7.08222</td>
+<td style="text-align: right;">3.332503</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.847053</td>
+<td style="text-align: right;">4.723777</td>
+<td style="text-align: right;">6.875090</td>
+<td style="text-align: right;">3.152261</td>
+<td style="text-align: right;">-0.4817299</td>
+<td style="text-align: right;">-0.2071301</td>
+<td style="text-align: right;">-0.180242</td>
+<td style="text-align: right;">5.205507</td>
+<td style="text-align: right;">7.08222</td>
+<td style="text-align: right;">3.332503</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.847053</td>
+<td style="text-align: right;">3.592594</td>
+<td style="text-align: right;">9.817786</td>
+<td style="text-align: right;">4.168687</td>
+<td style="text-align: right;">-1.6129129</td>
+<td style="text-align: right;">2.7355659</td>
+<td style="text-align: right;">0.836184</td>
+<td style="text-align: right;">5.205507</td>
+<td style="text-align: right;">7.08222</td>
+<td style="text-align: right;">3.332503</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ri.rs_cli_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x_dm <span class="sc">+</span> w <span class="sc">+</span> w<span class="sc">*</span>x_dm <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> x_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example1c)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.rs_cli_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="stwjpdffki" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#stwjpdffki table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#stwjpdffki thead, #stwjpdffki tbody, #stwjpdffki tfoot, #stwjpdffki tr, #stwjpdffki td, #stwjpdffki th {
+  border-style: none;
+}
+
+#stwjpdffki p {
+  margin: 0;
+  padding: 0;
+}
+
+#stwjpdffki .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 100%;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#stwjpdffki .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#stwjpdffki .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#stwjpdffki .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#stwjpdffki .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#stwjpdffki .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#stwjpdffki .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#stwjpdffki .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#stwjpdffki .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#stwjpdffki .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#stwjpdffki .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#stwjpdffki .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#stwjpdffki .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#stwjpdffki .gt_row {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#stwjpdffki .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stwjpdffki .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#stwjpdffki .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#stwjpdffki .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#stwjpdffki .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stwjpdffki .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#stwjpdffki .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stwjpdffki .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#stwjpdffki .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stwjpdffki .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#stwjpdffki .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stwjpdffki .gt_left {
+  text-align: left;
+}
+
+#stwjpdffki .gt_center {
+  text-align: center;
+}
+
+#stwjpdffki .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#stwjpdffki .gt_font_normal {
+  font-weight: normal;
+}
+
+#stwjpdffki .gt_font_bold {
+  font-weight: bold;
+}
+
+#stwjpdffki .gt_font_italic {
+  font-style: italic;
+}
+
+#stwjpdffki .gt_super {
+  font-size: 65%;
+}
+
+#stwjpdffki .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#stwjpdffki .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#stwjpdffki .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#stwjpdffki .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#stwjpdffki .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#stwjpdffki .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#stwjpdffki .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#stwjpdffki .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#stwjpdffki div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border">Model Summary</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Parameter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Parameter</th>
+<th id="Coefficient" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient</th>
+<th id="SE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">SE</th>
+<th id="a95%-CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
+<th id="t(992)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">t(992)</th>
+<th id="p" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row odd">
+<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Fixed Effects</td>
+</tr>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">(Intercept)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">4.03</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.48</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(3.10, 4.97)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(992)">8.47</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">x dm</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">4.91e-03</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.55</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(-1.07, 1.08)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(992)">8.99e-03</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">0.993</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">w</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">0.49</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.15</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(0.19, 0.79)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(992)">3.19</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">0.001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">x dm × w</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">0.39</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.18</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(0.05, 0.74)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(992)">2.23</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">0.026</td>
+</tr>
+<tr class="gt_group_heading_row even">
+<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Random Effects</td>
+</tr>
+<tr class="gt_row_group_first odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Intercept: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.93</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(992)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (x_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">1.04</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(992)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">Cor (Intercept~x_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.14</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(992)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Residual)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.66</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(992)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="6" class="gt_sourcenote"></td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr interpretiert werden.</p>
+<section id="visualisierung" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="visualisierung"><span class="header-section-number">5.1.1</span> Visualisierung</h3>
+<p>Visualisierung des Interaktionseffekt mittels der <code>plot_model()</code> Funktion. Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_cli_modell, <span class="at">type =</span> <span class="st">"int"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"x_dm"</span>, <span class="st">"w"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-Hypotheses-Tests_Erweiterungen_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"test.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
+</div>
+</div>
+<p>Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_cli_modell, <span class="at">type =</span> <span class="st">"int"</span>, <span class="at">mdrt.values =</span> <span class="st">"meansd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-Hypotheses-Tests_Erweiterungen_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Der Plot zeigt, dass bei höheren Ausprägungen von w der Effekt von x_dm stärker ausfällt.</p>
+</section>
+<section id="within-level-interaktion" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="within-level-interaktion"><span class="header-section-number">5.1.2</span> Within-level Interaktion</h3>
+<p>Analog zur Cross-level Interaktion gibt es auch Within-level Interaktionen, bei der die Level-1 Anteile von Prädiktorvariablen miteinander interagieren.</p>
+<p>Level 1: <span class="math inline">\(y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*(M_{ij}-\overline{M_j}) + \beta_{3j}*((M_{ij}-\overline{M_j})*(X_{ij}-\overline{X_j})) + e_{ij}\)</span></p>
+<p>Level 2 (random intercept): <span class="math inline">\(\beta_{0j} = \gamma_{00} + u_{0j}\)</span> Level 2 (random slope X): <span class="math inline">\(\beta_{1j} = \gamma_{10} + u_{1j}\)</span> Level 2 (random slope M): <span class="math inline">\(\beta_{2j} = \gamma_{20} + u_{2j}\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ri.rs_wli_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x_dm <span class="sc">+</span> m_dm <span class="sc">+</span> x_dm<span class="sc">*</span>m_dm <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> x_dm <span class="sc">+</span> m_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example1c)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.rs_wli_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="rsqnqlevhk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rsqnqlevhk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#rsqnqlevhk thead, #rsqnqlevhk tbody, #rsqnqlevhk tfoot, #rsqnqlevhk tr, #rsqnqlevhk td, #rsqnqlevhk th {
+  border-style: none;
+}
+
+#rsqnqlevhk p {
+  margin: 0;
+  padding: 0;
+}
+
+#rsqnqlevhk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 100%;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#rsqnqlevhk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#rsqnqlevhk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#rsqnqlevhk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rsqnqlevhk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rsqnqlevhk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rsqnqlevhk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rsqnqlevhk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rsqnqlevhk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#rsqnqlevhk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#rsqnqlevhk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rsqnqlevhk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rsqnqlevhk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rsqnqlevhk .gt_row {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rsqnqlevhk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsqnqlevhk .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#rsqnqlevhk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#rsqnqlevhk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#rsqnqlevhk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsqnqlevhk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#rsqnqlevhk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsqnqlevhk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rsqnqlevhk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsqnqlevhk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rsqnqlevhk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsqnqlevhk .gt_left {
+  text-align: left;
+}
+
+#rsqnqlevhk .gt_center {
+  text-align: center;
+}
+
+#rsqnqlevhk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rsqnqlevhk .gt_font_normal {
+  font-weight: normal;
+}
+
+#rsqnqlevhk .gt_font_bold {
+  font-weight: bold;
+}
+
+#rsqnqlevhk .gt_font_italic {
+  font-style: italic;
+}
+
+#rsqnqlevhk .gt_super {
+  font-size: 65%;
+}
+
+#rsqnqlevhk .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#rsqnqlevhk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#rsqnqlevhk .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#rsqnqlevhk .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#rsqnqlevhk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#rsqnqlevhk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#rsqnqlevhk .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#rsqnqlevhk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#rsqnqlevhk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border">Model Summary</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Parameter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Parameter</th>
+<th id="Coefficient" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient</th>
+<th id="SE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">SE</th>
+<th id="a95%-CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
+<th id="t(989)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">t(989)</th>
+<th id="p" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row odd">
+<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Fixed Effects</td>
+</tr>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">(Intercept)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">5.52</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.10</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(5.32, 5.72)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(989)">54.89</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">x dm</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">0.17</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.08</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(9.53e-03, 0.33)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(989)">2.08</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">0.038</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">m dm</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">0.53</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.06</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(0.41, 0.66)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(989)">8.46</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">x dm × m dm</td>
+<td class="gt_row gt_center" headers="Fixed Effects   Coefficient">-5.19e-03</td>
+<td class="gt_row gt_center" headers="Fixed Effects   SE">0.02</td>
+<td class="gt_row gt_center" headers="Fixed Effects   95% CI">(-0.04, 0.02)</td>
+<td class="gt_row gt_center" headers="Fixed Effects   t(989)">-0.34</td>
+<td class="gt_row gt_center" headers="Fixed Effects   p">0.735</td>
+</tr>
+<tr class="gt_group_heading_row even">
+<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Random Effects</td>
+</tr>
+<tr class="gt_row_group_first odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Intercept: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.98</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(989)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (x_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.47</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(989)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (m_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.53</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(989)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">Cor (Intercept~x_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">-0.08</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(989)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">Cor (Intercept~m_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.04</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(989)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">Cor (x_dm~m_dm: id)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">-0.26</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(989)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Residual)</td>
+<td class="gt_row gt_center" headers="Random Effects   Coefficient">0.52</td>
+<td class="gt_row gt_center" headers="Random Effects   SE"></td>
+<td class="gt_row gt_center" headers="Random Effects   95% CI"></td>
+<td class="gt_row gt_center" headers="Random Effects   t(989)"></td>
+<td class="gt_row gt_center" headers="Random Effects   p"></td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="6" class="gt_sourcenote"></td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_wli_modell, <span class="at">type =</span> <span class="st">"int"</span>, <span class="at">mdrt.values =</span> <span class="st">"meansd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-Hypotheses-Tests_Erweiterungen_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Der Interaktionseffekt ist nicht signifikant. Dies bedeutet, wie der Plot zeigt, dass die Linien bei allen Ausprägungen des Moderators mehr oder wenig parallel sind.</p>
+</section>
+</section>
+<section id="übung" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="übung"><span class="header-section-number">5.2</span> Übung</h2>
+<p>Wir arbeiten in der Übung mit einem neuen Datensatz.</p>
+<p>Mache dich mit ihm vertraut. Diesmal benutzen wir einen Datensatz in dem die Variablen “labelled” sind, also Beschriftungen haben. Wir können die Labels mit <code>get_label()</code> abrufen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_example_cli.RData"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_example_cli)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">illtask</th>
+<th style="text-align: right;">negativ</th>
+<th style="text-align: right;">support</th>
+<th style="text-align: right;">illtask_dm</th>
+<th style="text-align: right;">negativ_dm</th>
+<th style="text-align: right;">illtask_gm</th>
+<th style="text-align: right;">negativ_gm</th>
+<th style="text-align: right;">negativ_dm_l1</th>
+<th style="text-align: right;">day</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.188858</td>
+<td style="text-align: right;">1.825857</td>
+<td style="text-align: right;">3.454777</td>
+<td style="text-align: right;">-1.2994333</td>
+<td style="text-align: right;">-0.0153842</td>
+<td style="text-align: right;">2.488291</td>
+<td style="text-align: right;">1.841241</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.719163</td>
+<td style="text-align: right;">1.633681</td>
+<td style="text-align: right;">3.454777</td>
+<td style="text-align: right;">-0.7691283</td>
+<td style="text-align: right;">-0.2075602</td>
+<td style="text-align: right;">2.488291</td>
+<td style="text-align: right;">1.841241</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.149280</td>
+<td style="text-align: right;">1.250429</td>
+<td style="text-align: right;">3.454777</td>
+<td style="text-align: right;">0.6609887</td>
+<td style="text-align: right;">-0.5908122</td>
+<td style="text-align: right;">2.488291</td>
+<td style="text-align: right;">1.841241</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.372508</td>
+<td style="text-align: right;">1.583838</td>
+<td style="text-align: right;">3.454777</td>
+<td style="text-align: right;">-0.1157833</td>
+<td style="text-align: right;">-0.2574032</td>
+<td style="text-align: right;">2.488291</td>
+<td style="text-align: right;">1.841241</td>
+<td style="text-align: right;">-0.5908122</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.558448</td>
+<td style="text-align: right;">2.912401</td>
+<td style="text-align: right;">3.454777</td>
+<td style="text-align: right;">0.0701567</td>
+<td style="text-align: right;">1.0711598</td>
+<td style="text-align: right;">2.488291</td>
+<td style="text-align: right;">1.841241</td>
+<td style="text-align: right;">-0.2574032</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.336438</td>
+<td style="text-align: right;">2.111289</td>
+<td style="text-align: right;">2.109855</td>
+<td style="text-align: right;">0.2807496</td>
+<td style="text-align: right;">-0.4911521</td>
+<td style="text-align: right;">1.055688</td>
+<td style="text-align: right;">2.602441</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_label</span>(df_example_cli)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                         id 
+                              "Personen-ID" 
+                                    illtask 
+                 "Daily Illegitimate Tasks" 
+                                    negativ 
+                    "Daily Negative Affect" 
+                                    support 
+                         "Coworker support" 
+                                 illtask_dm 
+"Illegitimate Tasks (person-mean centered)" 
+                                 negativ_dm 
+       "Neg. Affect (person-mean centered)" 
+                                 illtask_gm 
+      "Illegitimate Tasks (person average)" 
+                                 negativ_gm 
+             "Neg. Affect (person average)" 
+                              negativ_dm_l1 
+                 "Previous-day Neg. Affect" 
+                                        day 
+                               "Tag (1-10)" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># alternativ</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">view_df</span>(df_example_cli)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Data frame: df_example_cli</caption>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">ID</td>
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Name</td>
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Label</td>
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Values</td>
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Value Labels</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">id</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Personen-ID</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: 1-100</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">2</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">illtask</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Daily Illegitimate Tasks</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: -1.9-5.6</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">negativ</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Daily Negative Affect</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: -0.2-7.7</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">4</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">support</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Coworker support</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: 1.4-4.5</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">5</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">illtask_dm</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Illegitimate Tasks (person-mean centered)</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: -2.1-2.3</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">6</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">negativ_dm</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Neg. Affect (person-mean centered)</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: -2.0-2.7</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">7</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">illtask_gm</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Illegitimate Tasks (person average)</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: -0.7-4.7</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">8</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">negativ_gm</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Neg. Affect (person average)</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: 0.8-5.0</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">9</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">negativ_dm_l1</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Previous-day Neg. Affect</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: -2.0-2.7</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">10</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">day</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Tag (1-10)</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: 1-10</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Berechne Modelle mit denen du die folgenden Hypothesen testest:</p>
+<p>H1: Illegitime Aufgaben hängen positiv mit negativem Affekt zusammen. H2: Der positive Zusammenhang von illegitime Aufgaben mit negativem Affekt fällt schwächer aus, wenn Unterstützung von Kolleg:innen hoch ausgeprägt ist.</p>
+<p>Gehe Schritt für Schritt vor und teste erst in einem Modell H1, dann in einem anderen Modell H2. Urteile, ob die Hypothesen angenommen oder verworfen werden sollten.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ri.rs_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(negativ <span class="sc">~</span> illtask_dm  <span class="sc">+</span> support <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> illtask_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example_cli)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(ri.rs_modell)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">SE</th>
+<th style="text-align: right;">CI</th>
+<th style="text-align: right;">CI_low</th>
+<th style="text-align: right;">CI_high</th>
+<th style="text-align: right;">t</th>
+<th style="text-align: right;">df_error</th>
+<th style="text-align: right;">p</th>
+<th style="text-align: left;">Effects</th>
+<th style="text-align: left;">Group</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">3.4515583</td>
+<td style="text-align: right;">0.3038234</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">2.8551451</td>
+<td style="text-align: right;">4.0479715</td>
+<td style="text-align: right;">11.360409</td>
+<td style="text-align: right;">776</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: left;">fixed</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">illtask_dm</td>
+<td style="text-align: right;">0.3256395</td>
+<td style="text-align: right;">0.0513930</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.2247537</td>
+<td style="text-align: right;">0.4265253</td>
+<td style="text-align: right;">6.336261</td>
+<td style="text-align: right;">776</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: left;">fixed</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">support</td>
+<td style="text-align: right;">-0.2468958</td>
+<td style="text-align: right;">0.1012860</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">-0.4457228</td>
+<td style="text-align: right;">-0.0480687</td>
+<td style="text-align: right;">-2.437610</td>
+<td style="text-align: right;">776</td>
+<td style="text-align: right;">0.0150083</td>
+<td style="text-align: left;">fixed</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SD (Intercept)</td>
+<td style="text-align: right;">0.6661075</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">id</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SD (illtask_dm)</td>
+<td style="text-align: right;">0.3534636</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">id</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cor (Intercept~illtask_dm)</td>
+<td style="text-align: right;">0.6940618</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">id</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SD (Observations)</td>
+<td style="text-align: right;">0.6775572</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">Residual</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Der Zusammenhang von täglichen illegitimen Aufgaben (illtask_dm) mit negativem Affekt (negativ) ist signifikant (b = 0.33, p &lt; .001), was Hypothese 1 unterstützt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ri.rs_cli_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(negativ <span class="sc">~</span> illtask_dm  <span class="sc">+</span> support<span class="sc">*</span>illtask_dm <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> illtask_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example_cli)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(ri.rs_cli_modell)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">SE</th>
+<th style="text-align: right;">CI</th>
+<th style="text-align: right;">CI_low</th>
+<th style="text-align: right;">CI_high</th>
+<th style="text-align: right;">t</th>
+<th style="text-align: right;">df_error</th>
+<th style="text-align: right;">p</th>
+<th style="text-align: left;">Effects</th>
+<th style="text-align: left;">Group</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">3.4723696</td>
+<td style="text-align: right;">0.3361052</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">2.8125852</td>
+<td style="text-align: right;">4.1321541</td>
+<td style="text-align: right;">10.3311992</td>
+<td style="text-align: right;">775</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: left;">fixed</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">illtask_dm</td>
+<td style="text-align: right;">0.3598764</td>
+<td style="text-align: right;">0.2459646</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">-0.1229594</td>
+<td style="text-align: right;">0.8427122</td>
+<td style="text-align: right;">1.4631228</td>
+<td style="text-align: right;">775</td>
+<td style="text-align: right;">0.1438392</td>
+<td style="text-align: left;">fixed</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">support</td>
+<td style="text-align: right;">-0.2540133</td>
+<td style="text-align: right;">0.1126112</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">-0.4750724</td>
+<td style="text-align: right;">-0.0329541</td>
+<td style="text-align: right;">-2.2556656</td>
+<td style="text-align: right;">775</td>
+<td style="text-align: right;">0.0243697</td>
+<td style="text-align: left;">fixed</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">illtask_dm:support</td>
+<td style="text-align: right;">-0.0116576</td>
+<td style="text-align: right;">0.0823355</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">-0.1732847</td>
+<td style="text-align: right;">0.1499694</td>
+<td style="text-align: right;">-0.1415871</td>
+<td style="text-align: right;">775</td>
+<td style="text-align: right;">0.8874429</td>
+<td style="text-align: left;">fixed</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SD (Intercept)</td>
+<td style="text-align: right;">0.6668935</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">id</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SD (illtask_dm)</td>
+<td style="text-align: right;">0.3567497</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">id</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cor (Intercept~illtask_dm)</td>
+<td style="text-align: right;">0.6950819</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">id</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SD (Observations)</td>
+<td style="text-align: right;">0.6776777</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">Residual</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Der Interaktionseffekt von täglichen illegitimen AUfgaben mit sozialer Unterstützung durch Kolleg:innen auf negativen Affekt ist nicht signifikant (b = -0.01, p = .89). Hypothese 2 muss somit verworfen werden.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="mediation" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="mediation"><span class="header-section-number">5.3</span> 1-1-1 Mediation</h2>
+<p>Im Folgenden erstellen wir ein Mediationsmodellen und spezifizieren bei den Argumenten x, y, und m die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variablen wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.</p>
+<p>Die 1-1-1 Mediation ist die gängigste Variante, in der alle Variablen (X, M[ediator], und Y) auf Tagesebene gemessen werden.</p>
+<section id="daten-einlesen" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="daten-einlesen"><span class="header-section-number">5.3.1</span> Daten einlesen</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_example1.RData"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_example1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">id</th>
+<th style="text-align: right;">y</th>
+<th style="text-align: right;">m</th>
+<th style="text-align: right;">x</th>
+<th style="text-align: right;">y_dm</th>
+<th style="text-align: right;">m_dm</th>
+<th style="text-align: right;">x_dm</th>
+<th style="text-align: right;">y_gm</th>
+<th style="text-align: right;">m_gm</th>
+<th style="text-align: right;">x_gm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">4.003538</td>
+<td style="text-align: right;">4.769391</td>
+<td style="text-align: right;">2.365486</td>
+<td style="text-align: right;">-0.3020232</td>
+<td style="text-align: right;">0.8945291</td>
+<td style="text-align: right;">0.6845636</td>
+<td style="text-align: right;">4.305561</td>
+<td style="text-align: right;">3.874862</td>
+<td style="text-align: right;">1.680922</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">4.925174</td>
+<td style="text-align: right;">2.510943</td>
+<td style="text-align: right;">0.748855</td>
+<td style="text-align: right;">0.6196128</td>
+<td style="text-align: right;">-1.3639189</td>
+<td style="text-align: right;">-0.9320674</td>
+<td style="text-align: right;">4.305561</td>
+<td style="text-align: right;">3.874862</td>
+<td style="text-align: right;">1.680922</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">4.598564</td>
+<td style="text-align: right;">3.098112</td>
+<td style="text-align: right;">1.395041</td>
+<td style="text-align: right;">0.2930028</td>
+<td style="text-align: right;">-0.7767499</td>
+<td style="text-align: right;">-0.2858814</td>
+<td style="text-align: right;">4.305561</td>
+<td style="text-align: right;">3.874862</td>
+<td style="text-align: right;">1.680922</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">4.286179</td>
+<td style="text-align: right;">4.610746</td>
+<td style="text-align: right;">1.860026</td>
+<td style="text-align: right;">-0.0193822</td>
+<td style="text-align: right;">0.7358841</td>
+<td style="text-align: right;">0.1791036</td>
+<td style="text-align: right;">4.305561</td>
+<td style="text-align: right;">3.874862</td>
+<td style="text-align: right;">1.680922</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">4.183494</td>
+<td style="text-align: right;">4.549044</td>
+<td style="text-align: right;">2.288019</td>
+<td style="text-align: right;">-0.1220672</td>
+<td style="text-align: right;">0.6741821</td>
+<td style="text-align: right;">0.6070966</td>
+<td style="text-align: right;">4.305561</td>
+<td style="text-align: right;">3.874862</td>
+<td style="text-align: right;">1.680922</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.631716</td>
+<td style="text-align: right;">3.590049</td>
+<td style="text-align: right;">1.696510</td>
+<td style="text-align: right;">-0.6738452</td>
+<td style="text-align: right;">-0.2848129</td>
+<td style="text-align: right;">0.0155876</td>
+<td style="text-align: right;">4.305561</td>
+<td style="text-align: right;">3.874862</td>
+<td style="text-align: right;">1.680922</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Zum Testen verwenden wir zunächst die Funktion <code>modmed.mlm()</code>. Anders als bei den früheren ANalysen steht uns das <code>parameters</code> Paket hier nicht zur Verfügung um die Ergebnisse zusammenzufassen. Stattdessen nehmen wir die <code>summary()</code> Funktion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fit_mediation <span class="ot">&lt;-</span> <span class="fu">modmed.mlm</span>(df_example1, <span class="st">"id"</span>, <span class="st">"x_dm"</span>, <span class="st">"y"</span>, <span class="st">"m_dm"</span>,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">random.int.m =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">na.action =</span> na.omit)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_mediation<span class="sc">$</span>model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed-effects model fit by REML
+  Data: tmp 
+       AIC      BIC    logLik
+  4255.191 4299.979 -2119.596
+
+Random effects:
+ Formula: ~0 + Sy | L2id
+               Sy  Residual
+StdDev: 0.8445188 0.6973181
+
+Variance function:
+ Structure: Different standard deviations per stratum
+ Formula: ~1 | Sm 
+ Parameter estimates:
+        0         1 
+1.0000000 0.8655498 
+Fixed effects:  as.formula(fixed.formula) 
+       Value  Std.Error   DF  t-value p-value
+Sm  0.000000 0.01908636 1896  0.00000   1e+00
+Sy  5.367553 0.08728329 1896 61.49577   0e+00
+SmX 0.514122 0.02887261 1896 17.80656   0e+00
+SyX 0.139023 0.03829162 1896  3.63064   3e-04
+SyM 0.583714 0.03657147 1896 15.96090   0e+00
+ Correlation: 
+    Sm     Sy     SmX    SyX   
+Sy   0.000                     
+SmX  0.000  0.000              
+SyX  0.000  0.000  0.000       
+SyM  0.000  0.000  0.000 -0.491
+
+Standardized Within-Group Residuals:
+         Min           Q1          Med           Q3          Max 
+-5.950445926 -0.596749015 -0.007671515  0.623219431  4.479879774 
+
+Number of Observations: 2000
+Number of Groups: 100 </code></pre>
+</div>
+</div>
+<p>Die ausgegebenen Zeilen/Parameter sind etwas kryptisch beschrieben.</p>
+<ul>
+<li>Sm - fixed Intercept von M</li>
+<li>Sy - fixed Intercept von Y</li>
+<li>SmX - fixed Slope von X auf M (a-Pfad)</li>
+<li>SyX - fixed Slope von Y auf X (c’-Pfad)</li>
+<li>SyM - fixed Slope von Y auf M (b-Pfad)</li>
+</ul>
+</section>
+<section id="bootstrapped-version" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="bootstrapped-version"><span class="header-section-number">5.3.2</span> Bootstrapped Version</h3>
+<p>Der indirekte Effekt von X auf Y via M (a-Pfad * b-Pfad) der uns in der Mediation von zentralem Interesse ist, ist in der Regel nicht normalverteilt, da ein Produkt zweier (oder mehrerer) Pfadkoeffizienten nicht wie die Pfadkoeffizienten selber approximativ normalverteilt ist. Aufgrund der fehlenden Normalverteilung verwenden wir die Bootstrap-Schätzung, um eine robustere Aussage über die Signifikanz des indirekten Effekts zu bekommen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>boot.custom.results <span class="ot">&lt;-</span> <span class="fu">boot.modmed.mlm.custom</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_example1 <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>(),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">L2ID =</span> <span class="st">"id"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> <span class="st">"x_dm"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> <span class="st">"y"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="st">"m_dm"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">random.int.m =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">opt =</span> <span class="st">"nlm"</span>),</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.action =</span> na.omit,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">return.type =</span> <span class="st">"all"</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrep =</span> <span class="dv">1000</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">parallel.type =</span> <span class="st">"parallel"</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncores =</span> <span class="dv">4</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">2299</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(boot.custom.results<span class="sc">$</span>model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed-effects model fit by REML
+  Data: tmp 
+       AIC      BIC    logLik
+  4255.191 4299.979 -2119.596
+
+Random effects:
+ Formula: ~0 + Sy | L2id
+               Sy  Residual
+StdDev: 0.8445016 0.6973198
+
+Variance function:
+ Structure: Different standard deviations per stratum
+ Formula: ~1 | Sm 
+ Parameter estimates:
+        0         1 
+1.0000000 0.8655476 
+Fixed effects:  as.formula(fixed.formula) 
+       Value  Std.Error   DF  t-value p-value
+Sm  0.000000 0.01908635 1896  0.00000   1e+00
+Sy  5.367553 0.08728164 1896 61.49693   0e+00
+SmX 0.514122 0.02887260 1896 17.80657   0e+00
+SyX 0.139023 0.03829171 1896  3.63063   3e-04
+SyM 0.583714 0.03657156 1896 15.96086   0e+00
+ Correlation: 
+    Sm     Sy     SmX    SyX   
+Sy   0.000                     
+SmX  0.000  0.000              
+SyX  0.000  0.000  0.000       
+SyM  0.000  0.000  0.000 -0.491
+
+Standardized Within-Group Residuals:
+         Min           Q1          Med           Q3          Max 
+-5.950427733 -0.596748613 -0.007673935  0.623218790  4.479873395 
+
+Number of Observations: 2000
+Number of Groups: 100 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract.modmed.mlm</span>(boot.custom.results, <span class="at">type=</span><span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Sm            Sy           SmX           SyX           SyM 
+-7.971267e-17  5.367553e+00  5.141219e-01  1.390232e-01  5.837135e-01 
+      re.SySy 
+ 7.131830e-01 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract.modmed.mlm</span>(boot.custom.results, <span class="at">type=</span><span class="st">"indirect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3000999</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># manual extract of CI</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>indirect_boot <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">SyM =</span> boot.custom.results[[<span class="st">"t"</span>]][,<span class="fu">which</span>(<span class="fu">names</span>(boot.custom.results[[<span class="st">"t0"</span>]]) <span class="sc">==</span> <span class="st">"SyM"</span>)], </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">SmX =</span> boot.custom.results[[<span class="st">"t"</span>]][,<span class="fu">which</span>(<span class="fu">names</span>(boot.custom.results[[<span class="st">"t0"</span>]]) <span class="sc">==</span> <span class="st">"SmX"</span>)]) <span class="sc">|&gt;</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">indirect =</span> SyM <span class="sc">*</span> SmX)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(indirect_boot<span class="sc">$</span>indirect, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2.5%     97.5% 
+0.1979216 0.4113055 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zusammenfassen</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>indirect_punktschaetzung <span class="ot">&lt;-</span> <span class="fu">extract.modmed.mlm</span>(boot.custom.results, <span class="at">type=</span><span class="st">"indirect"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>indirekt_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(indirect_boot<span class="sc">$</span>indirect, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>indirekt_zusammenfassung <span class="ot">&lt;-</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Koeffizient =</span> indirect_punktschaetzung,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">LLCI =</span> indirekt_ci[<span class="dv">1</span>],</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">ULCI =</span> indirekt_ci[<span class="dv">2</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `across(where(is.numeric), round, 3)`.
+Caused by warning:
+! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+Supply arguments directly to `.fns` through an anonymous function instead.
+
+  # Previously
+  across(a:b, mean, na.rm = TRUE)
+
+  # Now
+  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+</div>
+</div>
+<p>Der indirekte Effekt und sein 95% Konfidenzintervall müssen wir aus den Daten extrahieren. Wenn der 95% Konfidenzintervall die 0 ausschliesst (also sowohl unterer als auch oberes Limit entweder unter Null oder über Null liegen) können wir den indirekten Effekt als signifikant ansehen.</p>
+<p>In diesem Beispiel finden wir also einen signifikanten indirekten Effekt mit Koeffizient = 0.30, 95% CI = [0.19, 0.41]. LLCI = Lower Limit of Confidence Interval ULCI = Upper Limit of Confidence Interval</p>
+</section>
+</section>
+<section id="übung-1" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="übung-1"><span class="header-section-number">5.4</span> Übung</h2>
+<p>Wir arbeiten in der Übung mit einem neuen Datensatz.</p>
+<p>Mache dich mit ihm vertraut. Wie in der Cross-Level Interaktionsübung benutzen wir einen Datensatz in dem die Variablen “labelled” sind, also Beschriftungen haben. Wir können die Labels mit <code>get_label()</code> abrufen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_111_uebung.RData"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_111_uebung)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 16%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">id</th>
+<th style="text-align: right;">helfen</th>
+<th style="text-align: right;">wertschaetz</th>
+<th style="text-align: right;">selbstwert</th>
+<th style="text-align: right;">wertschaetz_dm</th>
+<th style="text-align: right;">selbstwert_dm</th>
+<th style="text-align: right;">wertschaetz_gm</th>
+<th style="text-align: right;">selbstwert_gm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">4.714438</td>
+<td style="text-align: right;">1.371902</td>
+<td style="text-align: right;">4.441296</td>
+<td style="text-align: right;">-0.0437649</td>
+<td style="text-align: right;">-0.7058638</td>
+<td style="text-align: right;">1.415667</td>
+<td style="text-align: right;">5.14716</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.622743</td>
+<td style="text-align: right;">0.574266</td>
+<td style="text-align: right;">5.981966</td>
+<td style="text-align: right;">-0.8414009</td>
+<td style="text-align: right;">0.8348062</td>
+<td style="text-align: right;">1.415667</td>
+<td style="text-align: right;">5.14716</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">5.337310</td>
+<td style="text-align: right;">1.472314</td>
+<td style="text-align: right;">5.407452</td>
+<td style="text-align: right;">0.0566471</td>
+<td style="text-align: right;">0.2602922</td>
+<td style="text-align: right;">1.415667</td>
+<td style="text-align: right;">5.14716</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">4.938451</td>
+<td style="text-align: right;">2.790352</td>
+<td style="text-align: right;">5.428928</td>
+<td style="text-align: right;">1.3746851</td>
+<td style="text-align: right;">0.2817682</td>
+<td style="text-align: right;">1.415667</td>
+<td style="text-align: right;">5.14716</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.742165</td>
+<td style="text-align: right;">1.204333</td>
+<td style="text-align: right;">5.369987</td>
+<td style="text-align: right;">-0.2113339</td>
+<td style="text-align: right;">0.2228272</td>
+<td style="text-align: right;">1.415667</td>
+<td style="text-align: right;">5.14716</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">4.607774</td>
+<td style="text-align: right;">1.744993</td>
+<td style="text-align: right;">4.644467</td>
+<td style="text-align: right;">0.3293261</td>
+<td style="text-align: right;">-0.5026928</td>
+<td style="text-align: right;">1.415667</td>
+<td style="text-align: right;">5.14716</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_label</span>(df_111_uebung)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                               id 
+                                    "Personen-ID" 
+                                           helfen 
+                              "Proaktives Helfen" 
+                                      wertschaetz 
+                       "erfahrene Wertschaetzung" 
+                                       selbstwert 
+                                     "Selbstwert" 
+                                   wertschaetz_dm 
+"erfahrene Wertschaetzung (person-mean centered)" 
+                                    selbstwert_dm 
+              "Selbstwert (person-mean centered)" 
+                                   wertschaetz_gm 
+      "erfahrene Wertschaetzung (person average)" 
+                                    selbstwert_gm 
+                    "Selbstwert (person average)" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># alternativ</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">view_df</span>(df_111_uebung)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Data frame: df_111_uebung</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">ID</td>
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Name</td>
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Label</td>
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Values</td>
+<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Value Labels</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">id</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Personen-ID</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+9<br>
+10<br>
+11<br>
+12<br>
+13<br>
+14<br>
+15<br>
+<span style="omit">&lt;... truncated&gt;</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">2</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">helfen</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Proaktives Helfen</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: 0.1-9.1</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">wertschaetz</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">erfahrene Wertschaetzung</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: -2.4-5.5</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">4</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">selbstwert</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Selbstwert</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: 0.9-8.0</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">5</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">wertschaetz_dm</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">erfahrene Wertschaetzung (person-mean centered)</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: -2.0-2.4</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">6</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">selbstwert_dm</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Selbstwert (person-mean centered)</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: -2.7-2.5</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">7</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">wertschaetz_gm</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">erfahrene Wertschaetzung (person average)</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: -1.0-4.6</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">8</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">selbstwert_gm</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Selbstwert (person average)</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: 2.7-6.4</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Berechne Modelle mit denen du die folgenden Hypothesen testest:</p>
+<p>H1: Tägliche Wertschätzung durch Vorgesetzte und Kolleg:innen hängen positiv mit dem täglichen Selbstwert zusammen. H2: Täglicher Selbstwert hängt positiv mit täglichem proaktivem Helfen zusammen. H3: Es gibt einen positiven indirekten Zusammenhang zwischen täglicher Wertschätzung und täglichem proaktiven Helfen, vermittel durch den täglichen Selbstwert.</p>
+<p>Teste die Hypothesen in einem Modell mittels der <code>boot.modmed.mlm.custom()</code> Funktion. Urteile, ob die Hypothesen angenommen oder verworfen werden sollten.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># | cache: true</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>boot.custom.results <span class="ot">&lt;-</span> <span class="fu">boot.modmed.mlm.custom</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_111_uebung <span class="sc">|&gt;</span> <span class="fu">remove_all_labels</span>(),</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">L2ID =</span> <span class="st">"id"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> <span class="st">"wertschaetz_dm"</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> <span class="st">"helfen"</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="st">"selbstwert_dm"</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">random.int.m =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">opt =</span> <span class="st">"nlm"</span>),</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.action =</span> na.omit,</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">return.type =</span> <span class="st">"all"</span>,</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrep =</span> <span class="dv">1000</span>,</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">parallel.type =</span> <span class="st">"parallel"</span>,</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncores =</span> <span class="dv">4</span>,</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">2299</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(boot.custom.results<span class="sc">$</span>model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed-effects model fit by REML
+  Data: tmp 
+       AIC      BIC    logLik
+  4461.098 4505.886 -2222.549
+
+Random effects:
+ Formula: ~0 + Sy | L2id
+               Sy  Residual
+StdDev: 0.9352867 0.7376009
+
+Variance function:
+ Structure: Different standard deviations per stratum
+ Formula: ~1 | Sm 
+ Parameter estimates:
+       0        1 
+1.000000 0.853954 
+Fixed effects:  as.formula(fixed.formula) 
+       Value  Std.Error   DF  t-value p-value
+Sm  0.000000 0.01991847 1896  0.00000   1e+00
+Sy  4.760590 0.09639329 1896 49.38715   0e+00
+SmX 0.403544 0.02922104 1896 13.81007   0e+00
+SyX 0.333455 0.03734523 1896  8.92898   0e+00
+SyM 0.142299 0.03706805 1896  3.83887   1e-04
+ Correlation: 
+    Sm     Sy     SmX    SyX   
+Sy   0.000                     
+SmX  0.000  0.000              
+SyX  0.000  0.000  0.000       
+SyM  0.000  0.000  0.000 -0.401
+
+Standardized Within-Group Residuals:
+       Min         Q1        Med         Q3        Max 
+-3.7071940 -0.6329247  0.0197032  0.6318337  3.6275758 
+
+Number of Observations: 2000
+Number of Groups: 100 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract.modmed.mlm</span>(boot.custom.results, <span class="at">type=</span><span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Sm            Sy           SmX           SyX           SyM 
+-1.163247e-16  4.760590e+00  4.035445e-01  3.334548e-01  1.422995e-01 
+      re.SySy 
+ 8.747611e-01 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract.modmed.mlm</span>(boot.custom.results, <span class="at">type=</span><span class="st">"indirect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05742417</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># manual extract of CI</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>indirect_boot <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">SyM =</span> boot.custom.results[[<span class="st">"t"</span>]][,<span class="fu">which</span>(<span class="fu">names</span>(boot.custom.results[[<span class="st">"t0"</span>]]) <span class="sc">==</span> <span class="st">"SyM"</span>)], </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">SmX =</span> boot.custom.results[[<span class="st">"t"</span>]][,<span class="fu">which</span>(<span class="fu">names</span>(boot.custom.results[[<span class="st">"t0"</span>]]) <span class="sc">==</span> <span class="st">"SmX"</span>)]) <span class="sc">|&gt;</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">indirect =</span> SyM <span class="sc">*</span> SmX)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(indirect_boot<span class="sc">$</span>indirect, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        2.5%        97.5% 
+-0.005407806  0.137634291 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zusammenfassen</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>indirect_punktschaetzung <span class="ot">&lt;-</span> <span class="fu">extract.modmed.mlm</span>(boot.custom.results, <span class="at">type=</span><span class="st">"indirect"</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>indirekt_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(indirect_boot<span class="sc">$</span>indirect, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>indirekt_zusammenfassung <span class="ot">&lt;-</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Koeffizient =</span> indirect_punktschaetzung,</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">LLCI =</span> indirekt_ci[<span class="dv">1</span>],</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">ULCI =</span> indirekt_ci[<span class="dv">2</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">3</span>))</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>indirekt_zusammenfassung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Koeffizient</th>
+<th style="text-align: right;">LLCI</th>
+<th style="text-align: right;">ULCI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">-0.005</td>
+<td style="text-align: right;">0.138</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>H1 wird unterstützt (SmX: b = 0.40, p &lt; .001). H2 wird verworfen (SyM: b = 0.14, p &lt; .40). H3: wird entsprechend auch verworfen (95% CI des indirekten Effekt schliesst die 0 ein). Es besteht aber ein direkter Zusammenhang zwischen X und Y (SyX: b = 0.33, p &lt; .001), der, anders als angenommen, nicht indirekt über Selbstwert vermittelt wird.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03 Hypotheses Tests.html" class="pagination-link" aria-label="Kapitel 3: Hypothesentests - Teil 1">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./00 Data Wrangling Basics.html" class="pagination-link" aria-label="Anhang: Data Wrangling">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Anhang: Data Wrangling</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

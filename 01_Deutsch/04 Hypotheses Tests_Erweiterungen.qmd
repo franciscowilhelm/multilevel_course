@@ -121,25 +121,26 @@ parameters(ri.rs_cli_modell)
 ```
 Der Interaktionseffekt von täglichen illegitimen AUfgaben mit sozialer Unterstützung durch Kolleg:innen auf negativen Affekt ist nicht signifikant (b = -0.01, p = .89). Hypothese 2 muss somit verworfen werden.
 
-:::{.callout-tip collapse="true"}
-
-
-## Daten einlesen
-
-```{r}
-load("../data/df_example1.RData")
-```
-Im Folgenden erstellen wir ein Mediationsmodellen und spezifizieren bei den Argumenten x, y, und m die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variablen wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.
+:::
 
 ## 1-1-1 Mediation
 
+Im Folgenden erstellen wir ein Mediationsmodellen und spezifizieren bei den Argumenten x, y, und m die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variablen wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.
+
 Die 1-1-1 Mediation ist die gängigste Variante, in der alle Variablen (X, M[ediator], und Y) auf Tagesebene gemessen werden.
+
+### Daten einlesen
+
+```{r}
+load("../data/df_example1.RData")
+head(df_example1)
+```
+
 Zum Testen verwenden wir zunächst die Funktion `modmed.mlm()`.
 Anders als bei den früheren ANalysen steht uns das `parameters` Paket hier nicht zur Verfügung um die Ergebnisse zusammenzufassen. Stattdessen nehmen wir die `summary()` Funktion.
 
-
 ```{r}
-fit_mediation <- multilevelmediation::modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm",
+fit_mediation <- modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm",
                                 random.int.m = FALSE,
                                 na.action = na.omit)
 
@@ -158,9 +159,9 @@ Die ausgegebenen Zeilen/Parameter sind etwas kryptisch beschrieben.
 Der indirekte Effekt von X auf Y via M (a-Pfad * b-Pfad) der uns in der Mediation von zentralem Interesse ist, ist in der Regel nicht normalverteilt, da ein Produkt zweier (oder mehrerer) Pfadkoeffizienten nicht wie die Pfadkoeffizienten selber approximativ normalverteilt ist. Aufgrund der fehlenden Normalverteilung verwenden wir die Bootstrap-Schätzung, um eine robustere Aussage über die Signifikanz des indirekten Effekts zu bekommen.
 
 ```{r}
-# | cache: true
+#| cache: true
 boot.custom.results <- boot.modmed.mlm.custom(
-  data = df_example1,
+  data = df_example1 |> as.data.frame(),
   L2ID = "id",
   X = "x_dm",
   Y = "y",
@@ -227,7 +228,7 @@ H3: Es gibt einen positiven indirekten Zusammenhang zwischen täglicher Wertsch�
 
 Teste die Hypothesen in einem Modell mittels der `boot.modmed.mlm.custom()` Funktion. Urteile, ob die Hypothesen angenommen oder verworfen werden sollten.
 
-::{.callout-tip collapse="true"}
+::: {.callout-tip collapse="true"}
 
 ```{r}
 # | cache: true
@@ -272,4 +273,4 @@ H1 wird unterstützt (SmX: b = 0.40, p < .001).
 H2 wird verworfen (SyM: b = 0.14, p < .40).
 H3: wird entsprechend auch verworfen (95% CI des indirekten Effekt schliesst die 0 ein). Es besteht aber ein direkter Zusammenhang zwischen X und Y (SyX: b = 0.33, p < .001), der, anders als angenommen, nicht indirekt über Selbstwert vermittelt wird. 
 
-:::{.callout-tip collapse="true"}
+:::

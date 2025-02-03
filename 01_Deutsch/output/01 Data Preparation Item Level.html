@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,7 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-77205cbbef6a5b90ba72edc25dea2156.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -195,8 +195,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./04 Hypotheses Tests_Erweiterungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesentests - Erweiterungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./00 Data Wrangling Basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Anhang: Data Wrangling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Anhang: Data Wrangling</span></span></a>
   </div>
 </li>
     </ul>
@@ -257,6 +263,7 @@ window.Quarto = {
 </section>
 <section id="daten-einlesen" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="daten-einlesen"><span class="header-section-number">2.2</span> Daten einlesen</h2>
+<p>Mit <code>load()</code> können wir <code>.RData</code> Dateien einlesen (für weitergehende Infos s. auch <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/03-data_frames.html">Einführung in R</a>, Kapitel 3.2.4.)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_cfa_wide.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1372,43 +1379,253 @@ window.Quarto = {
 </section>
 <section id="daten-transformieren-langformat" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="daten-transformieren-langformat"><span class="header-section-number">2.4</span> Daten transformieren: Langformat</h2>
-<p>Als erstes transformieren wir die Daten vom Breit- ins Langformat, so dass jede Messung (Tag 1-Tag 10) eine eigene Zeile bekommt. Diese Variable nennen wir “time”. Im ersten Schritt machen wir mit <code>pivot_longer()</code> den Datensatz seehr lang, es bekommt nämlich jede Messung von jeder Variable ihre eigenen Zeile. Wir machen den Datensatz dann im zweiten Schritt mit <code>pivot_wider()</code> wieder etwas breiter mit dem Ziel, eine Zeile pro Person und Tag zu bekommen, und jeweils eine Spalte pro Item.</p>
-<p>Die Funktionsweise von pivot_longer() und pivot_wider() ist in der <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping">Einführung zu R</a> beschrieben.</p>
+<p>Als erstes transformieren wir die Daten vom Breit- ins Langformat, so dass jede Messung (Tag 1-Tag 10) eine eigene Zeile bekommt. Diese Variable nennen wir “time”. Im ersten Schritt machen wir mit <code>pivot_longer()</code> den Datensatz seeehr lang, es bekommt nämlich jede Messung von jeder Variable ihre eigenen Zeile. Wir machen den Datensatz dann im zweiten Schritt mit <code>pivot_wider()</code> wieder etwas breiter mit dem Ziel, eine Zeile pro Person und Tag zu bekommen, und jeweils eine Spalte pro Item.</p>
+<p>Die Funktionsweise von pivot_longer() und pivot_wider() ist in der <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping">Einführung zu R, Kapitel 4.3</a> beschrieben.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_cfa_superlong <span class="ot">&lt;-</span> df_cfa_wide <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>id, <span class="co"># All columns except id</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"time"</span>),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_t"</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  ) </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>df_cfa_long <span class="ot">&lt;-</span> df_cfa_superlong <span class="sc">|&gt;</span> </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> value) <span class="sc">|&gt;</span> </span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time)) <span class="co"># time ist eine Zahl von 1-10, wurde aber zuvor als Character-Vector abgespeichert</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"time"</span>), <span class="co"># Namensgebende Spalten sollen heissen: variable, time</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_t"</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Namensgebende Spalten anhand "_t_ separieren (z.B. "a1_t1" --&gt; gespalten in "a1" und "1", "_t" ist der Separator)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_superlong)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">time</th>
+<th style="text-align: right;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">a1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">3.336252</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">a1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">2.149828</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">a1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1.613518</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">a1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">3.351085</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">a1</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">3.320900</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">a1</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: right;">4.173775</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_cfa_long <span class="ot">&lt;-</span> df_cfa_superlong <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="co">#namen aus variable</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> value) <span class="sc">|&gt;</span>  <span class="co"># werte aus "value" (Standardname)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time)) <span class="co"># time ist eine Zahl von 1-10, wurde aber zuvor als Character-Vector abgespeichert</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">a1</th>
+<th style="text-align: right;">a2</th>
+<th style="text-align: right;">a3</th>
+<th style="text-align: right;">a4</th>
+<th style="text-align: right;">a5</th>
+<th style="text-align: right;">b1</th>
+<th style="text-align: right;">b2</th>
+<th style="text-align: right;">b3</th>
+<th style="text-align: right;">b4</th>
+<th style="text-align: right;">b5</th>
+<th style="text-align: right;">c1</th>
+<th style="text-align: right;">c2</th>
+<th style="text-align: right;">c3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.336252</td>
+<td style="text-align: right;">3.380463</td>
+<td style="text-align: right;">3.223528</td>
+<td style="text-align: right;">4.399347</td>
+<td style="text-align: right;">3.542602</td>
+<td style="text-align: right;">3.370896</td>
+<td style="text-align: right;">1.697640</td>
+<td style="text-align: right;">0.584167</td>
+<td style="text-align: right;">1.576649</td>
+<td style="text-align: right;">2.847195</td>
+<td style="text-align: right;">4.325797</td>
+<td style="text-align: right;">1.030847</td>
+<td style="text-align: right;">3.822098</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.149828</td>
+<td style="text-align: right;">5.110309</td>
+<td style="text-align: right;">5.678413</td>
+<td style="text-align: right;">2.765556</td>
+<td style="text-align: right;">2.387270</td>
+<td style="text-align: right;">2.486919</td>
+<td style="text-align: right;">0.952220</td>
+<td style="text-align: right;">2.101517</td>
+<td style="text-align: right;">0.331000</td>
+<td style="text-align: right;">2.552073</td>
+<td style="text-align: right;">3.364003</td>
+<td style="text-align: right;">5.711729</td>
+<td style="text-align: right;">3.613752</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.613518</td>
+<td style="text-align: right;">3.004133</td>
+<td style="text-align: right;">2.503233</td>
+<td style="text-align: right;">1.898476</td>
+<td style="text-align: right;">2.807670</td>
+<td style="text-align: right;">0.991958</td>
+<td style="text-align: right;">-0.685685</td>
+<td style="text-align: right;">0.003147</td>
+<td style="text-align: right;">-0.517730</td>
+<td style="text-align: right;">1.955846</td>
+<td style="text-align: right;">2.582169</td>
+<td style="text-align: right;">2.659834</td>
+<td style="text-align: right;">2.155132</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.351085</td>
+<td style="text-align: right;">3.852294</td>
+<td style="text-align: right;">4.972103</td>
+<td style="text-align: right;">2.612551</td>
+<td style="text-align: right;">3.233779</td>
+<td style="text-align: right;">2.248097</td>
+<td style="text-align: right;">0.004118</td>
+<td style="text-align: right;">0.711264</td>
+<td style="text-align: right;">2.185949</td>
+<td style="text-align: right;">2.028044</td>
+<td style="text-align: right;">2.918614</td>
+<td style="text-align: right;">3.163276</td>
+<td style="text-align: right;">2.463234</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.320900</td>
+<td style="text-align: right;">3.694431</td>
+<td style="text-align: right;">4.703663</td>
+<td style="text-align: right;">3.476859</td>
+<td style="text-align: right;">4.210036</td>
+<td style="text-align: right;">1.953658</td>
+<td style="text-align: right;">0.675750</td>
+<td style="text-align: right;">0.921623</td>
+<td style="text-align: right;">0.284884</td>
+<td style="text-align: right;">2.361978</td>
+<td style="text-align: right;">2.829237</td>
+<td style="text-align: right;">3.910432</td>
+<td style="text-align: right;">2.739723</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4.173775</td>
+<td style="text-align: right;">5.658948</td>
+<td style="text-align: right;">3.273027</td>
+<td style="text-align: right;">4.192700</td>
+<td style="text-align: right;">3.565438</td>
+<td style="text-align: right;">1.544111</td>
+<td style="text-align: right;">-0.373186</td>
+<td style="text-align: right;">1.303905</td>
+<td style="text-align: right;">1.687402</td>
+<td style="text-align: right;">2.539967</td>
+<td style="text-align: right;">4.141474</td>
+<td style="text-align: right;">5.234767</td>
+<td style="text-align: right;">3.409232</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Das Ergebnis:</p>
+<ul>
+<li>eine Zeile pro Person (id) und Messung (time). Die Spalten id und time identifizieren also für jede Zeile, von welcher Person und welchem Tag die Werte in den folgenden Spalten kommen.</li>
+<li>eine Spalte pro Variable (a1-a5, b1-b5, c1-c3)</li>
+</ul>
 </section>
 <section id="daten-transformieren-skalenscores-erstellen" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="daten-transformieren-skalenscores-erstellen"><span class="header-section-number">2.5</span> Daten transformieren: Skalenscores erstellen</h2>
 <p>Als nächstes können wir die Skalenscores erstellen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_cfa_long_scores <span class="ot">&lt;-</span> df_cfa_long <span class="sc">|&gt;</span> <span class="fu">group_by</span>(id, time) <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">a =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"a"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">b =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"b"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">c =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"c"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span> <span class="co"># group_by() wieder aufheben für den finalen Datensatz</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_cfa_long_scores <span class="ot">&lt;-</span> df_cfa_long <span class="sc">|&gt;</span> <span class="fu">group_by</span>(id, time) <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">a =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"a"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">b =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"b"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">c =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"c"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span> <span class="co"># group_by() wieder aufheben für den finalen Datensatz</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Wir verwenden eine simple Form der Skalenerstellung bei dem der Mittelwert aller vorhandenen Items einer Skala verwendet wird. (Best-practice ist es bei fehlenden Daten genau hinzuschauen und nur dann einen Skalenwert zu erstellen, wenn die Personen zu einen gewissen Prozentsatz aller Items eine Antwort geben (etwa 2/3). Eine solche Funktion könnten wir programmieren, lassen es aber für das Beispiel weg.)</p>
+<p>Wir verwenden eine simple Form der Skalenerstellung bei dem der Mittelwert aller vorhandenen Items einer Skala verwendet wird.</p>
+<p>(Best-practice ist es bei fehlenden Daten genau hinzuschauen und nur dann einen Skalenwert zu erstellen, wenn die Personen zu einen gewissen Prozentsatz aller Items eine Antwort geben (etwa 2/3). Eine solche Funktion könnten wir programmieren, lassen es aber für das Beispiel weg.)</p>
 </section>
 <section id="daten-transformieren-zentrierung" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="daten-transformieren-zentrierung"><span class="header-section-number">2.6</span> Daten transformieren: Zentrierung</h2>
 <p>Für die spätere Verwendung zerlegen wir die Rohvariablen mittels person-mean Zentrierung. Wir zentrieren wir die Skalenvariablen, die täglich gemessen werden (aber nicht Baseline-Variablen), mittels <code>de_mean()</code>. <code>de_mean()</code> nimmt als Argumente (a) mit Komma getrennte Namen der Variablen, die wir zentrieren wollen (mehrere auf einmal ist möglich), (b) mittels <code>grp =</code> Argument die identifizierende Variable für die Gruppenzugehörigkeit in Anführungszeichen (<code>"id"</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_cfa_long_scores <span class="ot">&lt;-</span> df_cfa_long_scores <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">de_mean</span>(a,b, c, <span class="at">grp =</span> <span class="st">"id"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_long_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_cfa_long_scores <span class="ot">&lt;-</span> df_cfa_long_scores <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">de_mean</span>(a,b, c, <span class="at">grp =</span> <span class="st">"id"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_long_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -1527,17 +1744,17 @@ window.Quarto = {
 <p>Als Ergebnis erhalten wir die zusätzlichen Variablen a, b, c jeweils mit “_dm” und “_gm”. Was verbirgt sich dahinter? Wir haben einen Datensatz mit den unzentrierten / Rohvariablen der Skalen (ohne Suffix), den zentrierten Variablen (Suffix <code>_dm</code>) und den Mittelwerten der Personen (Suffix <code>_gm</code>), den wir zur weiteren Verwendung auch abspeichern.</p>
 <p>Damit ist die Transformation der Daten abgeschlossen! Wir können die Datensätze - “df_cfa_long” für die Items und “df_cfa_long_scores” für die Skalen nun abspeichern.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df_cfa_long, df_cfa_long_scores, <span class="at">file =</span> <span class="st">"../data/df_cfa_long.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df_cfa_long, df_cfa_long_scores, <span class="at">file =</span> <span class="st">"../data/df_cfa_long.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="überprüfe-dein-verständnis" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="überprüfe-dein-verständnis"><span class="header-section-number">2.7</span> Überprüfe dein Verständnis</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung <span class="ot">&lt;-</span> df_cfa_long_scores <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, time, a, a_dm, a_gm)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung <span class="ot">&lt;-</span> df_cfa_long_scores <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, time, a, a_dm, a_gm)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -1641,8 +1858,8 @@ Lösung
 <div class="callout-body-container callout-body">
 <p>Die Variable a ist die Rohvariable, die den gemessenen Wert auf der Skala an jedem Tag angibt. Variablen mit “_gm” und “_dm” werden von <code>sjmisc::de_mean()</code> erstellt und stehen für den Mittelwert der Person über alle Tage hinweg. Variablen mit “_dm” stehen für die täglichen Abweichungen vom Mittelwert der Person. “a_dm” ergibt sich aus: <span class="math inline">\(a = a - a\_gm\)</span>. Wir können dies auch in R replizieren mit:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a_dm_manuell =</span> a <span class="sc">-</span> <span class="fu">mean</span>(a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a_dm_manuell =</span> a <span class="sc">-</span> <span class="fu">mean</span>(a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -1755,856 +1972,6 @@ Lösung
 <li>Skalenscores für x und y zentrieren (weiterhin in <code>df_uebung_lang_scores</code>).</li>
 </ol>
 <p>Du kannst dazu den Code von oben wiederverwenden und auf den hier verwendeten Datensatz und seine Variablen anpassen.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_cfa_exercise.RData"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_exercise)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 0%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: right;">id</th>
-<th style="text-align: right;">x1_t1</th>
-<th style="text-align: right;">x1_t2</th>
-<th style="text-align: right;">x1_t3</th>
-<th style="text-align: right;">x1_t4</th>
-<th style="text-align: right;">x1_t5</th>
-<th style="text-align: right;">x1_t6</th>
-<th style="text-align: right;">x1_t7</th>
-<th style="text-align: right;">x1_t8</th>
-<th style="text-align: right;">x1_t9</th>
-<th style="text-align: right;">x1_t10</th>
-<th style="text-align: right;">x2_t1</th>
-<th style="text-align: right;">x2_t2</th>
-<th style="text-align: right;">x2_t3</th>
-<th style="text-align: right;">x2_t4</th>
-<th style="text-align: right;">x2_t5</th>
-<th style="text-align: right;">x2_t6</th>
-<th style="text-align: right;">x2_t7</th>
-<th style="text-align: right;">x2_t8</th>
-<th style="text-align: right;">x2_t9</th>
-<th style="text-align: right;">x2_t10</th>
-<th style="text-align: right;">x3_t1</th>
-<th style="text-align: right;">x3_t2</th>
-<th style="text-align: right;">x3_t3</th>
-<th style="text-align: right;">x3_t4</th>
-<th style="text-align: right;">x3_t5</th>
-<th style="text-align: right;">x3_t6</th>
-<th style="text-align: right;">x3_t7</th>
-<th style="text-align: right;">x3_t8</th>
-<th style="text-align: right;">x3_t9</th>
-<th style="text-align: right;">x3_t10</th>
-<th style="text-align: right;">x4_t1</th>
-<th style="text-align: right;">x4_t2</th>
-<th style="text-align: right;">x4_t3</th>
-<th style="text-align: right;">x4_t4</th>
-<th style="text-align: right;">x4_t5</th>
-<th style="text-align: right;">x4_t6</th>
-<th style="text-align: right;">x4_t7</th>
-<th style="text-align: right;">x4_t8</th>
-<th style="text-align: right;">x4_t9</th>
-<th style="text-align: right;">x4_t10</th>
-<th style="text-align: right;">x5_t1</th>
-<th style="text-align: right;">x5_t2</th>
-<th style="text-align: right;">x5_t3</th>
-<th style="text-align: right;">x5_t4</th>
-<th style="text-align: right;">x5_t5</th>
-<th style="text-align: right;">x5_t6</th>
-<th style="text-align: right;">x5_t7</th>
-<th style="text-align: right;">x5_t8</th>
-<th style="text-align: right;">x5_t9</th>
-<th style="text-align: right;">x5_t10</th>
-<th style="text-align: right;">y1_t1</th>
-<th style="text-align: right;">y1_t2</th>
-<th style="text-align: right;">y1_t3</th>
-<th style="text-align: right;">y1_t4</th>
-<th style="text-align: right;">y1_t5</th>
-<th style="text-align: right;">y1_t6</th>
-<th style="text-align: right;">y1_t7</th>
-<th style="text-align: right;">y1_t8</th>
-<th style="text-align: right;">y1_t9</th>
-<th style="text-align: right;">y1_t10</th>
-<th style="text-align: right;">y2_t1</th>
-<th style="text-align: right;">y2_t2</th>
-<th style="text-align: right;">y2_t3</th>
-<th style="text-align: right;">y2_t4</th>
-<th style="text-align: right;">y2_t5</th>
-<th style="text-align: right;">y2_t6</th>
-<th style="text-align: right;">y2_t7</th>
-<th style="text-align: right;">y2_t8</th>
-<th style="text-align: right;">y2_t9</th>
-<th style="text-align: right;">y2_t10</th>
-<th style="text-align: right;">y3_t1</th>
-<th style="text-align: right;">y3_t2</th>
-<th style="text-align: right;">y3_t3</th>
-<th style="text-align: right;">y3_t4</th>
-<th style="text-align: right;">y3_t5</th>
-<th style="text-align: right;">y3_t6</th>
-<th style="text-align: right;">y3_t7</th>
-<th style="text-align: right;">y3_t8</th>
-<th style="text-align: right;">y3_t9</th>
-<th style="text-align: right;">y3_t10</th>
-<th style="text-align: right;">y4_t1</th>
-<th style="text-align: right;">y4_t2</th>
-<th style="text-align: right;">y4_t3</th>
-<th style="text-align: right;">y4_t4</th>
-<th style="text-align: right;">y4_t5</th>
-<th style="text-align: right;">y4_t6</th>
-<th style="text-align: right;">y4_t7</th>
-<th style="text-align: right;">y4_t8</th>
-<th style="text-align: right;">y4_t9</th>
-<th style="text-align: right;">y4_t10</th>
-<th style="text-align: right;">y5_t1</th>
-<th style="text-align: right;">y5_t2</th>
-<th style="text-align: right;">y5_t3</th>
-<th style="text-align: right;">y5_t4</th>
-<th style="text-align: right;">y5_t5</th>
-<th style="text-align: right;">y5_t6</th>
-<th style="text-align: right;">y5_t7</th>
-<th style="text-align: right;">y5_t8</th>
-<th style="text-align: right;">y5_t9</th>
-<th style="text-align: right;">y5_t10</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4.927017</td>
-<td style="text-align: right;">3.484359</td>
-<td style="text-align: right;">5.209319</td>
-<td style="text-align: right;">3.777327</td>
-<td style="text-align: right;">2.822955</td>
-<td style="text-align: right;">2.874990</td>
-<td style="text-align: right;">4.399279</td>
-<td style="text-align: right;">3.999338</td>
-<td style="text-align: right;">2.829229</td>
-<td style="text-align: right;">4.534257</td>
-<td style="text-align: right;">3.569244</td>
-<td style="text-align: right;">3.716360</td>
-<td style="text-align: right;">4.025572</td>
-<td style="text-align: right;">2.601702</td>
-<td style="text-align: right;">4.917407</td>
-<td style="text-align: right;">4.417907</td>
-<td style="text-align: right;">5.836183</td>
-<td style="text-align: right;">2.584864</td>
-<td style="text-align: right;">2.416726</td>
-<td style="text-align: right;">3.428733</td>
-<td style="text-align: right;">3.123268</td>
-<td style="text-align: right;">2.200183</td>
-<td style="text-align: right;">2.416466</td>
-<td style="text-align: right;">2.600930</td>
-<td style="text-align: right;">2.179303</td>
-<td style="text-align: right;">3.370835</td>
-<td style="text-align: right;">5.833981</td>
-<td style="text-align: right;">3.574207</td>
-<td style="text-align: right;">2.399534</td>
-<td style="text-align: right;">1.756436</td>
-<td style="text-align: right;">5.759150</td>
-<td style="text-align: right;">4.865658</td>
-<td style="text-align: right;">5.106690</td>
-<td style="text-align: right;">4.142291</td>
-<td style="text-align: right;">4.984553</td>
-<td style="text-align: right;">4.902819</td>
-<td style="text-align: right;">7.088255</td>
-<td style="text-align: right;">6.024145</td>
-<td style="text-align: right;">4.119966</td>
-<td style="text-align: right;">4.134776</td>
-<td style="text-align: right;">4.700258</td>
-<td style="text-align: right;">3.579269</td>
-<td style="text-align: right;">5.881804</td>
-<td style="text-align: right;">4.111085</td>
-<td style="text-align: right;">4.600078</td>
-<td style="text-align: right;">4.055922</td>
-<td style="text-align: right;">4.496880</td>
-<td style="text-align: right;">4.373719</td>
-<td style="text-align: right;">4.322336</td>
-<td style="text-align: right;">3.912015</td>
-<td style="text-align: right;">4.329297</td>
-<td style="text-align: right;">3.597471</td>
-<td style="text-align: right;">3.552542</td>
-<td style="text-align: right;">3.052100</td>
-<td style="text-align: right;">2.592308</td>
-<td style="text-align: right;">3.082656</td>
-<td style="text-align: right;">4.184377</td>
-<td style="text-align: right;">4.064089</td>
-<td style="text-align: right;">3.642032</td>
-<td style="text-align: right;">2.777390</td>
-<td style="text-align: right;">4.477198</td>
-<td style="text-align: right;">4.454955</td>
-<td style="text-align: right;">4.760682</td>
-<td style="text-align: right;">3.288172</td>
-<td style="text-align: right;">5.678996</td>
-<td style="text-align: right;">4.679951</td>
-<td style="text-align: right;">4.928690</td>
-<td style="text-align: right;">5.166207</td>
-<td style="text-align: right;">3.485148</td>
-<td style="text-align: right;">3.454632</td>
-<td style="text-align: right;">2.848577</td>
-<td style="text-align: right;">5.551165</td>
-<td style="text-align: right;">3.769263</td>
-<td style="text-align: right;">3.649328</td>
-<td style="text-align: right;">2.271035</td>
-<td style="text-align: right;">5.264214</td>
-<td style="text-align: right;">3.832915</td>
-<td style="text-align: right;">3.875455</td>
-<td style="text-align: right;">2.525079</td>
-<td style="text-align: right;">1.163129</td>
-<td style="text-align: right;">4.678402</td>
-<td style="text-align: right;">4.682683</td>
-<td style="text-align: right;">3.607138</td>
-<td style="text-align: right;">4.363976</td>
-<td style="text-align: right;">3.401883</td>
-<td style="text-align: right;">5.139966</td>
-<td style="text-align: right;">5.210060</td>
-<td style="text-align: right;">4.713772</td>
-<td style="text-align: right;">3.424733</td>
-<td style="text-align: right;">2.631818</td>
-<td style="text-align: right;">3.480544</td>
-<td style="text-align: right;">3.221823</td>
-<td style="text-align: right;">3.853132</td>
-<td style="text-align: right;">3.120772</td>
-<td style="text-align: right;">3.842651</td>
-<td style="text-align: right;">2.815425</td>
-<td style="text-align: right;">3.273848</td>
-<td style="text-align: right;">3.126467</td>
-<td style="text-align: right;">3.647887</td>
-<td style="text-align: right;">3.895862</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">5.024072</td>
-<td style="text-align: right;">2.470240</td>
-<td style="text-align: right;">2.259750</td>
-<td style="text-align: right;">3.383971</td>
-<td style="text-align: right;">3.405628</td>
-<td style="text-align: right;">2.925394</td>
-<td style="text-align: right;">3.722530</td>
-<td style="text-align: right;">3.104064</td>
-<td style="text-align: right;">4.068848</td>
-<td style="text-align: right;">2.923166</td>
-<td style="text-align: right;">3.661601</td>
-<td style="text-align: right;">3.732475</td>
-<td style="text-align: right;">2.084769</td>
-<td style="text-align: right;">3.978517</td>
-<td style="text-align: right;">2.855392</td>
-<td style="text-align: right;">3.381118</td>
-<td style="text-align: right;">3.865699</td>
-<td style="text-align: right;">3.911571</td>
-<td style="text-align: right;">3.102266</td>
-<td style="text-align: right;">2.858461</td>
-<td style="text-align: right;">5.186708</td>
-<td style="text-align: right;">1.540100</td>
-<td style="text-align: right;">3.453976</td>
-<td style="text-align: right;">1.671304</td>
-<td style="text-align: right;">4.397883</td>
-<td style="text-align: right;">4.996236</td>
-<td style="text-align: right;">3.609226</td>
-<td style="text-align: right;">2.266511</td>
-<td style="text-align: right;">5.332266</td>
-<td style="text-align: right;">5.041631</td>
-<td style="text-align: right;">2.577130</td>
-<td style="text-align: right;">1.182058</td>
-<td style="text-align: right;">2.648178</td>
-<td style="text-align: right;">2.580964</td>
-<td style="text-align: right;">4.378121</td>
-<td style="text-align: right;">2.015839</td>
-<td style="text-align: right;">2.477425</td>
-<td style="text-align: right;">2.718602</td>
-<td style="text-align: right;">2.512741</td>
-<td style="text-align: right;">3.104794</td>
-<td style="text-align: right;">2.425656</td>
-<td style="text-align: right;">2.302399</td>
-<td style="text-align: right;">1.261294</td>
-<td style="text-align: right;">2.294336</td>
-<td style="text-align: right;">0.776553</td>
-<td style="text-align: right;">3.169805</td>
-<td style="text-align: right;">2.850572</td>
-<td style="text-align: right;">2.683466</td>
-<td style="text-align: right;">2.756426</td>
-<td style="text-align: right;">3.199966</td>
-<td style="text-align: right;">3.488302</td>
-<td style="text-align: right;">3.348598</td>
-<td style="text-align: right;">1.567981</td>
-<td style="text-align: right;">2.689270</td>
-<td style="text-align: right;">2.093631</td>
-<td style="text-align: right;">0.946151</td>
-<td style="text-align: right;">2.760766</td>
-<td style="text-align: right;">1.974521</td>
-<td style="text-align: right;">0.788326</td>
-<td style="text-align: right;">1.546632</td>
-<td style="text-align: right;">3.613495</td>
-<td style="text-align: right;">3.002835</td>
-<td style="text-align: right;">2.618250</td>
-<td style="text-align: right;">3.474268</td>
-<td style="text-align: right;">4.107470</td>
-<td style="text-align: right;">3.950412</td>
-<td style="text-align: right;">3.461374</td>
-<td style="text-align: right;">3.162900</td>
-<td style="text-align: right;">2.504398</td>
-<td style="text-align: right;">3.957139</td>
-<td style="text-align: right;">3.269670</td>
-<td style="text-align: right;">2.924702</td>
-<td style="text-align: right;">2.951385</td>
-<td style="text-align: right;">1.403080</td>
-<td style="text-align: right;">1.747677</td>
-<td style="text-align: right;">3.671060</td>
-<td style="text-align: right;">2.755273</td>
-<td style="text-align: right;">2.860291</td>
-<td style="text-align: right;">3.582403</td>
-<td style="text-align: right;">2.855433</td>
-<td style="text-align: right;">4.296437</td>
-<td style="text-align: right;">4.459933</td>
-<td style="text-align: right;">3.877955</td>
-<td style="text-align: right;">3.542746</td>
-<td style="text-align: right;">4.623289</td>
-<td style="text-align: right;">5.768592</td>
-<td style="text-align: right;">2.820453</td>
-<td style="text-align: right;">4.347125</td>
-<td style="text-align: right;">5.008321</td>
-<td style="text-align: right;">5.628651</td>
-<td style="text-align: right;">3.446137</td>
-<td style="text-align: right;">3.354074</td>
-<td style="text-align: right;">0.216899</td>
-<td style="text-align: right;">1.984132</td>
-<td style="text-align: right;">2.551348</td>
-<td style="text-align: right;">1.010641</td>
-<td style="text-align: right;">3.200017</td>
-<td style="text-align: right;">1.600360</td>
-<td style="text-align: right;">1.541323</td>
-<td style="text-align: right;">3.561905</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3.661946</td>
-<td style="text-align: right;">4.515898</td>
-<td style="text-align: right;">2.627455</td>
-<td style="text-align: right;">2.097116</td>
-<td style="text-align: right;">3.295632</td>
-<td style="text-align: right;">4.674215</td>
-<td style="text-align: right;">3.854248</td>
-<td style="text-align: right;">3.430167</td>
-<td style="text-align: right;">3.423922</td>
-<td style="text-align: right;">4.346313</td>
-<td style="text-align: right;">3.369146</td>
-<td style="text-align: right;">2.583655</td>
-<td style="text-align: right;">2.805899</td>
-<td style="text-align: right;">2.629365</td>
-<td style="text-align: right;">2.759572</td>
-<td style="text-align: right;">2.753171</td>
-<td style="text-align: right;">1.063016</td>
-<td style="text-align: right;">2.180655</td>
-<td style="text-align: right;">3.397097</td>
-<td style="text-align: right;">3.797167</td>
-<td style="text-align: right;">3.784757</td>
-<td style="text-align: right;">3.774945</td>
-<td style="text-align: right;">1.163201</td>
-<td style="text-align: right;">2.880376</td>
-<td style="text-align: right;">2.329117</td>
-<td style="text-align: right;">5.686030</td>
-<td style="text-align: right;">3.881392</td>
-<td style="text-align: right;">3.907517</td>
-<td style="text-align: right;">3.697921</td>
-<td style="text-align: right;">3.270770</td>
-<td style="text-align: right;">2.040071</td>
-<td style="text-align: right;">4.645036</td>
-<td style="text-align: right;">2.312931</td>
-<td style="text-align: right;">2.106188</td>
-<td style="text-align: right;">3.517961</td>
-<td style="text-align: right;">3.099783</td>
-<td style="text-align: right;">3.312862</td>
-<td style="text-align: right;">4.134669</td>
-<td style="text-align: right;">3.522531</td>
-<td style="text-align: right;">2.951239</td>
-<td style="text-align: right;">3.113105</td>
-<td style="text-align: right;">2.513375</td>
-<td style="text-align: right;">2.887626</td>
-<td style="text-align: right;">4.867711</td>
-<td style="text-align: right;">4.787919</td>
-<td style="text-align: right;">2.084980</td>
-<td style="text-align: right;">4.140326</td>
-<td style="text-align: right;">3.036390</td>
-<td style="text-align: right;">4.304286</td>
-<td style="text-align: right;">3.375258</td>
-<td style="text-align: right;">1.956426</td>
-<td style="text-align: right;">2.710257</td>
-<td style="text-align: right;">2.345528</td>
-<td style="text-align: right;">2.025919</td>
-<td style="text-align: right;">1.763310</td>
-<td style="text-align: right;">1.487463</td>
-<td style="text-align: right;">1.435715</td>
-<td style="text-align: right;">3.255219</td>
-<td style="text-align: right;">3.430917</td>
-<td style="text-align: right;">2.560493</td>
-<td style="text-align: right;">2.972647</td>
-<td style="text-align: right;">3.841999</td>
-<td style="text-align: right;">2.321647</td>
-<td style="text-align: right;">5.547948</td>
-<td style="text-align: right;">2.755463</td>
-<td style="text-align: right;">3.135102</td>
-<td style="text-align: right;">1.252126</td>
-<td style="text-align: right;">1.455243</td>
-<td style="text-align: right;">0.126571</td>
-<td style="text-align: right;">0.754453</td>
-<td style="text-align: right;">3.451330</td>
-<td style="text-align: right;">2.634979</td>
-<td style="text-align: right;">2.051891</td>
-<td style="text-align: right;">3.677636</td>
-<td style="text-align: right;">4.382111</td>
-<td style="text-align: right;">0.630656</td>
-<td style="text-align: right;">2.520796</td>
-<td style="text-align: right;">2.908761</td>
-<td style="text-align: right;">-0.251480</td>
-<td style="text-align: right;">1.706827</td>
-<td style="text-align: right;">4.334217</td>
-<td style="text-align: right;">3.310795</td>
-<td style="text-align: right;">3.634877</td>
-<td style="text-align: right;">3.788040</td>
-<td style="text-align: right;">3.997747</td>
-<td style="text-align: right;">3.418240</td>
-<td style="text-align: right;">1.451858</td>
-<td style="text-align: right;">5.332129</td>
-<td style="text-align: right;">3.107325</td>
-<td style="text-align: right;">2.796257</td>
-<td style="text-align: right;">3.441736</td>
-<td style="text-align: right;">1.732713</td>
-<td style="text-align: right;">4.678564</td>
-<td style="text-align: right;">3.527282</td>
-<td style="text-align: right;">4.910696</td>
-<td style="text-align: right;">3.960887</td>
-<td style="text-align: right;">2.782757</td>
-<td style="text-align: right;">3.427556</td>
-<td style="text-align: right;">4.629581</td>
-<td style="text-align: right;">4.084214</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1.933604</td>
-<td style="text-align: right;">1.835414</td>
-<td style="text-align: right;">4.246882</td>
-<td style="text-align: right;">3.229524</td>
-<td style="text-align: right;">2.456309</td>
-<td style="text-align: right;">2.818070</td>
-<td style="text-align: right;">2.602155</td>
-<td style="text-align: right;">3.215303</td>
-<td style="text-align: right;">4.200392</td>
-<td style="text-align: right;">2.272876</td>
-<td style="text-align: right;">0.706912</td>
-<td style="text-align: right;">-0.801259</td>
-<td style="text-align: right;">1.640656</td>
-<td style="text-align: right;">1.587674</td>
-<td style="text-align: right;">1.470820</td>
-<td style="text-align: right;">2.430678</td>
-<td style="text-align: right;">1.819882</td>
-<td style="text-align: right;">1.695119</td>
-<td style="text-align: right;">1.338284</td>
-<td style="text-align: right;">0.605444</td>
-<td style="text-align: right;">0.133074</td>
-<td style="text-align: right;">0.158037</td>
-<td style="text-align: right;">1.792941</td>
-<td style="text-align: right;">1.790514</td>
-<td style="text-align: right;">1.269408</td>
-<td style="text-align: right;">3.353523</td>
-<td style="text-align: right;">2.179509</td>
-<td style="text-align: right;">1.409529</td>
-<td style="text-align: right;">0.888444</td>
-<td style="text-align: right;">1.224938</td>
-<td style="text-align: right;">0.326793</td>
-<td style="text-align: right;">0.174798</td>
-<td style="text-align: right;">2.335327</td>
-<td style="text-align: right;">1.525558</td>
-<td style="text-align: right;">-0.955707</td>
-<td style="text-align: right;">3.610542</td>
-<td style="text-align: right;">1.960530</td>
-<td style="text-align: right;">-0.865120</td>
-<td style="text-align: right;">1.385375</td>
-<td style="text-align: right;">1.430312</td>
-<td style="text-align: right;">0.685265</td>
-<td style="text-align: right;">-0.230309</td>
-<td style="text-align: right;">0.633548</td>
-<td style="text-align: right;">1.199429</td>
-<td style="text-align: right;">0.310757</td>
-<td style="text-align: right;">2.375445</td>
-<td style="text-align: right;">1.869323</td>
-<td style="text-align: right;">0.641068</td>
-<td style="text-align: right;">1.674369</td>
-<td style="text-align: right;">1.870899</td>
-<td style="text-align: right;">3.087726</td>
-<td style="text-align: right;">0.985564</td>
-<td style="text-align: right;">0.784520</td>
-<td style="text-align: right;">2.725897</td>
-<td style="text-align: right;">0.850097</td>
-<td style="text-align: right;">0.685824</td>
-<td style="text-align: right;">1.168844</td>
-<td style="text-align: right;">-0.239602</td>
-<td style="text-align: right;">2.799497</td>
-<td style="text-align: right;">2.131838</td>
-<td style="text-align: right;">1.596182</td>
-<td style="text-align: right;">1.458913</td>
-<td style="text-align: right;">3.630159</td>
-<td style="text-align: right;">2.387079</td>
-<td style="text-align: right;">0.462230</td>
-<td style="text-align: right;">0.650202</td>
-<td style="text-align: right;">2.356301</td>
-<td style="text-align: right;">0.755215</td>
-<td style="text-align: right;">2.026497</td>
-<td style="text-align: right;">2.441231</td>
-<td style="text-align: right;">2.790539</td>
-<td style="text-align: right;">2.575200</td>
-<td style="text-align: right;">3.509842</td>
-<td style="text-align: right;">3.116568</td>
-<td style="text-align: right;">3.452843</td>
-<td style="text-align: right;">3.093494</td>
-<td style="text-align: right;">1.836035</td>
-<td style="text-align: right;">2.222184</td>
-<td style="text-align: right;">2.761235</td>
-<td style="text-align: right;">4.237117</td>
-<td style="text-align: right;">3.075454</td>
-<td style="text-align: right;">1.881486</td>
-<td style="text-align: right;">2.553940</td>
-<td style="text-align: right;">1.045851</td>
-<td style="text-align: right;">3.202694</td>
-<td style="text-align: right;">4.161503</td>
-<td style="text-align: right;">2.702880</td>
-<td style="text-align: right;">0.817310</td>
-<td style="text-align: right;">2.733675</td>
-<td style="text-align: right;">1.369864</td>
-<td style="text-align: right;">0.687845</td>
-<td style="text-align: right;">2.150121</td>
-<td style="text-align: right;">1.293763</td>
-<td style="text-align: right;">0.737558</td>
-<td style="text-align: right;">0.793559</td>
-<td style="text-align: right;">1.293628</td>
-<td style="text-align: right;">1.312178</td>
-<td style="text-align: right;">-1.925199</td>
-<td style="text-align: right;">0.168729</td>
-<td style="text-align: right;">1.409099</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">2.274807</td>
-<td style="text-align: right;">2.908011</td>
-<td style="text-align: right;">3.179267</td>
-<td style="text-align: right;">2.941155</td>
-<td style="text-align: right;">3.710268</td>
-<td style="text-align: right;">2.717757</td>
-<td style="text-align: right;">3.510822</td>
-<td style="text-align: right;">1.550497</td>
-<td style="text-align: right;">2.728217</td>
-<td style="text-align: right;">4.947419</td>
-<td style="text-align: right;">4.312907</td>
-<td style="text-align: right;">1.624997</td>
-<td style="text-align: right;">3.450676</td>
-<td style="text-align: right;">3.296389</td>
-<td style="text-align: right;">4.639991</td>
-<td style="text-align: right;">4.428850</td>
-<td style="text-align: right;">4.773291</td>
-<td style="text-align: right;">2.273139</td>
-<td style="text-align: right;">2.820446</td>
-<td style="text-align: right;">3.868664</td>
-<td style="text-align: right;">4.675249</td>
-<td style="text-align: right;">2.412898</td>
-<td style="text-align: right;">3.691474</td>
-<td style="text-align: right;">4.295843</td>
-<td style="text-align: right;">4.288994</td>
-<td style="text-align: right;">3.679321</td>
-<td style="text-align: right;">3.664403</td>
-<td style="text-align: right;">3.449730</td>
-<td style="text-align: right;">4.627416</td>
-<td style="text-align: right;">5.374093</td>
-<td style="text-align: right;">3.114936</td>
-<td style="text-align: right;">0.937293</td>
-<td style="text-align: right;">3.231832</td>
-<td style="text-align: right;">2.031238</td>
-<td style="text-align: right;">2.033217</td>
-<td style="text-align: right;">0.704127</td>
-<td style="text-align: right;">1.766480</td>
-<td style="text-align: right;">1.422281</td>
-<td style="text-align: right;">1.951835</td>
-<td style="text-align: right;">3.429262</td>
-<td style="text-align: right;">2.336261</td>
-<td style="text-align: right;">3.616157</td>
-<td style="text-align: right;">3.631813</td>
-<td style="text-align: right;">3.258421</td>
-<td style="text-align: right;">5.976209</td>
-<td style="text-align: right;">4.089613</td>
-<td style="text-align: right;">2.896231</td>
-<td style="text-align: right;">4.596477</td>
-<td style="text-align: right;">4.129096</td>
-<td style="text-align: right;">7.093438</td>
-<td style="text-align: right;">3.593002</td>
-<td style="text-align: right;">3.190479</td>
-<td style="text-align: right;">2.211968</td>
-<td style="text-align: right;">2.500292</td>
-<td style="text-align: right;">3.999353</td>
-<td style="text-align: right;">2.826291</td>
-<td style="text-align: right;">2.768957</td>
-<td style="text-align: right;">2.979500</td>
-<td style="text-align: right;">3.155079</td>
-<td style="text-align: right;">3.074007</td>
-<td style="text-align: right;">2.688911</td>
-<td style="text-align: right;">2.680939</td>
-<td style="text-align: right;">4.108605</td>
-<td style="text-align: right;">2.347372</td>
-<td style="text-align: right;">3.353903</td>
-<td style="text-align: right;">3.417996</td>
-<td style="text-align: right;">3.602248</td>
-<td style="text-align: right;">3.722665</td>
-<td style="text-align: right;">1.867266</td>
-<td style="text-align: right;">4.398309</td>
-<td style="text-align: right;">2.672452</td>
-<td style="text-align: right;">3.234202</td>
-<td style="text-align: right;">4.512234</td>
-<td style="text-align: right;">1.011391</td>
-<td style="text-align: right;">2.736290</td>
-<td style="text-align: right;">2.495329</td>
-<td style="text-align: right;">2.283781</td>
-<td style="text-align: right;">0.979636</td>
-<td style="text-align: right;">2.101990</td>
-<td style="text-align: right;">3.646597</td>
-<td style="text-align: right;">4.168885</td>
-<td style="text-align: right;">6.011056</td>
-<td style="text-align: right;">5.576807</td>
-<td style="text-align: right;">4.452524</td>
-<td style="text-align: right;">5.109755</td>
-<td style="text-align: right;">3.539751</td>
-<td style="text-align: right;">5.203918</td>
-<td style="text-align: right;">6.884093</td>
-<td style="text-align: right;">6.758122</td>
-<td style="text-align: right;">4.835822</td>
-<td style="text-align: right;">1.016782</td>
-<td style="text-align: right;">1.853578</td>
-<td style="text-align: right;">2.498811</td>
-<td style="text-align: right;">3.096292</td>
-<td style="text-align: right;">2.572159</td>
-<td style="text-align: right;">2.496271</td>
-<td style="text-align: right;">1.515257</td>
-<td style="text-align: right;">1.183772</td>
-<td style="text-align: right;">3.329594</td>
-<td style="text-align: right;">2.744476</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">3.184660</td>
-<td style="text-align: right;">4.046734</td>
-<td style="text-align: right;">3.540150</td>
-<td style="text-align: right;">4.059281</td>
-<td style="text-align: right;">2.374465</td>
-<td style="text-align: right;">2.067087</td>
-<td style="text-align: right;">3.390182</td>
-<td style="text-align: right;">3.492470</td>
-<td style="text-align: right;">3.661657</td>
-<td style="text-align: right;">1.892471</td>
-<td style="text-align: right;">2.910669</td>
-<td style="text-align: right;">2.351059</td>
-<td style="text-align: right;">0.726541</td>
-<td style="text-align: right;">1.928325</td>
-<td style="text-align: right;">-0.062322</td>
-<td style="text-align: right;">1.306896</td>
-<td style="text-align: right;">0.272615</td>
-<td style="text-align: right;">1.463914</td>
-<td style="text-align: right;">2.076900</td>
-<td style="text-align: right;">2.569456</td>
-<td style="text-align: right;">5.019716</td>
-<td style="text-align: right;">2.328710</td>
-<td style="text-align: right;">2.837884</td>
-<td style="text-align: right;">4.043339</td>
-<td style="text-align: right;">1.947459</td>
-<td style="text-align: right;">2.449519</td>
-<td style="text-align: right;">3.065598</td>
-<td style="text-align: right;">4.321089</td>
-<td style="text-align: right;">2.036927</td>
-<td style="text-align: right;">1.389769</td>
-<td style="text-align: right;">3.537501</td>
-<td style="text-align: right;">4.318936</td>
-<td style="text-align: right;">1.631771</td>
-<td style="text-align: right;">3.685972</td>
-<td style="text-align: right;">3.609319</td>
-<td style="text-align: right;">1.645394</td>
-<td style="text-align: right;">2.917829</td>
-<td style="text-align: right;">2.317283</td>
-<td style="text-align: right;">2.267146</td>
-<td style="text-align: right;">3.963144</td>
-<td style="text-align: right;">3.536972</td>
-<td style="text-align: right;">3.295575</td>
-<td style="text-align: right;">3.075710</td>
-<td style="text-align: right;">3.460675</td>
-<td style="text-align: right;">3.224478</td>
-<td style="text-align: right;">1.660497</td>
-<td style="text-align: right;">3.093049</td>
-<td style="text-align: right;">2.421162</td>
-<td style="text-align: right;">2.188736</td>
-<td style="text-align: right;">3.557481</td>
-<td style="text-align: right;">0.309582</td>
-<td style="text-align: right;">1.857645</td>
-<td style="text-align: right;">1.819382</td>
-<td style="text-align: right;">1.085073</td>
-<td style="text-align: right;">2.427644</td>
-<td style="text-align: right;">1.988539</td>
-<td style="text-align: right;">2.246552</td>
-<td style="text-align: right;">2.295530</td>
-<td style="text-align: right;">1.075097</td>
-<td style="text-align: right;">1.388195</td>
-<td style="text-align: right;">1.656496</td>
-<td style="text-align: right;">1.752528</td>
-<td style="text-align: right;">2.418624</td>
-<td style="text-align: right;">1.340024</td>
-<td style="text-align: right;">0.824050</td>
-<td style="text-align: right;">0.698072</td>
-<td style="text-align: right;">1.970136</td>
-<td style="text-align: right;">2.064690</td>
-<td style="text-align: right;">1.795599</td>
-<td style="text-align: right;">4.439921</td>
-<td style="text-align: right;">1.967216</td>
-<td style="text-align: right;">0.477582</td>
-<td style="text-align: right;">1.303589</td>
-<td style="text-align: right;">0.223835</td>
-<td style="text-align: right;">1.302689</td>
-<td style="text-align: right;">1.254710</td>
-<td style="text-align: right;">2.383013</td>
-<td style="text-align: right;">0.978524</td>
-<td style="text-align: right;">2.745955</td>
-<td style="text-align: right;">1.923409</td>
-<td style="text-align: right;">1.194165</td>
-<td style="text-align: right;">1.793615</td>
-<td style="text-align: right;">0.785669</td>
-<td style="text-align: right;">0.374648</td>
-<td style="text-align: right;">1.989626</td>
-<td style="text-align: right;">3.421168</td>
-<td style="text-align: right;">2.360255</td>
-<td style="text-align: right;">0.441367</td>
-<td style="text-align: right;">2.033105</td>
-<td style="text-align: right;">3.299585</td>
-<td style="text-align: right;">1.283497</td>
-<td style="text-align: right;">1.845475</td>
-<td style="text-align: right;">1.331906</td>
-<td style="text-align: right;">1.425406</td>
-<td style="text-align: right;">2.937331</td>
-<td style="text-align: right;">0.823984</td>
-<td style="text-align: right;">2.306800</td>
-<td style="text-align: right;">2.113772</td>
-<td style="text-align: right;">2.127941</td>
-<td style="text-align: right;">1.507769</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Lösung
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_cfa_exercise.RData"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_exercise)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3443,31 +2810,887 @@ Lösung
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Daten in Langformat transformieren - funktionen: pivot_longer(), pivot_wider()</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df_uebung_superlang <span class="ot">&lt;-</span> df_cfa_exercise <span class="sc">|&gt;</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>id, <span class="co"># All columns except id</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"time"</span>),</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_t"</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  ) </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>df_uebung_lang <span class="ot">&lt;-</span> df_uebung_superlang <span class="sc">|&gt;</span> </span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable,</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> value) <span class="sc">|&gt;</span> </span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time)) </span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Skalenscores für X und Y erstellen - funktionen: group_by(), summarise()</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>df_uebung_lang_scores <span class="ot">&lt;-</span> df_uebung_lang <span class="sc">|&gt;</span> <span class="fu">group_by</span>(id, time) <span class="sc">|&gt;</span> </span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"x"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"y"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span> <span class="co"># group_by() wieder aufheben für den finalen Datensatz</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Skalenscores für X und Y zentrieren - Funktionen: de_mean()</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>df_uebung_lang_scores <span class="ot">&lt;-</span> df_uebung_lang_scores <span class="sc">|&gt;</span> </span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">de_mean</span>(x, y, <span class="at">grp =</span> <span class="st">"id"</span>)</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_uebung_lang_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Skalenscores für X und Y erstellen - funktionen: group_by(), summarise()</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Skalenscores für X und Y zentrieren - Funktionen: de_mean()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lösung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/df_cfa_exercise.RData"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_cfa_exercise)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">x1_t1</th>
+<th style="text-align: right;">x1_t2</th>
+<th style="text-align: right;">x1_t3</th>
+<th style="text-align: right;">x1_t4</th>
+<th style="text-align: right;">x1_t5</th>
+<th style="text-align: right;">x1_t6</th>
+<th style="text-align: right;">x1_t7</th>
+<th style="text-align: right;">x1_t8</th>
+<th style="text-align: right;">x1_t9</th>
+<th style="text-align: right;">x1_t10</th>
+<th style="text-align: right;">x2_t1</th>
+<th style="text-align: right;">x2_t2</th>
+<th style="text-align: right;">x2_t3</th>
+<th style="text-align: right;">x2_t4</th>
+<th style="text-align: right;">x2_t5</th>
+<th style="text-align: right;">x2_t6</th>
+<th style="text-align: right;">x2_t7</th>
+<th style="text-align: right;">x2_t8</th>
+<th style="text-align: right;">x2_t9</th>
+<th style="text-align: right;">x2_t10</th>
+<th style="text-align: right;">x3_t1</th>
+<th style="text-align: right;">x3_t2</th>
+<th style="text-align: right;">x3_t3</th>
+<th style="text-align: right;">x3_t4</th>
+<th style="text-align: right;">x3_t5</th>
+<th style="text-align: right;">x3_t6</th>
+<th style="text-align: right;">x3_t7</th>
+<th style="text-align: right;">x3_t8</th>
+<th style="text-align: right;">x3_t9</th>
+<th style="text-align: right;">x3_t10</th>
+<th style="text-align: right;">x4_t1</th>
+<th style="text-align: right;">x4_t2</th>
+<th style="text-align: right;">x4_t3</th>
+<th style="text-align: right;">x4_t4</th>
+<th style="text-align: right;">x4_t5</th>
+<th style="text-align: right;">x4_t6</th>
+<th style="text-align: right;">x4_t7</th>
+<th style="text-align: right;">x4_t8</th>
+<th style="text-align: right;">x4_t9</th>
+<th style="text-align: right;">x4_t10</th>
+<th style="text-align: right;">x5_t1</th>
+<th style="text-align: right;">x5_t2</th>
+<th style="text-align: right;">x5_t3</th>
+<th style="text-align: right;">x5_t4</th>
+<th style="text-align: right;">x5_t5</th>
+<th style="text-align: right;">x5_t6</th>
+<th style="text-align: right;">x5_t7</th>
+<th style="text-align: right;">x5_t8</th>
+<th style="text-align: right;">x5_t9</th>
+<th style="text-align: right;">x5_t10</th>
+<th style="text-align: right;">y1_t1</th>
+<th style="text-align: right;">y1_t2</th>
+<th style="text-align: right;">y1_t3</th>
+<th style="text-align: right;">y1_t4</th>
+<th style="text-align: right;">y1_t5</th>
+<th style="text-align: right;">y1_t6</th>
+<th style="text-align: right;">y1_t7</th>
+<th style="text-align: right;">y1_t8</th>
+<th style="text-align: right;">y1_t9</th>
+<th style="text-align: right;">y1_t10</th>
+<th style="text-align: right;">y2_t1</th>
+<th style="text-align: right;">y2_t2</th>
+<th style="text-align: right;">y2_t3</th>
+<th style="text-align: right;">y2_t4</th>
+<th style="text-align: right;">y2_t5</th>
+<th style="text-align: right;">y2_t6</th>
+<th style="text-align: right;">y2_t7</th>
+<th style="text-align: right;">y2_t8</th>
+<th style="text-align: right;">y2_t9</th>
+<th style="text-align: right;">y2_t10</th>
+<th style="text-align: right;">y3_t1</th>
+<th style="text-align: right;">y3_t2</th>
+<th style="text-align: right;">y3_t3</th>
+<th style="text-align: right;">y3_t4</th>
+<th style="text-align: right;">y3_t5</th>
+<th style="text-align: right;">y3_t6</th>
+<th style="text-align: right;">y3_t7</th>
+<th style="text-align: right;">y3_t8</th>
+<th style="text-align: right;">y3_t9</th>
+<th style="text-align: right;">y3_t10</th>
+<th style="text-align: right;">y4_t1</th>
+<th style="text-align: right;">y4_t2</th>
+<th style="text-align: right;">y4_t3</th>
+<th style="text-align: right;">y4_t4</th>
+<th style="text-align: right;">y4_t5</th>
+<th style="text-align: right;">y4_t6</th>
+<th style="text-align: right;">y4_t7</th>
+<th style="text-align: right;">y4_t8</th>
+<th style="text-align: right;">y4_t9</th>
+<th style="text-align: right;">y4_t10</th>
+<th style="text-align: right;">y5_t1</th>
+<th style="text-align: right;">y5_t2</th>
+<th style="text-align: right;">y5_t3</th>
+<th style="text-align: right;">y5_t4</th>
+<th style="text-align: right;">y5_t5</th>
+<th style="text-align: right;">y5_t6</th>
+<th style="text-align: right;">y5_t7</th>
+<th style="text-align: right;">y5_t8</th>
+<th style="text-align: right;">y5_t9</th>
+<th style="text-align: right;">y5_t10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.927017</td>
+<td style="text-align: right;">3.484359</td>
+<td style="text-align: right;">5.209319</td>
+<td style="text-align: right;">3.777327</td>
+<td style="text-align: right;">2.822955</td>
+<td style="text-align: right;">2.874990</td>
+<td style="text-align: right;">4.399279</td>
+<td style="text-align: right;">3.999338</td>
+<td style="text-align: right;">2.829229</td>
+<td style="text-align: right;">4.534257</td>
+<td style="text-align: right;">3.569244</td>
+<td style="text-align: right;">3.716360</td>
+<td style="text-align: right;">4.025572</td>
+<td style="text-align: right;">2.601702</td>
+<td style="text-align: right;">4.917407</td>
+<td style="text-align: right;">4.417907</td>
+<td style="text-align: right;">5.836183</td>
+<td style="text-align: right;">2.584864</td>
+<td style="text-align: right;">2.416726</td>
+<td style="text-align: right;">3.428733</td>
+<td style="text-align: right;">3.123268</td>
+<td style="text-align: right;">2.200183</td>
+<td style="text-align: right;">2.416466</td>
+<td style="text-align: right;">2.600930</td>
+<td style="text-align: right;">2.179303</td>
+<td style="text-align: right;">3.370835</td>
+<td style="text-align: right;">5.833981</td>
+<td style="text-align: right;">3.574207</td>
+<td style="text-align: right;">2.399534</td>
+<td style="text-align: right;">1.756436</td>
+<td style="text-align: right;">5.759150</td>
+<td style="text-align: right;">4.865658</td>
+<td style="text-align: right;">5.106690</td>
+<td style="text-align: right;">4.142291</td>
+<td style="text-align: right;">4.984553</td>
+<td style="text-align: right;">4.902819</td>
+<td style="text-align: right;">7.088255</td>
+<td style="text-align: right;">6.024145</td>
+<td style="text-align: right;">4.119966</td>
+<td style="text-align: right;">4.134776</td>
+<td style="text-align: right;">4.700258</td>
+<td style="text-align: right;">3.579269</td>
+<td style="text-align: right;">5.881804</td>
+<td style="text-align: right;">4.111085</td>
+<td style="text-align: right;">4.600078</td>
+<td style="text-align: right;">4.055922</td>
+<td style="text-align: right;">4.496880</td>
+<td style="text-align: right;">4.373719</td>
+<td style="text-align: right;">4.322336</td>
+<td style="text-align: right;">3.912015</td>
+<td style="text-align: right;">4.329297</td>
+<td style="text-align: right;">3.597471</td>
+<td style="text-align: right;">3.552542</td>
+<td style="text-align: right;">3.052100</td>
+<td style="text-align: right;">2.592308</td>
+<td style="text-align: right;">3.082656</td>
+<td style="text-align: right;">4.184377</td>
+<td style="text-align: right;">4.064089</td>
+<td style="text-align: right;">3.642032</td>
+<td style="text-align: right;">2.777390</td>
+<td style="text-align: right;">4.477198</td>
+<td style="text-align: right;">4.454955</td>
+<td style="text-align: right;">4.760682</td>
+<td style="text-align: right;">3.288172</td>
+<td style="text-align: right;">5.678996</td>
+<td style="text-align: right;">4.679951</td>
+<td style="text-align: right;">4.928690</td>
+<td style="text-align: right;">5.166207</td>
+<td style="text-align: right;">3.485148</td>
+<td style="text-align: right;">3.454632</td>
+<td style="text-align: right;">2.848577</td>
+<td style="text-align: right;">5.551165</td>
+<td style="text-align: right;">3.769263</td>
+<td style="text-align: right;">3.649328</td>
+<td style="text-align: right;">2.271035</td>
+<td style="text-align: right;">5.264214</td>
+<td style="text-align: right;">3.832915</td>
+<td style="text-align: right;">3.875455</td>
+<td style="text-align: right;">2.525079</td>
+<td style="text-align: right;">1.163129</td>
+<td style="text-align: right;">4.678402</td>
+<td style="text-align: right;">4.682683</td>
+<td style="text-align: right;">3.607138</td>
+<td style="text-align: right;">4.363976</td>
+<td style="text-align: right;">3.401883</td>
+<td style="text-align: right;">5.139966</td>
+<td style="text-align: right;">5.210060</td>
+<td style="text-align: right;">4.713772</td>
+<td style="text-align: right;">3.424733</td>
+<td style="text-align: right;">2.631818</td>
+<td style="text-align: right;">3.480544</td>
+<td style="text-align: right;">3.221823</td>
+<td style="text-align: right;">3.853132</td>
+<td style="text-align: right;">3.120772</td>
+<td style="text-align: right;">3.842651</td>
+<td style="text-align: right;">2.815425</td>
+<td style="text-align: right;">3.273848</td>
+<td style="text-align: right;">3.126467</td>
+<td style="text-align: right;">3.647887</td>
+<td style="text-align: right;">3.895862</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5.024072</td>
+<td style="text-align: right;">2.470240</td>
+<td style="text-align: right;">2.259750</td>
+<td style="text-align: right;">3.383971</td>
+<td style="text-align: right;">3.405628</td>
+<td style="text-align: right;">2.925394</td>
+<td style="text-align: right;">3.722530</td>
+<td style="text-align: right;">3.104064</td>
+<td style="text-align: right;">4.068848</td>
+<td style="text-align: right;">2.923166</td>
+<td style="text-align: right;">3.661601</td>
+<td style="text-align: right;">3.732475</td>
+<td style="text-align: right;">2.084769</td>
+<td style="text-align: right;">3.978517</td>
+<td style="text-align: right;">2.855392</td>
+<td style="text-align: right;">3.381118</td>
+<td style="text-align: right;">3.865699</td>
+<td style="text-align: right;">3.911571</td>
+<td style="text-align: right;">3.102266</td>
+<td style="text-align: right;">2.858461</td>
+<td style="text-align: right;">5.186708</td>
+<td style="text-align: right;">1.540100</td>
+<td style="text-align: right;">3.453976</td>
+<td style="text-align: right;">1.671304</td>
+<td style="text-align: right;">4.397883</td>
+<td style="text-align: right;">4.996236</td>
+<td style="text-align: right;">3.609226</td>
+<td style="text-align: right;">2.266511</td>
+<td style="text-align: right;">5.332266</td>
+<td style="text-align: right;">5.041631</td>
+<td style="text-align: right;">2.577130</td>
+<td style="text-align: right;">1.182058</td>
+<td style="text-align: right;">2.648178</td>
+<td style="text-align: right;">2.580964</td>
+<td style="text-align: right;">4.378121</td>
+<td style="text-align: right;">2.015839</td>
+<td style="text-align: right;">2.477425</td>
+<td style="text-align: right;">2.718602</td>
+<td style="text-align: right;">2.512741</td>
+<td style="text-align: right;">3.104794</td>
+<td style="text-align: right;">2.425656</td>
+<td style="text-align: right;">2.302399</td>
+<td style="text-align: right;">1.261294</td>
+<td style="text-align: right;">2.294336</td>
+<td style="text-align: right;">0.776553</td>
+<td style="text-align: right;">3.169805</td>
+<td style="text-align: right;">2.850572</td>
+<td style="text-align: right;">2.683466</td>
+<td style="text-align: right;">2.756426</td>
+<td style="text-align: right;">3.199966</td>
+<td style="text-align: right;">3.488302</td>
+<td style="text-align: right;">3.348598</td>
+<td style="text-align: right;">1.567981</td>
+<td style="text-align: right;">2.689270</td>
+<td style="text-align: right;">2.093631</td>
+<td style="text-align: right;">0.946151</td>
+<td style="text-align: right;">2.760766</td>
+<td style="text-align: right;">1.974521</td>
+<td style="text-align: right;">0.788326</td>
+<td style="text-align: right;">1.546632</td>
+<td style="text-align: right;">3.613495</td>
+<td style="text-align: right;">3.002835</td>
+<td style="text-align: right;">2.618250</td>
+<td style="text-align: right;">3.474268</td>
+<td style="text-align: right;">4.107470</td>
+<td style="text-align: right;">3.950412</td>
+<td style="text-align: right;">3.461374</td>
+<td style="text-align: right;">3.162900</td>
+<td style="text-align: right;">2.504398</td>
+<td style="text-align: right;">3.957139</td>
+<td style="text-align: right;">3.269670</td>
+<td style="text-align: right;">2.924702</td>
+<td style="text-align: right;">2.951385</td>
+<td style="text-align: right;">1.403080</td>
+<td style="text-align: right;">1.747677</td>
+<td style="text-align: right;">3.671060</td>
+<td style="text-align: right;">2.755273</td>
+<td style="text-align: right;">2.860291</td>
+<td style="text-align: right;">3.582403</td>
+<td style="text-align: right;">2.855433</td>
+<td style="text-align: right;">4.296437</td>
+<td style="text-align: right;">4.459933</td>
+<td style="text-align: right;">3.877955</td>
+<td style="text-align: right;">3.542746</td>
+<td style="text-align: right;">4.623289</td>
+<td style="text-align: right;">5.768592</td>
+<td style="text-align: right;">2.820453</td>
+<td style="text-align: right;">4.347125</td>
+<td style="text-align: right;">5.008321</td>
+<td style="text-align: right;">5.628651</td>
+<td style="text-align: right;">3.446137</td>
+<td style="text-align: right;">3.354074</td>
+<td style="text-align: right;">0.216899</td>
+<td style="text-align: right;">1.984132</td>
+<td style="text-align: right;">2.551348</td>
+<td style="text-align: right;">1.010641</td>
+<td style="text-align: right;">3.200017</td>
+<td style="text-align: right;">1.600360</td>
+<td style="text-align: right;">1.541323</td>
+<td style="text-align: right;">3.561905</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3.661946</td>
+<td style="text-align: right;">4.515898</td>
+<td style="text-align: right;">2.627455</td>
+<td style="text-align: right;">2.097116</td>
+<td style="text-align: right;">3.295632</td>
+<td style="text-align: right;">4.674215</td>
+<td style="text-align: right;">3.854248</td>
+<td style="text-align: right;">3.430167</td>
+<td style="text-align: right;">3.423922</td>
+<td style="text-align: right;">4.346313</td>
+<td style="text-align: right;">3.369146</td>
+<td style="text-align: right;">2.583655</td>
+<td style="text-align: right;">2.805899</td>
+<td style="text-align: right;">2.629365</td>
+<td style="text-align: right;">2.759572</td>
+<td style="text-align: right;">2.753171</td>
+<td style="text-align: right;">1.063016</td>
+<td style="text-align: right;">2.180655</td>
+<td style="text-align: right;">3.397097</td>
+<td style="text-align: right;">3.797167</td>
+<td style="text-align: right;">3.784757</td>
+<td style="text-align: right;">3.774945</td>
+<td style="text-align: right;">1.163201</td>
+<td style="text-align: right;">2.880376</td>
+<td style="text-align: right;">2.329117</td>
+<td style="text-align: right;">5.686030</td>
+<td style="text-align: right;">3.881392</td>
+<td style="text-align: right;">3.907517</td>
+<td style="text-align: right;">3.697921</td>
+<td style="text-align: right;">3.270770</td>
+<td style="text-align: right;">2.040071</td>
+<td style="text-align: right;">4.645036</td>
+<td style="text-align: right;">2.312931</td>
+<td style="text-align: right;">2.106188</td>
+<td style="text-align: right;">3.517961</td>
+<td style="text-align: right;">3.099783</td>
+<td style="text-align: right;">3.312862</td>
+<td style="text-align: right;">4.134669</td>
+<td style="text-align: right;">3.522531</td>
+<td style="text-align: right;">2.951239</td>
+<td style="text-align: right;">3.113105</td>
+<td style="text-align: right;">2.513375</td>
+<td style="text-align: right;">2.887626</td>
+<td style="text-align: right;">4.867711</td>
+<td style="text-align: right;">4.787919</td>
+<td style="text-align: right;">2.084980</td>
+<td style="text-align: right;">4.140326</td>
+<td style="text-align: right;">3.036390</td>
+<td style="text-align: right;">4.304286</td>
+<td style="text-align: right;">3.375258</td>
+<td style="text-align: right;">1.956426</td>
+<td style="text-align: right;">2.710257</td>
+<td style="text-align: right;">2.345528</td>
+<td style="text-align: right;">2.025919</td>
+<td style="text-align: right;">1.763310</td>
+<td style="text-align: right;">1.487463</td>
+<td style="text-align: right;">1.435715</td>
+<td style="text-align: right;">3.255219</td>
+<td style="text-align: right;">3.430917</td>
+<td style="text-align: right;">2.560493</td>
+<td style="text-align: right;">2.972647</td>
+<td style="text-align: right;">3.841999</td>
+<td style="text-align: right;">2.321647</td>
+<td style="text-align: right;">5.547948</td>
+<td style="text-align: right;">2.755463</td>
+<td style="text-align: right;">3.135102</td>
+<td style="text-align: right;">1.252126</td>
+<td style="text-align: right;">1.455243</td>
+<td style="text-align: right;">0.126571</td>
+<td style="text-align: right;">0.754453</td>
+<td style="text-align: right;">3.451330</td>
+<td style="text-align: right;">2.634979</td>
+<td style="text-align: right;">2.051891</td>
+<td style="text-align: right;">3.677636</td>
+<td style="text-align: right;">4.382111</td>
+<td style="text-align: right;">0.630656</td>
+<td style="text-align: right;">2.520796</td>
+<td style="text-align: right;">2.908761</td>
+<td style="text-align: right;">-0.251480</td>
+<td style="text-align: right;">1.706827</td>
+<td style="text-align: right;">4.334217</td>
+<td style="text-align: right;">3.310795</td>
+<td style="text-align: right;">3.634877</td>
+<td style="text-align: right;">3.788040</td>
+<td style="text-align: right;">3.997747</td>
+<td style="text-align: right;">3.418240</td>
+<td style="text-align: right;">1.451858</td>
+<td style="text-align: right;">5.332129</td>
+<td style="text-align: right;">3.107325</td>
+<td style="text-align: right;">2.796257</td>
+<td style="text-align: right;">3.441736</td>
+<td style="text-align: right;">1.732713</td>
+<td style="text-align: right;">4.678564</td>
+<td style="text-align: right;">3.527282</td>
+<td style="text-align: right;">4.910696</td>
+<td style="text-align: right;">3.960887</td>
+<td style="text-align: right;">2.782757</td>
+<td style="text-align: right;">3.427556</td>
+<td style="text-align: right;">4.629581</td>
+<td style="text-align: right;">4.084214</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.933604</td>
+<td style="text-align: right;">1.835414</td>
+<td style="text-align: right;">4.246882</td>
+<td style="text-align: right;">3.229524</td>
+<td style="text-align: right;">2.456309</td>
+<td style="text-align: right;">2.818070</td>
+<td style="text-align: right;">2.602155</td>
+<td style="text-align: right;">3.215303</td>
+<td style="text-align: right;">4.200392</td>
+<td style="text-align: right;">2.272876</td>
+<td style="text-align: right;">0.706912</td>
+<td style="text-align: right;">-0.801259</td>
+<td style="text-align: right;">1.640656</td>
+<td style="text-align: right;">1.587674</td>
+<td style="text-align: right;">1.470820</td>
+<td style="text-align: right;">2.430678</td>
+<td style="text-align: right;">1.819882</td>
+<td style="text-align: right;">1.695119</td>
+<td style="text-align: right;">1.338284</td>
+<td style="text-align: right;">0.605444</td>
+<td style="text-align: right;">0.133074</td>
+<td style="text-align: right;">0.158037</td>
+<td style="text-align: right;">1.792941</td>
+<td style="text-align: right;">1.790514</td>
+<td style="text-align: right;">1.269408</td>
+<td style="text-align: right;">3.353523</td>
+<td style="text-align: right;">2.179509</td>
+<td style="text-align: right;">1.409529</td>
+<td style="text-align: right;">0.888444</td>
+<td style="text-align: right;">1.224938</td>
+<td style="text-align: right;">0.326793</td>
+<td style="text-align: right;">0.174798</td>
+<td style="text-align: right;">2.335327</td>
+<td style="text-align: right;">1.525558</td>
+<td style="text-align: right;">-0.955707</td>
+<td style="text-align: right;">3.610542</td>
+<td style="text-align: right;">1.960530</td>
+<td style="text-align: right;">-0.865120</td>
+<td style="text-align: right;">1.385375</td>
+<td style="text-align: right;">1.430312</td>
+<td style="text-align: right;">0.685265</td>
+<td style="text-align: right;">-0.230309</td>
+<td style="text-align: right;">0.633548</td>
+<td style="text-align: right;">1.199429</td>
+<td style="text-align: right;">0.310757</td>
+<td style="text-align: right;">2.375445</td>
+<td style="text-align: right;">1.869323</td>
+<td style="text-align: right;">0.641068</td>
+<td style="text-align: right;">1.674369</td>
+<td style="text-align: right;">1.870899</td>
+<td style="text-align: right;">3.087726</td>
+<td style="text-align: right;">0.985564</td>
+<td style="text-align: right;">0.784520</td>
+<td style="text-align: right;">2.725897</td>
+<td style="text-align: right;">0.850097</td>
+<td style="text-align: right;">0.685824</td>
+<td style="text-align: right;">1.168844</td>
+<td style="text-align: right;">-0.239602</td>
+<td style="text-align: right;">2.799497</td>
+<td style="text-align: right;">2.131838</td>
+<td style="text-align: right;">1.596182</td>
+<td style="text-align: right;">1.458913</td>
+<td style="text-align: right;">3.630159</td>
+<td style="text-align: right;">2.387079</td>
+<td style="text-align: right;">0.462230</td>
+<td style="text-align: right;">0.650202</td>
+<td style="text-align: right;">2.356301</td>
+<td style="text-align: right;">0.755215</td>
+<td style="text-align: right;">2.026497</td>
+<td style="text-align: right;">2.441231</td>
+<td style="text-align: right;">2.790539</td>
+<td style="text-align: right;">2.575200</td>
+<td style="text-align: right;">3.509842</td>
+<td style="text-align: right;">3.116568</td>
+<td style="text-align: right;">3.452843</td>
+<td style="text-align: right;">3.093494</td>
+<td style="text-align: right;">1.836035</td>
+<td style="text-align: right;">2.222184</td>
+<td style="text-align: right;">2.761235</td>
+<td style="text-align: right;">4.237117</td>
+<td style="text-align: right;">3.075454</td>
+<td style="text-align: right;">1.881486</td>
+<td style="text-align: right;">2.553940</td>
+<td style="text-align: right;">1.045851</td>
+<td style="text-align: right;">3.202694</td>
+<td style="text-align: right;">4.161503</td>
+<td style="text-align: right;">2.702880</td>
+<td style="text-align: right;">0.817310</td>
+<td style="text-align: right;">2.733675</td>
+<td style="text-align: right;">1.369864</td>
+<td style="text-align: right;">0.687845</td>
+<td style="text-align: right;">2.150121</td>
+<td style="text-align: right;">1.293763</td>
+<td style="text-align: right;">0.737558</td>
+<td style="text-align: right;">0.793559</td>
+<td style="text-align: right;">1.293628</td>
+<td style="text-align: right;">1.312178</td>
+<td style="text-align: right;">-1.925199</td>
+<td style="text-align: right;">0.168729</td>
+<td style="text-align: right;">1.409099</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.274807</td>
+<td style="text-align: right;">2.908011</td>
+<td style="text-align: right;">3.179267</td>
+<td style="text-align: right;">2.941155</td>
+<td style="text-align: right;">3.710268</td>
+<td style="text-align: right;">2.717757</td>
+<td style="text-align: right;">3.510822</td>
+<td style="text-align: right;">1.550497</td>
+<td style="text-align: right;">2.728217</td>
+<td style="text-align: right;">4.947419</td>
+<td style="text-align: right;">4.312907</td>
+<td style="text-align: right;">1.624997</td>
+<td style="text-align: right;">3.450676</td>
+<td style="text-align: right;">3.296389</td>
+<td style="text-align: right;">4.639991</td>
+<td style="text-align: right;">4.428850</td>
+<td style="text-align: right;">4.773291</td>
+<td style="text-align: right;">2.273139</td>
+<td style="text-align: right;">2.820446</td>
+<td style="text-align: right;">3.868664</td>
+<td style="text-align: right;">4.675249</td>
+<td style="text-align: right;">2.412898</td>
+<td style="text-align: right;">3.691474</td>
+<td style="text-align: right;">4.295843</td>
+<td style="text-align: right;">4.288994</td>
+<td style="text-align: right;">3.679321</td>
+<td style="text-align: right;">3.664403</td>
+<td style="text-align: right;">3.449730</td>
+<td style="text-align: right;">4.627416</td>
+<td style="text-align: right;">5.374093</td>
+<td style="text-align: right;">3.114936</td>
+<td style="text-align: right;">0.937293</td>
+<td style="text-align: right;">3.231832</td>
+<td style="text-align: right;">2.031238</td>
+<td style="text-align: right;">2.033217</td>
+<td style="text-align: right;">0.704127</td>
+<td style="text-align: right;">1.766480</td>
+<td style="text-align: right;">1.422281</td>
+<td style="text-align: right;">1.951835</td>
+<td style="text-align: right;">3.429262</td>
+<td style="text-align: right;">2.336261</td>
+<td style="text-align: right;">3.616157</td>
+<td style="text-align: right;">3.631813</td>
+<td style="text-align: right;">3.258421</td>
+<td style="text-align: right;">5.976209</td>
+<td style="text-align: right;">4.089613</td>
+<td style="text-align: right;">2.896231</td>
+<td style="text-align: right;">4.596477</td>
+<td style="text-align: right;">4.129096</td>
+<td style="text-align: right;">7.093438</td>
+<td style="text-align: right;">3.593002</td>
+<td style="text-align: right;">3.190479</td>
+<td style="text-align: right;">2.211968</td>
+<td style="text-align: right;">2.500292</td>
+<td style="text-align: right;">3.999353</td>
+<td style="text-align: right;">2.826291</td>
+<td style="text-align: right;">2.768957</td>
+<td style="text-align: right;">2.979500</td>
+<td style="text-align: right;">3.155079</td>
+<td style="text-align: right;">3.074007</td>
+<td style="text-align: right;">2.688911</td>
+<td style="text-align: right;">2.680939</td>
+<td style="text-align: right;">4.108605</td>
+<td style="text-align: right;">2.347372</td>
+<td style="text-align: right;">3.353903</td>
+<td style="text-align: right;">3.417996</td>
+<td style="text-align: right;">3.602248</td>
+<td style="text-align: right;">3.722665</td>
+<td style="text-align: right;">1.867266</td>
+<td style="text-align: right;">4.398309</td>
+<td style="text-align: right;">2.672452</td>
+<td style="text-align: right;">3.234202</td>
+<td style="text-align: right;">4.512234</td>
+<td style="text-align: right;">1.011391</td>
+<td style="text-align: right;">2.736290</td>
+<td style="text-align: right;">2.495329</td>
+<td style="text-align: right;">2.283781</td>
+<td style="text-align: right;">0.979636</td>
+<td style="text-align: right;">2.101990</td>
+<td style="text-align: right;">3.646597</td>
+<td style="text-align: right;">4.168885</td>
+<td style="text-align: right;">6.011056</td>
+<td style="text-align: right;">5.576807</td>
+<td style="text-align: right;">4.452524</td>
+<td style="text-align: right;">5.109755</td>
+<td style="text-align: right;">3.539751</td>
+<td style="text-align: right;">5.203918</td>
+<td style="text-align: right;">6.884093</td>
+<td style="text-align: right;">6.758122</td>
+<td style="text-align: right;">4.835822</td>
+<td style="text-align: right;">1.016782</td>
+<td style="text-align: right;">1.853578</td>
+<td style="text-align: right;">2.498811</td>
+<td style="text-align: right;">3.096292</td>
+<td style="text-align: right;">2.572159</td>
+<td style="text-align: right;">2.496271</td>
+<td style="text-align: right;">1.515257</td>
+<td style="text-align: right;">1.183772</td>
+<td style="text-align: right;">3.329594</td>
+<td style="text-align: right;">2.744476</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.184660</td>
+<td style="text-align: right;">4.046734</td>
+<td style="text-align: right;">3.540150</td>
+<td style="text-align: right;">4.059281</td>
+<td style="text-align: right;">2.374465</td>
+<td style="text-align: right;">2.067087</td>
+<td style="text-align: right;">3.390182</td>
+<td style="text-align: right;">3.492470</td>
+<td style="text-align: right;">3.661657</td>
+<td style="text-align: right;">1.892471</td>
+<td style="text-align: right;">2.910669</td>
+<td style="text-align: right;">2.351059</td>
+<td style="text-align: right;">0.726541</td>
+<td style="text-align: right;">1.928325</td>
+<td style="text-align: right;">-0.062322</td>
+<td style="text-align: right;">1.306896</td>
+<td style="text-align: right;">0.272615</td>
+<td style="text-align: right;">1.463914</td>
+<td style="text-align: right;">2.076900</td>
+<td style="text-align: right;">2.569456</td>
+<td style="text-align: right;">5.019716</td>
+<td style="text-align: right;">2.328710</td>
+<td style="text-align: right;">2.837884</td>
+<td style="text-align: right;">4.043339</td>
+<td style="text-align: right;">1.947459</td>
+<td style="text-align: right;">2.449519</td>
+<td style="text-align: right;">3.065598</td>
+<td style="text-align: right;">4.321089</td>
+<td style="text-align: right;">2.036927</td>
+<td style="text-align: right;">1.389769</td>
+<td style="text-align: right;">3.537501</td>
+<td style="text-align: right;">4.318936</td>
+<td style="text-align: right;">1.631771</td>
+<td style="text-align: right;">3.685972</td>
+<td style="text-align: right;">3.609319</td>
+<td style="text-align: right;">1.645394</td>
+<td style="text-align: right;">2.917829</td>
+<td style="text-align: right;">2.317283</td>
+<td style="text-align: right;">2.267146</td>
+<td style="text-align: right;">3.963144</td>
+<td style="text-align: right;">3.536972</td>
+<td style="text-align: right;">3.295575</td>
+<td style="text-align: right;">3.075710</td>
+<td style="text-align: right;">3.460675</td>
+<td style="text-align: right;">3.224478</td>
+<td style="text-align: right;">1.660497</td>
+<td style="text-align: right;">3.093049</td>
+<td style="text-align: right;">2.421162</td>
+<td style="text-align: right;">2.188736</td>
+<td style="text-align: right;">3.557481</td>
+<td style="text-align: right;">0.309582</td>
+<td style="text-align: right;">1.857645</td>
+<td style="text-align: right;">1.819382</td>
+<td style="text-align: right;">1.085073</td>
+<td style="text-align: right;">2.427644</td>
+<td style="text-align: right;">1.988539</td>
+<td style="text-align: right;">2.246552</td>
+<td style="text-align: right;">2.295530</td>
+<td style="text-align: right;">1.075097</td>
+<td style="text-align: right;">1.388195</td>
+<td style="text-align: right;">1.656496</td>
+<td style="text-align: right;">1.752528</td>
+<td style="text-align: right;">2.418624</td>
+<td style="text-align: right;">1.340024</td>
+<td style="text-align: right;">0.824050</td>
+<td style="text-align: right;">0.698072</td>
+<td style="text-align: right;">1.970136</td>
+<td style="text-align: right;">2.064690</td>
+<td style="text-align: right;">1.795599</td>
+<td style="text-align: right;">4.439921</td>
+<td style="text-align: right;">1.967216</td>
+<td style="text-align: right;">0.477582</td>
+<td style="text-align: right;">1.303589</td>
+<td style="text-align: right;">0.223835</td>
+<td style="text-align: right;">1.302689</td>
+<td style="text-align: right;">1.254710</td>
+<td style="text-align: right;">2.383013</td>
+<td style="text-align: right;">0.978524</td>
+<td style="text-align: right;">2.745955</td>
+<td style="text-align: right;">1.923409</td>
+<td style="text-align: right;">1.194165</td>
+<td style="text-align: right;">1.793615</td>
+<td style="text-align: right;">0.785669</td>
+<td style="text-align: right;">0.374648</td>
+<td style="text-align: right;">1.989626</td>
+<td style="text-align: right;">3.421168</td>
+<td style="text-align: right;">2.360255</td>
+<td style="text-align: right;">0.441367</td>
+<td style="text-align: right;">2.033105</td>
+<td style="text-align: right;">3.299585</td>
+<td style="text-align: right;">1.283497</td>
+<td style="text-align: right;">1.845475</td>
+<td style="text-align: right;">1.331906</td>
+<td style="text-align: right;">1.425406</td>
+<td style="text-align: right;">2.937331</td>
+<td style="text-align: right;">0.823984</td>
+<td style="text-align: right;">2.306800</td>
+<td style="text-align: right;">2.113772</td>
+<td style="text-align: right;">2.127941</td>
+<td style="text-align: right;">1.507769</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Daten in Langformat transformieren - funktionen: pivot_longer(), pivot_wider()</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_uebung_superlang <span class="ot">&lt;-</span> df_cfa_exercise <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>id, <span class="co"># All columns except id</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"time"</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_t"</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>df_uebung_lang <span class="ot">&lt;-</span> df_uebung_superlang <span class="sc">|&gt;</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> value) <span class="sc">|&gt;</span> </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time)) </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Skalenscores für X und Y erstellen - funktionen: group_by(), summarise()</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>df_uebung_lang_scores <span class="ot">&lt;-</span> df_uebung_lang <span class="sc">|&gt;</span> <span class="fu">group_by</span>(id, time) <span class="sc">|&gt;</span> </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"x"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"y"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span> <span class="co"># group_by() wieder aufheben für den finalen Datensatz</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Skalenscores für X und Y zentrieren - Funktionen: de_mean()</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>df_uebung_lang_scores <span class="ot">&lt;-</span> df_uebung_lang_scores <span class="sc">|&gt;</span> </span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">de_mean</span>(x, y, <span class="at">grp =</span> <span class="st">"id"</span>)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_uebung_lang_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -3567,7 +3790,7 @@ Lösung
 <h2 data-number="2.9" class="anchored" data-anchor-id="abspeichern-der-gebildeten-skalen"><span class="header-section-number">2.9</span> Abspeichern der gebildeten Skalen</h2>
 <p>Zum Schluss speichern wir die Ergebnisse (sowohl die Items als auch die Skalen in Langformat) der Übung ab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df_uebung_lang, df_uebung_lang_scores, <span class="at">file =</span> <span class="st">"../data/df_uebung.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df_uebung_lang, df_uebung_lang_scores, <span class="at">file =</span> <span class="st">"../data/df_uebung.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

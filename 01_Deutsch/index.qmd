@@ -30,7 +30,8 @@ Der Code unten installiert, falls noch nicht vorhanden, den "pacman" Paketmanage
 if (!require("pacman")) install.packages("pacman")
 
 pacman::p_load(devtools)
-devtools::install_github("falkcarl/multilevelmediation")
+if (!require("multilevelmediation")) devtools::install_github("falkcarl/multilevelmediation")
+if (!require("franzpak")) devtools::install_github("franciscowilhelm/franzpak")
 
 pacman::p_load(lmerTest, haven, brms, psych,
                sjmisc, sjlabelled, sjPlot, writexl, broom.mixed, qgraph,

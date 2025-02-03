@@ -15,7 +15,6 @@ editor: source
 
 ```{r}
 if (!require("pacman")) install.packages("pacman")
-if (!require("franzpak")) devtools::install_github("franciscowilhelm/franzpak")
 pacman::p_load(haven, psych,
                sjmisc, sjPlot, writexl, lavaan,
                tidyverse, multilevelTools, franzpak)
