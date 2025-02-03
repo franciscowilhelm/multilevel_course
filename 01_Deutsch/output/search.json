@@ -96,7 +96,7 @@
     "section": "",
     "text": "1 Einleitung\nDieses Dokument enthält Anleitungen und Übungen zur Analyse von Daten aus Tagebuchstudien mittels Mehrebenenmodellen. Es ist im Rahmen des Seminars zu Tagebuchstudien in Psychologie an der Uni Bern entstanden.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>index.qmd</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Einleitung</span>"
     ]
   },
   {
@@ -104,9 +104,9 @@
     "href": "index.html#voraussetzungen",
     "title": "Tagebuchstudien und Mehrebenenmodelle",
     "section": "1.1 Voraussetzungen",
-    "text": "1.1 Voraussetzungen\nMaterialien:\n\nRStudio (erstellt RStudio 2024.12.0, Build 467)\nR (erstellt mit R 4.4.2)\n\nKenntnisse:\n\nData Wrangling in R, Umgang mit Notebooks (.qmd)\nStatistisches Wissen zu linearen Modellen (Regressionen) und Testkonstruktion",
+    "text": "1.1 Voraussetzungen\nMaterialien:\n\nRStudio (erstellt RStudio 2024.12.0, Build 467)\nR (erstellt mit R 4.4.2)\nInstallation von Paketen mit dem Code unten.\n\nKenntnisse:\n\nData Wrangling in R, Umgang mit Notebooks (.qmd)\nStatistisches Wissen zu linearen Modellen (Regressionen) und Testkonstruktion\n\n\n1.1.1 Installation von R-Paketen, die im Kurs verwendet werden\n\nif (!require(\"pacman\")) install.packages(\"pacman\")\n\npacman::p_load(devtools)\ndevtools::install_github(\"falkcarl/multilevelmediation\")\n\npacman::p_load(lmerTest, haven, brms, psych,\n               sjmisc, sjlabelled, sjPlot, writexl, broom.mixed, qgraph,\n               tidyverse, multilevelTools, parameters, devtools,\n               multilevelmediation)",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>index.qmd</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Einleitung</span>"
     ]
   },
   {
