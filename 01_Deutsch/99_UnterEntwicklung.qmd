@@ -4,6 +4,136 @@ format: html
 editor: visual
 ---
 
+## Diagnostik und Modellvergleiche
+
+Read packages
+
+```{r}
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(lmerTest, haven, brms, psych,
+               sjmisc, sjPlot, writexl, broom.mixed, qgraph,
+               tidyverse, multilevelTools, parameters, )
+load("../data/df_example1.RData")
+
+
+library(lme4)          # For fitting multilevel (mixed) models
+library(parameters)    # For extracting and summarizing model parameters
+library(performance)   # For model diagnostics and performance comparisons
+
+```
+
+Diagnostic functions with help of CHatGPT-03-mini-high.
+
+```{r}
+# ------------------------------------------------------------------------------
+# Function: diagnose_model_plots
+#
+# Purpose:
+#   Display diagnostic plots for a given model using check_model().
+#   These plots typically include a residual vs. fitted plot and a Q-Q plot,
+#   which are useful for assessing key assumptions (e.g., normality and
+#   homoscedasticity). For multilevel models, these diagnostics are usually
+#   limited to the level-1 residuals.
+#
+# Note:
+#   We do not wrap the call to check_model() in invisible() so that the plots
+#   are directly rendered in your graphics device.
+# ------------------------------------------------------------------------------
+diagnose_model_plots <- function(model) {
+  # check_model() returns a list of ggplot objects and also displays them.
+  # If you prefer to see only specific plots for multilevel models, you might
+  # extract and display only those components. By default, we display all.
+  check_model(model)
+  # No return() call here so that plots are rendered.
+}
+
+# ------------------------------------------------------------------------------
+# Function: diagnose_model_results
+#
+# Purpose:
+#   Print and return key numerical diagnostics from the fitted model,
+#   including:
+#     - A summary of model parameters (using model_parameters())
+#     - Performance indices such as AIC, BIC, R², etc. (using model_performance())
+#
+# Output:
+#   A list with two elements: parameters and performance.
+# ------------------------------------------------------------------------------
+diagnose_model_results <- function(model) {
+  # Extract and print model parameters
+  params <- model_parameters(model)
+  cat("===== Model Parameters =====\n")
+  print(params)
+  
+  # Extract and print performance metrics (e.g., AIC, BIC, R², etc.)
+  perf <- model_performance(model)
+  cat("\n===== Model Performance Metrics =====\n")
+  print(perf)
+  
+  # Return a list (invisible) in case you want to use these results programmatically
+  invisible(list(parameters = params, performance = perf))
+}
+
+# ------------------------------------------------------------------------------
+# Function: compare_models_fit
+#
+# Purpose:
+#   Compare two nested models by:
+#     - Performing a Likelihood Ratio Test (LRT) using anova(..., test = "Chisq")
+#     - Comparing overall performance metrics using compare_performance()
+#
+# Output:
+#   The function prints the LRT results and the performance comparison, and
+#   returns a list containing both sets of results.
+#
+# IMPORTANT:
+#   Ensure that the models have been fit with REML = FALSE, so that their
+#   likelihoods are comparable.
+# ------------------------------------------------------------------------------
+compare_models_fit <- function(model1, model2) {
+  cat("===== Likelihood Ratio Test (LRT) =====\n")
+  lrt_results <- anova(model1, model2, test = "Chisq")
+  print(lrt_results)
+  
+  cat("\n===== Performance Comparison =====\n")
+  perf_comparison <- compare_performance(model1, model2)
+  print(perf_comparison)
+  
+  invisible(list(lrt = lrt_results, performance = perf_comparison))
+}
+
+```
+
+Run models:
+
+```{r}
+fs_modell <- lmer(y ~ x_dm + (1 | id), data = df_example1, REML = FALSE)
+
+# Fit the random slope model (fixed effect + random slope)
+rs_model <- lmer(y ~ x_dm + (1 + x_dm | id), data = df_example1, REML = FALSE)
+
+# ------------------------------------------------------------------------------
+# A) Diagnose model assumptions for each model
+# ------------------------------------------------------------------------------
+cat("### Diagnostics for Null Model ###\n")
+diagnose_model_plots(fs_modell)
+diagnose_model_results(fs_modell)
+
+
+
+cat("\n### Diagnostics for Random Slope Model ###\n")
+diagnose_model_plots(rs_modell)
+diagnose_model_results(rs_modell)
+
+
+# ------------------------------------------------------------------------------
+# B) Compare the two models using an LRT and performance metrics
+# ------------------------------------------------------------------------------
+cat("\n### Comparing Models ###\n")
+compare_results <- compare_models_fit(fs_modell, rs_model)
+```
+
 ### 1-1-1 Mediation mit Moderation
 
 ```{r}
