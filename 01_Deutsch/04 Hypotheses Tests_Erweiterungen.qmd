@@ -17,16 +17,31 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load(lmerTest, haven, brms, psych,
                sjmisc, sjlabelled, sjPlot, writexl, broom.mixed, qgraph,
                multilevelmediation,
-               tidyverse, multilevelTools, parameters, devtools
+               tidyverse, multilevelTools, parameters, devtools, reghelper
                )
 load("../data/df_example1c.RData")
 ```
 
 ## Cross-Level Interaktion
 
-%% zuerst repetieren Modell ohne Moderationseffekt %% 
 
 Erwarten wir, dass der Effekt von täglichen Schwankungen in X auf Y abhängig von einer Variable ist, die auf Level-2 gemessen wird (z.B. relativ stabile Persönlichkeitsmerkmale), können wir dies mit einer Cross-Level Interaktion testen.
+
+```{r}
+head(df_example1c)
+```
+
+Wir zentrieren den Moderator "w" auf dem Grand mean (Gesamtmittelwert) für eine einfachere Interpretation der Modellparameter.
+
+```{r}
+df_example1c <- df_example1c |> center(w)
+head(df_example1c)
+```
+
+Die zentrierte Variable heisst "w_c" und wurde am Ende des Datensatz angehängt.
+
+Zunächst berechnen wir das Modell ohne Interaktion von X und W (X*W), aber mit dem Haupteffekt von X und W.
+
 
 Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}$
 
@@ -34,11 +49,24 @@ Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
 Level 2 (random slope for x): $\beta_{1j} = \gamma_{10} + u_{2j}$
 
 ```{r}
-head(df_example1c)
+ri.rs_w_modell <- lmer(y ~ x_dm + w_c + (1 + x_dm | id), data = df_example1c)
+model_parameters(ri.rs_w_modell) |> print_html()
 ```
+Der Moderator W hat einen positiven Haupteffekt auf die abhängige Variable.
+
+
+Als nächstes fügen wir den Interaktionsterm hinzu.
+
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}$
+
+Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+
+Level 2 (random slope for x): $\beta_{1j} = \gamma_{10} + \gamma_{11}*W_{j} + u_{2j}$
+
+
 
 ```{r}
-ri.rs_cli_modell <- lmer(y ~ x_dm + w + w*x_dm + (1 + x_dm | id), data = df_example1c)
+ri.rs_cli_modell <- lmer(y ~ x_dm + w_c + w_c*x_dm + (1 + x_dm | id), data = df_example1c)
 model_parameters(ri.rs_cli_modell) |> print_html()
 ```
 Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr interpretiert werden.
@@ -49,7 +77,7 @@ Visualisierung des Interaktionseffekt mittels der `plot_model()` Funktion.
 Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt.
 
 ```{r}
-plot_model(ri.rs_cli_modell, type = "int", terms = c("x_dm", "w"))
+plot_model(ri.rs_cli_modell, type = "int", terms = c("x_dm", "w_c"))
 ggsave("test.png")
 ```
 
@@ -60,6 +88,23 @@ plot_model(ri.rs_cli_modell, type = "int", mdrt.values = "meansd")
 ```
 Der Plot zeigt, dass bei höheren Ausprägungen von w der Effekt von x_dm stärker ausfällt.
 
+### Simple Slopes Analyse
+
+Mit Hilfe der `simple_slopes` Funktion aus dem `reghelper` Paket können wir uns die Regressionskoeffizienten einer Simple-Slope Analyse unterziehen.
+Die Simple-Slope-Analyse in Mehrebenen-Modellen dient dazu, den Moderationseffekt einer Variablen zu untersuchen, indem die Beziehung zwischen Prädiktor (hier: "x") und abhängiger Variable (hier: "y") auf verschiedenen Ausprägungsniveaus der Moderatorvariablen (hier: "w_c") betrachtet wird. Nach der Schätzung des Mehrebenen-Modells werden die Steigungen (Slopes) für unterschiedliche Werte des Moderators berechnet (z. B. ±1 Standardabweichung oder spezifische Werte), um zu analysieren, ob und wie sich der Effekt des Prädiktors je nach Moderator ändert. Diese Methode hilft zu verstehen, ob die Stärke oder Richtung eines Effekts in Abhängigkeit der Moderatorvariable variiert.
+
+Wir können die spezifischen Werte der Variable automatisch bestimmen (1. Variante) oder manuell setzen (2. Variante). Uns interessieren die Werte, wenn x_dm um eine Einheit steigt und der Moderator unterdurchschnittlich (-1 SD), durchschnittlich, oder überdurchschnittlich (+1 SD) ist. Entsprechend werden die Werte in Variante 2 manuell gesetzt. Die Werte können wir der Abbildung oben entnehmen.
+
+```{r}
+simple_slopes(ri.rs_cli_modell)
+
+simple_slopes(ri.rs_cli_modell,
+              levels = list(x_dm = c(1,'sstest') ),
+              w_c = c(-0.62,0, 0.62, "sstest"))
+
+```
+Die Simple Slope Analyse bestätigt die Visualiserung und zeigt, dass der Effekt von x_dm auf y schwächer ausfällt, aber immer noch signifikant positiv ist, wenn der Moderator w_c unterdurchschnittlich ist (Variante 1, Zeile 4, Variante 2, Zeile 2). Der Effekt fällt stärker aus, wenn der Moderator w_c überdurchschnittlich ist (Variante 1, Zeile 6, Variante 2, Zeile 4).
+
 
 ### Within-level Interaktion
 
@@ -68,7 +113,9 @@ Analog zur Cross-level Interaktion gibt es auch Within-level Interaktionen, bei 
 Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*(M_{ij}-\overline{M_j}) + \beta_{3j}*((M_{ij}-\overline{M_j})*(X_{ij}-\overline{X_j})) + e_{ij}$
 
 Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+
 Level 2 (random slope X): $\beta_{1j} = \gamma_{10} + u_{1j}$
+
 Level 2 (random slope M): $\beta_{2j} = \gamma_{20} + u_{2j}$
 
 ```{r}
@@ -107,6 +154,7 @@ Gehe Schritt für Schritt vor und teste erst in einem Modell H1, dann in einem a
 Urteile, ob die Hypothesen angenommen oder verworfen werden sollten.
 
 :::{.callout-tip collapse="true"}
+### Lösung
 
 ```{r}
 ri.rs_modell <- lmer(negativ ~ illtask_dm  + support + (1 + illtask_dm | id), data = df_example_cli)
@@ -201,7 +249,9 @@ indirekt_zusammenfassung <-
 Der indirekte Effekt und sein 95% Konfidenzintervall müssen wir aus den Daten extrahieren. Wenn der 95% Konfidenzintervall die 0 ausschliesst (also sowohl unterer als auch oberes Limit entweder unter Null oder über Null liegen) können wir den indirekten Effekt als signifikant ansehen.
 
 In diesem Beispiel finden wir also einen signifikanten indirekten Effekt mit Koeffizient = 0.30, 95% CI = [0.19, 0.41].
+
 LLCI = Lower Limit of Confidence Interval
+
 ULCI = Upper Limit of Confidence Interval
 
 ## Übung
@@ -229,6 +279,7 @@ H3: Es gibt einen positiven indirekten Zusammenhang zwischen täglicher Wertsch�
 Teste die Hypothesen in einem Modell mittels der `boot.modmed.mlm.custom()` Funktion. Urteile, ob die Hypothesen angenommen oder verworfen werden sollten.
 
 ::: {.callout-tip collapse="true"}
+### Lösung
 
 ```{r}
 # | cache: true
@@ -269,8 +320,8 @@ indirekt_zusammenfassung <-
   mutate(across(where(is.numeric), round, 3))
 indirekt_zusammenfassung
 ```
-H1 wird unterstützt (SmX: b = 0.40, p < .001). 
-H2 wird verworfen (SyM: b = 0.14, p < .40).
-H3: wird entsprechend auch verworfen (95% CI des indirekten Effekt schliesst die 0 ein). Es besteht aber ein direkter Zusammenhang zwischen X und Y (SyX: b = 0.33, p < .001), der, anders als angenommen, nicht indirekt über Selbstwert vermittelt wird. 
+H1 wird unterstützt (SmX: b = 0.40, *p* < .001). 
+H2 wird verworfen (SyM: b = 0.14, *p* < .40).
+H3: wird entsprechend auch verworfen (95% CI des indirekten Effekt schliesst die 0 ein). Es besteht aber ein direkter Zusammenhang zwischen X und Y (SyX: b = 0.33, *p* < .001), der, anders als angenommen, nicht indirekt über Selbstwert vermittelt wird. 
 
 :::

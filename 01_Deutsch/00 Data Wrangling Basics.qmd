@@ -1,7 +1,5 @@
 ---
 title: "Anhang: Data Wrangling"
-author: "Francisco Wilhelm"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
     df-print: paged
@@ -12,30 +10,23 @@ output:
     toc_float: true
 ---
 
-basierend auf Kurs von Ian Hussey - https://github.com/ianhussey/data-wrangling-workshop/
-S. auch https://methodenlehre.github.io/einfuehrung-in-R/
-
 Data Wrangling bezeichnet im Kontext der psychologischen Datenanalyse mit R den systematischen Prozess der Aufbereitung, Bereinigung und Umstrukturierung von Rohdaten, damit sie für statistische Auswertungen und Interpretationen nutzbar werden.
 Ziel ist es, aus unübersichtlichen Rohdaten ein strukturiertes und hochwertiges Daten-Set zu erzeugen, das sich zuverlässig und nachvollziehbar für weiterführende statistische Analysen, Modellierungen und Visualisierungen in R nutzen lässt.
 
 Im Folgenden werden dazu verschiedene Funktionen und Techniken dargestellt.
 
-# Notebooks
+- basierend auf [Kurs von Ian Hussey](https://github.com/ianhussey/data-wrangling-workshop/)
+- Siehe auch [Einführung in R](https://methodenlehre.github.io/einfuehrung-in-R/)
 
-In diesem Kurs arbeiten wir mit R-Notebooks. Diese enthalten sowohl normalen Text als auch "Chunks" von R-Code. Chunks sind Abschnitte von R-Code. Diese Chunks lassen sich mit einem Klick auf Code --> Insert Chunk (oder der Tastenkombination Alt + Ctrl / Cmd + I) einfügen.
-Diese lassen sich mit einem Klcik auf den grünen Play-Button ganz rechts ausführen.
-Der Pfeil nach unten Button (zweiter  von Rechts) führt alle Chunks, die vor dem Chunk gelagert sind, aus.
+## Notebooks
 
-```{r, include=FALSE}
+In diesem Kurs arbeiten wir mit R- bzw. Quarto-Notebooks. Diese enthalten sowohl normalen Text als auch "Chunks" von R-Code. Chunks sind Abschnitte von R-Code. Diese Chunks lassen sich mit einem Klick auf Code --> Insert Chunk (oder der Tastenkombination Alt + Ctrl + I / unter Mac: Alt + Cmd + I) einfügen.
+Diese Chunks lassen sich mit einem Klick auf den grünen Play-Button ganz rechts ausführen.
+Der Pfeil nach unten Button (zweiter  von Rechts) führt alle Chunks, die vor dem gewählten Chunk gelagert sind, aus.
 
-# knitr::opts_chunk$set(message = FALSE,
-#                       warning = FALSE)
+## Pakete laden
 
-```
-
-# Pakete laden
-
-Zunächst laden wir die Pakete die wir für die Sitzung brauchen.
+Zunächst laden wir die Pakete, die wir für die Sitzung brauchen.
 
 ```{r}
 if (!require("pacman")) install.packages("pacman")
@@ -44,7 +35,7 @@ data(sat.act)
 df_beispiel <-as_tibble(sat.act)
 ```
 
-# Hilfe-Menü und Dokumentation
+## Hilfe-Menü und Dokumentation
 
 Für jede Funktion in einem geladenen Paket können Sie einfach `? ` vor den Funktionsnamen schreiben, um das Hilfemenü bzw. ihre Dokumentation aufzurufen. Dies hilft Ihnen, den Zweck der Funktion, ihre Argumente und Ausgaben zu verstehen.
 Sie können auch auf den Namen der Funktion klicken (an beliebiger Stelle im Namen) und "F1" drücken.
@@ -56,9 +47,9 @@ head(df_beispiel)
 
 ```
 
-# Struktur von Funktionen
+## Struktur von Funktionen
 
-Fast alles in R  geschieht mittels Funktionen. Funktionen nehmen Inputs und Transformieren sie nach den Regeln der Funktion in Outputs. Die Funktion kann mittels Argumenten gesteuert werden.
+Fast alles in R  geschieht mittels Funktionen. Funktionen nehmen Inputs und transformieren sie nach den Regeln der Funktion in Outputs. Die Funktion kann mittels Argumenten gesteuert werden.
 
 - Funktionen sind i.d.R. benannt (hier `head`, `mean`) und mit Klammern `()` gekennzeichet.
   In der Klammer befinden sich die Argumente der Funktion, mit einem Komma getrennt.
@@ -73,7 +64,7 @@ mean(df_beispiel$age, na.rm = TRUE)
 
 
 
-# Zuweisung / Assignment mittels  <-
+## Zuweisung / Assignment mittels  <-
 
 - `<-` führt die Zuweisung (assignment) von Inhalten  der rechten Seite unter dem Namen auf der linken Seite aus. Wir nennen die zugewiesenen Inhalte, etwas verkürzt gesagt, Objekte oder Variablen.
 
@@ -82,9 +73,9 @@ durchschnitt_von_SATV <- mean(df_beispiel$SATV, na.rm = TRUE)
 
 ```
 
-In diesem Beispiel ist durchschnitt_von_x der Name des Objekts/Variable.
+In diesem Beispiel ist durchschnitt_von_SATV der Name des Objekts/Variable.
 
-# Typen von Objekten
+## Typen von Objekten
 
 Die häufigsten Typen von Objekten/Variablen sind: 
 
@@ -113,9 +104,9 @@ beispielliste <- list(x1 = vektor_numerisch, x2 = vektor_character, c(6,7,8), x3
 beispielliste
 ```
 
-Listen sind extrem flexibel was ihre Anhalte angeht - wir können quasi alles reinpacken. Das macht sie teils aber auch schwer zu durchschauen. Wenn möglich empfiehlt es sich, mit tibble/data.frame zu arbeiten; dies spart kognitive Ressourcen.
+Listen sind extrem flexibel, was ihre Anhalte angeht - wir können quasi alles reinpacken. Das macht sie teils aber auch schwer zu durchschauen. Wenn möglich empfiehlt es sich, mit tibble/data.frame zu arbeiten; dies spart kognitive Ressourcen.
 
-# Die "Pipe" (%>% or |>) 
+## Die "Pipe" (%>% oder |>) 
 
 `%>%` ist der ursprüngliche Pipe-Operator, der für das Paket {magrittr} entwickelt wurde und in den gesamten tidyverse-Paketen verwendet wird. Er ist etwas langsamer, aber auch flexibler.
 `|>` ist eine neuere Version des Pipe-Operators, die in Base-R integriert wurde. Sie ist etwas schneller, aber weniger flexibel.
@@ -141,7 +132,7 @@ identical(example_without_pipe, example_with_pipe)
 
 ```
 
-## Warum lohnt es sich, die Pipe zu nutzen?
+### Warum lohnt es sich, die Pipe zu nutzen?
 
 Der Pipe-Operator ermöglicht es uns, Code zu schreiben, der von oben nach unten gelesen wird und einer Abfolge von Schritten folgt – so, wie Menschen Schritte organisieren und beschreiben. Ohne den Pipe-Operator wird der Code von innen nach aussen geschrieben, auf eine Weise, die der Computer versteht, aber für Menschen weniger intuitiv ist.
 Die Unterscheide in der Lesbarkeit zeigen sich vor allem bei komplexeren, verketteten Funktionen.
@@ -164,7 +155,7 @@ example_with_pipe <- df_beispiel |>
 identical(example_without_pipe, example_with_pipe)
 ```
 
-# Spaltennamen anzeigen
+## Spaltennamen anzeigen
 
 Die meiste Zeit verbringen wir mit Data Frames - effektiv Tabellen.
 Wie können wir herausfinden, welche Variablen sich in einem Data Frame befinden? Wir können den Data Frame anzeigen, aber es kann auch hilfreich sein, ihn auszugeben. Zu wissen, welche Variablen vorhanden sind, ist einer der ersten Schritte, um mit den Daten zu arbeiten.
@@ -179,7 +170,7 @@ df_beispiel |>
 
 ```
 
-# Spalten umbenennen - rename()
+## Spalten umbenennen - rename()
 
 Oft sind die Variablennamen nicht intuitiv. Ein früher Schritt bei jeder Datenaufbereitung ist es, sie mithilfe der Funktion `rename()` intuitiver zu gestalten. Als Argumente schreiben wir jeweils `neuer_name = alter_name`.
 
@@ -190,7 +181,7 @@ df_beispiel_renamed <- df_beispiel |>
          Bildung = education) 
 ```
 
-# Auswahl und Extraktion
+## Auswahl und Extraktion
 
 Es gibt verschieden Möglichkeiten, Inhalte aus Variablen auszuwählen und zu extrahieren:
 
@@ -201,13 +192,12 @@ Es gibt verschieden Möglichkeiten, Inhalte aus Variablen auszuwählen und zu ex
 Im ersten Beispiel wollen wir die Variable x aus unserem Dataframe df_beispiel auswählen.
 
 ```{r}
-select(df_beispiel, ACT) # select ohne pipe
 df_beispiel |> select(ACT) # select mit pipe
 df_beispiel[,"ACT"] # []
 df_beispiel$ACT # $ 
 ```
 
-Wie wir sehen, behalten `|>` und `[]` die Struktur des Inputs (ein Datenframe) standardmässig bei (ihr Output ist identisch), während `$` die Struktur "dropped" und eine simplere Struktur wählt (Vektor statt Datenframe). Deswegen ist der Output auch ganz anders.
+Wie wir sehen, behalten `|>` und `[]` die Struktur des Inputs (ein Datenframe) standardmässig bei (ihr Output ist identisch), während `$` die Struktur "fallen lässt" und eine simplere Struktur wählt (Vektor statt Datenframe). Entsprechend ist der Output auch anders.
 
 Im zweiten Beispiel wollen wir die Variablen x und y und die ersten zwei Zeilen aus unserem Dataframe df_beispiel auswählen. 
 Nach dem "tidy" Verfahren wählen wir dafür Datenframe |> select() |> slice().
@@ -236,12 +226,12 @@ beispielliste[[2]]
 beispielliste$x2
 ```
 
-## Auswahl von Spalten / Variablen mittels Helfern
+### Auswahl von Spalten / Variablen mittels Helfern
 
 
 Beim Data Wrangling bearbeiten wir häufig **Gruppen von Variablen / Spalten**. Damit wir nicht immer jede einzelne Variable ausschreiben müssen, gibt es verschiedene Methoden. Hilfreich sind vor allem die sogenannten "tidyselect" Helferfunktionen. Diese können wir in `select()`, aber auch vielen anderen Funktionen verwenden, bei der wir Spalten aus einem Datensatz ansteuern.
 
-Die häufigsten Helfer sind `:`, `c()`, `starts_with()`, `ends_with()`, `contains()`, `all_of()`, `num_range`.
+Die häufigsten Helfer sind `:`, `c()`, `starts_with()`, `ends_with()`, `contains()`, `all_of()`, `num_range()`.
 
 ```{r}
 names(df_beispiel)
@@ -260,18 +250,22 @@ Wir können auch mit logischen Operatoren arbeiten und diese verketten. Zu logis
 ```{r}
 data(bfi)  
 names(bfi) #Big Five Items, OCEAN mit je 5 Items sowie gender, education und age
-bfi |> select(starts_with("E")) # auch education dabei
-bfi |> select(starts_with("E") & !all_of("education")) # nur die Extraversion Items, kein education
-# oder eleganter mit num_range()
-bfi |> select(num_range("E", 1:5)) # nur die Extraversion Items
 
-bfi |> select(starts_with("E"), starts_with("C")) # "," wird als einschliessendes oder (OR) gelesen
+# bfi von normalen data.frame zu tibble upgraden
+bfi <- as_tibble(bfi)
+
+bfi |> select(starts_with("E")) |> head() # auch education dabei
+bfi |> select(starts_with("E") & !all_of("education")) |> head() # nur die Extraversion Items, kein education
+# oder eleganter mit num_range()
+bfi |> select(num_range("E", 1:5)) |> head() # nur die Extraversion Items
+
+bfi |> select(starts_with("E"), starts_with("C")) |> head() # "," wird als einschliessendes oder (OR) gelesen
 ```
 
-# Spalten mutieren und neue Anlegen
+## Spalten ändern und neue Anlegen - mutate()
 
-`mutate()` is used to create new columns or to change the contents of existing ones.
-Oft mutieren wir Variablen bei einer Analyse. Typisch ist etwa die Zentrierung von Variablen auf den Mittelwert der Stichprobe (grand mean; damit bekommen die Variablen einen Mittelwert von 0) oder die z-Standardisierung (Variablen bekommen einen Mittelwert von 0 **und** eine Standardabweichung von 1).
+`mutate()` wird genutzt, um neue Spalten anzulegen oder die Inhalte bestehender Spalten zu ändern. is used to create new columns or to change the contents of existing ones.
+Oft verändern wir Variablen bei einer Analyse. Typisch ist etwa die Zentrierung von Variablen auf den Mittelwert der Stichprobe (grand mean; damit bekommen die Variablen einen Mittelwert von 0) oder die z-Standardisierung (Variablen bekommen einen Mittelwert von 0 **und** eine Standardabweichung von 1).
 
 ```{r}
 df_beispiel <- df_beispiel |> mutate(ACT_c = scale(ACT, center = TRUE, scale = FALSE),
@@ -280,7 +274,7 @@ df_beispiel
 ```
 
 
-# Zeilen filtern
+## Zeilen filtern
 
 Neben der Mutation/Transformation von Spalten ist das Filtern von Zeilen ein typisches Anliegen bei der Datenaufbereitung. Dies geht mittels `filter()`.
 Du kannst den logischen Test für das Filtern auf verschiedene Arten angeben, einschließlich Gleichheit (`==`), Negation (`!=`) oder Zugehörigkeit (`%in%`). Es ist oft besser zu definieren, was du möchtest (mithilfe von Gleichheit oder Zugehörigkeit), anstatt zu definieren, was du nicht möchtest (Negation), da Negationen weniger robust gegenüber neuen Daten mit ungewöhnlichen Werten sind, die du beim Schreiben des Codes nicht bedacht hast. Zum Beispiel könntest du `gender != 2` angeben, aber das würde non binary nicht erfassen.
@@ -303,7 +297,7 @@ identical(df_beispiel_w_and_edu, df_beispiel_w_or_edu)
 
 ```
 
-# Übung Data Wrangling
+## Übung Data Wrangling
 
 1) Wähle zunächst die folgenden Variablen aus: education, SATQ. 
 2) Erstelle eine neue Variable, in der die SATQ zentriert wird und nenne sie "SATQ_c". Transformiere education in einen Faktor (`as.factor()`).
@@ -327,7 +321,36 @@ df_kombiniert <- df_beispiel
 
 ```
 
-# Zusammenfassung über Zeilen
+:::{.callout-tip collapse="true"}
+
+### Lösung: Übung Data Wrangling
+
+```{r}
+# auswählen
+df_auswahl <- df_beispiel |> select(education, SATQ)
+# neue variable erstellen
+df_neuevariable <- df_auswahl |> mutate(
+  education = as.factor(education),
+  SATQ_c = scale(SATQ, center = TRUE, scale = FALSE))
+# filtern
+df_filter <- df_neuevariable |> filter(education == 1)
+
+# jetzt alles zusammen
+df_kombiniert <- df_beispiel |> 
+  select(education, SATQ) |> 
+  mutate(
+  education = as.factor(education),
+  SATQ_c = scale(SATQ, center = TRUE, scale = FALSE)) |> 
+  filter(education == 1)
+
+# identical(df_filter, df_kombiniert) # check
+```
+:::
+
+
+
+
+## Zusammenfassung über Zeilen
 
 Es ist sehr häufig, dass wir Zusammenfassungen über Zeilen hinweg erstellen müssen. Zum Beispiel, um den Mittelwert und die Standardabweichung einer Spalte wie age zu berechnen. Das kann mit `summarize()` erledigt werden. Denk daran: `mutate()` erstellt neue Spalten oder ändert den Inhalt bestehender Spalten, ohne die Anzahl der Zeilen zu verändern. `summarize()` hingegen reduziert einen Datensatz auf eine einzelne Zeile.
 
@@ -347,7 +370,7 @@ df_beispiel |>
 
 ```
 
-## `group_by()`
+### `group_by()`
 
 Oft wollen wir einen Datensatz jedoch nicht auf eine einzelne Zeile reduzieren bzw. den gesamten Datensatz zusammenfassen, sondern eine Zusammenfassung für jede (Unter-)Gruppe erstellen. 
 Dies ist hilfreich, insbesondere da wir im Seminar mit Tagen verschachtelt in Personen arbeiten werden.
@@ -361,7 +384,7 @@ df_beispiel |>
 ```
 
 
-## Komplexere Zusammenfassungen
+### Komplexere Zusammenfassungen
 
 Ähnlich wie bei `mutate()` kann auch die Operation für `summarize()` komplexer sein, z. B. das Finden des Mittelwerts einer logischen Operation (d.h., logische Operatoren nutzend, wie &, <, >, | etc.) , um einen Anteil zu berechnen.
 Im Folgenden berechnen wir den Anteil von niedrigen SAT Verbal Scores (hier definiert als -1 Standardabweichungen oder niedriger) gruppiert nach Bildung.
@@ -385,7 +408,7 @@ df_beispiel |>
 
 ```
 
-# Übung `summarize()`
+## Übung `summarize()`
 
 Berechne min, max, mean, und SD aller Antworten auf dem selbstberichteten SAT Verbal Score (SATV).
 
@@ -408,47 +431,9 @@ head(bfi)
 
 ```
 
-# Kontrolliere deinen Lernfortschritt
+:::{.callout-tip collapse="true"}
 
-Was ist der Unterschied zwischen `mutate()` und `summarize()`? Bekomme ich dasselbe Ergebnis, wenn ich die falsche Funktion verwende? Zum Beispiel: `mutate(mean_age = mean(age, na.rm = TRUE))` vs.`summarize(mean_age = mean(age, na.rm = TRUE))`.
-
-# Daten auf Festplatte schreiben
-
-Am Ende von  Data Wrangling Prozessen ist es sinnvoll, die Ergebnisse festzuhalten, damit wir sie nicht verlieren, bzw. beim nächsten Mal nicht alles von vorne ausführen müssen.
-
-```{r}
-df_beispiel_standardisiert <- df_beispiel |> mutate(across(c("SATV", "SATQ", "ACT"),
-                                                           scale))
-
-save(df_beispiel_standardisiert, file =  "../data/df_beispiel_standardisiert.RData")
-
-```
-
-
-## Lösung: Übung Data Wrangling
-
-```{r}
-# auswählen
-df_auswahl <- df_beispiel |> select(education, SATQ)
-# neue variable erstellen
-df_neuevariable <- df_auswahl |> mutate(
-  education = as.factor(education),
-  SATQ_c = scale(SATQ, center = TRUE, scale = FALSE))
-# filtern
-df_filter <- df_neuevariable |> filter(education == 1)
-
-# jetzt alles zusammen
-df_kombiniert <- df_beispiel |> 
-  select(education, SATQ) |> 
-  mutate(
-  education = as.factor(education),
-  SATQ_c = scale(SATQ, center = TRUE, scale = FALSE)) |> 
-  filter(education == 1)
-
-# identical(df_filter, df_kombiniert) # check
-```
-
-## Lösung: Übung `summarize()`
+### Lösung: Übung `summarize()`
 
 ```{r}
 df_beispiel |> 
@@ -461,4 +446,23 @@ bfi |> group_by(gender) |>
   summarize(C1_na = sd(C1, na.rm = TRUE),
             C1_mean = mean(C1, na.rm = TRUE))
 ```
+
+:::
+
+## Kontrolliere deinen Lernfortschritt
+
+Was ist der Unterschied zwischen `mutate()` und `summarize()`? Bekomme ich dasselbe Ergebnis, wenn ich die falsche Funktion verwende? Zum Beispiel: `mutate(mean_age = mean(age, na.rm = TRUE))` vs.`summarize(mean_age = mean(age, na.rm = TRUE))`.
+
+## Daten auf Festplatte schreiben
+
+Am Ende von  Data Wrangling Prozessen ist es sinnvoll, die Ergebnisse festzuhalten, damit wir sie nicht verlieren, bzw. beim nächsten Mal nicht alles von vorne ausführen müssen.
+
+```{r}
+df_beispiel_standardisiert <- df_beispiel |> mutate(across(c("SATV", "SATQ", "ACT"),
+                                                           scale))
+
+save(df_beispiel_standardisiert, file =  "../data/df_beispiel_standardisiert.RData")
+
+```
+
 

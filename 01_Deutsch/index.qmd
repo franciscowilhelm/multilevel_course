@@ -1,5 +1,6 @@
 ---
 title: "Einleitung"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 format: html
 ---
 
@@ -36,6 +37,6 @@ if (!require("franzpak")) devtools::install_github("franciscowilhelm/franzpak")
 pacman::p_load(lmerTest, haven, brms, psych,
                sjmisc, sjlabelled, sjPlot, writexl, broom.mixed, qgraph,
                tidyverse, multilevelTools, parameters, devtools,
-               multilevelmediation)
+               multilevelmediation, reghelper)
 ```
 

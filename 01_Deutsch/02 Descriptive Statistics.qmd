@@ -219,7 +219,7 @@ mehrebenen_stats$ICC1
 ```
 :::
 
-### Reliabilitsätsanalyse
+## Reliabilitsätsanalyse
 
 Berechnet die Omega-Within und Omega-Between Reliabilitäten für X und Y mittels `omegaSEM()` und analysiert die Angaben:
 
@@ -241,7 +241,7 @@ scaley_reliab$Results
 ```
 :::
 
-### Integration in Korrelationstabelle
+## Integration in Korrelationstabelle
 
 Erstellt eine Korrelationstabelle von den Variablen w, x, m, und y mit Mittelwerten, Standardabweichungen, ICC, und Within/Between-Korrelationen wie in Kapitel 1a gezeigt.
 
