@@ -1,5 +1,5 @@
 ---
-title: "Hypothesentests - Erweiterungen"
+title: "Kapitel 5: Hypothestentests 2 - Moderation und Mediation"
 format:
   html:
     df-print: kable
@@ -22,7 +22,7 @@ pacman::p_load(lmerTest, haven, brms, psych,
 load("../data/df_example1c.RData")
 ```
 
-## Cross-Level Interaktion
+## Cross-Level Interaktion / Moderation
 
 
 Erwarten wir, dass der Effekt von täglichen Schwankungen in X auf Y abhängig von einer Variable ist, die auf Level-2 gemessen wird (z.B. relativ stabile Persönlichkeitsmerkmale), können wir dies mit einer Cross-Level Interaktion testen.

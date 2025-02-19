@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Kapitel 1: Datenaufbereitung – Tagebuchstudien und Mehrebenenmodelle</title>
+<title>2&nbsp; Kapitel 2: Datenaufbereitung – Tagebuchstudien und Mehrebenenmodelle</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -144,7 +144,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01 Data Preparation Item Level.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1: Datenaufbereitung</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01 Data Preparation Item Level.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 2: Datenaufbereitung</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -172,31 +172,31 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Kapitel 1: Einleitung</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01 Data Preparation Item Level.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1: Datenaufbereitung</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 2: Datenaufbereitung</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02 Descriptive Statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 3: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03 Hypotheses Tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 3: Hypothesentests - Teil 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kapitel 4: Hypothesentests - Teil 1</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04 Hypotheses Tests_Erweiterungen.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesentests - Erweiterungen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Kapitel 5: Hypothestentests 2 - Moderation und Mediation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -232,7 +232,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 1: Datenaufbereitung</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kapitel 2: Datenaufbereitung</span></h1>
 </div>
 
 
@@ -254,7 +254,7 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: pacman</code></pre>
+<pre><code>Lade nötiges Paket: pacman</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(haven, psych,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>               sjmisc, sjPlot, writexl,</span>
@@ -270,7 +270,10 @@ window.Quarto = {
 </section>
 <section id="daten-ansehen" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="daten-ansehen"><span class="header-section-number">2.3</span> Daten ansehen</h2>
-<p>Der Datensatz hat 131 (!) Spalten (<code>ncol()</code>) und 100 Zeilen (<code>nrow()</code>) (eine pro Person). Aufgrund des breiten Datenformats gibt es so viele Spalten, da jeder Tag (1-10 Tage) von jeder Variable seine eigene Spalte bekommt. Wie wir mit <code>names()</code> sehen, gibt es die Variablen id für die Personidentifikation (jede Person hat ihre eigene Nummer), a1-a5, b1-b5, und c1-c3. w,a,b und c bilden jeweils eine Skala mit 5 bzw. bei c 3 Indikatoren. Mit <code>head()</code> können wir einen Blick in die Daten werfen.</p>
+<p>Der Datensatz hat 131 Spalten (<code>ncol()</code>) und 100 Zeilen (<code>nrow()</code>) (eine pro Person).</p>
+<p>Wie wir mit <code>names()</code> sehen, gibt es die Variablen id für die Personidentifikation (jede Person hat ihre eigene Nummer), a1-a5, b1-b5, und c1-c3. Da jeder Tag (1-10 Tage) von jeder Variable seine eigene Spalte bekommt (t1-t10) gibt es viele Spalten und wir nennen das Datenformat daher breites Datenformat ( <em>wide</em> format).</p>
+<p>a,b und c bilden jeweils eine Skala mit 5 bzw. bei c 3 Indikatoren.</p>
+<p>Mit <code>head()</code> können wir einen Blick in die Daten werfen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(df_cfa_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1380,7 +1383,7 @@ window.Quarto = {
 <section id="daten-transformieren-langformat" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="daten-transformieren-langformat"><span class="header-section-number">2.4</span> Daten transformieren: Langformat</h2>
 <p>Als erstes transformieren wir die Daten vom Breit- ins Langformat, so dass jede Messung (Tag 1-Tag 10) eine eigene Zeile bekommt. Diese Variable nennen wir “time”. Im ersten Schritt machen wir mit <code>pivot_longer()</code> den Datensatz seeehr lang, es bekommt nämlich jede Messung von jeder Variable ihre eigenen Zeile. Wir machen den Datensatz dann im zweiten Schritt mit <code>pivot_wider()</code> wieder etwas breiter mit dem Ziel, eine Zeile pro Person und Tag zu bekommen, und jeweils eine Spalte pro Item.</p>
-<p>Die Funktionsweise von pivot_longer() und pivot_wider() ist in der <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping">Einführung zu R, Kapitel 4.3</a> beschrieben.</p>
+<p>Die Funktionsweise von pivot_longer() und pivot_wider() ist in der <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping">Einführung zu R, Kapitel 4.3</a> ausführlicher beschrieben.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_cfa_superlong <span class="ot">&lt;-</span> df_cfa_wide <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
@@ -1606,7 +1609,7 @@ window.Quarto = {
 </section>
 <section id="daten-transformieren-skalenscores-erstellen" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="daten-transformieren-skalenscores-erstellen"><span class="header-section-number">2.5</span> Daten transformieren: Skalenscores erstellen</h2>
-<p>Als nächstes können wir die Skalenscores erstellen.</p>
+<p>Als nächstes können wir mittels <code>summarise()</code> die Skalenscores erstellen. Wir verwenden eine simple Form der Skalenerstellung bei dem der Mittelwert aller vorhandenen Items einer Skala <code>rowMeans(...)</code> verwendet wird.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_cfa_long_scores <span class="ot">&lt;-</span> df_cfa_long <span class="sc">|&gt;</span> <span class="fu">group_by</span>(id, time) <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -1616,7 +1619,6 @@ window.Quarto = {
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span> <span class="co"># group_by() wieder aufheben für den finalen Datensatz</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Wir verwenden eine simple Form der Skalenerstellung bei dem der Mittelwert aller vorhandenen Items einer Skala verwendet wird.</p>
 <p>(Best-practice ist es bei fehlenden Daten genau hinzuschauen und nur dann einen Skalenwert zu erstellen, wenn die Personen zu einen gewissen Prozentsatz aller Items eine Antwort geben (etwa 2/3). Eine solche Funktion könnten wir programmieren, lassen es aber für das Beispiel weg.)</p>
 </section>
 <section id="daten-transformieren-zentrierung" class="level2" data-number="2.6">
@@ -1843,7 +1845,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Warum ist der Wert, den Person 1 in “a_gm” hat, in jeder Zeile gleich, nicht aber bei “a_dm” und “a”? Wie müsste man a transformieren, damit man auf a_dm kommt? Denke an die mathematischen Operationen die du in <code>mutate()</code> eingeben müsstest, wie <code>+</code>, <code>-</code>, <code>/</code>, <code>mean()</code>.</p>
+<p>Warum ist der Wert, den Person 1 in “a_gm” hat, in jeder Zeile gleich, nicht aber bei “a_dm” und “a”? Wie müsste man “a” transformieren, damit man auf “a_gm” und “a_dm” kommt? Denke an die mathematischen Operationen die du in <code>mutate()</code> eingeben müsstest, wie Plus, Minus ( <code>+</code>, <code>-</code>, <code>/</code>, …) und die Funktion für Mittelwert ( <code>mean()</code>).</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1856,10 +1858,11 @@ Lösung
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Die Variable a ist die Rohvariable, die den gemessenen Wert auf der Skala an jedem Tag angibt. Variablen mit “_gm” und “_dm” werden von <code>sjmisc::de_mean()</code> erstellt und stehen für den Mittelwert der Person über alle Tage hinweg. Variablen mit “_dm” stehen für die täglichen Abweichungen vom Mittelwert der Person. “a_dm” ergibt sich aus: <span class="math inline">\(a = a - a\_gm\)</span>. Wir können dies auch in R replizieren mit:</p>
+<p>Die Variable a ist die Rohvariable, die den gemessenen Wert auf der Skala an jedem Tag angibt. Variablen mit “_gm” und “_dm” werden von <code>sjmisc::de_mean()</code> erstellt. Variablen mit “_gm” stehen für den Mittelwert der Person über alle Tage hinweg. Variablen mit “_dm” stehen für die täglichen Abweichungen vom Mittelwert der Person. “a_dm” ergibt sich aus: <span class="math inline">\(a = a - a\_gm\)</span>. Wir können dies auch in R replizieren mit:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>beispiel_zentrierung <span class="sc">|&gt;</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a_dm_manuell =</span> a <span class="sc">-</span> <span class="fu">mean</span>(a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a_gm_manuell =</span> <span class="fu">mean</span>(a),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">a_dm_manuell =</span> a <span class="sc">-</span> a_gm_manuell)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -1870,6 +1873,7 @@ Lösung
 <th style="text-align: right;">a</th>
 <th style="text-align: right;">a_dm</th>
 <th style="text-align: right;">a_gm</th>
+<th style="text-align: right;">a_gm_manuell</th>
 <th style="text-align: right;">a_dm_manuell</th>
 </tr>
 </thead>
@@ -1880,6 +1884,7 @@ Lösung
 <td style="text-align: right;">3.576438</td>
 <td style="text-align: right;">-0.2566380</td>
 <td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">-0.2566380</td>
 </tr>
 <tr class="even">
@@ -1887,6 +1892,7 @@ Lösung
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">3.618275</td>
 <td style="text-align: right;">-0.2148012</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">-0.2148012</td>
 </tr>
@@ -1896,6 +1902,7 @@ Lösung
 <td style="text-align: right;">2.365406</td>
 <td style="text-align: right;">-1.4676704</td>
 <td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">-1.4676704</td>
 </tr>
 <tr class="even">
@@ -1903,6 +1910,7 @@ Lösung
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">3.604362</td>
 <td style="text-align: right;">-0.2287140</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">-0.2287140</td>
 </tr>
@@ -1912,6 +1920,7 @@ Lösung
 <td style="text-align: right;">3.881178</td>
 <td style="text-align: right;">0.0481014</td>
 <td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">0.0481014</td>
 </tr>
 <tr class="even">
@@ -1919,6 +1928,7 @@ Lösung
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">4.172778</td>
 <td style="text-align: right;">0.3397012</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">0.3397012</td>
 </tr>
@@ -1928,6 +1938,7 @@ Lösung
 <td style="text-align: right;">3.593205</td>
 <td style="text-align: right;">-0.2398718</td>
 <td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">-0.2398718</td>
 </tr>
 <tr class="even">
@@ -1935,6 +1946,7 @@ Lösung
 <td style="text-align: right;">8</td>
 <td style="text-align: right;">3.722344</td>
 <td style="text-align: right;">-0.1107326</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">-0.1107326</td>
 </tr>
@@ -1944,6 +1956,7 @@ Lösung
 <td style="text-align: right;">5.284937</td>
 <td style="text-align: right;">1.4518608</td>
 <td style="text-align: right;">3.833076</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">1.4518608</td>
 </tr>
 <tr class="even">
@@ -1951,6 +1964,7 @@ Lösung
 <td style="text-align: right;">10</td>
 <td style="text-align: right;">4.511841</td>
 <td style="text-align: right;">0.6787644</td>
+<td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">3.833076</td>
 <td style="text-align: right;">0.6787644</td>
 </tr>
@@ -4216,13 +4230,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Einleitung">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></span>
+      <a href="./index.html" class="pagination-link" aria-label="Kapitel 1: Einleitung">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Kapitel 1: Einleitung</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02 Descriptive Statistics.html" class="pagination-link" aria-label="Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./02 Descriptive Statistics.html" class="pagination-link" aria-label="Kapitel 3: Deskriptive Analysen und Überprüfung von Voraussetzungen">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kapitel 3: Deskriptive Analysen und Überprüfung von Voraussetzungen</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

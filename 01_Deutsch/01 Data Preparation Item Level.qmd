@@ -1,5 +1,5 @@
 ---
-title: "Kapitel 1: Datenaufbereitung"
+title: "Kapitel 2: Datenaufbereitung"
 format:
   html:
     df-print: kable
@@ -32,8 +32,12 @@ load("../data/df_cfa_wide.RData")
 
 ## Daten ansehen
 
-Der Datensatz hat 131 (!) Spalten (`ncol()`) und 100 Zeilen (`nrow()`) (eine pro Person). Aufgrund des breiten Datenformats gibt es so viele Spalten, da jeder Tag (1-10 Tage) von jeder Variable seine eigene Spalte bekommt.
-Wie wir mit `names()` sehen, gibt es die Variablen id für die Personidentifikation (jede Person hat ihre eigene Nummer), a1-a5, b1-b5, und c1-c3. w,a,b und c bilden jeweils eine Skala mit 5 bzw. bei c 3 Indikatoren.
+Der Datensatz hat 131 Spalten (`ncol()`) und 100 Zeilen (`nrow()`) (eine pro Person). 
+
+Wie wir mit `names()` sehen, gibt es die Variablen id für die Personidentifikation (jede Person hat ihre eigene Nummer), a1-a5, b1-b5, und c1-c3. Da jeder Tag (1-10 Tage) von jeder Variable seine eigene Spalte bekommt (t1-t10) gibt es viele Spalten und wir nennen das Datenformat daher breites Datenformat ( *wide* format). 
+
+a,b und c bilden jeweils eine Skala mit 5 bzw. bei c 3 Indikatoren. 
+
 Mit `head()` können wir einen Blick in die Daten werfen.
 
 ```{r}
@@ -49,7 +53,7 @@ Als erstes transformieren wir die Daten vom Breit- ins Langformat, so dass jede 
 Im ersten Schritt machen wir mit `pivot_longer()` den Datensatz seeehr lang, es bekommt nämlich jede Messung von jeder Variable ihre eigenen Zeile.
 Wir machen den Datensatz dann im zweiten Schritt mit `pivot_wider()`  wieder etwas breiter mit dem Ziel, eine Zeile pro Person und Tag zu bekommen, und jeweils eine Spalte pro Item.
 
-Die Funktionsweise von pivot_longer() und pivot_wider() ist in der [Einführung zu R, Kapitel 4.3](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping) beschrieben.
+Die Funktionsweise von pivot_longer() und pivot_wider() ist in der [Einführung zu R, Kapitel 4.3](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#4_3_reshaping) ausführlicher beschrieben.
 
 ```{r}
 
@@ -83,7 +87,8 @@ Das Ergebnis:
 
 ## Daten transformieren: Skalenscores erstellen
 
-Als nächstes können wir die Skalenscores erstellen.
+Als nächstes können wir mittels `summarise()` die Skalenscores erstellen. Wir verwenden eine simple Form der Skalenerstellung bei dem der Mittelwert aller vorhandenen Items einer Skala `rowMeans(...)` verwendet wird.
+
 
 ```{r}
 df_cfa_long_scores <- df_cfa_long |> group_by(id, time) |> 
@@ -95,7 +100,6 @@ df_cfa_long_scores <- df_cfa_long |> group_by(id, time) |>
   )
 ```
 
-Wir verwenden eine simple Form der Skalenerstellung bei dem der Mittelwert aller vorhandenen Items einer Skala verwendet wird.
 
 (Best-practice ist es bei fehlenden Daten genau hinzuschauen und nur dann einen Skalenwert zu erstellen, wenn die Personen zu einen gewissen Prozentsatz aller Items eine Antwort geben (etwa 2/3). Eine solche Funktion könnten wir programmieren, lassen es aber für das Beispiel weg.)
 
@@ -131,26 +135,27 @@ beispiel_zentrierung
 ```
 
 Warum ist der Wert, den Person 1 in  "a_gm" hat, in jeder Zeile gleich, nicht aber bei "a_dm" und "a"? 
-Wie müsste man a transformieren, damit man auf a_dm kommt? Denke an die mathematischen Operationen die du in `mutate()` eingeben müsstest, wie `+`, `-`, `/`, `mean()`.
+Wie müsste man "a" transformieren, damit man auf "a_gm" und "a_dm" kommt? Denke an die mathematischen Operationen die du in `mutate()` eingeben müsstest, wie Plus, Minus ( `+`, `-`, `/`, ...) und die Funktion für Mittelwert ( `mean()`).
 
 :::{.callout-tip collapse="true"}
 ### Lösung
 
 Die Variable a ist die Rohvariable, die den gemessenen Wert auf der Skala an jedem Tag angibt.
-Variablen mit "_gm" und "_dm" werden von `sjmisc::de_mean()` erstellt und stehen für den Mittelwert der Person über alle Tage hinweg.
+Variablen mit "_gm" und "_dm" werden von `sjmisc::de_mean()` erstellt. Variablen mit "_gm" stehen für den Mittelwert der Person über alle Tage hinweg.
 Variablen mit "_dm" stehen für die täglichen Abweichungen vom Mittelwert der Person.
 "a_dm" ergibt sich aus: $a = a - a\_gm$. Wir können dies auch in R replizieren mit:
 
 ```{r}
 beispiel_zentrierung |> 
-  mutate(a_dm_manuell = a - mean(a))
+  mutate(a_gm_manuell = mean(a),
+         a_dm_manuell = a - a_gm_manuell)
 ```
 :::
 
 
 ## Übung Datenaufbereitung
 
-Schau dir den Datensatz `df_cfa_exercise`  an und repliziere die Schritte oben:
+Schau dir den Datensatz `df_cfa_exercise` an und repliziere die Schritte oben:
 
 1) Daten in Langformat transformieren und als `df_uebung_lang <-` zuweisen. 
 2) Skalenscores für x und y erstellen und als `df_uebung_lang_scores <-` zuweisen.

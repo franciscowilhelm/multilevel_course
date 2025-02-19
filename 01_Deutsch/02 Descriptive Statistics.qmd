@@ -1,5 +1,5 @@
 ---
-title: "Kapitel 2: Deskriptive Analysen und Überprüfung von Voraussetzungen"
+title: "Kapitel 3: Deskriptive Analysen und Überprüfung von Voraussetzungen"
 format:
   html:
     df-print: kable
@@ -18,7 +18,6 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load(haven, psych,
                sjmisc, sjPlot, writexl, lavaan,
                tidyverse, multilevelTools, franzpak)
-
 ```
 
 ## Daten laden
@@ -28,51 +27,31 @@ load("../data/df_cfa_long.RData")
 
 head(df_cfa_long_scores)
 ```
-Schauen wir uns nochmal die Datenstruktur unseres aufbereiteten Datensatzes an.
-Wir haben die Variablen:
+Schauen wir uns nochmal die Datenstruktur unserer aufbereiteten Datensätze aus dem vorhergehenden Kapitel an.
+
+In `df_cfa_long_scores` haben wir haben die Variablen mit Fokus auf die Skalenscores:
 
 - id: Gruppierungsvariable / Personen-ID, von 1 - 100
 - time: Zeitpunkt / Tag der Messung, von 1-10
-- a, b, c: Rohvariablen
+- a, b, c: Rohvariablen (Skalenscores von a, b, und c. Die Items aus denen a,b,c gebildet sind brauchen wir nur bei bestimmten Abschnitten)
 - a_dm - c_dm: Personen-zentrierte Variablen
 - a_gm - c_gm : Personen-Mittelwerte
-
-## ICC und Within-Person Variance
-
-Uns interessiert wie gross der Anteil der Varianz ist, der jeweils auf die zwei Ebenen der Daten entfallen (Inner-Person, Zwischen-Person-Ebene). Dies kann uns der ICC angeben. Mittels der Funktion `statsBy()` bekommen wir einige Analysen zu unseren Mehrebenen-Daten geliefert. Die Funktion benötigt zwei Argumente: den Datensatz und und die Gruppierungsvariable.
-Wir wählen entsprechend in `select()` die Variablen, die uns interessieren. Dies sind die Gruppierungsvariable "id" und die Rohvarianten der Variablen aus, da nur diese die Informationen über **beide** Ebenen enthalten (personen-zentrierte Variablen beinhalten nur Varianz auf Inner-Person-Ebene, Personen-Mittelwerte nur Varianz auf Zwischen-Person-Ebene). Die zerlegten Variablen mit den Kürzeln _dm und _gm brauchen wir erst später.
-
-```{r}
-mehrebenen_stats <- df_cfa_long_scores |> 
-  select(id, a, b, c) |> 
-    statsBy(group = "id")
-```
-
-Wir bekommen hier manchmal Warnungen, wenn wir auch  reine Level-2 Variablen eingeschlossen haben. Dies können wir jedoch ignorieren.
-Mit `print()` bekommen wir eine Übersicht über die Ergebnisse der Resultate der `statsBy()` Funktion. 
-```{r}
-print(mehrebenen_stats)
-```
-
-Uns interessiert nur die Intraclass Correlation 1. Intraclass Correlation (2) und Eta-Quadrat interessieren uns nicht.
-
-Den ICC können wir uns auch direkt angeben lassen, indem wir aus dem Listenobjekt `mehrebenen_stats` mit dem Dollarzeichen `$` die Untervariable `ICC1` anwählen.
-
-```{r}
-icc <- mehrebenen_stats$ICC1 |> 
-  round(2) # runden
-icc
-```
-Alle Skalen im Beispiel haben ICCs in einem angemessenen Bereich (<.80). Dies heisst, dass genug tägliche Varianz vorhanden ist, um Mehrebenen-Analysen durchzuführen.
-
-## Reliabilitätsanalyse
-
-Die Reliabilitätsanalyse basiert auf den Items, nicht auf den Skalenwerten. Diese haben wir im `df_cfa_long` Dataframe abgespeichert.
 
 ```{r}
 head(df_cfa_long)
 ```
 
+In  `df_cfa_long` haben wir die einzelnen Item abgespeichert.
+
+- id: Gruppierungsvariable / Personen-ID, von 1 - 100
+- time: Zeitpunkt / Tag der Messung, von 1-10
+- a1-a5: 5 Items aus Skala für "a"
+- b1-b5: 5 Items aus Skala für "b"
+- c1-c3: 3 Items aus Skala für "c"
+
+## Reliabilitätsanalyse
+
+Die Reliabilitätsanalyse basiert auf den Items, nicht auf den Skalenwerten (`df_cfa_long`).
 Bei täglich erhobenen Skalen nehmen wir die `omegaSEM()` Funktion. Als erstes Argument geben wir die Items in einem Character-Vector mittels `c()`, die Items werden mit Anführungszeichen angegeben. Falls ihr die Itemnamen nicht wisst, könnt ihr sie mit `names(df_cfa_long)` nachsehen.
 
 ```{r}
@@ -107,72 +86,23 @@ scalec_reliab$Results
 
 ## Korrelationstabelle
 
-In quantitativ-empirischen psychologischen Artikeln ist (fast) immer die Korrelationstabelle die erste Tabelle des Artikels. Unser nächstes Ziel ist es, eine Korrelationstabelle anzufertigen, in der wir auch die Mittelwerte und Standardabweichungen integrieren. 
+In quantitativ-empirischen psychologischen Artikeln ist (fast) immer die Korrelationstabelle die erste Tabelle des Artikels. Unser nächstes Ziel ist es, eine Korrelationstabelle anzufertigen, in der wir die a) Mittelwerte, b) Standardabweichungen, c) ICC (Anteile der Zwischen-Person Varianz) und Korrelationen Zwischen und Innerhalb von Personen integrieren. 
 
-
-### Mittelwerte
-
-Mittelwerte wurden bereits - pro Person - durch die `statsBy()` Funktion gebildet. Den allgemeinen Mittelwert bekommen wir  mit der Funktion `summarise()`. Diese erlaubt uns, zusammenfassende Werte zu bilden. Da wir dies gleich für mehrere Variablen machen, benutzen wir zudem `across()`, um die Summary gleich für mehrere Variablen zu bilden. Die Funktion benötigt als Argumente (a) die Namen der Variablen mit `c()` als einen Vektor zusammengefasst, (b) die Funktionen, wie sie gebildet werden (hier: `~mean(.x, na.rm = TRUE)` für das arithmetische Mittel unter Ausschluss aller nicht vorhandenen Werte) und (c) optional die Namen der ausgegebenen Variablen mittels ".names". Wir verwenden "m_{.col}". Abschliessend runden wir die Werte.
-
-Ersetzt im folgenden Code in der Klammer von `c()` die Variablennamen  mit denen, die euch interessieren, hier sowohl die täglichen als auch Baselinevariablen.
+Die Funktion `cortable_multilevel()` berechnet und stellt diese Angaben für uns zusammen.
+Sie nimmt die Argumente `varnames` mit den Variablennamen als Vektor ` c("a", "b", "c")` und die Gruppierungsvariable, die angibt zu welcher Level-2 Einheit eine Beobachtung/Zeile gehört (`grp = "id"`). 
 
 ```{r}
-mittelwerte <- mehrebenen_stats$mean |> 
-  as_tibble() |> 
-  summarise(across(c(a,b,c), ~mean(.x, na.rm = TRUE)))
-
-mittelwerte
-```
-Wir sehen, dass a einen höheren Mittelwert (M = 3.03) als b und c (M = 1.94, M = 1.99) aufweist. Für die Verteilung der Variablen sehen wir uns idealerweise auch Histogramme an.
-
-```{r}
-hist(mehrebenen_stats$mean[,"a"])
-hist(mehrebenen_stats$mean[,"b"])
-hist(mehrebenen_stats$mean[,"c"])
-
-```
-Alle Variablen scheinen vom Histogram her hinreichend normalverteilt.
-
-### Standardabweichungen
-
-Ganz ähnlich wie mit Mittelwerten verfahren wir für die Standardabweichung, nur dass wir hier als Funktion `~sd(.x, na.rm = TRUE)` verwenden.
-Ersetzt auch hier im folgenden Code in der Klammer von `c()` die Variablennamen  mit denen, die euch interessieren, hier sowohl die täglichen als auch Baselinevariablen.
-Die Baselinevariable "w" zeigt hier keine SD mit dieser Berechnung und muss separat berechnet werden.
-
-
-
-```{r}
-standardabweichung <- mehrebenen_stats$sd |> 
-  as_tibble() |> 
-  summarise(across(c(a, b, c), ~mean(.x, na.rm = TRUE)))
-standardabweichung
-```
-
-### Korrelationen
-
-Wir wollen eine Korrelationstabelle, in der wir auf einen Blick sowohl die Zwischen-Person-Korrelationen als auch die Inner-Person-Korrelationen sehen. Die `statsBy()` Funktion, die wir bereits aufgerufen haben, gibt uns beides separat aus. und 
-
-```{r}
-mehrebenen_stats$rbg |> round(2) # Zwischen Person Kor.
-
-mehrebenen_stats$rwg |> round(2) # Inner Person Kor.
-```
-
-
-Wir erhalten im unteren Dreieck die Inner-Person-Korrelationen, und im oberen Dreieck die Zwischen-Person-Korrelationen.
-
-
-### Integration in Tabelle
-
-Jetzt gilt es, die Mittelwerte, Standardabweichungen, ICCs, und Korrelationen Zwischen und Innerhalb von Personen in einer Tabelle zu integrieren. Mit der `tibble()` Funktion bauen wir einen neue Datensatz-Tabelle, in der wir alle Variablen integrieren.
-
-Die vorhergehenden Analysen zeigen wie man die einzelnen Komponenten der Tabelle erstellt.
-Die Funktion `cortable_multilevel()` führt die einzelnen Funktionen direkt zusammen.
-
-```{r}
-cortable_integriert <- cortable_multilevel(df_cfa_long_scores, c("a", "b", "c"), grp = "id")
+cortable_integriert <- cortable_multilevel(df_cfa_long_scores,
+                                           varnames = c("a", "b", "c"),
+                                           grp = "id")
 cortable_integriert
 ```
+
+Betrachten wir nun die einzelnen Elemente der Korrelationstabelle:
+
+- Mittelwerte / M: Wir sehen, dass a einen höheren Mittelwert (M = 3.03) als b und c (M = 1.94, M = 1.99) aufweist. Für die Verteilung der Variablen sehen wir uns idealerweise auch Histogramme an.
+- Standardabweichungen / SD: Die Streuung der Variablen ist ähnlich und ihre Standardabweichungen liegen zwischen 0.99 und 1.07.
+- 1.-3. Wir erhalten im unteren Dreieck die Inner-Person-Korrelationen, und im oberen Dreieck die Zwischen-Person-Korrelationen. Alle Korrelationen sind signifikant positiv.
 
 ### Export von Tabellen zu Excel
 
@@ -185,49 +115,31 @@ write_xlsx(cortable_integriert, path = "korrelationstabelle.xlsx")
 
 Die Excel-Tabelle lässt sich dann in Word kopieren und weiter verarbeitet werden, z.B. mit den richtigen Variablennamen versehen werden etc. Damit haben wir nun die Datenaufbereitung und deskriptive Datenanalyse abgeschlossen.
 
-# Übung:
+## Übung
 
 Wendet diese Schritte nun auf den Datensatz aus der letzten Übung an. Zunächst laden wir die Daten, die in der letzten Übung abgespeichert werden sollten.
+
+Wir haben die beiden Datensätze `df_uebung_lang` für alle Items (x1-x5, y1-y5) im langen Datenformat und `df_uebung_lang_scores` für alle Skalenwerte (x,y) im Langformat.
 
 ```{r}
 load("../data/df_uebung.RData")
 head(df_uebung_lang)
-
+head(df_uebung_lang_scores)
 ```
 
 ```{r}
 head(df_uebung_lang_scores)
 ```
 
-### ICC
+### Reliabilitsätsanalyse
 
-Berechnet den ICC für X und Y mittels `statsBy()` und analysiert die Angaben:
-
-- Weisen die Skalen X und Y hinreichend Varianz auf der Inner-Person-Ebene auf, um sie mittels Mehrebenen-Modelle zu analysieren? Begründet eure Antwort.
-
-:::{.callout-tip collapse="true"}
-### Lösung
-
-```{r}
-mehrebenen_stats <- df_uebung_lang_scores |> 
-  select(id, x,y) |> 
-    statsBy(group = "id")
-
-print(mehrebenen_stats)
-# oder
-mehrebenen_stats$ICC1
-```
-:::
-
-## Reliabilitsätsanalyse
-
-Berechnet die Omega-Within und Omega-Between Reliabilitäten für X und Y mittels `omegaSEM()` und analysiert die Angaben:
+Berechnet die Omega-Within und Omega-Between Reliabilitäten für X und Y mittels `omegaSEM()` und analysiert die Angaben. Passt dazu den Code aus dem Abschnitt 'Reliabilitätsanalyse' oben auf das Beispiel an.
 
 - Weisen die Skalen X und Y hinreichende Omega-Werte auf, um Inner-Person Unterschiede reliabel zu messen? Begründet eure Antworten.
 - Weisen die Skalen X und Y hinreichend Omega-Werte auf, um Zwischen-Person Unterschiede reliabel zu messen? Begründet eure Antworten.
 
 :::{.callout-tip collapse="true"}
-### Lösung
+#### Lösung
 
 
 ```{r}
@@ -241,25 +153,26 @@ scaley_reliab$Results
 ```
 :::
 
-## Integration in Korrelationstabelle
 
-Erstellt eine Korrelationstabelle von den Variablen w, x, m, und y mit Mittelwerten, Standardabweichungen, ICC, und Within/Between-Korrelationen wie in Kapitel 1a gezeigt.
+### ICC und Korrelationstabelle
 
-:::{.callout-tip collapse="true"}
-### Lösung
+Berechnet den ICC für X und Y mittels `cortable_multilevel()` und analysiert die Angaben. Passt dazu den Code aus dem Abschnitt 'Korrelationstabelle' oben auf das Beispiel an.
 
-```{r}
-cortable_integriert_uebung <- cortable_multilevel(df_uebung_lang_scores, c("x", "y"), grp = "id")
-cortable_integriert_uebung
-```
-:::
-
-Basierend auf euren Analysen zu ICC, Reliabilitsätsanalysen, und der Betrachtung der Korrelationstabelle, beantwortet folgende Fragen:
-
+- Weisen die Skalen X und Y hinreichend Varianz auf der Inner-Person-Ebene auf, um sie mittels Mehrebenen-Modelle zu analysieren? Begründet eure Antwort.
 - Wie fällt die Korrelation zwischen X und Y auf Zwischen-Person Ebene aus? Ist es basierend auf der Prüfungen der Voraussetzungen (ICCs, Reliabilitäten) sinnvoll, diese zu interpretieren?
 - Wie fällt die Korrelation zwischen X und Y auf Inner-Person Ebene aus? Ist es basierend auf der Prüfungen der Voraussetzungen (ICCs, Reliabilitäten) sinnvoll, diese zu interpretieren?
 
 :::{.callout-tip collapse="true"}
+#### Lösung
+
+```{r}
+mehrebenen_stats <- df_uebung_lang_scores |> 
+    cortable_multilevel(varnames = c("x", "y"), grp = "id")
+
+print(mehrebenen_stats)
+```
+
+Beide Variablen haben einen ICC unter .80, unserer Faustregel, d.h. 20% oder mehr Varianz liegt auf der Inner-Person Ebene. Somit weisen sie genügend Varianz auf Inner-Person-Ebene aus und eine Mehrebenen-Analyse ist möglich. X scheint mehr Varianz auf Inner-Person zu haben (ICC: .53; Varianz auf Inner-Person-Ebene ist 1-ICC, also .47 oder 47%) als Y (31%).
 
 #### Zwischen-Person Ebene
 Die Korrelation zwischen X und Y beträgt r = .28 und ist signifikant. Die Reliabilität auf Level-2/ Zwischen-Person Ebene, durch omega_between angegeben, ist für X und Y gut (> .80).
@@ -269,7 +182,6 @@ Die ICCs weisen auf ausreichend Varianz auf Zwischen-Person Ebene hin (53%-69%).
 Für Y, auch wenn es durchaus Varianz auf Inner-Person Ebene gibt (ICC = .69, damit sind 31% der Varianz auf Inner-Person Ebene), ist auf Inner-Person Ebene ist die Reliabilität sehr niedrig (Omega-within = .32). Das heisst, dass die  Varianz innerhalb der Personen über die Tage auf Variable Y nicht reliabel gemessen werden. Die Inner-Person Varianz auf Y ist somit nicht sinnvoll zu interpretieren und stellt vermutlich nur "Rauschen" dar. Die Korrelation mit X ist nicht sinnvoll zu interpretieren (und fällt auch nicht signifikant aus), auch wenn X sowohl ausreichend Level-1 Varianz hat als auch reliabel gemessen ist.
 
 :::
-
 
 ## Zusatz
 
@@ -293,3 +205,81 @@ lavInspect(scalec_reliab$Fit, "list") |>
 ```
 
 Wie der Output zeigt, ergibt sich die Omega-Reliabilität aus dem Anteil der durch den Faktor (f_within für den Faktor auf Level-1 bzw. f_between für den Faktor auf Level-2) erklärten Varianz der Items (Summe aller  Item-Ladungen, quadriert für Varianz) geteilt durch die Gesamtvarianz der Items (durch Faktor erklärte Varianz der Items + Residualvarianz, d.h. übrigbleibende Varianz der Items). Diese Formel wird pro Varianzebene (Level-1, also tägliche Schwankungen innerhalb der Person) und Level-2 (Unterschiede zwischen Personen) getrennt berechnet.
+
+### Berechnung der einzelnen Kenngrössen der Korrelationstabelle
+
+#### ICC und Within-Person Variance
+
+Uns interessiert wie gross der Anteil der Varianz ist, der jeweils auf die zwei Ebenen der Daten entfallen (Inner-Person, Zwischen-Person-Ebene). Dies kann uns der ICC angeben. Mittels der Funktion `statsBy()` bekommen wir einige Analysen zu unseren Mehrebenen-Daten geliefert. Die Funktion benötigt zwei Argumente: den Datensatz und und die Gruppierungsvariable.
+Wir wählen entsprechend in `select()` die Variablen, die uns interessieren. Dies sind die Gruppierungsvariable "id" und die Rohvarianten der Variablen aus, da nur diese die Informationen über **beide** Ebenen enthalten (personen-zentrierte Variablen beinhalten nur Varianz auf Inner-Person-Ebene, Personen-Mittelwerte nur Varianz auf Zwischen-Person-Ebene). Die zerlegten Variablen mit den Kürzeln _dm und _gm brauchen wir erst später.
+
+```{r}
+mehrebenen_stats <- df_cfa_long_scores |> 
+  select(id, a, b, c) |> 
+    statsBy(group = "id")
+```
+
+Wir bekommen hier manchmal Warnungen, wenn wir auch  reine Level-2 Variablen eingeschlossen haben. Dies können wir jedoch ignorieren.
+Mit `print()` bekommen wir eine Übersicht über die Ergebnisse der Resultate der `statsBy()` Funktion. 
+```{r}
+print(mehrebenen_stats)
+```
+
+Uns interessiert nur die Intraclass Correlation 1. Intraclass Correlation (2) und Eta-Quadrat interessieren uns nicht.
+
+Den ICC können wir uns auch direkt angeben lassen, indem wir aus dem Listenobjekt `mehrebenen_stats` mit dem Dollarzeichen `$` die Untervariable `ICC1` anwählen.
+
+```{r}
+icc <- mehrebenen_stats$ICC1 |> 
+  round(2) # runden
+icc
+```
+Alle Skalen im Beispiel haben ICCs in einem angemessenen Bereich (<.80). Dies heisst, dass genug tägliche Varianz vorhanden ist, um Mehrebenen-Analysen durchzuführen.
+
+#### Mittelwerte
+
+Mittelwerte wurden bereits - pro Person - durch die `statsBy()` Funktion gebildet. Den allgemeinen Mittelwert bekommen wir  mit der Funktion `summarise()`. Diese erlaubt uns, zusammenfassende Werte zu bilden. Da wir dies gleich für mehrere Variablen machen, benutzen wir zudem `across()`, um die Summary gleich für mehrere Variablen zu bilden. Die Funktion benötigt als Argumente (a) die Namen der Variablen mit `c()` als einen Vektor zusammengefasst, (b) die Funktionen, wie sie gebildet werden (hier: `~mean(.x, na.rm = TRUE)` für das arithmetische Mittel unter Ausschluss aller nicht vorhandenen Werte) und (c) optional die Namen der ausgegebenen Variablen mittels ".names". Wir verwenden "m_{.col}". Abschliessend runden wir die Werte.
+
+Ersetzt im folgenden Code in der Klammer von `c()` die Variablennamen  mit denen, die euch interessieren, hier sowohl die täglichen als auch Baselinevariablen.
+
+```{r}
+mittelwerte <- mehrebenen_stats$mean |> 
+  as_tibble() |> 
+  summarise(across(c(a,b,c), ~mean(.x, na.rm = TRUE)))
+
+mittelwerte
+```
+Wir sehen, dass a einen höheren Mittelwert (M = 3.03) als b und c (M = 1.94, M = 1.99) aufweist. Für die Verteilung der Variablen sehen wir uns idealerweise auch Histogramme an.
+
+```{r}
+hist(mehrebenen_stats$mean[,"a"])
+hist(mehrebenen_stats$mean[,"b"])
+hist(mehrebenen_stats$mean[,"c"])
+
+```
+Alle Variablen scheinen vom Histogram her hinreichend normalverteilt.
+
+#### Standardabweichungen
+
+Ganz ähnlich wie mit Mittelwerten verfahren wir für die Standardabweichung, nur dass wir hier als Funktion `~sd(.x, na.rm = TRUE)` verwenden.
+Ersetzt auch hier im folgenden Code in der Klammer von `c()` die Variablennamen  mit denen, die euch interessieren, hier sowohl die täglichen als auch Baselinevariablen.
+Die Baselinevariable "w" zeigt hier keine SD mit dieser Berechnung und muss separat berechnet werden.
+
+```{r}
+standardabweichung <- mehrebenen_stats$sd |> 
+  as_tibble() |> 
+  summarise(across(c(a, b, c), ~mean(.x, na.rm = TRUE)))
+standardabweichung
+```
+
+#### Korrelationen
+
+Wir wollen eine Korrelationstabelle, in der wir auf einen Blick sowohl die Zwischen-Person-Korrelationen als auch die Inner-Person-Korrelationen sehen. Die `statsBy()` Funktion, die wir bereits aufgerufen haben, gibt uns beides separat aus. und 
+
+```{r}
+mehrebenen_stats$rbg |> round(2) # Zwischen Person Kor.
+
+mehrebenen_stats$rwg |> round(2) # Inner Person Kor.
+```
+
+Wir erhalten im unteren Dreieck die Inner-Person-Korrelationen, und im oberen Dreieck die Zwischen-Person-Korrelationen.

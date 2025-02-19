@@ -1,5 +1,5 @@
 ---
-title: "Kapitel 3: Hypothesentests - Teil 1"
+title: "Kapitel 4: Hypothesentests - Teil 1"
 format:
   html:
     df-print: kable
@@ -13,12 +13,10 @@ editor: source
 
 In diesem Kapitel verwenden wir verschiedene Regressionsmodelle die zur Überprüfung von Hypothesen eingesetzt werden.
 
-
 - Random Intercept Modell / Null-Model
 - Random Intercept, fixed slope Modell
 - Random intercept, random slope Modell
 - Erweiterung um Level-2 Prädiktoren
-- Cross-level und within-level Interaktionen
 
 ## Vorbereitung
 
@@ -79,7 +77,7 @@ tidy(nullmodel)
 model_parameters(nullmodel) |> print_html()
 ```
 
-Ich bevorzuge persönlich den Output von model_parameters(), aber das ist Geschmackssache.
+Im Seminar verwenden wir den Output von model_parameters(), weil er eine recht gut formatierte Übersicht gibt.
 
 ### ICC
 
@@ -122,7 +120,7 @@ ggplot(data = df_example1 |> filter(id %in% 1:20), aes(
   ggthemes::theme_tufte()
 ```
 
-Oder zwei Personen, um uns die einzelnen Punkte auch anschauen zu können
+Oder zwei Personen, um uns die einzelnen Punkte auch anschauen zu können:
 
 ```{r}
 ggplot(data = df_example1 |> filter(id %in% c(1, 16)), aes(
