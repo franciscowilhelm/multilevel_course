@@ -25,7 +25,7 @@ Install packages
 ```{r}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(lmerTest, haven, brms, psych,
-               sjmisc, sjPlot, writexl, broom.mixed, qgraph,
+               sjmisc, sjPlot, sjlabelled, writexl, broom.mixed, qgraph,
                tidyverse, multilevelTools, parameters)
 ```
 
@@ -182,6 +182,7 @@ ggplot(data = df_example1 |> filter(id %in% 1:20), aes(
 ```
 
 
+
 ## Random intercept, random slope Modell
 
 Als nächstes fügen wir den random slope der Prädiktorvariable x_dm hinzu, in dem wir die random effect Struktur erweitern - "(1 + x_dm | id)".
@@ -223,6 +224,8 @@ ggplot(data = df_example1 |> filter(id %in% 1:20), aes(
 ```
 
 
+
+
 ## Level-2 Prädiktoren
 
 Als nächstes fügen wir einen Level-2 Prädiktor hinzu, der pro Person nur einmal gemessen wurde. Dabei handelt es sich für gewöhnlich um (1) Variablen, bei denen wir nicht an täglichen Schwankungen interessiert sind, wie soziodemografischen oder Persönlichkeitsvariablen, oder (2) den Mittelwert der Personen auf einer täglich gemessenen Variable. Im Beispiel verwenden wir (2), "x_gm".
@@ -237,5 +240,45 @@ ri.rs_l2_modell <- lmer(y ~ x_dm + x_gm + (1 + x_dm | id), data = df_example1)
 model_parameters(ri.rs_l2_modell) |> print_html()
 ```
 
+## Übung
 
- 
+Wir arbeiten in der Übung mit einem neuen Datensatz.
+
+Mache dich mit ihm vertraut.
+Diesmal benutzen wir einen Datensatz in dem die Variablen "labelled" sind, also Beschriftungen haben. Wir können die Labels mit `get_label()` oder `view_df()` abrufen.
+
+```{r}
+load("../data/df_example_cli.RData")
+
+head(df_example_cli)
+
+view_df(df_example_cli)
+# alternativ
+#get_label(df_example_cli)
+```
+
+Berechne Modelle mit denen du die folgenden Hypothesen testest: 
+
+Hypothese 1: Tägliche illegitime Aufgaben hängen positiv mit täglichem negativem Affekt zusammen.
+
+Teste zunächst ein Random intercept, fixed slope Modell, und dann ein Random Intercept, Random Slope Modell.
+Urteile, ob die Hypothese angenommen oder verworfen werden sollten.
+
+:::{.callout-tip collapse="true"}
+### Lösung
+
+```{r}
+ri.fs_modell <- lmer(negativ ~ illtask_dm + (1 | id), data = df_example_cli)
+parameters(ri.fs_modell) |> print_html()
+
+ri.rs_modell <- lmer(negativ ~ illtask_dm + (1 + illtask_dm | id), data = df_example_cli)
+parameters(ri.rs_modell) |> print_html()
+
+```
+
+Die Hypothese 1 kann angenommen werden, da der Effekt von illegitimen Aufgaben (`illtask_dm`) signifikant positiv ist. Auch im strengeren random Slopes Modell ist der Effekt weiterhin signifikant.
+
+Wir können auch sehen, dass im Random Slopes Modell die Konfidenzintervalle etwas breiter sind und der Standardfehler etwas grösser sind als im Fixed Slopes Modell. 
+In Random Slopes Modellen können die Regressionskoeffizienten zwischen den Individuen variieren, was zusätzliche Varianz in die Schätzungen einbringt. Diese zusätzliche Unsicherheit führt dazu, dass sowohl die Standardfehler als auch die Konfidenzintervalle grösser ausfallen als in Fixed Slopes Modellen, bei denen die Steigung als konstant über alle Gruppen angenommen wird. Dadurch reflektieren die größeren Intervalle die höhere Unsicherheit in der Modellierung individueller Unterschiede in den Effekten.
+
+:::
