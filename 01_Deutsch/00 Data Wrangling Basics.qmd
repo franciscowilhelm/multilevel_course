@@ -4,8 +4,6 @@ output:
   html_document:
     df-print: paged
     code_folding: hide
-    highlight: haddock
-    theme: cosmos
     toc: true
     toc_float: true
 ---

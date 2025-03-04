@@ -17,7 +17,9 @@ pacman::p_load(haven, psych,
                tidyverse, multilevelTools, parameters)
 ```
 
-## MLM-Motivierendes Beispiel
+## Sitzung 3
+
+### MLM-Motivierendes Beispiel
 
 ```{r}
 load("../data/df_example1.RData")
@@ -33,7 +35,7 @@ df_example1d <- df_example1d |>
   de_mean(y, x, grp = "id")
 ```
 
-## Variante 1: Klassisches lineares Modell ohne Berücksichtigung der hierarchischen Datenstruktur
+### Variante 1: Klassisches lineares Modell ohne Berücksichtigung der hierarchischen Datenstruktur
 
 ```{r}
 v1_results <- lm(y ~ x, df_example1d)
@@ -46,10 +48,17 @@ df_example1d |>
     geom_smooth(method = lm)
 ggsave("Plots/01_standardlm_idseingefärbt.png", width = 10, height = 7)
 
+df_example1d |> 
+    mutate(id = as.factor(id)) |> 
+    ggplot(aes(x = x, y = y)) + 
+    geom_point() +
+    geom_smooth(method = lm)
+ggsave("Plots/01a_standardlm_idsgrau.png", width = 7, height = 7)
+
 # zeigt nur 50 - der übersicht halber
 ```
 
-## Variante 2: Personen-Mittelwerte
+### Variante 2: Personen-Mittelwerte
 
 ```{r}
 df_personlevel <- df_example1d |> group_by(id) |> 
@@ -61,7 +70,7 @@ model_parameters(v2_results) |> print_html()
 
 Grossere Standardfehler / Konfidenzintervalle
 
-## Variante 3: Mehrebenen-Modell
+### Variante 3: Mehrebenen-Modell
 
 ```{r}
 ri.fs_modell <- lmer(y ~ x_dm + x_gm + (1 | id), data = df_example1d)
@@ -141,6 +150,179 @@ sep_plot <- function(df, y, x, idvar, idnum) {
 
 sep_plot(df_example1d, "y", "x", "id", 1:4)
 ggsave("Plots/01_separat_yx.png", width = 10, height = 7)
+```
+
+## Sitzung 4
+
+### Standard LM
+
+```{r}
+data(diamonds)
+diamonds_z <- diamonds |> sjmisc::std()
+v1_results <- lm(price_z ~ carat_z, diamonds_z)
+v1_results
+p <- diamonds_z |> 
+    ggplot(aes(x = carat_z, y = price_z)) + 
+    geom_smooth(method = lm, color = "black", se = FALSE) +
+   theme_minimal() +
+ scale_x_continuous(breaks = function(x) floor(min(x)):ceiling(max(x))) +  # Auto integer breaks
+  scale_y_continuous(breaks = function(y) floor(min(y)):ceiling(max(y))) # Auto integer breaks
+
+ggsave("plots/diamonds.png", plot = p, device = "png", width = 6, height = 4, dpi = 300)
+
+```
+
+### Separate Plots pro Person für Sitzung 4
+
+```{r}
+load("../data/df_example1.RData")
+load("../data/df_example1c.RData")
+nullmodel <- lmer(y ~ (1 | id), data = df_example1)
+df_example1 <- df_example1 |> mutate(ypred_null = predict(nullmodel))
+
+df_example1 |>
+  filter(id %in% 1:4) |> mutate(time = rep(1:10, 4)) |>
+  mutate(id = as.factor(id)) |>
+  ggplot(aes(
+    x = x,
+    y = y,
+    group = id,
+    color = id
+  )) +
+  geom_point(alpha = 0.5) +
+  geom_line(aes(y = ypred_null), size = 1) +
+              facet_wrap(vars(id))
+
+ggsave("Plots/separat_nullmodel.png", width = 10, height = 7)
+```
+
+```{r}
+ri.fs_modell <- lmer(y ~ x_dm + (1 | id), data = df_example1)
+df_example1 <- df_example1 |> mutate(ypred_rifs = predict(ri.fs_modell))
+
+df_example1 |>
+  filter(id %in% 1:4) |> mutate(time = rep(1:10, 4)) |>
+  mutate(id = as.factor(id)) |>
+  ggplot(aes(
+    x = x,
+    y = y,
+    group = id,
+    color = id
+  )) +
+  geom_point(alpha = 0.5) +
+  geom_line(aes(y = ypred_rifs), size = 1) +
+              facet_wrap(vars(id))
+
+ggsave("Plots/separat_rifs.png", width = 10, height = 7)
+```
+
+```{r}
+ri.rs_modell <- lmer(y ~ x_dm + (1 + x_dm | id), data = df_example1)
+
+df_example1 <- df_example1 |> mutate(ypred_rirs = predict(ri.rs_modell))
+
+df_example1 |>
+  filter(id %in% 1:4) |> mutate(time = rep(1:10, 4)) |>
+  mutate(id = as.factor(id)) |>
+  ggplot(aes(
+    x = x,
+    y = y,
+    group = id,
+    color = id
+  )) +
+  geom_point(alpha = 0.5) +
+  geom_line(aes(y = ypred_rirs), size = 1) +
+              facet_wrap(vars(id))
+  
+
+ggsave("Plots/separat_rirs.png", width = 10, height = 7)
+
+df_example1 |>
+  filter(id %in% 1:4) |> mutate(time = rep(1:10, 4)) |>
+  mutate(id = as.factor(id)) |>
+  ggplot(aes(
+    x = x,
+    y = y,
+    group = id,
+    color = id
+  )) +
+  geom_point(alpha = 0.5) +
+  geom_line(aes(y = ypred_rirs), size = 1) +
+  geom_line(aes(y = ypred_rifs), size = 1, color = "black") +
+              facet_wrap(vars(id))
+
+ggsave("Plots/separat_rirs_withfs.png", width = 10, height = 7)
+
+```
+
+## Sitzung 5
+
+Interaktionsmuster: Puffer
+
+```{r}
+set.seed(123)  # For reproducibility
+
+# Generate predictors
+n <- 500
+X <- rnorm(n, mean = 0, sd = 1)  # Independent variable
+W <- rnorm(n, mean = 0, sd = 1)  # Moderator
+
+# Define coefficients
+b_X <- -0.5    # Negative effect of X on Y at low W
+b_W <- 0.3     # Effect of W on Y
+b_XW <- 0.6    # Positive interaction effect (buffering)
+
+# Generate outcome variable
+Y <- 2 + (b_X * X) + (b_W * W) + (b_XW * X * W) + rnorm(n, mean = 0, sd = 1)
+
+# Create dataframe
+data <- data.frame(X, W, Y)
+
+# Inspect the data
+summary(lm(Y ~ X * W, data = data))
+
+# Load necessary library
+library(sjPlot)
+
+# Fit the model
+model <- lm(Y ~ X * W, data = data)
+
+# Create an interaction plot
+plot_model(model, type = "int", terms = c("X", "W"), mdrt.values = "meansd")
+ggsave("Plots/session5_bufferinteraction.png")
+```
+
+```{r}
+set.seed(123)  # For reproducibility
+
+# Generate predictors
+n <- 500
+X <- rnorm(n, mean = 0, sd = 1)  # Independent variable
+W <- rnorm(n, mean = 0, sd = 1)  # Moderator
+
+# Define coefficients
+b_X <- 0.3    # Negative effect of X on Y at low W
+b_W <- 0.2     # Effect of W on Y
+b_XW <- 0.5    # Positive interaction effect (buffering)
+
+# Generate outcome variable
+Y <- 2 + (b_X * X) + (b_W * W) + (b_XW * X * W) + rnorm(n, mean = 0, sd = 1)
+
+# Create dataframe
+data <- data.frame(X, W, Y)
+
+# Inspect the data
+summary(lm(Y ~ X * W, data = data))
+
+# Load necessary library
+library(sjPlot)
+
+# Fit the model
+model <- lm(Y ~ X * W, data = data)
+
+# Create an interaction plot
+plot_model(model, type = "int", terms = c("X", "W"), mdrt.values = "meansd")
+ggsave("Plots/session5_synergyinteraction.png")
 ```
 
 ## Sample Paper

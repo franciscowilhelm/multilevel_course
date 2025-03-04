@@ -4,8 +4,6 @@ format:
   html:
     df-print: kable
     code_folding: hide
-    highlight: haddock
-    theme: cosmos
     toc: true
     toc_float: true
 editor: source
@@ -46,6 +44,7 @@ Zunächst berechnen wir das Modell ohne Interaktion von X und W (X*W), aber mit 
 Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}$
 
 Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
+
 Level 2 (random slope for x): $\beta_{1j} = \gamma_{10} + u_{2j}$
 
 ```{r}
@@ -181,14 +180,16 @@ head(df_example1)
 ```
 
 Zum Testen verwenden wir zunächst die Funktion `modmed.mlm()`.
-Anders als bei den früheren ANalysen steht uns das `parameters` Paket hier nicht zur Verfügung um die Ergebnisse zusammenzufassen. Stattdessen nehmen wir die `summary()` Funktion.
+Anders als bei den früheren Analysen steht uns das `parameters` Paket hier nicht zur Verfügung um die Ergebnisse zusammenzufassen. Stattdessen nehmen wir die `summary()` Funktion oder die `tidy()`-Funktion aus dem broom Paket.
 
 ```{r}
 fit_mediation <- modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm",
                                 random.int.m = FALSE,
                                 na.action = na.omit)
 
-summary(fit_mediation$model)
+#summary(fit_mediation$model)
+broom::tidy(fit_mediation$model) |>
+  mutate(across(where(is.numeric), round, 2)) # rundung der werte
 ```
 Die ausgegebenen Zeilen/Parameter sind etwas kryptisch beschrieben.
 
@@ -222,33 +223,37 @@ boot.custom.results <- boot.modmed.mlm.custom(
 ```
 
 ```{r}
-summary(boot.custom.results$model)
-extract.modmed.mlm(boot.custom.results, type="all")
-extract.modmed.mlm(boot.custom.results, type="indirect")
-# manual extract of CI
+broom::tidy(boot.custom.results$model) |>
+  mutate(across(where(is.numeric), round, 2)) # rundung der werte
+```
+Nach der Schätzung des Modells müssen wir das 95% Konfidenzintervall des indirekten Effekts aus den Modellergebnissen extrahieren. Dazu gibt es derzeit keine einfache Funktion, entsprechend fällt der folgende Code-Chunk komplexer aus.
+
+```{r}
+
+# Punktwert des indirekten Effekt
+indirect_punktschaetzung <- extract.modmed.mlm(boot.custom.results, type="indirect")
+
+# Bootstrapped 95% Konfidenzintervall um den Punktwert herum
 indirect_boot <- tibble(SyM = boot.custom.results[["t"]][,which(names(boot.custom.results[["t0"]]) == "SyM")], 
                         SmX = boot.custom.results[["t"]][,which(names(boot.custom.results[["t0"]]) == "SmX")]) |> 
   mutate(indirect = SyM * SmX)
-quantile(indirect_boot$indirect, c(0.025, 0.975), na.rm = TRUE)
+indirekt_ci <- quantile(indirect_boot$indirect, c(0.025, 0.975), na.rm = TRUE)
 
 # zusammenfassen
-indirect_punktschaetzung <- extract.modmed.mlm(boot.custom.results, type="indirect")
-indirekt_ci <- quantile(indirect_boot$indirect, c(0.025, 0.975), na.rm = TRUE)
 indirekt_zusammenfassung <-
   tibble(Koeffizient = indirect_punktschaetzung,
          LLCI = indirekt_ci[1],
          ULCI = indirekt_ci[2]) |> 
   mutate(across(where(is.numeric), round, 3))
-
+indirekt_zusammenfassung
 ```
+
+- LLCI = Lower Limit of Confidence Interval
+- ULCI = Upper Limit of Confidence Interval
 
 Der indirekte Effekt und sein 95% Konfidenzintervall müssen wir aus den Daten extrahieren. Wenn der 95% Konfidenzintervall die 0 ausschliesst (also sowohl unterer als auch oberes Limit entweder unter Null oder über Null liegen) können wir den indirekten Effekt als signifikant ansehen.
 
 In diesem Beispiel finden wir also einen signifikanten indirekten Effekt mit Koeffizient = 0.30, 95% CI = [0.19, 0.41].
-
-LLCI = Lower Limit of Confidence Interval
-
-ULCI = Upper Limit of Confidence Interval
 
 ## Übung
 
@@ -295,20 +300,22 @@ boot.custom.results <- boot.modmed.mlm.custom(
   seed = 2299)
 ```
 
+```{r}
+broom::tidy(boot.custom.results$model) |>
+  mutate(across(where(is.numeric), round, 2)) # rundung der werte
+```
 
 ```{r}
-summary(boot.custom.results$model)
-extract.modmed.mlm(boot.custom.results, type="all")
-extract.modmed.mlm(boot.custom.results, type="indirect")
-# manual extract of CI
+# Punktwert des indirekten Effekt
+indirect_punktschaetzung <- extract.modmed.mlm(boot.custom.results, type="indirect")
+
+# Bootstrapped 95% Konfidenzintervall um den Punktwert herum
 indirect_boot <- tibble(SyM = boot.custom.results[["t"]][,which(names(boot.custom.results[["t0"]]) == "SyM")], 
                         SmX = boot.custom.results[["t"]][,which(names(boot.custom.results[["t0"]]) == "SmX")]) |> 
   mutate(indirect = SyM * SmX)
-quantile(indirect_boot$indirect, c(0.025, 0.975), na.rm = TRUE)
+indirekt_ci <- quantile(indirect_boot$indirect, c(0.025, 0.975), na.rm = TRUE)
 
 # zusammenfassen
-indirect_punktschaetzung <- extract.modmed.mlm(boot.custom.results, type="indirect")
-indirekt_ci <- quantile(indirect_boot$indirect, c(0.025, 0.975), na.rm = TRUE)
 indirekt_zusammenfassung <-
   tibble(Koeffizient = indirect_punktschaetzung,
          LLCI = indirekt_ci[1],
