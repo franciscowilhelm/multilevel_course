@@ -1,0 +1,36 @@
+---
+title: "Anhang: Tech Support"
+format: html
+---
+
+## Häufige Probleme
+
+## Probleme beim Installieren oder Laden von Paketen
+
+-   Stellt sicher, dass eure RStudio-Version aktuell ist (Help –\> Check for Updates).
+-   Stellt sicher, dass eure R-Version relativ aktuell ist (4.4.2 oder neuer). Welche R-Version ihr aktuell nutzt seht ihr beim Programmstart von RStudio in der Konsole, oder wenn ihr auf Tools --\> Global Options --\> General --\> R Sessions: R Version und dann auf Change... klickt. Dort könnt ihr eine der installierten R-Versionen auswählen. Manchmal benutzt RStudio automatisch eine alte Version, obwohl eine neuere bereits installiert wurde.
+-   ![](Plots/setRversion.png)
+-   Verwendet zum Installieren der Pakete den Code-Absatz aus der Einleitung. Die Pakete Laden Befehle aus den anderen Kapiteln sind nicht immer vollständig.
+
+## Probleme beim Öffnen des R-Projekts
+
+Öffnet sich das R-Projekt gar nicht, leer, oder meldet Fehler bezüglich der Schreibberechtigung, wurde möglicherweise die Übungs-.zip Datei nicht korrekt entpackt. Stellt sicher, dass ihr die .zip Datei erst entpackt und dann öffnet, anstatt das R-Projekt direkt aus der .zip Datei zu öffnen.
+
+### **Windows**
+
+1.  **Rechtsklick auf die .zip-Datei**
+
+2.  Wähle **"Alle extrahieren…"**
+
+3.  Wähle den gewünschten Speicherort und klicke auf **"Extrahieren"**
+
+**Alternative:** Falls kein „Alle extrahieren…“ erscheint, kannst du die Datei mit Programmen wie **7-Zip** entpacken.
+
+### **Mac (macOS)**
+
+1.  **Doppelklick auf die .zip-Datei**\
+    → Der Ordner wird automatisch entpackt und erscheint im selben Verzeichnis.
+
+Falls der Doppelklick nicht funktioniert:
+
+-   Rechtsklick → **"Öffnen mit"** → **"Archivierungsprogramm"**

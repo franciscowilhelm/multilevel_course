@@ -15,6 +15,7 @@ book:
     - 03 Hypotheses Tests.qmd
     - 04 Hypotheses Tests_Erweiterungen.qmd
     - 00 Data Wrangling Basics.qmd
+    - 99_techsupport.qmd
     #- 05 Ausblick.qmd
 
 # bibliography: references.bib
