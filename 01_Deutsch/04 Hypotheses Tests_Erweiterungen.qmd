@@ -75,22 +75,27 @@ Beachtet, dass mit der eingebauten Interaktion die Haupteffekte nicht mehr inter
 Visualisierung des Interaktionseffekt mittels der `plot_model()` Funktion.
 Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt.
 
+Die Simple-Slope-Analyse in Mehrebenen-Modellen dient dazu, den Moderationseffekt einer Variablen zu untersuchen, indem die Beziehung zwischen Prädiktor (hier: "x") und abhängiger Variable (hier: "y") auf verschiedenen Ausprägungsniveaus der Moderatorvariablen (hier: "w_c") betrachtet wird. Nach der Schätzung des Mehrebenen-Modells werden die Steigungen (Slopes) für unterschiedliche Werte des Moderators berechnet (z. B. ±1 Standardabweichung oder spezifische Werte), um zu analysieren, ob und wie sich der Effekt des Prädiktors je nach Moderator ändert. Diese Methode hilft zu verstehen, ob die Stärke oder Richtung eines Effekts in Abhängigkeit der Moderatorvariable variiert.
+
 ```{r}
-plot_model(ri.rs_cli_modell, type = "int", terms = c("x_dm", "w_c"))
-ggsave("test.png")
+plot_model(ri.rs_cli_modell,
+           type = "int", # typ interaktion
+           terms = c("x_dm", "w_c")) # die terme (variablen) aus denen die Interaktion gebildet wird
 ```
 
 Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen.
+Wir können den zuletzt erzeugten Plot mittels `ggsave()` abspeichern.
 
 ```{r}
 plot_model(ri.rs_cli_modell, type = "int", mdrt.values = "meansd")
+ggsave("Plots/CLI_Beispiel.png")
+
 ```
 Der Plot zeigt, dass bei höheren Ausprägungen von w der Effekt von x_dm stärker ausfällt.
 
 ### Simple Slopes Analyse
 
-Mit Hilfe der `simple_slopes` Funktion aus dem `reghelper` Paket können wir uns die Regressionskoeffizienten einer Simple-Slope Analyse unterziehen.
-Die Simple-Slope-Analyse in Mehrebenen-Modellen dient dazu, den Moderationseffekt einer Variablen zu untersuchen, indem die Beziehung zwischen Prädiktor (hier: "x") und abhängiger Variable (hier: "y") auf verschiedenen Ausprägungsniveaus der Moderatorvariablen (hier: "w_c") betrachtet wird. Nach der Schätzung des Mehrebenen-Modells werden die Steigungen (Slopes) für unterschiedliche Werte des Moderators berechnet (z. B. ±1 Standardabweichung oder spezifische Werte), um zu analysieren, ob und wie sich der Effekt des Prädiktors je nach Moderator ändert. Diese Methode hilft zu verstehen, ob die Stärke oder Richtung eines Effekts in Abhängigkeit der Moderatorvariable variiert.
+Mit Hilfe der `simple_slopes()` Funktion aus dem `reghelper` Paket können wir uns die Regressionskoeffizienten einer Simple-Slope Analyse unterziehen. Die statistischen Kennwerte dienen als Zusatz zur Visualisierung der Simple Slopes. So können wir z.B. bestimmen, ob der Effekt von X auf Y auf verschiedenen Ausprägungen signifikant ist. Z.B. könnte der Effekt von X auf Y nur bei bestimmten Ausprägungen (hoch oder niedrig) signifikant sein.
 
 Wir können die spezifischen Werte der Variable automatisch bestimmen (1. Variante) oder manuell setzen (2. Variante). Uns interessieren die Werte, wenn x_dm um eine Einheit steigt und der Moderator unterdurchschnittlich (-1 SD), durchschnittlich, oder überdurchschnittlich (+1 SD) ist. Entsprechend werden die Werte in Variante 2 manuell gesetzt. Die Werte können wir der Abbildung oben entnehmen.
 
@@ -102,7 +107,7 @@ simple_slopes(ri.rs_cli_modell,
               w_c = c(-0.62,0, 0.62, "sstest"))
 
 ```
-Die Simple Slope Analyse bestätigt die Visualiserung und zeigt, dass der Effekt von x_dm auf y schwächer ausfällt, aber immer noch signifikant positiv ist, wenn der Moderator w_c unterdurchschnittlich ist (Variante 1, Zeile 4, Variante 2, Zeile 2). Der Effekt fällt stärker aus, wenn der Moderator w_c überdurchschnittlich ist (Variante 1, Zeile 6, Variante 2, Zeile 4).
+Die Simple Slope Analyse bestätigt die Visualiserung und zeigt, dass der Effekt von x_dm auf y schwächer ausfällt, aber immer noch signifikant positiv ist, wenn der Moderator w_c unterdurchschnittlich ist (Variante 1, Zeile 4; Variante 2, Zeile 2). Der Effekt fällt stärker aus, wenn der Moderator w_c überdurchschnittlich ist (Variante 1, Zeile 6; Variante 2, Zeile 4).
 
 
 ### Within-level Interaktion
@@ -162,13 +167,13 @@ ri.rs_cli_modell <- lmer(negativ ~ illtask_dm  + support*illtask_dm + (1 + illta
 parameters(ri.rs_cli_modell)
 
 ```
-Der Interaktionseffekt von täglichen illegitimen AUfgaben mit sozialer Unterstützung durch Kolleg:innen auf negativen Affekt ist nicht signifikant (b = -0.01, p = .89). Hypothese 2 muss somit verworfen werden.
+Der Interaktionseffekt von täglichen illegitimen Aufgaben mit sozialer Unterstützung durch Kolleg:innen auf negativen Affekt ist nicht signifikant (b = -0.01, p = .89). Hypothese 2 muss somit verworfen werden.
 
 :::
 
 ## 1-1-1 Mediation
 
-Im Folgenden erstellen wir ein Mediationsmodellen und spezifizieren bei den Argumenten x, y, und m die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variablen wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.
+
 
 Die 1-1-1 Mediation ist die gängigste Variante, in der alle Variablen (X, M[ediator], und Y) auf Tagesebene gemessen werden.
 
@@ -179,18 +184,26 @@ load("../data/df_example1.RData")
 head(df_example1)
 ```
 
-Zum Testen verwenden wir zunächst die Funktion `modmed.mlm()`.
+Zum Testen des Mediationsmodells verwenden wir zunächst die Funktion `modmed.mlm()`. Im Folgenden erstellen wir mit dieser Funktion ein Mediationsmodell und spezifizieren bei den Argumenten X, Y, und M die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variable Y wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.
+
 Anders als bei den früheren Analysen steht uns das `parameters` Paket hier nicht zur Verfügung um die Ergebnisse zusammenzufassen. Stattdessen nehmen wir die `summary()` Funktion oder die `tidy()`-Funktion aus dem broom Paket.
 
 ```{r}
-fit_mediation <- modmed.mlm(df_example1, "id", "x_dm", "y", "m_dm",
-                                random.int.m = FALSE,
-                                na.action = na.omit)
+fit_mediation <- modmed.mlm(
+  df_example1,
+  L2ID = "id",
+  X = "x_dm",
+  Y = "y",
+  M = "m_dm",
+  random.int.m = FALSE,
+  na.action = na.omit
+)
 
 #summary(fit_mediation$model)
 broom::tidy(fit_mediation$model) |>
   mutate(across(where(is.numeric), round, 2)) # rundung der werte
 ```
+
 Die ausgegebenen Zeilen/Parameter sind etwas kryptisch beschrieben.
 
 - Sm - fixed Intercept von M

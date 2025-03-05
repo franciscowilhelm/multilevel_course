@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-77205cbbef6a5b90ba72edc25dea2156.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8da5b4427184b79ecddefad3d342027e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -256,7 +256,7 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: pacman</code></pre>
+<pre><code>Lade nötiges Paket: pacman</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(lmerTest, haven, brms, psych,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>               sjmisc, sjlabelled, sjPlot, writexl, broom.mixed, qgraph,</span>
@@ -521,23 +521,23 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ri.rs_w_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x_dm <span class="sc">+</span> w_c <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> x_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example1c)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.rs_w_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="pfftqwidvt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pfftqwidvt table {
+<div id="rznxuorwiz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rznxuorwiz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pfftqwidvt thead, #pfftqwidvt tbody, #pfftqwidvt tfoot, #pfftqwidvt tr, #pfftqwidvt td, #pfftqwidvt th {
+#rznxuorwiz thead, #rznxuorwiz tbody, #rznxuorwiz tfoot, #rznxuorwiz tr, #rznxuorwiz td, #rznxuorwiz th {
   border-style: none;
 }
 
-#pfftqwidvt p {
+#rznxuorwiz p {
   margin: 0;
   padding: 0;
 }
 
-#pfftqwidvt .gt_table {
+#rznxuorwiz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -563,12 +563,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_caption {
+#rznxuorwiz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pfftqwidvt .gt_title {
+#rznxuorwiz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -580,7 +580,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#pfftqwidvt .gt_subtitle {
+#rznxuorwiz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -592,7 +592,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#pfftqwidvt .gt_heading {
+#rznxuorwiz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -604,13 +604,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_bottom_border {
+#rznxuorwiz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_col_headings {
+#rznxuorwiz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -625,7 +625,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_col_heading {
+#rznxuorwiz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -645,7 +645,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#pfftqwidvt .gt_column_spanner_outer {
+#rznxuorwiz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -657,15 +657,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#pfftqwidvt .gt_column_spanner_outer:first-child {
+#rznxuorwiz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pfftqwidvt .gt_column_spanner_outer:last-child {
+#rznxuorwiz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pfftqwidvt .gt_column_spanner {
+#rznxuorwiz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -677,11 +677,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#pfftqwidvt .gt_spanner_row {
+#rznxuorwiz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pfftqwidvt .gt_group_heading {
+#rznxuorwiz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -707,7 +707,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#pfftqwidvt .gt_empty_group_heading {
+#rznxuorwiz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -722,15 +722,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#pfftqwidvt .gt_from_md > :first-child {
+#rznxuorwiz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pfftqwidvt .gt_from_md > :last-child {
+#rznxuorwiz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pfftqwidvt .gt_row {
+#rznxuorwiz .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -749,7 +749,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#pfftqwidvt .gt_stub {
+#rznxuorwiz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -762,7 +762,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pfftqwidvt .gt_stub_row_group {
+#rznxuorwiz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -776,15 +776,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#pfftqwidvt .gt_row_group_first td {
+#rznxuorwiz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pfftqwidvt .gt_row_group_first th {
+#rznxuorwiz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pfftqwidvt .gt_summary_row {
+#rznxuorwiz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -794,16 +794,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pfftqwidvt .gt_first_summary_row {
+#rznxuorwiz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_first_summary_row.thick {
+#rznxuorwiz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pfftqwidvt .gt_last_summary_row {
+#rznxuorwiz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -813,7 +813,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_grand_summary_row {
+#rznxuorwiz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -823,7 +823,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pfftqwidvt .gt_first_grand_summary_row {
+#rznxuorwiz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -833,7 +833,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_last_grand_summary_row_top {
+#rznxuorwiz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -843,11 +843,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_striped {
+#rznxuorwiz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pfftqwidvt .gt_table_body {
+#rznxuorwiz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -856,7 +856,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_footnotes {
+#rznxuorwiz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -870,7 +870,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_footnote {
+#rznxuorwiz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -879,7 +879,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pfftqwidvt .gt_sourcenotes {
+#rznxuorwiz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -893,7 +893,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#pfftqwidvt .gt_sourcenote {
+#rznxuorwiz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -901,72 +901,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pfftqwidvt .gt_left {
+#rznxuorwiz .gt_left {
   text-align: left;
 }
 
-#pfftqwidvt .gt_center {
+#rznxuorwiz .gt_center {
   text-align: center;
 }
 
-#pfftqwidvt .gt_right {
+#rznxuorwiz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pfftqwidvt .gt_font_normal {
+#rznxuorwiz .gt_font_normal {
   font-weight: normal;
 }
 
-#pfftqwidvt .gt_font_bold {
+#rznxuorwiz .gt_font_bold {
   font-weight: bold;
 }
 
-#pfftqwidvt .gt_font_italic {
+#rznxuorwiz .gt_font_italic {
   font-style: italic;
 }
 
-#pfftqwidvt .gt_super {
+#rznxuorwiz .gt_super {
   font-size: 65%;
 }
 
-#pfftqwidvt .gt_footnote_marks {
+#rznxuorwiz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pfftqwidvt .gt_asterisk {
+#rznxuorwiz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pfftqwidvt .gt_indent_1 {
+#rznxuorwiz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pfftqwidvt .gt_indent_2 {
+#rznxuorwiz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pfftqwidvt .gt_indent_3 {
+#rznxuorwiz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pfftqwidvt .gt_indent_4 {
+#rznxuorwiz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pfftqwidvt .gt_indent_5 {
+#rznxuorwiz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pfftqwidvt .katex-display {
+#rznxuorwiz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pfftqwidvt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rznxuorwiz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -980,14 +980,14 @@ window.Quarto = {
 <th id="Parameter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Parameter</th>
 <th id="Coefficient" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient</th>
 <th id="SE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">SE</th>
-<th id="a95%-CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
+<th id="95% CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
 <th id="t(993)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">t(993)</th>
 <th id="p" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="gt_group_heading_row odd">
-<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Fixed Effects</td>
+<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Fixed Effects</td>
 </tr>
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">(Intercept)</td>
@@ -1014,7 +1014,7 @@ window.Quarto = {
 <td class="gt_row gt_center" headers="Fixed Effects   p">0.004</td>
 </tr>
 <tr class="gt_group_heading_row odd">
-<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Random Effects</td>
+<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Random Effects</td>
 </tr>
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Intercept: id)</td>
@@ -1068,23 +1068,23 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ri.rs_cli_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x_dm <span class="sc">+</span> w_c <span class="sc">+</span> w_c<span class="sc">*</span>x_dm <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> x_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example1c)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.rs_cli_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="nuzbzuuzqt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nuzbzuuzqt table {
+<div id="qsxerpcwbl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qsxerpcwbl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nuzbzuuzqt thead, #nuzbzuuzqt tbody, #nuzbzuuzqt tfoot, #nuzbzuuzqt tr, #nuzbzuuzqt td, #nuzbzuuzqt th {
+#qsxerpcwbl thead, #qsxerpcwbl tbody, #qsxerpcwbl tfoot, #qsxerpcwbl tr, #qsxerpcwbl td, #qsxerpcwbl th {
   border-style: none;
 }
 
-#nuzbzuuzqt p {
+#qsxerpcwbl p {
   margin: 0;
   padding: 0;
 }
 
-#nuzbzuuzqt .gt_table {
+#qsxerpcwbl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1110,12 +1110,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_caption {
+#qsxerpcwbl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nuzbzuuzqt .gt_title {
+#qsxerpcwbl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1127,7 +1127,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#nuzbzuuzqt .gt_subtitle {
+#qsxerpcwbl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1139,7 +1139,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#nuzbzuuzqt .gt_heading {
+#qsxerpcwbl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1151,13 +1151,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_bottom_border {
+#qsxerpcwbl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_col_headings {
+#qsxerpcwbl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1172,7 +1172,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_col_heading {
+#qsxerpcwbl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1192,7 +1192,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#nuzbzuuzqt .gt_column_spanner_outer {
+#qsxerpcwbl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1204,15 +1204,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#nuzbzuuzqt .gt_column_spanner_outer:first-child {
+#qsxerpcwbl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nuzbzuuzqt .gt_column_spanner_outer:last-child {
+#qsxerpcwbl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nuzbzuuzqt .gt_column_spanner {
+#qsxerpcwbl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1224,11 +1224,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#nuzbzuuzqt .gt_spanner_row {
+#qsxerpcwbl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nuzbzuuzqt .gt_group_heading {
+#qsxerpcwbl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1254,7 +1254,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#nuzbzuuzqt .gt_empty_group_heading {
+#qsxerpcwbl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1269,15 +1269,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#nuzbzuuzqt .gt_from_md > :first-child {
+#qsxerpcwbl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nuzbzuuzqt .gt_from_md > :last-child {
+#qsxerpcwbl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nuzbzuuzqt .gt_row {
+#qsxerpcwbl .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1296,7 +1296,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#nuzbzuuzqt .gt_stub {
+#qsxerpcwbl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1309,7 +1309,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#nuzbzuuzqt .gt_stub_row_group {
+#qsxerpcwbl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1323,15 +1323,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#nuzbzuuzqt .gt_row_group_first td {
+#qsxerpcwbl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nuzbzuuzqt .gt_row_group_first th {
+#qsxerpcwbl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nuzbzuuzqt .gt_summary_row {
+#qsxerpcwbl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1341,16 +1341,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#nuzbzuuzqt .gt_first_summary_row {
+#qsxerpcwbl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_first_summary_row.thick {
+#qsxerpcwbl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nuzbzuuzqt .gt_last_summary_row {
+#qsxerpcwbl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1360,7 +1360,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_grand_summary_row {
+#qsxerpcwbl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1370,7 +1370,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#nuzbzuuzqt .gt_first_grand_summary_row {
+#qsxerpcwbl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1380,7 +1380,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_last_grand_summary_row_top {
+#qsxerpcwbl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1390,11 +1390,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_striped {
+#qsxerpcwbl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nuzbzuuzqt .gt_table_body {
+#qsxerpcwbl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1403,7 +1403,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_footnotes {
+#qsxerpcwbl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1417,7 +1417,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_footnote {
+#qsxerpcwbl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1426,7 +1426,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#nuzbzuuzqt .gt_sourcenotes {
+#qsxerpcwbl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1440,7 +1440,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#nuzbzuuzqt .gt_sourcenote {
+#qsxerpcwbl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1448,72 +1448,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#nuzbzuuzqt .gt_left {
+#qsxerpcwbl .gt_left {
   text-align: left;
 }
 
-#nuzbzuuzqt .gt_center {
+#qsxerpcwbl .gt_center {
   text-align: center;
 }
 
-#nuzbzuuzqt .gt_right {
+#qsxerpcwbl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nuzbzuuzqt .gt_font_normal {
+#qsxerpcwbl .gt_font_normal {
   font-weight: normal;
 }
 
-#nuzbzuuzqt .gt_font_bold {
+#qsxerpcwbl .gt_font_bold {
   font-weight: bold;
 }
 
-#nuzbzuuzqt .gt_font_italic {
+#qsxerpcwbl .gt_font_italic {
   font-style: italic;
 }
 
-#nuzbzuuzqt .gt_super {
+#qsxerpcwbl .gt_super {
   font-size: 65%;
 }
 
-#nuzbzuuzqt .gt_footnote_marks {
+#qsxerpcwbl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nuzbzuuzqt .gt_asterisk {
+#qsxerpcwbl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nuzbzuuzqt .gt_indent_1 {
+#qsxerpcwbl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nuzbzuuzqt .gt_indent_2 {
+#qsxerpcwbl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nuzbzuuzqt .gt_indent_3 {
+#qsxerpcwbl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nuzbzuuzqt .gt_indent_4 {
+#qsxerpcwbl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nuzbzuuzqt .gt_indent_5 {
+#qsxerpcwbl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nuzbzuuzqt .katex-display {
+#qsxerpcwbl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nuzbzuuzqt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qsxerpcwbl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1527,14 +1527,14 @@ window.Quarto = {
 <th id="Parameter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Parameter</th>
 <th id="Coefficient" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient</th>
 <th id="SE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">SE</th>
-<th id="a95%-CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
+<th id="95% CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
 <th id="t(992)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">t(992)</th>
 <th id="p" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="gt_group_heading_row odd">
-<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Fixed Effects</td>
+<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Fixed Effects</td>
 </tr>
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">(Intercept)</td>
@@ -1569,7 +1569,7 @@ window.Quarto = {
 <td class="gt_row gt_center" headers="Fixed Effects   p">0.026</td>
 </tr>
 <tr class="gt_group_heading_row even">
-<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Random Effects</td>
+<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Random Effects</td>
 </tr>
 <tr class="gt_row_group_first odd">
 <td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Intercept: id)</td>
@@ -1618,8 +1618,11 @@ window.Quarto = {
 <section id="visualisierung" class="level3" data-number="5.1.1">
 <h3 data-number="5.1.1" class="anchored" data-anchor-id="visualisierung"><span class="header-section-number">5.1.1</span> Visualisierung</h3>
 <p>Visualisierung des Interaktionseffekt mittels der <code>plot_model()</code> Funktion. Standardmässig werden die Simple Slopes an den Extremwerten (Minimum, Maximum) des Moderators geschätzt.</p>
+<p>Die Simple-Slope-Analyse in Mehrebenen-Modellen dient dazu, den Moderationseffekt einer Variablen zu untersuchen, indem die Beziehung zwischen Prädiktor (hier: “x”) und abhängiger Variable (hier: “y”) auf verschiedenen Ausprägungsniveaus der Moderatorvariablen (hier: “w_c”) betrachtet wird. Nach der Schätzung des Mehrebenen-Modells werden die Steigungen (Slopes) für unterschiedliche Werte des Moderators berechnet (z. B. ±1 Standardabweichung oder spezifische Werte), um zu analysieren, ob und wie sich der Effekt des Prädiktors je nach Moderator ändert. Diese Methode hilft zu verstehen, ob die Stärke oder Richtung eines Effekts in Abhängigkeit der Moderatorvariable variiert.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_cli_modell, <span class="at">type =</span> <span class="st">"int"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"x_dm"</span>, <span class="st">"w_c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_cli_modell,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">"int"</span>, <span class="co"># typ interaktion</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"x_dm"</span>, <span class="st">"w_c"</span>)) <span class="co"># die terme (variablen) aus denen die Interaktion gebildet wird</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1627,14 +1630,10 @@ window.Quarto = {
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"test.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Saving 7 x 5 in image</code></pre>
 </div>
-</div>
-<p>Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen.</p>
+<p>Alternativ kann man auch die Werte zum Mittelwerte und bei -1 SD und +1 SD des Moderators anzeigen lassen. Wir können den zuletzt erzeugten Plot mittels <code>ggsave()</code> abspeichern.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_cli_modell, <span class="at">type =</span> <span class="st">"int"</span>, <span class="at">mdrt.values =</span> <span class="st">"meansd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(ri.rs_cli_modell, <span class="at">type =</span> <span class="st">"int"</span>, <span class="at">mdrt.values =</span> <span class="st">"meansd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1642,12 +1641,16 @@ window.Quarto = {
 </figure>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Plots/CLI_Beispiel.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
+</div>
 </div>
 <p>Der Plot zeigt, dass bei höheren Ausprägungen von w der Effekt von x_dm stärker ausfällt.</p>
 </section>
 <section id="simple-slopes-analyse" class="level3" data-number="5.1.2">
 <h3 data-number="5.1.2" class="anchored" data-anchor-id="simple-slopes-analyse"><span class="header-section-number">5.1.2</span> Simple Slopes Analyse</h3>
-<p>Mit Hilfe der <code>simple_slopes</code> Funktion aus dem <code>reghelper</code> Paket können wir uns die Regressionskoeffizienten einer Simple-Slope Analyse unterziehen. Die Simple-Slope-Analyse in Mehrebenen-Modellen dient dazu, den Moderationseffekt einer Variablen zu untersuchen, indem die Beziehung zwischen Prädiktor (hier: “x”) und abhängiger Variable (hier: “y”) auf verschiedenen Ausprägungsniveaus der Moderatorvariablen (hier: “w_c”) betrachtet wird. Nach der Schätzung des Mehrebenen-Modells werden die Steigungen (Slopes) für unterschiedliche Werte des Moderators berechnet (z. B. ±1 Standardabweichung oder spezifische Werte), um zu analysieren, ob und wie sich der Effekt des Prädiktors je nach Moderator ändert. Diese Methode hilft zu verstehen, ob die Stärke oder Richtung eines Effekts in Abhängigkeit der Moderatorvariable variiert.</p>
+<p>Mit Hilfe der <code>simple_slopes()</code> Funktion aus dem <code>reghelper</code> Paket können wir uns die Regressionskoeffizienten einer Simple-Slope Analyse unterziehen. Die statistischen Kennwerte dienen als Zusatz zur Visualisierung der Simple Slopes. So können wir z.B. bestimmen, ob der Effekt von X auf Y auf verschiedenen Ausprägungen signifikant ist. Z.B. könnte der Effekt von X auf Y nur bei bestimmten Ausprägungen (hoch oder niedrig) signifikant sein.</p>
 <p>Wir können die spezifischen Werte der Variable automatisch bestimmen (1. Variante) oder manuell setzen (2. Variante). Uns interessieren die Werte, wenn x_dm um eine Einheit steigt und der Moderator unterdurchschnittlich (-1 SD), durchschnittlich, oder überdurchschnittlich (+1 SD) ist. Entsprechend werden die Werte in Variante 2 manuell gesetzt. Die Werte können wir der Abbildung oben entnehmen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simple_slopes</span>(ri.rs_cli_modell)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1801,7 +1804,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Die Simple Slope Analyse bestätigt die Visualiserung und zeigt, dass der Effekt von x_dm auf y schwächer ausfällt, aber immer noch signifikant positiv ist, wenn der Moderator w_c unterdurchschnittlich ist (Variante 1, Zeile 4, Variante 2, Zeile 2). Der Effekt fällt stärker aus, wenn der Moderator w_c überdurchschnittlich ist (Variante 1, Zeile 6, Variante 2, Zeile 4).</p>
+<p>Die Simple Slope Analyse bestätigt die Visualiserung und zeigt, dass der Effekt von x_dm auf y schwächer ausfällt, aber immer noch signifikant positiv ist, wenn der Moderator w_c unterdurchschnittlich ist (Variante 1, Zeile 4; Variante 2, Zeile 2). Der Effekt fällt stärker aus, wenn der Moderator w_c überdurchschnittlich ist (Variante 1, Zeile 6; Variante 2, Zeile 4).</p>
 </section>
 <section id="within-level-interaktion" class="level3" data-number="5.1.3">
 <h3 data-number="5.1.3" class="anchored" data-anchor-id="within-level-interaktion"><span class="header-section-number">5.1.3</span> Within-level Interaktion</h3>
@@ -1814,23 +1817,23 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ri.rs_wli_modell <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x_dm <span class="sc">+</span> m_dm <span class="sc">+</span> x_dm<span class="sc">*</span>m_dm <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> x_dm <span class="sc">+</span> m_dm <span class="sc">|</span> id), <span class="at">data =</span> df_example1c)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ri.rs_wli_modell) <span class="sc">|&gt;</span> <span class="fu">print_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="kyslesoaiw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kyslesoaiw table {
+<div id="vujpjueomh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vujpjueomh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kyslesoaiw thead, #kyslesoaiw tbody, #kyslesoaiw tfoot, #kyslesoaiw tr, #kyslesoaiw td, #kyslesoaiw th {
+#vujpjueomh thead, #vujpjueomh tbody, #vujpjueomh tfoot, #vujpjueomh tr, #vujpjueomh td, #vujpjueomh th {
   border-style: none;
 }
 
-#kyslesoaiw p {
+#vujpjueomh p {
   margin: 0;
   padding: 0;
 }
 
-#kyslesoaiw .gt_table {
+#vujpjueomh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1856,12 +1859,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_caption {
+#vujpjueomh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kyslesoaiw .gt_title {
+#vujpjueomh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1873,7 +1876,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#kyslesoaiw .gt_subtitle {
+#vujpjueomh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1885,7 +1888,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#kyslesoaiw .gt_heading {
+#vujpjueomh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1897,13 +1900,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_bottom_border {
+#vujpjueomh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_col_headings {
+#vujpjueomh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1918,7 +1921,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_col_heading {
+#vujpjueomh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1938,7 +1941,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#kyslesoaiw .gt_column_spanner_outer {
+#vujpjueomh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1950,15 +1953,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#kyslesoaiw .gt_column_spanner_outer:first-child {
+#vujpjueomh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kyslesoaiw .gt_column_spanner_outer:last-child {
+#vujpjueomh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kyslesoaiw .gt_column_spanner {
+#vujpjueomh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1970,11 +1973,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#kyslesoaiw .gt_spanner_row {
+#vujpjueomh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kyslesoaiw .gt_group_heading {
+#vujpjueomh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2000,7 +2003,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#kyslesoaiw .gt_empty_group_heading {
+#vujpjueomh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2015,15 +2018,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#kyslesoaiw .gt_from_md > :first-child {
+#vujpjueomh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kyslesoaiw .gt_from_md > :last-child {
+#vujpjueomh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kyslesoaiw .gt_row {
+#vujpjueomh .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -2042,7 +2045,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#kyslesoaiw .gt_stub {
+#vujpjueomh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2055,7 +2058,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#kyslesoaiw .gt_stub_row_group {
+#vujpjueomh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2069,15 +2072,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#kyslesoaiw .gt_row_group_first td {
+#vujpjueomh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kyslesoaiw .gt_row_group_first th {
+#vujpjueomh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kyslesoaiw .gt_summary_row {
+#vujpjueomh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2087,16 +2090,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#kyslesoaiw .gt_first_summary_row {
+#vujpjueomh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_first_summary_row.thick {
+#vujpjueomh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kyslesoaiw .gt_last_summary_row {
+#vujpjueomh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2106,7 +2109,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_grand_summary_row {
+#vujpjueomh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2116,7 +2119,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#kyslesoaiw .gt_first_grand_summary_row {
+#vujpjueomh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2126,7 +2129,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_last_grand_summary_row_top {
+#vujpjueomh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2136,11 +2139,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_striped {
+#vujpjueomh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kyslesoaiw .gt_table_body {
+#vujpjueomh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2149,7 +2152,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_footnotes {
+#vujpjueomh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2163,7 +2166,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_footnote {
+#vujpjueomh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2172,7 +2175,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#kyslesoaiw .gt_sourcenotes {
+#vujpjueomh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2186,7 +2189,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#kyslesoaiw .gt_sourcenote {
+#vujpjueomh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2194,72 +2197,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#kyslesoaiw .gt_left {
+#vujpjueomh .gt_left {
   text-align: left;
 }
 
-#kyslesoaiw .gt_center {
+#vujpjueomh .gt_center {
   text-align: center;
 }
 
-#kyslesoaiw .gt_right {
+#vujpjueomh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kyslesoaiw .gt_font_normal {
+#vujpjueomh .gt_font_normal {
   font-weight: normal;
 }
 
-#kyslesoaiw .gt_font_bold {
+#vujpjueomh .gt_font_bold {
   font-weight: bold;
 }
 
-#kyslesoaiw .gt_font_italic {
+#vujpjueomh .gt_font_italic {
   font-style: italic;
 }
 
-#kyslesoaiw .gt_super {
+#vujpjueomh .gt_super {
   font-size: 65%;
 }
 
-#kyslesoaiw .gt_footnote_marks {
+#vujpjueomh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kyslesoaiw .gt_asterisk {
+#vujpjueomh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kyslesoaiw .gt_indent_1 {
+#vujpjueomh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kyslesoaiw .gt_indent_2 {
+#vujpjueomh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kyslesoaiw .gt_indent_3 {
+#vujpjueomh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kyslesoaiw .gt_indent_4 {
+#vujpjueomh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kyslesoaiw .gt_indent_5 {
+#vujpjueomh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kyslesoaiw .katex-display {
+#vujpjueomh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kyslesoaiw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vujpjueomh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2273,14 +2276,14 @@ window.Quarto = {
 <th id="Parameter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Parameter</th>
 <th id="Coefficient" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient</th>
 <th id="SE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">SE</th>
-<th id="a95%-CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
+<th id="95% CI" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">95% CI</th>
 <th id="t(989)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">t(989)</th>
 <th id="p" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="gt_group_heading_row odd">
-<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Fixed Effects</td>
+<td colspan="6" id="Fixed Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Fixed Effects</td>
 </tr>
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_left" headers="Fixed Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">(Intercept)</td>
@@ -2315,7 +2318,7 @@ window.Quarto = {
 <td class="gt_row gt_center" headers="Fixed Effects   p">0.735</td>
 </tr>
 <tr class="gt_group_heading_row even">
-<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" style="font-style: oblique" scope="colgroup">Random Effects</td>
+<td colspan="6" id="Random Effects " class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Random Effects</td>
 </tr>
 <tr class="gt_row_group_first odd">
 <td class="gt_row gt_left" headers="Random Effects   Parameter" style="border-right-width: 1px; border-right-style: solid; border-right-color: #d3d3d3">SD (Intercept: id)</td>
@@ -2901,14 +2904,13 @@ Lösung
 </div>
 </div>
 </div>
-<p>Der Interaktionseffekt von täglichen illegitimen AUfgaben mit sozialer Unterstützung durch Kolleg:innen auf negativen Affekt ist nicht signifikant (b = -0.01, p = .89). Hypothese 2 muss somit verworfen werden.</p>
+<p>Der Interaktionseffekt von täglichen illegitimen Aufgaben mit sozialer Unterstützung durch Kolleg:innen auf negativen Affekt ist nicht signifikant (b = -0.01, p = .89). Hypothese 2 muss somit verworfen werden.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="mediation" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="mediation"><span class="header-section-number">5.3</span> 1-1-1 Mediation</h2>
-<p>Im Folgenden erstellen wir ein Mediationsmodellen und spezifizieren bei den Argumenten x, y, und m die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variablen wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.</p>
 <p>Die 1-1-1 Mediation ist die gängigste Variante, in der alle Variablen (X, M[ediator], und Y) auf Tagesebene gemessen werden.</p>
 <section id="daten-einlesen" class="level3" data-number="5.3.1">
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="daten-einlesen"><span class="header-section-number">5.3.1</span> Daten einlesen</h3>
@@ -3022,15 +3024,22 @@ Lösung
 </div>
 </div>
 </div>
-<p>Zum Testen verwenden wir zunächst die Funktion <code>modmed.mlm()</code>. Anders als bei den früheren Analysen steht uns das <code>parameters</code> Paket hier nicht zur Verfügung um die Ergebnisse zusammenzufassen. Stattdessen nehmen wir die <code>summary()</code> Funktion oder die <code>tidy()</code>-Funktion aus dem broom Paket.</p>
+<p>Zum Testen des Mediationsmodells verwenden wir zunächst die Funktion <code>modmed.mlm()</code>. Im Folgenden erstellen wir mit dieser Funktion ein Mediationsmodell und spezifizieren bei den Argumenten X, Y, und M die die unabhängige, abhängige, und mediierende Variable. Für die abhängige Variable Y wählen wir die Rohvariable, für unabhängige und mediierende Variablen die personen-zentrierten Variablen.</p>
+<p>Anders als bei den früheren Analysen steht uns das <code>parameters</code> Paket hier nicht zur Verfügung um die Ergebnisse zusammenzufassen. Stattdessen nehmen wir die <code>summary()</code> Funktion oder die <code>tidy()</code>-Funktion aus dem broom Paket.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fit_mediation <span class="ot">&lt;-</span> <span class="fu">modmed.mlm</span>(df_example1, <span class="st">"id"</span>, <span class="st">"x_dm"</span>, <span class="st">"y"</span>, <span class="st">"m_dm"</span>,</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">random.int.m =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">na.action =</span> na.omit)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(fit_mediation$model)</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(fit_mediation<span class="sc">$</span>model) <span class="sc">|&gt;</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">2</span>)) <span class="co"># rundung der werte</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fit_mediation <span class="ot">&lt;-</span> <span class="fu">modmed.mlm</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  df_example1,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">L2ID =</span> <span class="st">"id"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> <span class="st">"x_dm"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> <span class="st">"y"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="st">"m_dm"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">random.int.m =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.action =</span> na.omit</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(fit_mediation$model)</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(fit_mediation<span class="sc">$</span>model) <span class="sc">|&gt;</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">2</span>)) <span class="co"># rundung der werte</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There was 1 warning in `mutate()`.
 ℹ In argument: `across(where(is.numeric), round, 2)`.
