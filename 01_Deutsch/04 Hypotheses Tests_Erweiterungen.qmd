@@ -41,7 +41,7 @@ Die zentrierte Variable heisst "w_c" und wurde am Ende des Datensatz angehängt.
 Zunächst berechnen wir das Modell ohne Interaktion von X und W (X*W), aber mit dem Haupteffekt von X und W.
 
 
-Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}$
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\bar{X_j}) + \beta_{2j}*W_{j} + e_{ij}$
 
 Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
 
@@ -56,7 +56,7 @@ Der Moderator W hat einen positiven Haupteffekt auf die abhängige Variable.
 
 Als nächstes fügen wir den Interaktionsterm hinzu.
 
-Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*W_{j} + e_{ij}$
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}\cdot(X_{ij}-\bar{X_j}) + \beta_{2j}\cdot W_{j} + e_{ij}$
 
 Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
 
@@ -114,7 +114,7 @@ Die Simple Slope Analyse bestätigt die Visualiserung und zeigt, dass der Effekt
 
 Analog zur Cross-level Interaktion gibt es auch Within-level Interaktionen, bei der die Level-1 Anteile von Prädiktorvariablen miteinander interagieren.
 
-Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*(M_{ij}-\overline{M_j}) + \beta_{3j}*((M_{ij}-\overline{M_j})*(X_{ij}-\overline{X_j})) + e_{ij}$
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}\cdot(X_{ij}-\bar{X_j}) + \beta_{2j}\cdot(W_{ij}-\bar{W_j}) + \beta_{3j}\cdot((W_{ij}-\bar{W_j})\cdot(X_{ij}-\bar{X_j})) + e_{ij}$
 
 Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
 

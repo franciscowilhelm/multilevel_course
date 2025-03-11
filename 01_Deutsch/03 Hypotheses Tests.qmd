@@ -141,7 +141,7 @@ ggplot(data = df_example1 |> filter(id %in% c(1, 16)), aes(
 
 Als nächstes bauen wir den Prädiktor x ein. Wir verwenden hier die zentrierte Variable "`_dm`" um Inner-Person Effekte zu berechnen.
 
-Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*X_{ij} + e_{ij}$
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j} \cdot (X_{ij} - \bar{X_j}) + e_{ij}$
 
 Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
 
@@ -186,7 +186,7 @@ ggplot(data = df_example1 |> filter(id %in% 1:20), aes(
 
 Als nächstes fügen wir den random slope der Prädiktorvariable x_dm hinzu, in dem wir die random effect Struktur erweitern - "(1 + x_dm | id)".
 
-Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + e_{ij}$
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j} \cdot (X_{ij}-\bar{X_j}) + e_{ij}$
 
 Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
 
@@ -229,7 +229,7 @@ ggplot(data = df_example1 |> filter(id %in% 1:20), aes(
 
 Als nächstes fügen wir einen Level-2 Prädiktor hinzu, der pro Person nur einmal gemessen wurde. Dabei handelt es sich für gewöhnlich um (1) Variablen, bei denen wir nicht an täglichen Schwankungen interessiert sind, wie soziodemografischen oder Persönlichkeitsvariablen, oder (2) den Mittelwert der Personen auf einer täglich gemessenen Variable. Im Beispiel verwenden wir (2), "x_gm".
 
-Level 1: $y_{ij} = \beta_{0j} + \beta_{1j}*(X_{ij}-\overline{X_j}) + \beta_{2j}*\overline{X_j} + e_{ij}$
+Level 1: $y_{ij} = \beta_{0j} + \beta_{1j} \cdot (X_{ij}-\bar{X_j}) + \beta_{2j}\cdot\bar{X_j} + e_{ij}$
 
 Level 2 (random intercept): $\beta_{0j} = \gamma_{00} + u_{0j}$
 Level 2 (random slope for x): $\beta_{1j} = \gamma_{10} + u_{2j}$

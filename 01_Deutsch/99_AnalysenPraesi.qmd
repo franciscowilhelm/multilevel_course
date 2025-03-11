@@ -323,6 +323,31 @@ model <- lm(Y ~ X * W, data = data)
 # Create an interaction plot
 plot_model(model, type = "int", terms = c("X", "W"), mdrt.values = "meansd")
 ggsave("Plots/session5_synergyinteraction.png")
+
+df_example1c <- df_example1c |> center(w)
+ri.rs_w_modell <- lmer(y ~ x_dm + w_c + (1 + x_dm | id), data = df_example1c)
+ri.rs_cli_modell <- lmer(y ~ x_dm + w_c + w_c*x_dm + (1 + x_dm | id), data = df_example1c)
+
+
+df_example1c |>
+  mutate(ypredrs = predict(ri.rs_w_modell),
+         ypred_cli = predict(ri.rs_wli_modell)) |> 
+  filter(id %in% 1:4) |> mutate(time = rep(1:10, 4)) |>
+  mutate(id = as.factor(id)) |>
+  ggplot(aes(
+    x = x,
+    y = y,
+    group = id,
+    color = id
+  )) +
+  geom_point(alpha = 0.5) +
+  geom_line(aes(y = ypredrs)) +
+  geom_line(aes(y = ypred_cli), linetype = "dashed") +
+              facet_wrap(vars(id))
+
+# CLI predicts only the random part, which doesnt really show up in such a plot. Explanation for why the the lines have become "curvy" due to interaction?
+
+#ggsave("Plots/separat_rirs_withfs_withclipred.png", width = 10, height = 7)
 ```
 
 ## Sample Paper
